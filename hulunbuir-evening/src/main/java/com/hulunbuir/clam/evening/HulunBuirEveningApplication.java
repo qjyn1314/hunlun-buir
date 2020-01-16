@@ -1,5 +1,6 @@
 package com.hulunbuir.clam.evening;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
         "com.hulunbuir.clam.distributed",
         "com.hulunbuir.clam.route.config",
 })
+@EnableDubboConfiguration
 @Slf4j
 public class HulunBuirEveningApplication {
 
