@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hulunbuir.clam.study</groupId>
+    <artifactId>hulun-buir</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>hulun-buir</name>
+    <description>Clam project for Spring Boot</description>
+
+    <properties>
+        <hulunbuir.version>1.0.0</hulunbuir.version>
+        <java.version>1.8</java.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+    </properties>
+
+    <modules>
+        <module>hulunbuir-parent</module>
+        <module>hulunbuir-common</module>
+        <module>hulunbuir-distributed</module>
+        <module>hulunbuir-route</module>
+        <module>hulunbuir-afternoon</module>
+        <module>hulunbuir-evening</module>
+    </modules>
+
+    <dependencies>
+        <!--springboot测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--日志-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!--导入spring boot依赖-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--工程中所用到的模块-进行控制版本号-参考：https://gitee.com/y_project/RuoYi -->
+            <dependency>
+                <groupId>com.hulunbuir.clam.parent</groupId>
+                <artifactId>hulunbuir-parent</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hulunbuir.clam.common</groupId>
+                <artifactId>hulunbuir-common</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hulunbuir.clam.distributed</groupId>
+                <artifactId>hulunbuir-distributed</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hulunbuir.clam.route</groupId>
+                <artifactId>hulunbuir-route</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hulunbuir.clam.afternoon</groupId>
+                <artifactId>hulunbuir-afternoon</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hulunbuir.clam.evening</groupId>
+                <artifactId>hulunbuir-evening</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- 资源文件拷贝插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- java编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>
