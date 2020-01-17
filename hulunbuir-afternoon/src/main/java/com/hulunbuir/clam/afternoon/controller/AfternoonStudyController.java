@@ -1,10 +1,15 @@
 package com.hulunbuir.clam.afternoon.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.hulunbuir.clam.common.base.BaseController;
+import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import com.hulunbuir.clam.parent.tool.DateUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -17,21 +22,27 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/study")
+@Api(tags = "Afternoon项目的学习控制层，仅个人使用")
 public class AfternoonStudyController extends BaseController {
+
+    @Reference(check = false)
+    private EveningProvider eveningProvider;
 
     /**
      * 获取当前时间
-     * 
+     *
      * @author wangjunming
      * @since 2020/1/16 12:46
      * @return java.lang.String
      */
+    @ApiOperation("获取当前时间")
     @GetMapping("/nowDate")
     public String getNowDateTime() {
         log.info("获取当前时间：start");
         String dateTimes = DateUtils.getDateTimes();
         log.info("获取当前时间：end");
-        return dateTimes;
+        String dateStr = eveningProvider.getDateTimes();
+        return dateStr;
     }
 
 

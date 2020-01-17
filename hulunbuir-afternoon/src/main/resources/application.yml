@@ -1,7 +1,0 @@
-server:
-  port: 8036
-spring:
-  dubbo:
-    application:
-      name: afternoon-provider
-      registry: zookeeper://47.104.78.115:4181

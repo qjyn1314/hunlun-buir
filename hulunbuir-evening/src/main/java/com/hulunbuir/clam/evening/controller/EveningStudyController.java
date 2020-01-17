@@ -1,6 +1,8 @@
 package com.hulunbuir.clam.evening.controller;
 
 import com.hulunbuir.clam.parent.tool.DateUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/study")
+@Api(tags = "Evening项目的学习控制层，仅个人使用")
 public class EveningStudyController {
 
     /**
@@ -26,6 +29,7 @@ public class EveningStudyController {
      * @since 2020/1/16 12:46
      * @return java.lang.String
      */
+    @ApiOperation("获取当前时间")
     @GetMapping("/crunDate")
     public String getNowDateTime() {
         log.info("获取当前时间：start");
