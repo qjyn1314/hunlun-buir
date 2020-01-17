@@ -56,7 +56,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .build();
     }
 
-    String licenseUrl = "http://127.0.0.1:%s/swagger-ui.html";
+   private String licenseUrl = "http://127.0.0.1:%s/swagger-ui.html";
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()

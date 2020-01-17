@@ -1,12 +1,15 @@
 package com.hulunbuir.clam.afternoon.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.hulunbuir.clam.afternoon.persistence.entity.KoUser;
+import com.hulunbuir.clam.afternoon.persistence.service.IKoUserService;
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +31,9 @@ public class AfternoonStudyController extends BaseController {
     @Reference(check = false)
     private EveningProvider eveningProvider;
 
+    @Autowired
+    private IKoUserService userService;
+
     /**
      * 获取当前时间
      *
@@ -41,8 +47,10 @@ public class AfternoonStudyController extends BaseController {
         log.info("获取当前时间：start");
         String dateTimes = DateUtils.getDateTimes();
         log.info("获取当前时间：end");
-        String dateStr = eveningProvider.getDateTimes();
-        return dateStr;
+        KoUser byId = userService.getById(9);
+        return byId.toString();
+//        String dateStr = eveningProvider.getDateTimes();
+//        return dateStr;
     }
 
 
