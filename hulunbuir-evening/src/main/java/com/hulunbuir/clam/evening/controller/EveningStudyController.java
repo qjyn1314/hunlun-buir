@@ -1,5 +1,6 @@
 package com.hulunbuir.clam.evening.controller;
 
+import com.hulunbuir.clam.common.base.Pages;
 import com.hulunbuir.clam.evening.persistence.entity.Org;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
@@ -31,9 +32,9 @@ public class EveningStudyController {
     /**
      * 获取当前时间
      *
+     * @return java.lang.String
      * @author wangjunming
      * @since 2020/1/16 12:46
-     * @return java.lang.String
      */
     @ApiOperation("获取当前时间")
     @GetMapping("/crunDate")
@@ -44,6 +45,24 @@ public class EveningStudyController {
         return byId.toString();
 //        log.info("获取当前时间：end");
 //        return dateTimes;
+    }
+
+
+    /**
+     * 分页列表示例：
+     *
+     * @param page: {
+     *              current：当前页
+     *              size:每页显示总记录数
+     *              }
+     * @return com.hulunbuir.clam.common.base.Pages<com.hulunbuir.clam.evening.persistence.entity.Org>
+     * @author wangjunming
+     * @since 2020/1/18 11:44
+     */
+    @ApiOperation("获取分页列表")
+    @GetMapping("/orgPage")
+    public Pages<Org> selectOrgPage(Pages<Org> page) {
+        return orgService.selectOrgPage(page);
     }
 
 
