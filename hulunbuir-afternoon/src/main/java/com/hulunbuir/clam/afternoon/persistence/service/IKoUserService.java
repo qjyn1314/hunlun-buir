@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IKoUserService extends IService<KoUser> {
 
+    /**
+     * 添加用户信息，
+     * @author wangjunming
+     * @since 2020/1/18 12:04
+     * @param user:
+     * @return boolean
+     */
+    boolean insertUser(KoUser user);
 }

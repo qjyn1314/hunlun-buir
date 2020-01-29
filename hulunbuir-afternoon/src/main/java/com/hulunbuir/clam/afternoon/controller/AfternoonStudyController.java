@@ -44,13 +44,10 @@ public class AfternoonStudyController extends BaseController {
     @ApiOperation("获取当前时间")
     @GetMapping("/nowDate")
     public String getNowDateTime() {
-        log.info("获取当前时间：start");
-        String dateTimes = DateUtils.getDateTimes();
-        log.info("获取当前时间：end");
-        KoUser byId = userService.getById(9);
-        return byId.toString();
-//        String dateStr = eveningProvider.getDateTimes();
-//        return dateStr;
+        KoUser user = new KoUser();
+        user.setUserName("排骨-"+DateUtils.getDateTimes());
+        boolean flag = userService.insertUser(user);
+        return user.toString();
     }
 
 
