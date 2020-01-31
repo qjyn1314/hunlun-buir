@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * <p>
- * Explain:
+ * Explain:mtbatis-plus的配置信息
  * </p >
  *
  * @author wangjunming

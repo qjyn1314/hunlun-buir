@@ -1,7 +1,9 @@
 package com.hulunbuir.clam.common.config;
 
+import com.hulunbuir.clam.common.utils.CommonUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,8 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -29,6 +33,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${server.port}")
     private Integer port;
+
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 添加swagger-ui的资源文件访问权限
@@ -56,13 +63,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .build();
     }
 
-   private String licenseUrl = "http://127.0.0.1:%s/swagger-ui.html";
+   private String licenseUrl = "http://%s:%s/swagger-ui.html";
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("称，个个棒棒哒~--RESTful APIS")
                 .description("称，个个棒棒哒~~搭建springboot2.2.2+mybatis-plus3.3.0")
-                .licenseUrl(String.format(licenseUrl,port))
+                .licenseUrl(String.format(CommonUtils.getIpAddr(request),licenseUrl,port))
                 .version("1.0")
                 .build();
     }

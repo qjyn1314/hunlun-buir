@@ -40,8 +40,7 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
      */
     @Override
     @GlobalTransactional
-//    @Transactional
-    public boolean insertUser(KoUser user) {
+    public boolean insertUserGlob(KoUser user) {
         log.info("KoUserServiceImpl--->全局事务XID："+ RootContext.getXID());
         int insert = this.baseMapper.insert(user);
 //        int i = 10/0;
@@ -51,4 +50,21 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
         insert = provider.insertOrg(orgQo);
         return insert > 0;
     }
+
+    /**
+     * 添加用户信息，
+     *
+     * @param user :
+     * @return boolean
+     * @author wangjunming
+     * @since 2020/1/18 12:04
+     */
+    @Override
+    @Transactional
+    public boolean insertUser(KoUser user) {
+        int insert = this.baseMapper.insert(user);
+//        int i = 10/0;
+        return insert > 0;
+    }
+
 }
