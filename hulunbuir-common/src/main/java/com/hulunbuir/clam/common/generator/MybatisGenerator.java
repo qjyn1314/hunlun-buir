@@ -31,7 +31,7 @@ public class MybatisGenerator {
 
         String eveningUrl = "F:\\IDEA\\hulun-buir\\hulunbuir-evening\\src\\main\\java";
 
-        gc.setOutputDir(eveningUrl);//这里写你自己的java目录
+        gc.setOutputDir(afternoonurl);//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -46,14 +46,14 @@ public class MybatisGenerator {
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/collection?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/king?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
         mpg.setDataSource(dsc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(new String[]{"org"});
+        strategy.setInclude(new String[]{"user"});
         //生成实体的@TableFile注解
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);
@@ -80,12 +80,12 @@ public class MybatisGenerator {
         String eveningServiceImpl = "com.hulunbuir.clam.evening.persistence.service.impl";
         String eveningController = "com.hulunbuir.clam.evening.controller";
 
-        pc.setEntity(eveningEntity);
-        pc.setMapper(eveningMapper);
-        pc.setXml(eveningXml);
-        pc.setService(eveningService);
-        pc.setServiceImpl(eveningServiceImpl);
-        pc.setController(eveningController);
+        pc.setEntity(afternoonEntity);
+        pc.setMapper(afternoonMapper);
+        pc.setXml(afternoonXml);
+        pc.setService(afternoonService);
+        pc.setServiceImpl(afternoonServiceImpl);
+        pc.setController(afternoonController);
         mpg.setPackageInfo(pc);
         // 执行生成
         mpg.execute();

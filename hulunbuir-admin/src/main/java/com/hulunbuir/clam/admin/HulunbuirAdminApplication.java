@@ -1,10 +1,12 @@
 package com.hulunbuir.clam.admin;
 
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
+import com.hulunbuir.clam.parent.tool.DateUtils;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,29 +25,15 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableDubboConfiguration
 @EnableAdminServer
 @Configuration
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 public class HulunbuirAdminApplication {
 
-    //    log.info("开始启动-->{}",DateUtils.getDateTimes());
-
     public static void main(String[] args) {
+        log.info("开始启动-->{}", DateUtils.getDateTimes());
         SpringApplication.run(HulunbuirAdminApplication.class, args);
+        log.info("启动结束-->{}", DateUtils.getDateTimes());
     }
-
-
-    //    log.info("启动成功-->{}",DateUtils.getDateTimes());
-
-
-    /*@Configuration
-    public static class SecurityAdminConfig extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests().anyRequest().permitAll()
-                    .and().csrf().disable();
-        }
-    }*/
-
 
     private final AdminServerProperties adminServer;
     public HulunbuirAdminApplication(AdminServerProperties adminServer) {
