@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * Explain:
+ * Explain:发送邮件的具体实现其他服务通过调用dubbo接口来进行发送邮件
  * </p >
  *
  * @author wangjunming
