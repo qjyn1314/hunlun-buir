@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.evening.controller;
 
 import com.hulunbuir.clam.common.base.Pages;
+import com.hulunbuir.clam.distributed.model.OrgQo;
 import com.hulunbuir.clam.evening.persistence.entity.Org;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
@@ -42,9 +43,9 @@ public class EveningStudyController {
         log.info("获取当前时间：start");
         String dateTimes = DateUtils.getDateTimes();
         Org byId = orgService.getById(5);
+        OrgQo orgQo = new OrgQo();
+        orgService.insertOrg(orgQo);
         return byId.toString();
-//        log.info("获取当前时间：end");
-//        return dateTimes;
     }
 
 

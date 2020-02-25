@@ -32,12 +32,12 @@ public class HulunBuirAfternoonApplication {
      * @author wangjunming
      * @since 2020/2/12 21:10
      */
-    /*@Configuration
+    @Configuration
     public static class SecurityAdminConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests().anyRequest().permitAll()
                     .and().csrf().disable();
         }
-    }*/
+    }
 }
