@@ -1,14 +1,19 @@
 package com.hulunbuir.clam.evening.persistence.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hulunbuir.clam.common.base.Pages;
+import com.hulunbuir.clam.distributed.afternoon.AfternoonProvider;
 import com.hulunbuir.clam.distributed.model.OrgQo;
+import com.hulunbuir.clam.distributed.model.UserQo;
 import com.hulunbuir.clam.evening.persistence.entity.Org;
 import com.hulunbuir.clam.evening.persistence.mapper.OrgMapper;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgService {
+
+    @Reference(check = false)
+    private AfternoonProvider afternoonProvider;
 
 
     public Pages<Org> selectOrgPage(Pages<Org> page) {
@@ -49,6 +57,26 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
         Org org = new Org();
         BeanUtils.copyProperties(orgQo,org);
         return this.baseMapper.insert(org);
+    }
+
+    /**
+     * 添加组织信息，用于从本项目开始调用，进行分布式事务的管理
+     *
+     * @param byId :
+     * @return void
+     * @author wangjunming
+     * @since 2020/2/25 16:38
+     */
+    @Override
+    @GlobalTransactional
+    public void initOrgData(Org byId,String dateTimes) {
+        log.info("KoUserServiceImpl--->全局事务XID："+ RootContext.getXID());
+        String xid = RootContext.getXID();
+        byId.setName(dateTimes);
+        int insert = this.baseMapper.insert(byId);
+        UserQo userQo = new UserQo();
+        userQo.setUserName(dateTimes);
+        afternoonProvider.insertKoUser(userQo);
     }
 
 

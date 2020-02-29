@@ -50,7 +50,7 @@ public class EveningProviderImpl implements EveningProvider {
     @Override
     public int insertOrg(OrgQo orgQo) {
         log.info("EveningProviderImpl--->全局事务XID："+ RootContext.getXID());
-        int i = 10/0;
+//        int i = 10/0;
         return orgService.insertOrg(orgQo);
     }
 }

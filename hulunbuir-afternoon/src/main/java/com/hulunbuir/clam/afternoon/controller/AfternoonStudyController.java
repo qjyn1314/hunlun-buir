@@ -46,7 +46,7 @@ public class AfternoonStudyController extends BaseController {
     public String getNowDateTime() {
         KoUser user = new KoUser();
         user.setUserName("排骨-"+DateUtils.getDateTimes());
-        boolean flag = userService.insertUser(user);
+        boolean flag = userService.insertUserGlob(user);
         return user.toString();
     }
 

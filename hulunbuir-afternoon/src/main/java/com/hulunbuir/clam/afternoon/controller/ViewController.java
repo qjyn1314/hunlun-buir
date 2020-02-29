@@ -35,7 +35,7 @@ public class ViewController {
         String content = MailConstants.ZHU_CE.getContent();
         String formatcontent = String.format(content, zhuce);
         try {
-            mailService.sendSimpleMail("qjyn1314@foxmail.com", MailConstants.ZHU_CE.getSubject(), formatcontent);
+//            mailService.sendSimpleMail("qjyn1314@foxmail.com", MailConstants.ZHU_CE.getSubject(), formatcontent);
         } catch (Exception e) {
             log.error("发送邮件失败!!!",e);
         }

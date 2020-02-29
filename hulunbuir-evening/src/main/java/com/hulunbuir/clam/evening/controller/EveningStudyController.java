@@ -43,8 +43,7 @@ public class EveningStudyController {
         log.info("获取当前时间：start");
         String dateTimes = DateUtils.getDateTimes();
         Org byId = orgService.getById(5);
-        OrgQo orgQo = new OrgQo();
-        orgService.insertOrg(orgQo);
+        orgService.initOrgData(byId,dateTimes);
         return byId.toString();
     }
 

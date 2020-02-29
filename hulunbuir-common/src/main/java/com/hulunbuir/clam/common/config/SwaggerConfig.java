@@ -2,7 +2,6 @@ package com.hulunbuir.clam.common.config;
 
 import com.hulunbuir.clam.common.utils.CommonUtils;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
