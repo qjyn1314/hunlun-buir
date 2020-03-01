@@ -78,6 +78,35 @@ public class Demo {
 
      int jiecheng = jiecheng(10);
         System.out.println(jiecheng);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     /**
