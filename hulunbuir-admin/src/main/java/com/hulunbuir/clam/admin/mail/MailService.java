@@ -56,7 +56,7 @@ public class MailService {
         try {
             mailSender.send(message);
         } catch (MailException e) {
-            log.error("发送文本邮件失败!!!");
+            log.error("发送文本邮件失败!!!",e);
         }
     }
 
