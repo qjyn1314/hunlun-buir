@@ -1,8 +1,8 @@
 package com.hulunbuir.clam.evening;
 
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
         "com.hulunbuir.clam.distributed",
         "com.hulunbuir.clam.route.config",
 })
-@EnableDubboConfiguration
+@EnableDubbo
 @Slf4j
 public class HulunBuirEveningApplication {
 
@@ -30,6 +30,7 @@ public class HulunBuirEveningApplication {
 
     /**
      * 配置Security不需要登录验证
+     *
      * @author wangjunming
      * @since 2020/2/12 21:10
      */

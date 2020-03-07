@@ -1,10 +1,10 @@
 package com.hulunbuir.clam.admin;
 
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +21,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
         "com.hulunbuir.clam.route.config",
         "com.hulunbuir.clam.distributed",
 })
-@EnableDubboConfiguration
+@EnableDubbo
 @EnableAdminServer
 @Configuration
 @Slf4j

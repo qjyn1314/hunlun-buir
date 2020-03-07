@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author wangjunming
  * @since 2020-02-17 12:53
  */
-@Service
+@Service(version = "1.0.0",timeout = 10000,interfaceClass = AdminMailProvider.class)
 @Component
 @Slf4j
 public class AdminMailProviderImpl implements AdminMailProvider {

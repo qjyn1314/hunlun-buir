@@ -1,13 +1,12 @@
 package com.hulunbuir.clam.afternoon;
 
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -18,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
         "com.hulunbuir.clam.route.config",
         "com.hulunbuir.clam.distributed",
 })
-@EnableDubboConfiguration
+@EnableDubbo
 @SpringBootApplication
 @Slf4j
 public class HulunBuirAfternoonApplication {
