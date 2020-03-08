@@ -6,6 +6,8 @@ import com.hulunbuir.clam.distributed.admin.AdminMailProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <p>
@@ -31,16 +33,25 @@ public class ViewController {
      */
     @GetMapping("/")
     public String index() {
-        String zhuce = "仼少";
-        String content = MailConstants.ZHU_CE.getContent();
-        String formatcontent = String.format(content, zhuce);
-        try {
-//            mailService.sendSimpleMail("qjyn1314@foxmail.com", MailConstants.ZHU_CE.getSubject(), formatcontent);
-        } catch (Exception e) {
-            log.error("发送邮件失败!!!",e);
-        }
         return "index";
     }
+
+    /**
+     * 用于提交信息
+     *
+     * @return java.lang.String
+     * @author wangjunming
+     * @since 2020/2/12 11:54
+     */
+    @PostMapping("/")
+    @ResponseBody
+    public String indexSubmit(String contactName,String contactEmail,String contactMessage) {
+        log.info("首页所提交的联系信息是：contactName-{},contactEmail-{},contactMessage-{}",contactName,contactEmail,contactMessage);
+        return "<script>alert('你太帅了，一添加就添加成功了！');</script>";
+    }
+
+
+
 
 
 }
