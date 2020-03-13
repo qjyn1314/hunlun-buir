@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.afternoon.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.hulunbuir.clam.afternoon.persistence.entity.KoUser;
 import com.hulunbuir.clam.afternoon.persistence.service.IKoUserService;
 import com.hulunbuir.clam.common.base.BaseController;
@@ -9,6 +8,7 @@ import com.hulunbuir.clam.parent.tool.DateUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
- * Explain:单例模式
+ * Explain:单例模式-GOF-JOF，
  * </p >
  *
  * @author wangjunming
@@ -21,7 +21,6 @@ public class SingleDemo {
         SlackerSingle instance = SlackerSingle.getInstance();
         String slackerEnglish = instance.getSlackerEnglish();
         System.out.println(slackerEnglish);
-
 
     }
 

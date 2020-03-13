@@ -4,7 +4,6 @@ import com.hulunbuir.clam.admin.design.factory.messagefactory.Message;
 import com.hulunbuir.clam.admin.design.factory.messagefactory.MessageFactoryService;
 import com.hulunbuir.clam.admin.design.factory.messagefactory.MessageFactoryServiceImpl;
 import com.hulunbuir.clam.admin.design.proxy.FoodService;
-import com.hulunbuir.clam.admin.testdonfig.TongKeConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,8 +43,6 @@ class HulunbuirAdminApplicationTests {
         foodService.scrambledEggWithTomato();
     }
 
-    @Autowired
-    private TongKeConfig testConfig;
     @Test
     void getAppKey(){
         String appKey = "testConfig";

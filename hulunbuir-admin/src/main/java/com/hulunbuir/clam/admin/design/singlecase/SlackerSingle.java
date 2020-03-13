@@ -1,10 +1,8 @@
 package com.hulunbuir.clam.admin.design.singlecase;
 
-import org.springframework.context.annotation.Bean;
-
 /**
  * <p>
- * Explain:
+ * Explain:懒汉式的单例模式
  * </p >
  *
  * @author wangjunming

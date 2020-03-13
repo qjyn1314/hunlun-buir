@@ -1,9 +1,9 @@
 package com.hulunbuir.clam.admin.consumer;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.hulunbuir.clam.admin.mail.MailService;
 import com.hulunbuir.clam.distributed.admin.AdminMailProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

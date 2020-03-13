@@ -1,15 +1,14 @@
 package com.hulunbuir.clam.evening.provider;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import com.hulunbuir.clam.distributed.model.OrgQo;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>

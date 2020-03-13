@@ -9,4 +9,13 @@ package com.hulunbuir.clam.admin.design.adapter;
  * @since 2020-02-24 16:22
  */
 public class AdapterDemo {
+
+
+    public static void main(String[] args) {
+
+    }
+
+
+
+
 }
