@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>呼伦贝尔大草原的下午</title>
     <link rel="shortcut icon" href="../static/icon/ali.gif" type="image/gif"/>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
     <link rel="stylesheet" href="../static/login/css/login.css">
 </head>
 
@@ -13,32 +12,17 @@
 <div id="login" class="login_war">
     <div class="dowebok" id="dowebok">
         <div class="form-container sign-up-container">
-            <form class="reg_form">
+            <div class="reg_form form_class">
                 <h1>注册</h1>
                 <div class="social-container">
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-qq"></i></a>
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-wechat"></i></a>
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-weibo"></i></a>
+                    <a href="#" ><i class=" "></i></a>
+                    <a href="#" ><i class=" "></i></a>
+                    <a href="#" ><i class=" "></i></a>
                 </div>
                 <span>或使用邮箱注册</span>
                 <input type="text" name="userName" placeholder="姓名">
                 <input type="email" name="userMail" placeholder="电子邮箱">
                 <input type="password" name="userPassword" placeholder="密码">
-                <input type="text" name="verification" placeholder="邮箱验证码">
-                <button class="reg_user" data-dialog="somedialog">注册</button>
-            </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form class="login_form">
-                <h1>登录</h1>
-                <div class="social-container">
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-qq"></i></a>
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-wechat"></i></a>
-                    <a href="#" class="layui-icon"><i class=" layui-icon-login-weibo"></i></a>
-                </div>
-                <span>或使用您的帐号</span>
-                <input type="email" name="userMail" placeholder="电子邮箱">
-                <input type="password" name="userPassword" placeholder="密码">uyhj7m5
                 <div>
                     <div class="verificationInput">
                         <input type="text" name="verification" placeholder="邮箱验证码">
@@ -47,9 +31,23 @@
                         <button class="send_verification">发送</button>
                     </div>
                 </div>
+                <button class="reg_user" data-dialog="somedialog">注册</button>
+            </div>
+        </div>
+        <div class="form-container sign-in-container">
+            <div class="login_form form_class">
+                <h1>登录</h1>
+                <div class="social-container">
+                    <a href="#" class="layui-icon"><i class=" layui-icon-login-qq"></i></a>
+                    <a href="#" class="layui-icon"><i class=" layui-icon-login-wechat"></i></a>
+                    <a href="#" class="layui-icon"><i class=" layui-icon-login-weibo"></i></a>
+                </div>
+                <span>或使用您的帐号</span>
+                <input type="email" name="userMail" placeholder="电子邮箱">
+                <input type="password" name="userPassword" placeholder="密码">
                 <a href="#">忘记密码?</a>
                 <button class="user_login">登录</button>
-            </form>
+            </div>
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -74,9 +72,5 @@
 <script src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../static/buir-js/common/Ajax.js"></script>
 <script src="../static/login/js/login.js"></script>
-<script>
-
-
-</script>
 </body>
 </html>

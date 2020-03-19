@@ -60,7 +60,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -75,11 +75,11 @@
         <!--springboot+dubbo-start-->
         <!--整合dubbo，参考：https://blog.csdn.net/weixin_42315600/article/details/88609622-->
         <!--引入2.7.0会出现问题，解决方案：https://github.com/apache/dubbo-spring-boot-project/issues/476-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>2.7.1</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
@@ -209,7 +209,6 @@
             <artifactId>jolokia-core</artifactId>
         </dependency>
         <!--spring-boot-admin-end-->
-
     </dependencies>
 
     <distributionManagement>

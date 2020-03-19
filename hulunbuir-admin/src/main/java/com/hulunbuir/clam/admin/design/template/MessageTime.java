@@ -10,7 +10,7 @@ package com.hulunbuir.clam.admin.design.template;
  */
 public abstract class MessageTime {
 
-    Integer getTime(){
+    public static Integer getTime(){
         return 1;
     }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN" >
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>呼伦贝尔的下午</title>
+    <title>呼伦贝尔大草原</title>
     <link rel="shortcut icon" href="../static/icon/ali.gif" type="image/gif"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
     <!-- Google web font "Open Sans" -->
@@ -44,7 +44,8 @@
     </section>
 </div>
 
-<div id="tm-section-2" class="parallax-window" data-parallax="scroll" data-image-src="../static/Parallax/img/bg-img-02.jpg">
+<div id="tm-section-2" class="parallax-window" data-parallax="scroll"
+     data-image-src="../static/Parallax/img/bg-img-02.jpg">
     <section class="container tm-page-1-content tm-page-2">
         <div class="row">
             <article class="col-md-6 tm-article tm-bg-white-transparent">
@@ -69,14 +70,16 @@
         </div>
     </section>
 </div>
-<div id="tm-section-3" class="parallax-window" data-parallax="scroll" data-image-src="../static/Parallax/img/bg-img-03.jpg">
+<div id="tm-section-3" class="parallax-window" data-parallax="scroll"
+     data-image-src="../static/Parallax/img/bg-img-03.jpg">
     <section class="container tm-page-1-content">
         <div class="row1">
             <div class="col-xl-6 col-md-8 ml-auto">
                 <article class="tm-bg-white-transparent-page3">
                     <header><h5 class="tm-bg-white">《How is steel made》</h5></header>
                     <p class="tm-bg-white2">
-                        Even if you can't stand it, you have to stick with it. Only in this way can your life become valuable.
+                        Even if you can't stand it, you have to stick with it. Only in this way can your life become
+                        valuable.
                     </p>
                     <a href="#tm-section-4" class="btn btn-danger tm-btn-right">Read More</a>
                 </article>
@@ -84,7 +87,8 @@
         </div>
     </section>
 </div>
-<div id="tm-section-4" class="parallax-window" data-parallax="scroll" data-image-src="../static/Parallax/img/bg-img-04.jpg">
+<div id="tm-section-4" class="parallax-window" data-parallax="scroll"
+     data-image-src="../static/Parallax/img/bg-img-04.jpg">
 
     <div class="row tm-page-4-content">
         <article class="col-xs-6 col-md-4 tm-bg-white-transparent">
@@ -154,21 +158,19 @@
         <div class="row tm-page-5-content">
             <div class="col-lg-4 col-md-6 col-xs-12">
                 <div class="contact_message">
-                    <form action="/" method="post" class="contact-form" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <input type="text" id="contact_name" name="contactName" class="form-control"
-                                   placeholder="Name" required/>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="contact_email" name="contactEmail" class="form-control"
-                                   placeholder="Email" required/>
-                        </div>
-                        <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" id="contact_name" name="contactName" class="form-control"
+                               placeholder="Name" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contact_email" name="contactEmail" class="form-control"
+                               placeholder="Email" required/>
+                    </div>
+                    <div class="form-group">
                             <textarea id="contact_message" name="contactMessage" class="form-control" rows="9"
                                       placeholder="Message" required></textarea>
-                        </div>
-                        <button class="btn btn-danger tm-btn-submit">Submit</button>
-                    </form>
+                    </div>
+                    <button class="btn btn-danger tm-btn-submit indexSubmit">Submit</button>
                 </div>
             </div>
             <div class="col-lg-8 col-md-6 col-xs-12">
@@ -187,14 +189,18 @@
                         <b>GitHub Address：</b><a href="https://github.com/qjyn1314">GitHub</a><br>
                         <br>
                         <b>Email Address：</b>qjyn1314@163.com<br>
+                        <br>
+                        <b>Login Ours：</b>
+                    <a href="javascript:void(0);" onclick="window.location.href='login.html'" target="_blank">Email Login</a>
+                        <br>
                     </address>
                 </div>
             </div>
         </div>
         <div class="footer">
             <p>
-<!--                Copyright &copy; 2018.Company name All rights reserved.-->
-<!--                <a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>-->
+                <!--                Copyright &copy; 2018.Company name All rights reserved.-->
+                <!--                <a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>-->
             </p>
         </div>
     </div>
@@ -206,6 +212,7 @@
 <!-- Slick Carousel -->
 <!-- Magnific Popup core JS file -->
 <script src="../static/Parallax/js/jquery.magnific-popup.min.js"></script>
+<script src="../static/buir-js/common/Ajax.js"></script>
 <script>
     function setCarousel() {
         var slider = $('.tm-img-slider');
@@ -229,6 +236,7 @@
             });
         }
     }
+
     $(document).ready(function () {
         setCarousel();
         $('.tm-img-slider').magnificPopup({
@@ -238,6 +246,25 @@
         });
         $(window).resize(function () {
             setCarousel();
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".indexSubmit").click(function () {
+            var data = {
+                contactName: $("#contact_name").val(),
+                contactEmail: $("#contact_email").val(),
+                contactMessage: $("#contact_message").val()
+            };
+            //联系我们
+            $.axPost("/", data, function (result) {
+                if(result.flag){
+                    alert(result.message);
+                }else{
+                    alert(result.message);
+                }
+            });
         });
     });
 </script>

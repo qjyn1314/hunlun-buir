@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.afternoon.persistence.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hulunbuir.clam.afternoon.persistence.entity.KoUser;
 import com.hulunbuir.clam.afternoon.persistence.mapper.KoUserMapper;
@@ -11,6 +10,7 @@ import com.hulunbuir.clam.parent.tool.DateUtils;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,3 @@
-
 var BaseUrl = "http://127.0.0.1:8026";
 
 /**
@@ -15,7 +14,6 @@ jQuery.axPost = function (url, data, successfn) {
         data: data,
         url: url,
         dataType: "json",
-        contentType: 'application/json;charset=UTF-8',
         success: function (d) {
             successfn(d);
         }
@@ -62,7 +60,6 @@ jQuery.axGet = function (url, data, successfn) {
         data: data,
         url: url,
         dataType: "json",
-        contentType: 'application/json;charset=UTF-8',
         success: function (d) {
             successfn(d);
         }
@@ -85,7 +82,6 @@ jQuery.axsGet = function (url, data, successfn, errorfn) {
         data: data,
         url: url,
         dataType: "json",
-        contentType: 'application/json;charset=UTF-8',
         success: function (d) {
             successfn(d);
         },

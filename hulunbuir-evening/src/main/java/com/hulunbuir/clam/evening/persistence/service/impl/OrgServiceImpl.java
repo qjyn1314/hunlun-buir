@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.evening.persistence.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hulunbuir.clam.common.base.Pages;
 import com.hulunbuir.clam.distributed.afternoon.AfternoonProvider;
@@ -12,6 +11,7 @@ import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

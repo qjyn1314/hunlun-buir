@@ -47,7 +47,7 @@ a {
     min-height: 480px;
 }
 
-.form-container form {
+.form_class {
     background: #fff;
     display: flex;
     flex-direction: column;

@@ -1,15 +1,17 @@
 package com.hulunbuir.clam.afternoon.login;
 
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.hulunbuir.clam.afternoon.params.qo.LoginUser;
 import com.hulunbuir.clam.common.config.RedisHelper;
+import com.hulunbuir.clam.common.config.submit.NoRepeatSubmit;
 import com.hulunbuir.clam.common.mail.MailConstants;
 import com.hulunbuir.clam.distributed.admin.AdminMailProvider;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -51,8 +51,11 @@ public class AfterLoginController {
     @ApiOperation("发送邮箱验证码")
     @PostMapping("/sendMailCode")
     public JsonResult sendMailCode(@RequestParam String userMail) {
-            String randomNumbers = RandomUtil.randomNumbers(6);
-            redisHelper.setStrKey(MailConstants.VERIFICATION.name(), randomNumbers, 3000);
+        if(StringUtils.isBlank(userMail)){
+            return JsonResult.error("请填写正确的邮箱!!!");
+        }
+        String randomNumbers = RandomUtil.randomNumbers(6);
+        redisHelper.setStrKey(MailConstants.VERIFICATION.name(), randomNumbers, 3000);
         try {
             mailProvider.sendSimpleMail(userMail, MailConstants.VERIFICATION.getSubject(), String.format(MailConstants.VERIFICATION.getContent(), randomNumbers));
             return JsonResult.success("发送邮箱验证码成功!!!");
@@ -82,14 +85,6 @@ public class AfterLoginController {
         if (!strValue.equals(user.getVerification())) {
             throw HulunBuirException.build("验证码不正确，请重新点击获取验证码");
         }
-
-
-
-
-
-
-
-
 
 
         return JsonResult.success("登录成功");
