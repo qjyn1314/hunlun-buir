@@ -11,8 +11,9 @@ package com.hulunbuir.clam.admin.test_demo;
 public class ThreadDemo extends Thread {
     @Override
     public void run() {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("ThreadDemo  --- run  " + i);
+        for (int i = 0; i < 50; i++) {
+            System.out.println("ThreadDemo  --- run  " + i+"--->"+this.getName());
+            System.out.println(Thread.currentThread()==this);
         }
     }
 }

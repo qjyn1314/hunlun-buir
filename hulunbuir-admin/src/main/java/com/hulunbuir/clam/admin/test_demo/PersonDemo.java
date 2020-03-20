@@ -237,7 +237,8 @@ public class PersonDemo {
           线程在控制这进程的执行。
      一个进程中至少有一个线程。
 
- java VM 启动的时候会有一个进程，java.exe
+     执行过程：
+     java VM 启动的时候会有一个进程，java.exe
      该进程中至少会有一个线程负责java程序的执行
      而且这个线程运行的代码存在于main方法中，
      该线程称之为主线程。
@@ -248,17 +249,103 @@ public class PersonDemo {
      创建线程：
         1.定义一个thread的子类
         2.重写run方法，创建线程
-             目的将线程要运行的代码存储在run方法中
+             目的将自定义的代码存储在run方法中，让线程去调用
         3.new 子类对象.start(); 创建并启动线程，调用start方法，执行run方法
 
-     其基本原理：因为多个线程都获取cpu的执行权，cpu执行到谁，谁就运行，明确一点，在某一时刻，
+     其基本原理：
+     因为多个线程都获取cpu的执行权，cpu执行到谁，谁就运行，明确一点，在某一时刻，
      只能有一个程序在运行，cpu在做着快速的切换，以达到看上去是同事运行的效果。
      我们可以形象的把多线程的运行行为在互相抢夺cpu的执行权。
-
      这就是多线程的一个特性，随机性，谁抢到谁执行，至于执行多长时间，cpu说的算。
 
      为什么要覆盖run方法：
         Thread类用于描述线程。
+        其中run方法：用于存储线程要运行的代码，仅仅是对象调用方法，而线程创建了，并没有运行。
+        其中start方法：用于调用线程的run方法，开启线程并执行该线程的run方法。
+
+     线程的状态：
+     被创建-->start-->运行-->sleep(time)(睡眠)-->冻结-->
+                            time时间到-->开始运行(具备运行资格)
+                            wait()等待-->冻结-->
+                            notify()唤醒-->开始运行(具备运行资格)
+             -->stop();停止线程;(消亡)
+             -->run方法结束;(消亡)。
+
+     Thread.currentThread()-->可以获取当前线程对象。
+     其中的变量都是在线程中有独立空间进行存储
+
+ 创建线程，实现runnable接口步骤：
+     1.定义类实现Runnable接口。
+     2.覆盖runnable接口中的run方法。
+         就是将线程要运行的代码存放在该run方法中。
+     3.通过thread类简历线程对象。
+     4.将runnable接口的子类对象作为实际参数传递给thread类的构造函数。
+         为什么要将runnable接口的子类对象传递给thread的构造函数。
+         因为，自定义的run方法，所属的对象是runnable接口的子类对象。
+         所以要让线程去指定对象的run方法，就必须明确该run方法所属对象。
+
+     5.调用thread类的start方法开启线程并调用runnable接口子类的run方法。
+
+ 实现接口方式，和继承方式有什么区别呢？
+     实现接口方式的好处：避免了单继承的局限性。
+     在定义线程时，建议使用实现方式。提高扩展性。
+
+ 两种方式区别：
+     继承thread：线程代码存放在thread子类的run方法中。
+     实现runnable：线程代码存在接口的子类的run方法中。
+
+ 其中最为常见的是使用实现runnable接口，并重写run方法。
+
+
+     当实现了runnable接口的时候会出现了安全问题？
+     问题的原因：
+         当多条语句在操作同一个线程共享数据时，一个线程对多条语句只执行了一部分，还没有执行完，
+         另一个线程就参与进来执行，导致共享数据的错误。
+     解决办法：
+         对多条操作共享数据的语句，只能让一个线程都执行完，在执行过程中，其他线程不可以参与执行。
+
+     java对于多线程的安全问题提供了专业的解决方式，
+     同步代码块：
+     synchronized(对象){同步代码块}
+        其基本原理：
+          对象如同锁，持有锁的线程可以在同步代码块中执行。
+          没有持有锁的线程即使获取到了cpu的执行权，也进不去，因为没有获取锁
+     例如：火车上的卫生间
+
+     同步的前提：
+         1.必须要有两个或者两个以上的线程。
+         2.必须是多个线程使用同一个锁。
+         3.必须保证同步中只能有一个线程在运行。
+
+     好处：解决了多线程的安全问题
+     弊端：多个线程需要判断锁，较为消耗资源
+
+     同步有两种实现方式，
+     同步代码块，同步函数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -447,13 +534,24 @@ public class PersonDemo {
 //            System.out.println("finally");
 //        }
 
-        ThreadDemo demo = new ThreadDemo();
+        /*ThreadDemo demo = new ThreadDemo();
         demo.start();
+        ThreadDemo demo2 = new ThreadDemo();
+        demo2.start();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 50; i++) {
             System.out.println("main  run ---"+i);
-        }
+        }*/
 
+        SellTicketDemo sellTicket1 = new SellTicketDemo();
+        Thread thread1 = new Thread(sellTicket1);
+        thread1.start();
+        Thread thread2 = new Thread(sellTicket1);
+        thread2.start();
+        Thread thread3 = new Thread(sellTicket1);
+        thread3.start();
+        Thread thread4 = new Thread(sellTicket1);
+        thread4.start();
 
 
 

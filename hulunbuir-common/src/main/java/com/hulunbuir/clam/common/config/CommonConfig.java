@@ -44,10 +44,9 @@ public class CommonConfig {
         public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
             MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
             List<MediaType> mediaTypes = new ArrayList<>();
-//            mediaTypes.add(MediaType.APPLICATION_JSON);
-//            mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-//            mediaTypes.add(MediaType.TEXT_HTML);
-//            mediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
+            mediaTypes.add(MediaType.APPLICATION_JSON);
+            mediaTypes.add(MediaType.TEXT_HTML);
+            mediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
             mediaTypes.add(new MediaType("application", "xml"));
             mediaTypes.add(new MediaType("text", "xml"));
             mediaTypes.add(new MediaType("application", "*+xml"));
