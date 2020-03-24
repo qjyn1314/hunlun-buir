@@ -12,6 +12,7 @@ import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -60,11 +61,10 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
      * @since 2020/1/18 12:04
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public boolean insertUser(KoUser user) {
-        int insert = this.baseMapper.insert(user);
 //        int i = 10/0;
-        return insert > 0;
+        return user.insert();
     }
 
 }

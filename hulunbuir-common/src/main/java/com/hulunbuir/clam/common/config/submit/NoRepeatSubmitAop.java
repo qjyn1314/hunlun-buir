@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,7 +37,8 @@ public class NoRepeatSubmitAop {
         try {
             logger.info("进入防重复提交的aop");
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            String sessionId = RequestContextHolder.getRequestAttributes().getSessionId();
+            String sessionId = Objects.requireNonNull(RequestContextHolder.getRequestAttributes()).getSessionId();
+            assert attributes != null;
             HttpServletRequest request = attributes.getRequest();
             String key = sessionId + "-" + request.getServletPath();
             logger.info("key：{}",key);

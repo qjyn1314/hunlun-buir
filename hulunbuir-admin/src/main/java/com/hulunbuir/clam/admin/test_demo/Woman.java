@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.test_demo;
  * @author wangjunming
  * @since 2020-03-16 13:55
  */
-public class Woman extends Person {
+public class Woman extends Person implements Comparable{
     {
         System.out.println("子类的第一个代码块!!!");
     }
@@ -43,5 +43,17 @@ public class Woman extends Person {
     public void show(int age) {
 //        super.show(age);
         System.out.println("输出子类的年龄!!!");
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Woman{" +
+                "woman=" + woman +
+                '}';
     }
 }

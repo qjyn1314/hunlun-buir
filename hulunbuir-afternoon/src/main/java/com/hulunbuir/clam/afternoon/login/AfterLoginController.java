@@ -3,7 +3,6 @@ package com.hulunbuir.clam.afternoon.login;
 import cn.hutool.core.util.RandomUtil;
 import com.hulunbuir.clam.afternoon.params.qo.LoginUser;
 import com.hulunbuir.clam.common.config.RedisHelper;
-import com.hulunbuir.clam.common.config.submit.NoRepeatSubmit;
 import com.hulunbuir.clam.common.mail.MailConstants;
 import com.hulunbuir.clam.distributed.admin.AdminMailProvider;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
@@ -39,7 +38,6 @@ public class AfterLoginController {
     @Autowired
     private RedisHelper redisHelper;
 
-
     /**
      * 发送登录的邮箱验证码
      *
@@ -51,7 +49,7 @@ public class AfterLoginController {
     @ApiOperation("发送邮箱验证码")
     @PostMapping("/sendMailCode")
     public JsonResult sendMailCode(@RequestParam String userMail) {
-        if(StringUtils.isBlank(userMail)){
+        if (StringUtils.isBlank(userMail)) {
             return JsonResult.error("请填写正确的邮箱!!!");
         }
         String randomNumbers = RandomUtil.randomNumbers(6);

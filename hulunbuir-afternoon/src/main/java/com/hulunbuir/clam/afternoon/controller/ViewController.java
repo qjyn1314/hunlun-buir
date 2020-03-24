@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * <p>
  * Explain:用于跳转页面使用的controller，通过访问接口的形式返回得到固定的页面
@@ -49,12 +52,17 @@ public class ViewController {
     @ResponseBody
     @NoRepeatSubmit
     public JsonResult indexSubmit(String contactName, String contactEmail, String contactMessage) {
+        //邮箱验证正则
+        String regEx = "[a-zA-Z_]{0,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}";
+        boolean matcher = Pattern.compile(regEx).matcher(contactEmail).matches();
+        if(!matcher){
+            return JsonResult.successMsg("请输入正确的邮箱地址!!!");
+        }
         log.info("首页所提交的联系信息是：contactName：{},contactEmail：{},contactMessage：{}", contactName, contactEmail, contactMessage);
-        if(StringUtils.isNotBlank(contactName) && StringUtils.isNotBlank(contactEmail) && StringUtils.isNotBlank(contactMessage)){
+        if (StringUtils.isNotBlank(contactName) && StringUtils.isNotBlank(contactEmail) && StringUtils.isNotBlank(contactMessage)) {
             return JsonResult.successMsg("恭喜您提交成功！！ 我们将很快会的将注册账号给您发送至所提交的邮箱中！！");
         }
         return JsonResult.success();
-
     }
 
     /**
@@ -66,7 +74,19 @@ public class ViewController {
      */
     @GetMapping("/login.html")
     public String loginHtml() {
-        return "login";
+        return "/buir/login";
+    }
+
+    /**
+     * 用于登陆成功之后的跳转页面
+     *
+     * @return java.lang.String
+     * @author wangjunming
+     * @since 2020/2/12 11:54
+     */
+    @GetMapping("/console.html")
+    public String consoleHtml() {
+        return "/buir/console";
     }
 
 

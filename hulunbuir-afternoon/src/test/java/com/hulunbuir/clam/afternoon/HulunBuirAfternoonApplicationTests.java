@@ -2,6 +2,7 @@ package com.hulunbuir.clam.afternoon;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.hulunbuir.clam.afternoon.persistence.entity.User;
 import com.hulunbuir.clam.common.config.RedisHelper;
 import com.hulunbuir.clam.common.mail.MailConstants;
 import org.junit.jupiter.api.Test;
@@ -20,10 +21,13 @@ class HulunBuirAfternoonApplicationTests {
     void contextLoads() {
         String randomNumbers = RandomUtil.randomNumbers(6);
         redisHelper.setStrKey(MailConstants.VERIFICATION.name(), randomNumbers, 3000);
-
         Object strValue = redisHelper.getStrValue(MailConstants.VERIFICATION.name());
         System.out.println(strValue);
-
+        User user = new User();
+        user.setUserMail("qjyn1314@163.com");
+        redisHelper.setStrKey("user", user, 3000);
+        Object userValue = redisHelper.getStrValue("user");
+        System.out.println(userValue);
     }
 
 

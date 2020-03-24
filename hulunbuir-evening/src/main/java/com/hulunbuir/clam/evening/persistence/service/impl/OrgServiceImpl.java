@@ -34,6 +34,7 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
     private AfternoonProvider afternoonProvider;
 
 
+    @Override
     public Pages<Org> selectOrgPage(Pages<Org> page) {
         // 不进行 count sql 优化，解决 MP 无法自动优化 SQL 问题，这时候你需要自己查询 count 部分
         // page.setOptimizeCountSql(false);

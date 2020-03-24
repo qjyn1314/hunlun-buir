@@ -1,7 +1,8 @@
 package com.hulunbuir.clam.afternoon.persistence.service;
 
-import com.hulunbuir.clam.afternoon.persistence.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hulunbuir.clam.afternoon.persistence.entity.User;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 /**
  * <p>
@@ -15,12 +16,18 @@ public interface IUserService extends IService<User> {
 
     /**
      * 注册用户信息-添加
+     *
+     * @param user:
      * @author wangjunming
      * @since 2020/2/13 15:42
-     * @param user:
-     * @return java.lang.Integer
      */
-    boolean regUser(User user);
+    boolean regUser(User user) throws HulunBuirException;
 
-
+    /**
+     * 通过用户名称查询用户信息
+     *
+     * @author wangjunming
+     * @since 2020/3/23 18:24
+     */
+    User queryUser(String usermail);
 }
