@@ -19,7 +19,7 @@ public interface AdminMailProvider {
      * @param content 邮件内容
      * @param cc      抄送地址
      */
-    void sendSimpleMail(String to, String subject, String content, String... cc);
+    void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception;
 
 
 

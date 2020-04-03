@@ -32,7 +32,6 @@ public class ViewController {
     /**
      * 直接访问首页页面
      *
-     * @return java.lang.String
      * @author wangjunming
      * @since 2020/2/12 11:54
      */
@@ -44,7 +43,6 @@ public class ViewController {
     /**
      * 用于首页的提交信息
      *
-     * @return java.lang.String
      * @author wangjunming
      * @since 2020/2/12 11:54
      */
@@ -52,12 +50,6 @@ public class ViewController {
     @ResponseBody
     @NoRepeatSubmit
     public JsonResult indexSubmit(String contactName, String contactEmail, String contactMessage) {
-        //邮箱验证正则
-        String regEx = "[a-zA-Z_]{0,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}";
-        boolean matcher = Pattern.compile(regEx).matcher(contactEmail).matches();
-        if(!matcher){
-            return JsonResult.successMsg("请输入正确的邮箱地址!!!");
-        }
         log.info("首页所提交的联系信息是：contactName：{},contactEmail：{},contactMessage：{}", contactName, contactEmail, contactMessage);
         if (StringUtils.isNotBlank(contactName) && StringUtils.isNotBlank(contactEmail) && StringUtils.isNotBlank(contactMessage)) {
             return JsonResult.successMsg("恭喜您提交成功！！ 我们将很快会的将注册账号给您发送至所提交的邮箱中！！");
@@ -68,7 +60,6 @@ public class ViewController {
     /**
      * 用于首页的跳转到登录页面
      *
-     * @return java.lang.String
      * @author wangjunming
      * @since 2020/2/12 11:54
      */
@@ -80,7 +71,6 @@ public class ViewController {
     /**
      * 用于登陆成功之后的跳转页面
      *
-     * @return java.lang.String
      * @author wangjunming
      * @since 2020/2/12 11:54
      */

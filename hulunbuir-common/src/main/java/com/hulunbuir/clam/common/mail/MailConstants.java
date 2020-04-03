@@ -12,7 +12,7 @@ public enum MailConstants {
 
     ZHU_CE("注册","欢迎<%s>注册《呼伦贝尔大草原》___>www.hulunbuir.vip。"),
 
-    VERIFICATION("登录验证码","欢迎登录《呼伦贝尔大草原》,您的登录验证码是：%s，有效期是5分钟"),
+    VERIFICATION("注册验证码","欢迎注册《呼伦贝尔大草原》,您的注册验证码是：%s，有效期是5分钟"),
 
     ;
 

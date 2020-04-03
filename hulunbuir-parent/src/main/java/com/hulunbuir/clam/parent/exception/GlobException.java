@@ -54,11 +54,8 @@ public class GlobException {
         log.error("实体对象传参-异常", e);
         String defaultMessage = new String();
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        Optional<FieldError> first = fieldErrors.stream().findFirst();
-        if (first.isPresent()) {
-            FieldError fieldError = first.get();
-            defaultMessage = fieldError.getDefaultMessage();
-        }
+        FieldError error = fieldErrors.get(0);
+        defaultMessage = error.getDefaultMessage();
         return JsonResult.error(defaultMessage);
     }
 

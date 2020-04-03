@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.admin.mail;
 
-import cn.hutool.core.util.ArrayUtil;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,9 +25,9 @@ public class MailService {
      * 发送者
      *
      * @author wangjunming
-     * @since 2020/2/17 13:04
      * @param null:
      * @return: null
+     * @since 2020/2/17 13:04
      */
     @Value("${hulun-buit.mail.sender}")
     private String fromSender;
@@ -43,20 +43,18 @@ public class MailService {
      * @param content 邮件内容
      * @param cc      抄送地址
      */
-    public void sendSimpleMail(String to, String subject, String content, String... cc) {
-        log.info("收件人：{}，邮件主题：{}，邮件内容：{}，抄送地址：{}",to,subject,content,cc);
+    public void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception {
+        log.info("收件人：{}，邮件主题：{}，邮件内容：{}，抄送地址：{}", to, subject, content, cc);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromSender);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(content);
-        if (ArrayUtil.isNotEmpty(cc)) {
-            message.setCc(cc);
-        }
         try {
             mailSender.send(message);
         } catch (MailException e) {
-            log.error("发送文本邮件失败!!!",e);
+            log.error("发送文本邮件失败!!!", e);
+            throw HulunBuirException.build("发送文本邮件失败!!!");
         }
     }
 

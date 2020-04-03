@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> implements IKoUserService {
 
-    @Reference(check = false)
+    @Reference(check = false,timeout = 500000,retries = 0)
     private EveningProvider provider;
 
 
@@ -40,11 +40,11 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
      * @since 2020/1/18 12:04
      */
     @Override
-    @GlobalTransactional
+    @GlobalTransactional(rollbackFor = Exception.class)
     public boolean insertUserGlob(KoUser user) {
         log.info("KoUserServiceImpl--->全局事务XID："+ RootContext.getXID());
         int insert = this.baseMapper.insert(user);
-//        int i = 10/0;
+        int i = 10/0;
         OrgQo orgQo = new OrgQo();
         orgQo.setName("顶级组织-"+ DateUtils.getDateTimes());
         orgQo.setParentId(2);
@@ -63,7 +63,7 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public boolean insertUser(KoUser user) {
-//        int i = 10/0;
+        int i = 10/0;
         return user.insert();
     }
 

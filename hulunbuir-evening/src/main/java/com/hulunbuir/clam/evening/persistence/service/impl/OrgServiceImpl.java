@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgService {
 
-    @Reference(check = false)
+    @Reference(check = false,timeout = 500000,retries = 0)
     private AfternoonProvider afternoonProvider;
 
 
@@ -57,6 +57,7 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
         log.info("OrgServiceImpl-->全局事务XID："+ RootContext.getXID());
         Org org = new Org();
         BeanUtils.copyProperties(orgQo,org);
+//        int i = 10/0;
         return this.baseMapper.insert(org);
     }
 

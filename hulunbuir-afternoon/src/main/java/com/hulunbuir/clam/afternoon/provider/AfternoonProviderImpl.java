@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author wangjunming
  * @since 2020-01-16 13:13
  */
-@Service(interfaceClass = AfternoonProvider.class)
+@Service(interfaceClass = AfternoonProvider.class,timeout = 500000)
 @Component
 @Slf4j
 public class AfternoonProviderImpl implements AfternoonProvider {

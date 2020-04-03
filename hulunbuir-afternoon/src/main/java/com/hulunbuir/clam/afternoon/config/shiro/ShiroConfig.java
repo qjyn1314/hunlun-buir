@@ -31,7 +31,7 @@
 //    private static String loginUrl = "/login.html";
 //    private static String successUrl = "/console.html";
 //    private static String unauthorizedUrl = "/";
-//    private static String logoutUrl = "/logout";
+////    private static String logoutUrl = "/logout";
 //
 //    /**
 //     * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -57,19 +57,21 @@
 //        // 登录成功后跳转的 url
 //        shiroFilterFactoryBean.setSuccessUrl(successUrl);
 //        // 未授权 url
-////        shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
+//        shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
 //        //验证码过滤器
-//        Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
-//        filtersMap.put("jwt", new JwtTokenFilter());
-//        filtersMap.put("logout", new LogoutFilter());
-//        shiroFilterFactoryBean.setFilters(filtersMap);
+////        Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
+////        filtersMap.put("jwt", new JwtTokenFilter());
+////        filtersMap.put("logouts", new LogoutFilter());
+////        shiroFilterFactoryBean.setFilters(filtersMap);
+//
 //        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 //        //首页信息以及静态文件
 //        filterChainDefinitionMap.put("/", "anon");
+//        filterChainDefinitionMap.put("/login.html", "anon");
 //        filterChainDefinitionMap.put("/static/**", "anon");
 //        //分布式事务的配置文件
-//        filterChainDefinitionMap.put("/file.conf", "anon");
-//        filterChainDefinitionMap.put("/registry.conf", "anon");
+//        filterChainDefinitionMap.put("/src/main/resources/file.conf", "anon");
+//        filterChainDefinitionMap.put("/src/main/resources/registry.conf", "anon");
 //        // swagger接口文档--免认证 url
 //        filterChainDefinitionMap.put("/v2/api-docs", "anon");
 //        filterChainDefinitionMap.put("/webjars/**", "anon");
@@ -82,7 +84,8 @@
 ////        filterChainDefinitionMap.put(logoutUrl, "out");
 //        // 自定义过滤器-拦截所有请求-除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
 ////        filterChainDefinitionMap.put("/**", "authc");
-//        filterChainDefinitionMap.put("/**", "jwt");
+////        filterChainDefinitionMap.put("/**", "user");
+////        filterChainDefinitionMap.put("/**", "jwt");
 //        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 //        return shiroFilterFactoryBean;
 //    }
@@ -128,7 +131,8 @@
 //    /**
 //     * Shiro生命周期处理器
 //     *
-//     * @return
+//     * @author wangjunming
+//     * @since 2020/3/25 14:07
 //     */
 //    @Bean
 //    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
@@ -140,7 +144,8 @@
 //     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
 //     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
 //     *
-//     * @return
+//     * @author wangjunming
+//     * @since 2020/3/25 14:07
 //     */
 //    @Bean
 //    @DependsOn({"lifecycleBeanPostProcessor"})
@@ -170,8 +175,6 @@
 //
 //    @Value("${spring.redis.host}")
 //    private String host;
-//    @Value("${spring.redis.port}")
-//    private int port;
 //    @Value("${spring.redis.password}")
 //    private String password;
 //    @Value("${spring.redis.timeout}")

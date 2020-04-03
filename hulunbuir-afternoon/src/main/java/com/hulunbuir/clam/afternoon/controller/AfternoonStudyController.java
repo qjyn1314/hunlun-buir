@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Afternoon项目的学习控制层，仅个人使用")
 public class AfternoonStudyController extends BaseController {
 
-    @Reference(check = false)
+    @Reference(check = false,timeout = 500000,retries = 0)
     private EveningProvider eveningProvider;
 
     @Autowired

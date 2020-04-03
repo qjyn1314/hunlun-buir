@@ -33,7 +33,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean regUser(User user) throws HulunBuirException {
-        if (null != queryUser(user.getUserMail())) {
+        User queryUser = null;
+        try {
+            queryUser = queryUser(user.getUserMail());
+        } catch (Exception e) {
+            log.error("查询是否已有邮箱失败，异常：{}",e);
+            throw HulunBuirException.build("该邮箱已被注册！请您登陆！");
+        }
+        if (null != queryUser) {
             throw HulunBuirException.build("已有用户名!");
         }
         user.setPasswordSalt(AfternoonShiroUtil.randomSalt());

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author wangjunming
  * @since 2020-02-17 12:53
  */
-@Service(interfaceClass = AdminMailProvider.class)
+@Service(interfaceClass = AdminMailProvider.class,timeout = 500000)
 @Component
 @Slf4j
 public class AdminMailProviderImpl implements AdminMailProvider {
@@ -32,7 +32,7 @@ public class AdminMailProviderImpl implements AdminMailProvider {
      * @param cc      抄送地址
      */
     @Override
-    public void sendSimpleMail(String to, String subject, String content, String... cc) {
+    public void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception{
         mailService.sendSimpleMail(to, subject, content, cc);
     }
 }
