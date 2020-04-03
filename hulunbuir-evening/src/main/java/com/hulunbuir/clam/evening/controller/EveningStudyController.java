@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.Random;
+
 /**
  * <p>
  * Explain:学习springboot+dubbo+mybatis-plus+redis搭建工程
@@ -42,7 +45,10 @@ public class EveningStudyController {
     public String getNowDateTime() {
         log.info("获取当前时间：start");
         String dateTimes = DateUtils.getDateTimes();
-        Org byId = orgService.getById(5);
+        Org byId = new Org();
+        byId.setName("dateTimes-"+dateTimes);
+        byId.setId(new Random().nextInt());
+        byId.setParentId(0);
         orgService.initOrgData(byId,dateTimes);
         return byId.toString();
     }

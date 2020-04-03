@@ -7,12 +7,9 @@ import com.hulunbuir.clam.afternoon.persistence.service.IKoUserService;
 import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import com.hulunbuir.clam.distributed.model.OrgQo;
 import com.hulunbuir.clam.parent.tool.DateUtils;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -30,7 +27,6 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
     @Reference(check = false,timeout = 500000,retries = 0)
     private EveningProvider provider;
 
-
     /**
      * 添加用户信息，
      *
@@ -40,11 +36,9 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
      * @since 2020/1/18 12:04
      */
     @Override
-    @GlobalTransactional(rollbackFor = Exception.class)
     public boolean insertUserGlob(KoUser user) {
-        log.info("KoUserServiceImpl--->全局事务XID："+ RootContext.getXID());
         int insert = this.baseMapper.insert(user);
-        int i = 10/0;
+//        int i = 10/0;
         OrgQo orgQo = new OrgQo();
         orgQo.setName("顶级组织-"+ DateUtils.getDateTimes());
         orgQo.setParentId(2);
@@ -61,7 +55,7 @@ public class KoUserServiceImpl extends ServiceImpl<KoUserMapper, KoUser> impleme
      * @since 2020/1/18 12:04
      */
     @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = Exception.class)
     public boolean insertUser(KoUser user) {
         int i = 10/0;
         return user.insert();

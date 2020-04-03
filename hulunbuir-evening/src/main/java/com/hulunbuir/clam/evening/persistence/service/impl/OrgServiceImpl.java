@@ -8,14 +8,10 @@ import com.hulunbuir.clam.distributed.model.UserQo;
 import com.hulunbuir.clam.evening.persistence.entity.Org;
 import com.hulunbuir.clam.evening.persistence.mapper.OrgMapper;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -52,9 +48,8 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
      * @since 2020/1/18 12:10
      */
     @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = Exception.class)
     public int insertOrg(OrgQo orgQo) {
-        log.info("OrgServiceImpl-->全局事务XID："+ RootContext.getXID());
         Org org = new Org();
         BeanUtils.copyProperties(orgQo,org);
 //        int i = 10/0;
@@ -70,10 +65,7 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
      * @since 2020/2/25 16:38
      */
     @Override
-    @GlobalTransactional
     public void initOrgData(Org byId,String dateTimes) {
-        log.info("KoUserServiceImpl--->全局事务XID："+ RootContext.getXID());
-        String xid = RootContext.getXID();
         byId.setName(dateTimes);
         int insert = this.baseMapper.insert(byId);
         UserQo userQo = new UserQo();

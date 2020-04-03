@@ -4,7 +4,6 @@ import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import com.hulunbuir.clam.distributed.model.OrgQo;
 import com.hulunbuir.clam.evening.persistence.service.IOrgService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
-import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,6 @@ public class EveningProviderImpl implements EveningProvider {
      */
     @Override
     public int insertOrg(OrgQo orgQo) {
-        log.info("EveningProviderImpl--->全局事务XID："+ RootContext.getXID());
 //        int i = 10/0;
         return orgService.insertOrg(orgQo);
     }
