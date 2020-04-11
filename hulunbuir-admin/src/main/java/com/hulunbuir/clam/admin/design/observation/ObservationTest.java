@@ -33,5 +33,11 @@ public class ObservationTest {
         //被观察者进行发布消息
         observationAble.notifyObservation("10：30，大会议室开会！！！");
 
+
+        
+
+
+
+
     }
 }
