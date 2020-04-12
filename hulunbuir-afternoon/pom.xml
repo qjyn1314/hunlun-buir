@@ -48,6 +48,10 @@
                     <groupId>redis.clients</groupId>
                     <artifactId>jedis</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>shiro-core</artifactId>
+                    <groupId>org.apache.shiro</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 

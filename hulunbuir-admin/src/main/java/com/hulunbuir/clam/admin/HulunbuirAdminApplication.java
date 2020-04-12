@@ -35,9 +35,11 @@ public class HulunbuirAdminApplication {
     }
 
     private final AdminServerProperties adminServer;
+
     public HulunbuirAdminApplication(AdminServerProperties adminServer) {
         this.adminServer = adminServer;
     }
+
     @Configuration
     public class SecurityAdminConfig extends WebSecurityConfigurerAdapter {
         @Override
@@ -47,8 +49,7 @@ public class HulunbuirAdminApplication {
             successHandler.setTargetUrlParameter("redirectTo");
 
             final String adminServerContextPath = adminServer.getContextPath();
-            successHandler.setDefaultTargetUrl(adminServerContextPath+"/");
-
+            successHandler.setDefaultTargetUrl(adminServerContextPath + "/");
             successHandler.setDefaultTargetUrl("/");
             http.authorizeRequests()
                     .antMatchers("/assets/**").permitAll()

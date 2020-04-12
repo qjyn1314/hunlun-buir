@@ -17,12 +17,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
-import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -40,8 +38,10 @@ import javax.validation.Valid;
 @RequestMapping("/login")
 public class AfterLoginController {
 
-    /**调用的dubbo服务接口，必须这样定义，check：初始化时不进行检测，timeout：超时时间，retries：重试次数*/
-    @Reference(check = false,timeout = 500000,retries = 0)
+    /**
+     * 调用的dubbo服务接口，必须这样定义，check：初始化时不进行检测，timeout：超时时间，retries：重试次数
+     */
+    @Reference(check = false, timeout = 500000, retries = 0)
     private AdminMailProvider mailProvider;
 
     @Autowired
@@ -63,12 +63,12 @@ public class AfterLoginController {
         }
         String userMail = email.getUserMail();
         String randomNumbers = RandomUtil.randomNumbers(6);
-        String strValue = (String) redisHelper.getStrValue(MailConstants.VERIFICATION.name()+userMail);
-        if(StringUtils.isNotBlank(strValue)){
+        String strValue = (String) redisHelper.getStrValue(MailConstants.VERIFICATION.name() + userMail);
+        if (StringUtils.isNotBlank(strValue)) {
             randomNumbers = strValue;
         }
-        log.info("发送邮箱：{}，验证码{}",userMail,randomNumbers);
-        redisHelper.setStrKey(MailConstants.VERIFICATION.name()+userMail, randomNumbers, 3000);
+        log.info("发送邮箱：{}，验证码{}", userMail, randomNumbers);
+        redisHelper.setStrKey(MailConstants.VERIFICATION.name() + userMail, randomNumbers, 3000);
         try {
 //            mailProvider.sendSimpleMail(userMail, MailConstants.VERIFICATION.getSubject(), String.format(MailConstants.VERIFICATION.getContent(), randomNumbers));
             return JsonResult.successMsg("发送成功邮箱验证码！！");
@@ -93,17 +93,17 @@ public class AfterLoginController {
     @PostMapping("/regUser")
     public JsonResult regUser(@Valid RegUser regUser) throws Exception {
         boolean regUserFlag = false;
-        boolean vaildate = redisHelper.vaildate(MailConstants.VERIFICATION.name()+regUser.getUserMail());
+        boolean vaildate = redisHelper.vaildate(MailConstants.VERIFICATION.name() + regUser.getUserMail());
         if (vaildate) {
             throw HulunBuirException.build("验证码已失效，请重新点击获取验证码");
         }
-        String strValue = (String) redisHelper.getStrValue(MailConstants.VERIFICATION.name()+regUser.getUserMail());
+        String strValue = (String) redisHelper.getStrValue(MailConstants.VERIFICATION.name() + regUser.getUserMail());
         if (!strValue.equals(regUser.getVerification())) {
             throw HulunBuirException.build("验证码不正确，请输入正确的验证码！！");
         }
         try {
             User user = new User();
-            BeanUtils.copyProperties(regUser,user);
+            BeanUtils.copyProperties(regUser, user);
             regUserFlag = userService.regUser(user);
         } catch (HulunBuirException e) {
             log.error("业务异常!!", e);
@@ -129,11 +129,11 @@ public class AfterLoginController {
     public JsonResult login(@Valid LoginUser user) throws Exception {
         log.info("用户登录前端传参：{}", JSON.toJSONString(user));
         User queryUser = userService.queryUser(user.getUserMail());
-        if(null == queryUser){
+        if (null == queryUser) {
             return JsonResult.error("该用户还未注册，请使用该邮箱进行注册!");
         }
         boolean matches = AfternoonShiroUtil.matches(user.getUserMail(), queryUser.getUserPassword(), queryUser.getPasswordSalt(), user.getUserPassword());
-        if(matches){
+        if (matches) {
             return JsonResult.error("账号或密码不正确!");
         }
         return JsonResult.success("登录成功");
