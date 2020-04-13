@@ -1,0 +1,2172 @@
+==git学习==
+----------------------------------------------------------|
+git pull时，需要登录的账户和密码						  |
+wangjunming@iciyun.com									  |
+Iciyun123												  |
+----------------------------------------------------------|
+git的命令学习：
+git status :查看git提交状态；
+git config --list :查看git设置列表；
+git checkout 文件名：撤回已修改的文件；
+git pull ：将远程仓库的的最新代码clone到本地仓库；
+git add 文件名：将文件添加到本地的栈内存中；
+git commit -m "注释"；将文件提交到本地仓库中；
+git push ：将已经提交到本地仓库的文件，推送到远程仓库；
+-------------------------------------------------------------
+git status  查看git提交状态；								|
+git add '文件名'					                        |
+git pull 同步到服务器前先需要将服务器代码同步到本地			|
+git commit -m "提交本次的注释"； 					        |
+					                                        |
+git push 推送至远程客户端					                |
+两个人同时修改一个类时，更新时会发生冲突，					|
+解决方法：					                                |
+1、git stash ：将本地中所有的的需要更新的放入git栈中；		|
+2、git pull ：更新至最新的代码，					        |
+3、git stash pop ：将git栈中的文件进行弹栈，				|
+4、查看文件中发生冲突的文件，将其中的冲突解决后，进行提交	|
+5、git status ：查看当前的哪些文件是需要提交到远程库中的，	|
+6、git add ：将发生冲突的文件添加到本地库中，				|
+7、git reset ：将不需要修改的文件从本地仓库中撤回，			|
+8、git commit -m "提交本次的注释" ，					    |
+9、git push ：将本地仓库中更新的代码，推送至远程仓库。	    |
+------------------------------------------------------------|
+永久记住git客户端提交代码时输入的账号和密码					|
+在命令行输入命令:					                        |
+前提是已经输入过账号和密码；				            	|
+git config --global credential.helper store					|
+这一步会在用户目录下的.gitconfig文件最后添加：      		|
+[credential] helper = store					                |
+通过命令git config --list					            	|
+来检查，是否有credential.helper=store这个属性				|
+再次打开git客户端，来检查效果；					            |
+--------------------------------------------------------------
+------------------------------------------------
+deploy -e 
+------------------------------------------------
+ 
+ 在多线程的应用场景下：
+  
+ 同步块的锁是：
+ --任意的，创建出来的对象实例
+ 同步函数的锁是：
+ --是当前的对象，也就是this
+ 静态同步函数锁是：
+ --因为是静态的，随着类的加载而加载，所以锁是：当前类名.class
+ ---------------------------------------------------------------- 
+ ----------------------------------------------------------------
+微信进行绑定：
+触发aouth2的静默授权，然后获取到code，将code放到回调的url上，
+前端将这个code再次请求后台接口，
+-->接口中会访问微信的服务器，
+换区AccessToken,openid,
+再次访问微信的服务器，将用户的基本信息，返回给前端，
+前端拿到这个信息之后，用户绑定的时候，将这个用户的基本信息后存储到数据库中；
+ ---------------- ---------------- ---------------- ---------------- 
+ ---------------- ---------------- ---------------- ----------------
+
+LINUX学习：
+
+cat /etc/redhat-release    ：查看Linux的系统版本；
+
+=========================================================================================================================================================== 
+CENTOS7.5安装MYSQL:
+1、进入：/usr/local/mysql  执行命令：wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+2、rpm -ivh mysql-community-release-el7-5.noarch.rpm
+3、yum install mysql-community-server
+4、service mysqld restart ：重启MySQL服务；
+5、mysql -u root     
+6、set password for 'root'@'localhost' =password('1234567');
+注意：以上命令执行就是在/usr/local/mysql目录下执行，若是没有该目录，则创建
+7、
+ 远程连接设置
+把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。
+执行命令：mysql> grant all privileges on *.* to root@'%' identified by '1234567';
+如果是新用户而不是root，则要先新建用户
+执行命令：mysql>create user 'username'@'%' identified by 'password';  
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234567'; 
+FLUSH PRIVILEGES;
+=========================================================================================================================================================== 
+https://www.darknetmarkets.com/ultimate-dark-web-toolbox/   
+=====================================================================================================================================================
+数据库提供了四种事务隔离级别, 不同的隔离级别采用不同的锁类开来实现. 
+
+在四种隔离级别中, Serializable的级别最高, Read Uncommited级别最低. 
+
+大多数数据库的默认隔离级别为: Read Commited,如Sql Server , Oracle. 
+
+少数数据库默认的隔离级别为Repeatable Read, 如MySQL InnoDB存储引擎 
+
+即使是最低的级别,也不会出现 第一类 丢失 更新问题 .  
+
+1. 脏读(事务没提交，提前读取)：脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。 
+
+2. 不可重复读(两次读的不一致) ：是指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。例如，一个编辑人员两次读取同一文档，但在两次读取之间，作者重写了该文档。当编辑人员第二次读取文档时，文档已更改。原始读取不可重复。如果只有在作者全部完成编写后编辑人员才可以读取文档，则可以避免该问题。 
+3. 幻读 : 是指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发生操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。例如，一个编辑人员更改作者提交的文档，但当生产部门将其更改内容合并到该文档的主复本时，发现作者已将未编辑的新材料添加到该文档中。如果在编辑人员和生产部门完成对原始文档的处理之前，任何人都不能将新材料添加到文档中，则可以避免该问题。 
+4.第一类更新丢失(回滚丢失)： 
+  当2个事务更新相同的数据源，如果第一个事务被提交，而另外一个事务却被撤销，那么会连同第一个事务所做的跟新也被撤销。也就是说第一个事务做的跟新丢失了。 
+5.第二类更新丢失(覆盖丢失)： 
+  第二类更新丢失实在实际应用中经常遇到的并发问题，他和不可重复读本质上是同一类并发问题，通常他被看做不可重复读的特例：当2个或这个多个事务查询同样的记录然后各自基于最初的查询结果更新该行时，会造成第二类丢失更新。因为每个事务都不知道不知道其他事务的存在，最后一个事务对记录做的修改将覆盖其他事务对该记录做的已提交的跟新... 
+补充 : 基于元数据的 Spring 声明性事务 : 
+
+Isolation 属性一共支持五种事务设置，具体介绍如下： 
+
+l          DEFAULT 使用数据库设置的隔离级别 ( 默认 ) ，由 DBA 默认的设置来决定隔离级别 . 
+
+l          READ_UNCOMMITTED 会出现脏读、不可重复读、幻读 ( 隔离级别最低，并发性能高 ) 
+
+l          READ_COMMITTED  会出现不可重复读、幻读问题（锁定正在读取的行） 
+
+l          REPEATABLE_READ 会出幻读（锁定所读取的所有行） 
+
+l          SERIALIZABLE 保证所有的情况不会发生（锁表） 
+
+不可重复读的重点是修改 : 
+同样的条件 ,   你读取过的数据 ,   再次读取出来发现值不一样了 
+幻读的重点在于新增或者删除 
+同样的条件 ,   第 1 次和第 2 次读出来的记录数不一样
+
+
+----------------------------------------------------------
+事务传播行为种类
+
+Spring在TransactionDefinition接口中规定了7种类型的事务传播行为，
+
+它们规定了事务方法和事务方法发生嵌套调用时事务如何进行传播：
+
+表1事务传播行为类型
+
+事务传播行为类型
+ 说明
+ 
+PROPAGATION_REQUIRED
+ 如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择。
+ 
+PROPAGATION_SUPPORTS
+ 支持当前事务，如果当前没有事务，就以非事务方式执行。
+ 
+PROPAGATION_MANDATORY
+ 使用当前的事务，如果当前没有事务，就抛出异常。
+ 
+PROPAGATION_REQUIRES_NEW
+ 新建事务，如果当前存在事务，把当前事务挂起。
+ 
+PROPAGATION_NOT_SUPPORTED
+ 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+ 
+PROPAGATION_NEVER
+ 以非事务方式执行，如果当前存在事务，则抛出异常。
+ 
+PROPAGATION_NESTED
+ 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。
+ 
+一、事务的基本要素（ACID）
+
+1、原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。
+
+2、一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。
+　　 3、隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账
+
+4、持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。
+
+二、事务的并发问题
+
+　　1、脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据
+
+　　2、不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。
+
+　　3、幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。
+
+　　小结：不可重复读的和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增或删除。解决不可重复读的问题只需锁住满足条件的行，解决幻读需要锁表
+ 
+
+三、MySQL事务隔离级别
+
+事务隔离级别	            	脏读	不可重复读	幻读
+读未提交（read-uncommitted）	是		是			是
+不可重复读（read-committed）	否		是			是
+可重复读（repeatable-read）		否		否			是
+串行化（serializable）			否		否			否
+
+mysql默认的事务隔离级别为repeatable-read
+================================================================================================================================================================ 
+ CENTOS7.5安装docker；
+ 1、由于docker是必须在内核版本在3.1以上的linux系统上安装；
+ 
+  uname -r   ：查看当前linux的的内核版本；
+  
+ 2、yum install docker -y    ：在根目录执行安装docker命令；
+ 
+ 3、docker -v      ：查看docker的版本号；
+ 
+ 4、systemctl start docker    ：启动docker；
+ 
+ 5、systemctl stop docker     :停止docker；
+ 
+ 6、systemctl enable docker   :将docker安装设置为开机启动；
+ 
+ 7、docker search mysql       ：搜索MySQL镜像；
+ 
+ 8、docker pull mysql         ：从docker的公共仓库中拉取MySQL的默认镜像；
+ 
+ 9、docker images             ：查看当前docker中是否安装了哪些镜像；
+ 
+ 10、docker rmi (images ID)   ：删除镜像（镜像ID）；
+ 
+ 11、docker ps				  ：查看安装并启动的镜像；
+ 
+ 12、docker ps -a             ：查看所有的已启动的镜像实例；
+ 
+ 13、删除一个镜像实例时，必须停止要删除的镜像实例：  docker rm  (images id(镜像实例的ID))
+ 
+ 14、启动一个镜像实例：docker run --name 指定的实例名称
+ 
+ 15、启动一个完成端口映射的镜像实例：docker run -d(标识后台运行) -p(指定映射的端口号(主机端口号:容器内部端口号))  (mysql(必填指的是容器的REPOSITORY(docker images命令查出来的第一列))) 
+ 
+ 16、查看正在运行的镜像实例日志：docker logs mysql ;
+     实时查看日志：docker logs -f mysql(容器运行的ID)
+	 
+ 17、docker上启动MySQL镜像实例：docker run --name MySQL3306 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql
+ 
+ 18、docker上启动带映射的MySQL镜像实例：docker run -p 3307:3306 --name MySQL3306 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql
+ 
+ 19、docker上启动带映射并设置字符集的MySQL镜像实例：
+	 docker run -p 3308:3306 --name mysql3308 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+		#进入MySQL镜像实例容器中
+		docker exec -it MySQL3306(镜像名称) bash
+		#退出容器：
+		exit;
+		#登录mysql
+		mysql -u root -p
+		ALTER USER 'root'@'localhost' IDENTIFIED BY '1234567';
+		客户端在使用root连接的时候会出现：client does not support authentication protocol requested by server;consider upgrading mysql client 
+		#添加远程登录用户
+		CREATE USER 'qjyn1314'@'%' IDENTIFIED WITH mysql_native_password BY '1234567';
+		GRANT ALL PRIVILEGES ON *.* TO 'qjyn1314'@'%';
+		#程序中的应用是：
+		 IP地址是公网的IP地址
+		#账号分别是
+		 root:1234567
+		 qjyn1314:1234567
+		#程序在链接数据库(docker默认安装的是mysql最新版本)时出现的问题：
+		 1、Could not retrieve transation read-only status server
+			解决：
+			 将pom文件中的MySQL链接的的驱动换成Maven仓库中最新版本，
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>8.0.13</version>
+				</dependency>
+		
+ 20、docker安装jenkins
+		#搜索jenkins
+		docker search jenkins
+		#拉取jenkins镜像
+		docker pull jenkins
+		#创建主机的jenkins文件存储路径
+		mkdir /usr/local/jenkins
+		#运行带映射端口的jenkins，并指定文件配置路径
+		docker run -p 8080:8080 -p 50000:50000 -v /usr/local/jenkins:/var/jenkins_home -d jenkins
+		#查看是否启动成功
+		docker ps -a 
+		#查看日志
+		docker logs jenkins的启动后的容器ID
+		#得到密码
+		Please use the following password to proceed to installation:
+		d406a25e9e2c49b4ad42a9205cedba80    #此字符串为jenkins的admin密码；
+		This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+ 21、docker安装redis
+		#搜索redis
+		docker search redis
+		#拉取redis
+		docker pull redis
+		#运行带参数的redis，并指定密码
+		docker run --name redis6666 -p 6666:6379 -d redis --requirepass "1234567"
+		#查看运行成功的redis
+		docker ps -a
+		程序中应用的：ip地址是，服务器的公网ip，端口号是6666。
+	
+ 22、docker安装zookeeper
+		#搜索zookeeper
+		docker search zookeeper
+		#拉取zookeeper
+		docker pull zookeeper
+		#运行带参数的zookeeper
+		docker run --name zookeeper4181 --restart always -p 4181:2181 -d zookeeper
+		docker run --name zookeeper4182 --restart always -p 4182:2181 -d zookeeper
+		docker run --name zookeeper4183 --restart always -p 4183:2181 -d zookeeper
+		程序中的使用:dubbo配置文件中的ip地址以及端口号是：47.104.78.115:4181
+		
+ 23、docker安装rabbit
+		#搜索rabbit
+		docker search rabbit
+		#拉取rabbit
+		docker pull rabbit 
+		#运行带参数的rabbit
+		docker run -d --hostname my-rabbit5672 --name rabbit5672 -p 5672:5672 rabbitmq
+		#查看实时日志：docker logs -f 正在运行的容器ID
+		47.104.78.115:5672
+		
+		
+===========================================================================================================================================================
+ Springboot(1.5.19)的启动原理以及启动步骤：
+	1、创建SpringApplication对象，
+		1.initialize();方法，
+		if (sources != null && sources.length > 0) {
+		//保存主配置类
+            this.sources.addAll(Arrays.asList(sources));
+        }
+		//判断当前应用是否是web应用
+        this.webEnvironment = this.deduceWebEnvironment();
+        //加载MATE/INFO下面的springboot.factories配置的所有ApplicationContextInitializers,(找到自动配置类)并保存。
+		this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
+	    //加载MATE/INFO下面的springboot.factories配置的所有ApplicationListener,(找到监听器)并保存。
+        this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+		//从多个配置类中找到带有main方法的主配置类
+        this.mainApplicationClass = this.deduceMainApplicationClass();
+		
+	
+	2、运行run方法，
+	 public ConfigurableApplicationContext run(String... args) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        ConfigurableApplicationContext context = null;
+        FailureAnalyzers analyzers = null;
+        this.configureHeadlessProperty();
+		//获取SpringApplicationRunListeners：从类路径下META-INF下获取监听器，
+        SpringApplicationRunListeners listeners = this.getRunListeners(args);
+        //回调所有的获取SpringApplicationRunListeners的starting()方法，
+		listeners.starting();
+        try {
+			//开启
+            ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+            //准备环境并创建：IOC环境，
+			ConfigurableEnvironment environment = this.prepareEnvironment(listeners, applicationArguments);
+			//创建完成SpringApplicationRunListeners，ApplicationArguments，并打印banner；
+            Banner printedBanner = this.printBanner(environment);
+			//创建ApplicationContext，根据是否是web应用，利用反射，来创建IOC容器；
+            context = this.createApplicationContext();
+            new FailureAnalyzers(context);
+			//准备上下文环境：将environment保存在ioc中；其中applyInitializers方法里面调用ApplicationContextInitializer的initialize()方法，
+			//将初始化器进行回调，将环境都准备好之后，回调的方法：SpringApplicationRunListeners的contextLoaded(),在方法的最后执行；
+			this.prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+			//刷新容器，初始化ioc容器，同步的并创建安全的容器(如果是web应用还会创建嵌入式的tomcat)，
+			//扫描，创建，加载所有组件的地方；(配置类，组件，自动配置)
+            this.refreshContext(context);
+			//从ioc容器中获取ApplicationRunner和CommandLineRunner，；来进行回调
+            this.afterRefresh(context, applicationArguments);
+			//所有的SpringApplicationRunListener回调finished，进行启动；
+            listeners.finished(context, (Throwable)null);
+            stopWatch.stop();
+            if (this.logStartupInfo) {
+                (new StartupInfoLogger(this.mainApplicationClass)).logStarted(this.getApplicationLog(), stopWatch);
+            }
+            return context;
+        } catch (Throwable var9) {
+            this.handleRunFailure(context, listeners, (FailureAnalyzers)analyzers, var9);
+            throw new IllegalStateException(var9);
+        }
+    }
+		
+		
+===========================================================================================================================================================
+		
+ 什么是java序列化，如何实现java序列化?	
+ 
+ 简要解释：
+　　序列化就是一种用来处理对象流的机制，所谓对象流也就是将对象的内容进行流化。可以对流化后的对象进行读写操作，也可将流化后的对象传输于网络之间。
+　　序列化是为了解决在对对象流进行读写操作时所引发的问题。
+	序列化的实现：将需要被序列化的类实现Serializable接口，该接口没有需要实现的方法，implements Serializable只是为了标注该对象是可被序列化的，
+然后使用一个输出流(如：FileOutputStream)来构造一个ObjectOutputStream(对象流)对象，
+接着，使用ObjectOutputStream对象的writeObject(Object obj)方法就可以将参数为obj的对象写出(即保存其状态)，要恢复的话则用输入流。
+
+详细解释：
+
+      当两个进程在进行远程通信时，彼此可以发送各种类型的数据。无论是何种类型的数据，都会以二进制序列的形式在网络上传送。
+	  发送方需要把这个Java对象转换为字节序列，才能在网络上传送；接收方则需要把字节序列再恢复为Java对象。
+
+　　只能将支持 java.io.Serializable 接口的对象写入流中。
+    每个 serializable 对象的类都被编码，编码内容包括类名和类签名、对象的字段值和数组值，以及从初始对象中引用的其他所有对象的闭包。
+
+1.概念
+
+　　序列化：把Java对象转换为字节序列的过程。
+　　反序列化：把字节序列恢复为Java对象的过程。
+
+2.用途
+
+　　对象的序列化主要有两种用途：
+　　1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中；
+　　2） 在网络上传送对象的字节序列。
+
+ 
+
+3.对象序列化
+
+序列化API
+
+　　java.io.ObjectOutputStream代表对象输出流，它的writeObject(Object obj)方法可对参数指定的obj对象进行序列化，把得到的字节序列写到一个目标输出流中。
+	只有实现了Serializable和Externalizable接口的类的对象才能被序列化。
+
+　　java.io.ObjectInputStream代表对象输入流，它的readObject()方法从一个源输入流中读取字节序列，再把它们反序列化为一个对象，并将其返回。
+ 
+ 
+ 4.说明
+
+　　读取对象的顺序与写入时的顺序要一致。
+
+　　对象的默认序列化机制写入的内容是：对象的类，类签名，以及非瞬态和非静态字段的值。
+
+
+ ===========================================================================================================================================================
+ 
+ 前提是已经安装好了jdk，输入java -version 查看jdk版本
+ 0.1、配置免密登录：
+ ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+ cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ 0.2、修改 /etc/hostname    
+      vi /etc/hostname
+	  修改为：Master
+	  vim /etc/hosts
+	  将
+	    127.0.0.1 VM_0_9_centos VM_0_9_centos
+		127.0.0.1 localhost.localdomain localhost
+		127.0.0.1 localhost4.localdomain4 localhost4
+		
+		::1 VM_0_9_centos VM_0_9_centos
+		::1 localhost.localdomain localhost
+		::1 localhost6.localdomain6 localhost6
+	  改为：
+		#127.0.0.1 VM_0_9_centos VM_0_9_centos
+		#127.0.0.1 localhost.localdomain localhost
+		#127.0.0.1 localhost4.localdomain4 localhost4
+		 
+		#::1 VM_0_9_centos VM_0_9_centos
+		#::1 localhost.localdomain localhost
+		#::1 localhost6.localdomain6 localhost6
+	  并添加上：
+		123.206.66.132(公网的IP地址) Master
+
+ 0、使用root用户登录进入/usr/local/目录并创建hadoop目录，进入创建好的hadoop目录  --执行以下命令
+ 1、wget http://mirrors.hust.edu.cn/apache/hadoop/core/stable/hadoop-3.2.0.tar.gz
+ 2、tar -zxvf hadoop-3.2.0.tar.gz
+ 3、配置环境变量并生效环境变量
+	vi ~/.bash_profile
+    HADOOP_HOME=/usr/local/hadoop/hadoop-3.2.0
+    PATH=$PATH:$HADOOP_HOME/bin
+    export HADOOP_HOME PATH
+	sources ~/.bash_profile
+ 4、创建文件夹：
+	mkdir -p /usr/local/hadoop/tmp
+	mkdir -p /usr/local/hadoop/hdfs/name
+	mkdir -p /usr/local/hadoop/hdfs/data
+ 5、修改hadoop中的配置文件
+	进入：/usr/local/hadoop-3.2.0
+		进入 etc/hadoop/目录下
+		1)、首先执行：echo $JAVA_HOME
+			输出：/usr/java/jdk1.8.0_181-amd64
+			vim hadoop-env.sh 
+			在# export JAVA_HOME=   被注释掉的这一行，下面加上以下的jdk的home
+			export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64
+		2)、#######vim yarn-env.sh 
+		3)、vim core-site.xml  在<configuration></configuration>标签内部加入以下配置：
+		   <property>
+				<name>fs.defaultFS</name>
+                <value>hdfs://Master:9000</value>
+		   </property>
+		   <property>
+				<name>hadoop.tmp.dir</name>
+				<value>/usr/local/hadoop/tmp</value>
+		   </property>
+		4)、vim hdfs-site.xml   在<configuration></configuration>标签内部加入以下配置：
+			<property>
+				<name>dfs.namenode.name.dir</name>
+				<value>file:/usr/local/hadoop/hdfs/name</value>
+		    </property>
+			<property>
+				<name>dfs.datanode.data.dir</name>
+				<value>file:/usr/local/hadoop/hdfs/data</value>
+		    </property>
+			<property>
+				<name>dfs.replication</name>
+				<value>1</value>
+			</property>
+		5)、vim mapred-site.xml   在<configuration></configuration>标签内部加入以下配置：
+			<name>mapreduce.framwork.name</name>
+			<value>yarn</value>
+		6)、vim yarn-site.xml     在<configuration></configuration>标签内部加入以下配置：
+			<property>
+				<name>yarn.nodemanager.aux-services</name>
+				<value>mapreduce_shuffle</value>
+			</property>
+ 6、进行对hadoop格式化操作
+		进入/usr/local/hadoop/hadoop-3.2.0/bin  目录下执行：./hdfs namenode -format
+		执行命令过后会出现以下的界面：
+[root@VM_0_9_centos bin]# pwd
+/usr/local/hadoop/hadoop-3.2.0/bin
+[root@VM_0_9_centos bin]# ./hdfs namenode -format
+
+WARNING: /usr/local/hadoop/hadoop-3.2.0/logs does not exist. Creating.
+2019-01-23 22:03:02,869 INFO namenode.NameNode: STARTUP_MSG: 
+/************************************************************
+STARTUP_MSG: Starting NameNode
+STARTUP_MSG:   host = VM_0_9_centos/127.0.0.1
+STARTUP_MSG:   args = [-format]
+STARTUP_MSG:   version = 3.2.0
+STARTUP_MSG:   classpath = /usr/local/hadoop/hadoop-3.2.0/etc/hadoop:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerby-asn1-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/nimbus-jose-jwt-4.41.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jul-to-slf4j-1.7.25.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/accessors-smart-1.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerby-xdr-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/gson-2.2.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-server-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/zookeeper-3.4.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-lang3-3.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-identity-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-xml-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-io-2.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jersey-core-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jettison-1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-codec-1.11.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/guava-11.0.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-compress-1.4.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/curator-recipes-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/woodstox-core-5.0.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-util-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jcip-annotations-1.0-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/audience-annotations-0.5.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jaxb-api-2.2.11.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/json-smart-2.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/javax.servlet-api-3.1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/httpcore-4.4.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-server-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jersey-json-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-text-1.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/netty-3.10.5.Final.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/re2j-1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-simplekdc-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jsch-0.1.54.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/curator-framework-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerby-pkix-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-util-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jsp-api-2.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/slf4j-api-1.7.25.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-http-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-io-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-client-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-webapp-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-logging-1.1.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-net-3.6.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-cli-1.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/log4j-1.2.17.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/asm-5.0.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-admin-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-collections-3.2.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-crypto-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerby-util-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/dnsjava-2.1.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-beanutils-1.9.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jsr311-api-1.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/hadoop-annotations-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-databind-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/metrics-core-3.2.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-annotations-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-configuration2-2.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-core-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jsr305-3.0.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/xz-1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-servlet-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/commons-math3-3.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/htrace-core4-4.1.0-incubating.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/httpclient-4.5.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerby-config-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/snappy-java-1.0.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jetty-security-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/stax2-api-3.1.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jersey-servlet-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/curator-client-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-core-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jersey-server-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/paranamer-2.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/token-provider-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/kerb-common-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/hadoop-auth-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/avro-1.7.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/hadoop-common-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/hadoop-common-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/hadoop-nfs-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/common/hadoop-kms-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerby-asn1-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/nimbus-jose-jwt-4.41.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/accessors-smart-1.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerby-xdr-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/gson-2.2.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-server-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/zookeeper-3.4.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-lang3-3.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-identity-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-xml-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-io-2.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jersey-core-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jettison-1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-codec-1.11.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-daemon-1.0.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/json-simple-1.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/guava-11.0.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-compress-1.4.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/curator-recipes-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/woodstox-core-5.0.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-util-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jcip-annotations-1.0-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-util-ajax-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/audience-annotations-0.5.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jaxb-api-2.2.11.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/json-smart-2.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/javax.servlet-api-3.1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/httpcore-4.4.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-server-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jersey-json-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-text-1.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/netty-3.10.5.Final.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/re2j-1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-simplekdc-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jsch-0.1.54.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/curator-framework-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerby-pkix-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-util-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-http-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-io-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-client-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-webapp-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-logging-1.1.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-net-3.6.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-cli-1.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/log4j-1.2.17.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/asm-5.0.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-admin-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-collections-3.2.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-crypto-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerby-util-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/dnsjava-2.1.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-beanutils-1.9.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jsr311-api-1.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/hadoop-annotations-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/okio-1.6.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-databind-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-annotations-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-configuration2-2.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-core-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jsr305-3.0.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/xz-1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-servlet-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/commons-math3-3.1.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/htrace-core4-4.1.0-incubating.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/httpclient-4.5.2.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/netty-all-4.0.52.Final.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerby-config-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/snappy-java-1.0.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jetty-security-9.3.24.v20180605.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/stax2-api-3.1.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jersey-servlet-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/curator-client-2.12.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-core-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jersey-server-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/paranamer-2.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/token-provider-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/okhttp-2.7.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/kerb-common-1.0.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/hadoop-auth-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/avro-1.7.7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-rbf-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-nfs-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-rbf-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-native-client-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-native-client-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-client-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-httpfs-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/hdfs/hadoop-hdfs-client-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/lib/junit-4.11.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/lib/hamcrest-core-1.3.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-uploader-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-app-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-plugins-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.0-tests.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-nativetask-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/mssql-jdbc-6.2.1.jre7.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/java-util-1.9.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/jersey-client-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/ehcache-3.3.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/javax.inject-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/fst-2.50.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/jackson-jaxrs-json-provider-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/objenesis-1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/geronimo-jcache_1.0_spec-1.0-alpha-1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/jersey-guice-1.19.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/guice-servlet-4.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/jackson-module-jaxb-annotations-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/metrics-core-3.2.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/json-io-2.5.1.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/jackson-jaxrs-base-2.9.5.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/snakeyaml-1.16.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/HikariCP-java7-2.4.12.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/guice-4.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/aopalliance-1.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/lib/swagger-annotations-1.5.4.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-services-api-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-sharedcachemanager-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-common-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-submarine-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-common-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-router-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-timeline-pluginstorage-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-api-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-resourcemanager-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-tests-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-client-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-services-core-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-applicationhistoryservice-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-web-proxy-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-server-nodemanager-3.2.0.jar:/usr/local/hadoop/hadoop-3.2.0/share/hadoop/yarn/hadoop-yarn-registry-3.2.0.jar
+STARTUP_MSG:   build = https://github.com/apache/hadoop.git -r e97acb3bd8f3befd27418996fa5d4b50bf2e17bf; compiled by 'sunilg' on 2019-01-08T06:08Z
+STARTUP_MSG:   java = 1.8.0_181
+************************************************************/
+2019-01-23 22:03:02,897 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]
+2019-01-23 22:03:03,102 INFO namenode.NameNode: createNameNode [-format]
+2019-01-23 22:03:03,557 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Formatting using clusterid: CID-48cdd6f6-cc2c-4b14-bb83-4a216ac7c001
+2019-01-23 22:03:06,384 INFO namenode.FSEditLog: Edit logging is async:true
+2019-01-23 22:03:06,493 INFO namenode.FSNamesystem: KeyProvider: null
+2019-01-23 22:03:06,495 INFO namenode.FSNamesystem: fsLock is fair: true
+2019-01-23 22:03:06,496 INFO namenode.FSNamesystem: Detailed lock hold time metrics enabled: false
+2019-01-23 22:03:06,627 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)
+2019-01-23 22:03:06,628 INFO namenode.FSNamesystem: supergroup          = supergroup
+2019-01-23 22:03:06,628 INFO namenode.FSNamesystem: isPermissionEnabled = true
+2019-01-23 22:03:06,628 INFO namenode.FSNamesystem: HA Enabled: false
+2019-01-23 22:03:06,765 INFO common.Util: dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2019-01-23 22:03:06,782 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2019-01-23 22:03:06,782 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true
+2019-01-23 22:03:06,791 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2019-01-23 22:03:06,793 INFO blockmanagement.BlockManager: The block deletion will start around 2019 Jan 23 22:03:06
+2019-01-23 22:03:06,794 INFO util.GSet: Computing capacity for map BlocksMap
+2019-01-23 22:03:06,794 INFO util.GSet: VM type       = 64-bit
+2019-01-23 22:03:06,808 INFO util.GSet: 2.0% max memory 241.7 MB = 4.8 MB
+2019-01-23 22:03:06,808 INFO util.GSet: capacity      = 2^19 = 524288 entries
+2019-01-23 22:03:06,829 INFO blockmanagement.BlockManager: Storage policy satisfier is disabled
+2019-01-23 22:03:06,829 INFO blockmanagement.BlockManager: dfs.block.access.token.enable = false
+2019-01-23 22:03:06,841 INFO Configuration.deprecation: No unit for dfs.namenode.safemode.extension(30000) assuming MILLISECONDS
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.min.datanodes = 0
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.extension = 30000
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManager: defaultReplication         = 1
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManager: maxReplication             = 512
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManager: minReplication             = 1
+2019-01-23 22:03:06,841 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2
+2019-01-23 22:03:06,842 INFO blockmanagement.BlockManager: redundancyRecheckInterval  = 3000ms
+2019-01-23 22:03:06,842 INFO blockmanagement.BlockManager: encryptDataTransfer        = false
+2019-01-23 22:03:06,842 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000
+2019-01-23 22:03:07,027 INFO namenode.FSDirectory: GLOBAL serial map: bits=29 maxEntries=536870911
+2019-01-23 22:03:07,028 INFO namenode.FSDirectory: USER serial map: bits=24 maxEntries=16777215
+2019-01-23 22:03:07,028 INFO namenode.FSDirectory: GROUP serial map: bits=24 maxEntries=16777215
+2019-01-23 22:03:07,028 INFO namenode.FSDirectory: XATTR serial map: bits=24 maxEntries=16777215
+2019-01-23 22:03:07,039 INFO util.GSet: Computing capacity for map INodeMap
+2019-01-23 22:03:07,039 INFO util.GSet: VM type       = 64-bit
+2019-01-23 22:03:07,039 INFO util.GSet: 1.0% max memory 241.7 MB = 2.4 MB
+2019-01-23 22:03:07,039 INFO util.GSet: capacity      = 2^18 = 262144 entries
+2019-01-23 22:03:07,040 INFO namenode.FSDirectory: ACLs enabled? false
+2019-01-23 22:03:07,040 INFO namenode.FSDirectory: POSIX ACL inheritance enabled? true
+2019-01-23 22:03:07,040 INFO namenode.FSDirectory: XAttrs enabled? true
+2019-01-23 22:03:07,040 INFO namenode.NameNode: Caching file names occurring more than 10 times
+2019-01-23 22:03:07,053 INFO snapshot.SnapshotManager: Loaded config captureOpenFiles: false, skipCaptureAccessTimeOnlyChange: false, snapshotDiffAllowSnapRootDescendant: true, maxSnapshotLimit: 65536
+2019-01-23 22:03:07,058 INFO snapshot.SnapshotManager: SkipList is disabled
+2019-01-23 22:03:07,070 INFO util.GSet: Computing capacity for map cachedBlocks
+2019-01-23 22:03:07,070 INFO util.GSet: VM type       = 64-bit
+2019-01-23 22:03:07,070 INFO util.GSet: 0.25% max memory 241.7 MB = 618.7 KB
+2019-01-23 22:03:07,070 INFO util.GSet: capacity      = 2^16 = 65536 entries
+2019-01-23 22:03:07,079 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2019-01-23 22:03:07,079 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.num.users = 10
+2019-01-23 22:03:07,079 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2019-01-23 22:03:07,084 INFO namenode.FSNamesystem: Retry cache on namenode is enabled
+2019-01-23 22:03:07,084 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2019-01-23 22:03:07,089 INFO util.GSet: Computing capacity for map NameNodeRetryCache
+2019-01-23 22:03:07,089 INFO util.GSet: VM type       = 64-bit
+2019-01-23 22:03:07,089 INFO util.GSet: 0.029999999329447746% max memory 241.7 MB = 74.2 KB
+2019-01-23 22:03:07,089 INFO util.GSet: capacity      = 2^13 = 8192 entries
+2019-01-23 22:03:07,197 INFO namenode.FSImage: Allocated new BlockPoolId: BP-1113462729-127.0.0.1-1548252187168
+2019-01-23 22:03:07,243 INFO common.Storage: Storage directory /usr/local/hadoop/hdfs/name has been successfully formatted.
+2019-01-23 22:03:07,303 INFO namenode.FSImageFormatProtobuf: Saving image file /usr/local/hadoop/hdfs/name/current/fsimage.ckpt_0000000000000000000 using no compression
+2019-01-23 22:03:07,488 INFO namenode.FSImageFormatProtobuf: Image file /usr/local/hadoop/hdfs/name/current/fsimage.ckpt_0000000000000000000 of size 396 bytes saved in 0 seconds .
+2019-01-23 22:03:07,517 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid >= 0
+2019-01-23 22:03:07,535 INFO namenode.NameNode: SHUTDOWN_MSG: 
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at VM_0_9_centos/127.0.0.1
+************************************************************/
+
+ 7、进入目录：/usr/local/hadoop/hadoop-3.2.0/sbin
+	进行启动hadoop:
+	./start-all.sh
+	查看是否启动成功
+	jps
+	
+
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ 在window窗口中，进行发送get请求访问web服务器
+ 
+ 打开命令行窗口：
+ 
+ telnet 127.0.0.1 8080
+ 
+ ctrl + ] 按下enter键，
+ 
+ 输入请求的 路径：
+ 请求方式：GET
+ 请求的路径：/test.html
+ 请求中的http请求：HTTP/1.0
+ 请求返回则是状态：200
+ 
+ 请求方式：GET
+ 请求的路径：/test.html
+ 请求中的http请求：HTTP/1.1
+ 请求返回则是状态：400
+ 
+在HTTP1.0中不需要在请求头中添加Host字段(字段值中可以不进行设置值)
+请求服务器一次并设置了请求的HTTP版本，并发送了请求参数，服务器接收完成参数之后，则关闭本次链接
+
+
+在HTTP1.1中则必须需要在请求头中添加Host字段(字段值中可以不进行设置值)
+请求服务器一次并设置了请求的HTTP版本，并发送了请求参数，服务器中接收完成参数之后，则不会关闭链接
+
+
+GET请求方式：
+特点：传送的数据量是有限制的，一般限制在1KB以下。
+
+POST请求方式：
+特点：
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+========================================================================================================= 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

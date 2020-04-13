@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--被代理的对象类-->
+    <bean id="factoryUserServiceId" class="com.hulunbuir.clam.admin.aop.factorybean.FactoryUserServiceImpl"/>
+    <!--aop切面类-->
+    <bean id="factoryAdviceId" class="com.hulunbuir.clam.admin.aop.factorybean.FactoryAdvice"/>
+    <!--
+        spring的工厂bean的具体实现类，用于创建代理对象
+    -->
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!-- 首先指定被代理的接口，确定接口-->
+        <property name="interfaces" value="com.hulunbuir.clam.admin.aop.factorybean.FactoryUserService"/>
+        <!-- 然后指定被代理的实现类，确定实现类-->
+        <property name="target" ref="factoryUserServiceId"/>
+        <!--指定通知的类，确定切面类-->
+        <property name="interceptorNames" value="factoryAdviceId"/>
+        <!--强制使用cglib代理-->
+    </bean>
+
+</beans>

@@ -1,0 +1,2432 @@
+==git学习==
+----------------------------------------------------------|
+git pull时，需要登录的账户和密码						  |
+wangjunming@iciyun.com									  |
+Iciyun123												  |
+----------------------------------------------------------|
+git的命令学习：
+git status :查看git提交状态；
+git config --list :查看git设置列表；
+git checkout 文件名：撤回已修改的文件；
+git pull ：将远程仓库的的最新代码clone到本地仓库；
+git add 文件名：将文件添加到本地的栈内存中；
+git commit -m "注释"；将文件提交到本地仓库中；
+git push ：将已经提交到本地仓库的文件，推送到远程仓库；
+-------------------------------------------------------------
+git status  查看git提交状态；								 
+git add '文件名'					                         
+git pull 同步到服务器前先需要将服务器代码同步到本地			 
+git commit -m "提交本次的注释"； 					         
+git push 推送至远程客户端                                    
+				                 
+多个人同时修改一个类时，更新时会发生冲突，					 
+解决方法：					                                 
+1、git stash ：将本地中所有的的需要更新的放入git栈中；		 
+2、git pull ：更新至最新的代码，					         
+3、git stash pop ：将git栈中的文件进行弹栈，				 
+4、查看文件中发生冲突的文件，将其中的冲突解决后，进行提交	 
+5、git status ：查看当前的哪些文件是需要提交到远程库中的，	 
+6、git add ：将发生冲突的文件添加到本地库中，				 
+7、git reset ：将不需要修改的文件从本地仓库中撤回，			 
+8、git commit -m "提交本次的注释" ，					     
+9、git push ：将本地仓库中更新的代码，推送至远程仓库。	     
+------------------------------------------------------------|
+永久记住git客户端提交代码时输入的账号和密码					 
+在命令行输入命令:					                         
+前提是已经输入过账号和密码；				            	 
+git config --global credential.helper store					 
+这一步会在用户目录下的.gitconfig文件最后添加：      		 
+[credential] helper = store					                 
+通过命令git config --list					            	 
+来检查，是否有credential.helper=store这个属性				 
+再次打开git客户端，来检查效果；					            
+--------------------------------------------------------------
+------------------------------------------------
+deploy -e 
+------------------------------------------------
+ 
+ 在多线程的应用场景下：
+  
+ 同步块的锁是：
+ --任意的，创建出来的对象实例
+ 同步函数的锁是：
+ --是当前的对象，也就是this
+ 静态同步函数锁是：
+ --因为是静态的，随着类的加载而加载，所以锁是：当前类名.class
+ 创建线程：继承thread类，复写父类的run方法，start开启线程；
+ 
+ 复写run方法的作用
+ run方法是用于存储线程所需要执行的自定义代码。
+ 
+ 创建继承Thread类的线程，并执行start方法
+ start是来开启线程，调用run方法中需要执行的自定义代码，
+ 
+ 直接运行run方法就是直接来运行自定义的代码，并没有开启一个线程去执行自定义代码，
+				而是跟主线程一样，当前就只有一个主线程在执行，
+ 
+ 线程的几种状态：
+ 被创建（start()）；
+ 运行（run()）；
+ 临时状态（sleep(time)）具备执行资格，但是没有执行权，时间一到则开始执行；
+ 冻结状态（wait()）放弃了执行资格，也可以传参数，时间一到则也开始执行；
+ 唤醒线程（notify()）,唤醒冻结状态的的线程；
+ 消亡（stop()，run方法结束）；
+ 
+---------------------------------------------------------------- 
+----------------------------------------------------------------
+微信进行绑定：
+触发aouth2的静默授权，然后获取到code，将code放到回调的url上，
+前端将这个code再次请求后台接口，
+-->接口中会访问微信的服务器，
+换区AccessToken,openid,
+再次访问微信的服务器，将用户的基本信息，返回给前端，
+前端拿到这个信息之后，用户绑定的时候，将这个用户的基本信息后存储到数据库中；
+---------------- ---------------- ---------------- ---------------- 
+项目是一个B2B模式的，主要解决的问题是供应商的资金问题，只要两个企业之间有应付账款的订单，系统通过这个订单进行流转，
+让供应商更快的拿到资金，解决资金流转慢的问题，流转的业务有，开票，融资，其中用到了第三方的中金支付，cfca的合同协议
+其企业主要的功能有，唐票开具、唐票融资、融资复合、兑付计划、资产账户、资金流水、合作企业
+在运营端主要的功能有，企业审核，授信管理、授信复核、流转管理、付款计划
+微信上的服务号，
+我负责的主要模块是，合作企业，授信管理，信息服务，对接cfca的ukey制作和使用，微信公众号
+
+开发环境：
+git+maven+jdk1.8+mysql
+使用的技术：
+springmvc+springboot+mybatis+redis+zeekooper+dubbo+rabbitmq+vue
+
+
+----------------
+
+*     100 200 400 800 1600
+*      1   2   3   4   5
+*
+*      100若是中，再投就是100；不中，再投就是200；
+*      200若是中，再投就是100；不中，再投就是400；
+*      400若是中，再投就是100；不中，再投就是800；
+*      800若是中，再投就是100；不中，再投就是1600；
+*      1600若是中，再投就是100；不中，则止损，再投就是100；
+
+---------------- ---------------- ----------------
+
+LINUX学习：
+
+cat /etc/redhat-release    ：查看Linux的系统版本；
+
+=========================================================================================================================================================== 
+CENTOS7.5安装MYSQL:
+cat /etc/redhat-release    ：查看Linux的系统版本；
+1、进入：/usr/local/mysql  执行命令：wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+2、rpm -ivh mysql-community-release-el7-5.noarch.rpm
+3、yum install mysql-community-server
+4、service mysqld restart ：重启MySQL服务；
+5、mysql -u root     
+6、set password for 'root'@'localhost' =password('1234567');
+注意：以上命令执行就是在/usr/local/mysql目录下执行，若是没有该目录，则创建
+7、
+ 远程连接设置
+把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。
+执行命令：mysql> grant all privileges on *.* to root@'%' identified by '1234567';
+如果是新用户而不是root，则要先新建用户
+执行命令：mysql>create user 'username'@'%' identified by 'password';  
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234567'; 
+将设置生效
+FLUSH PRIVILEGES;
+=========================================================================================================================================================== 
+https://www.darknetmarkets.com/ultimate-dark-web-toolbox/   
+=====================================================================================================================================================
+数据库提供了四种事务隔离级别, 不同的隔离级别采用不同的锁类开来实现. 
+
+在四种隔离级别中, Serializable的级别最高, Read Uncommited级别最低. 
+
+大多数数据库的默认隔离级别为: Read Commited,如Sql Server , Oracle. 
+
+少数数据库默认的隔离级别为Repeatable Read, 如MySQL InnoDB存储引擎 
+
+即使是最低的级别,也不会出现 第一类 丢失 更新问题 .  
+
+1. 脏读(事务没提交，提前读取)：脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。 
+
+2. 不可重复读(两次读的不一致) ：是指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。例如，一个编辑人员两次读取同一文档，但在两次读取之间，作者重写了该文档。当编辑人员第二次读取文档时，文档已更改。原始读取不可重复。如果只有在作者全部完成编写后编辑人员才可以读取文档，则可以避免该问题。 
+3. 幻读 : 是指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发生操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。例如，一个编辑人员更改作者提交的文档，但当生产部门将其更改内容合并到该文档的主复本时，发现作者已将未编辑的新材料添加到该文档中。如果在编辑人员和生产部门完成对原始文档的处理之前，任何人都不能将新材料添加到文档中，则可以避免该问题。 
+4.第一类更新丢失(回滚丢失)： 
+  当2个事务更新相同的数据源，如果第一个事务被提交，而另外一个事务却被撤销，那么会连同第一个事务所做的跟新也被撤销。也就是说第一个事务做的跟新丢失了。 
+5.第二类更新丢失(覆盖丢失)： 
+  第二类更新丢失实在实际应用中经常遇到的并发问题，他和不可重复读本质上是同一类并发问题，通常他被看做不可重复读的特例：当2个或这个多个事务查询同样的记录然后各自基于最初的查询结果更新该行时，会造成第二类丢失更新。因为每个事务都不知道不知道其他事务的存在，最后一个事务对记录做的修改将覆盖其他事务对该记录做的已提交的跟新... 
+补充 : 基于元数据的 Spring 声明性事务 : 
+
+Isolation 属性一共支持五种事务设置，具体介绍如下： 
+
+l          DEFAULT 使用数据库设置的隔离级别 ( 默认 ) ，由 DBA 默认的设置来决定隔离级别 . 
+
+l          READ_UNCOMMITTED 会出现脏读、不可重复读、幻读 ( 隔离级别最低，并发性能高 ) 
+
+l          READ_COMMITTED  会出现不可重复读、幻读问题（锁定正在读取的行） 
+
+l          REPEATABLE_READ 会出幻读（锁定所读取的所有行） 
+
+l          SERIALIZABLE 保证所有的情况不会发生（锁表） 
+
+不可重复读的重点是修改 : 
+同样的条件 ,   你读取过的数据 ,   再次读取出来发现值不一样了 
+幻读的重点在于新增或者删除 
+同样的条件 ,   第 1 次和第 2 次读出来的记录数不一样
+
+
+----------------------------------------------------------
+事务传播行为种类
+
+Spring在TransactionDefinition接口中规定了7种类型的事务传播行为，
+
+它们规定了事务方法和事务方法发生嵌套调用时事务如何进行传播：
+
+表1事务传播行为类型
+
+事务传播行为类型
+ 说明
+ 
+PROPAGATION_REQUIRED
+ 如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择。
+ 
+PROPAGATION_SUPPORTS
+ 支持当前事务，如果当前没有事务，就以非事务方式执行。
+ 
+PROPAGATION_MANDATORY
+ 使用当前的事务，如果当前没有事务，就抛出异常。
+ 
+PROPAGATION_REQUIRES_NEW
+ 新建事务，如果当前存在事务，把当前事务挂起。
+ 
+PROPAGATION_NOT_SUPPORTED
+ 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+ 
+PROPAGATION_NEVER
+ 以非事务方式执行，如果当前存在事务，则抛出异常。
+ 
+PROPAGATION_NESTED
+ 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。
+ 
+一、事务的基本要素（ACID）
+
+1、原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。
+
+2、一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。
+　　 3、隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账
+
+4、持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。
+
+二、事务的并发问题
+
+　　1、脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据
+
+　　2、不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。
+
+　　3、幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。
+
+　　小结：不可重复读的和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增或删除。解决不可重复读的问题只需锁住满足条件的行，解决幻读需要锁表
+
+
+三、MySQL事务隔离级别
+
+事务隔离级别	            	脏读	不可重复读	幻读
+读未提交（read-uncommitted）	是		是			是
+不可重复读（read-committed）	否		是			是
+可重复读（repeatable-read）		否		否			是
+串行化（serializable）			否		否			否
+
+mysql默认的事务隔离级别为repeatable-read
+===================
+static{}，这叫静初始化代码块。静态初始化代码块在类加载的时候执行，这是在任何对象创建之前，且只执行一次。
+{}，这个是：代码块。在创建对象之前执行，
+===========================================================================================================================================================================================================================================================================================================================
+一、Docker是什么
+Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。
+Docker 将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心复杂环境问题。
+总体来说，Docker 的接口相当简单，用户可以方便地创建和使用容器，把自己的应用放入容器。容器还可以进行版本管理、复制、分享、修改，就像管理普通的代码一样。
+
+二、Docker容器与传统虚拟机技术的特性对比
+
+
+三、Docker的优势
+更快速的交付和部署
+Docker在整个开发周期都可以完美的辅助你实现快速交付。Docker允许开发者在装有应用和服务本地容器做开发。可以直接集成到可持续开发流程中。
+例如：开发者可以使用一个标准的镜像来构建一套开发容器，开发完成之后，运维人员可以直接使用这个容器来部署代码。 Docker 可以快速创建容器，快速迭代应用程序，并让整个过程全程可见，使团队中的其他成员更容易理解应用程序是如何创建和工作的。 Docker 容器很轻很快！容器的启动时间是秒级的，大量地节约开发、测试、部署的时间。
+高效的部署和扩容
+Docker 容器几乎可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等。 这种兼容性可以让用户把一个应用程序从一个平台直接迁移到另外一个。
+Docker的兼容性和轻量特性可以很轻松的实现负载的动态管理。你可以快速扩容或方便的下线你的应用和服务，这种速度趋近实时。
+更高的资源利用率
+Docker 对系统资源的利用率很高，一台主机上可以同时运行数千个 Docker 容器。容器除了运行其中应用外，基本不消耗额外的系统资源，使得应用的性能很高，同时系统的开销尽量小。传统虚拟机方式运行 10 个不同的应用就要起 10 个虚拟机，而Docker 只需要启动 10 个隔离的应用即可。
+更简单的管理
+使用 Docker，只需要小小的修改，就可以替代以往大量的更新工作。所有的修改都以增量的方式被分发和更新，从而实现自动化并且高效的管理。
+
+四、Docker版本
+Docker 是一个开源的商业产品，有两个版本：社区版（Community Edition，缩写为 CE）和企业版（Enterprise Edition，缩写为 EE）。
+Docker Community Edition（CE）适合希望开始使用Docker并尝试使用基于容器的应用程序的个人开发人员和小型团队。
+Docker Enterprise Edition（EE）专为企业开发和IT团队而设计，他们可以在生产中大规模构建，发布和运行业务关键型应用程序。
+
+
+五、系统版本及内核要求
+要求内核大于3.0的以下三个版本64位
+Bionic 18.04 (LTS)
+Xenial 16.04 (LTS)
+Trusty 14.04 (LTS)
+
+六、Docker安装
+#卸载旧版本(如果安装过旧版本的话)
+$ sudo apt-get remove docker docker-engine docker.io
+#确保 apt-get 包更新到最新
+$ sudo apt-get update
+# 安装
+$ sudo apt-get install\ apt-transport-https\ ca-certificates\ curl\ software-     properties-common
+$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo add-apt-repository\ "deb [arch=amd64] 
+https://download.docker.com/linux/ubuntu\ $(lsb_release -cs)\ stable”
+$ sudo apt-get update
+$ sudo apt-get install docker-ce
+
+
+Image、Container、Repository
+
+七、Image（镜像）文件
+Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器。image 文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。
+image 是二进制文件。实际开发中，一个 image 文件往往通过继承另一个 image 文件，加上一些个性化设置而生成。举例来说，你可以在 Ubuntu 的 image 基础上，往里面加入 Apache 服务器，形成你的 image。
+image 文件是通用的，一台机器的 image 文件拷贝到另一台机器，照样可以使用。一般应该尽量使用现有的 image 文件，而不是自己制作。即使要定制，也应该基于通用的 image 文件进行add，而不是从零开始制作。
+#查找镜像
+$ sudo docker search <NAME>
+#拉取镜像默认为latest
+$ sudo docker pull <images-name>
+#列出本机所有的镜像文件
+$ sudo docker images
+#删除镜像文件
+$ sudo docker rmi <image-id>
+#commit镜像
+$ sudo docker commit [option] CONTAINER [REPOSITORY[:TAG]]
+-a：提交镜像作者
+-c：使用Dockerfile指令创建镜像
+-m：提交说明
+-p：commit时暂停容器
+#查看镜像元数据
+$ sudo docker inspect <image-id>
+
+八、Container（容器）
+容器(container)由image文件生成的实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。
+#列出本机正在运行的容器
+$ sudo docker ps
+#列出本机所有的容器，包括终止运行的容器
+$ sudo docker ps -a
+上面命令的输出结果之中，包括容器的 ID。很多地方都需要提供这个 ID
+
+#启动容器
+$ sudo docker start <container>
+#终止容器
+$ sudo docker stop <container>
+#重启容器
+$ sudo docker restart <container>
+注意：终止运行的容器文件，依然会占据硬盘空间
+#删除容器
+$ sudo docker rm <container>
+docker run命令会从 image 文件，生成一个正在运行的容器实例。（注意：docker container run命令具有自动抓取 image 文件的功能。如果发现本地没有指定的 image 文件，就会从仓库自动抓取。因此，前面的docker image pull命令并不是必需的步骤。）
+#以我们现有的容器部署命令示例
+$ sudo docker run --name $image_name --log-opt max-size=10m \
+-p $container_port:$container_port \
+--network $network \
+-v /var/log/$image_name:/application/logs \
+-e SPRING_REFERENCE=test \
+-e SPRING_SERVICE=test \
+-e SPRING_PROFILE=test \
+-d harbor.emc.top/test-fota/$image_name:latest”
+-i: 以交互模式运行容器，通常与 -t 同时使用；
+-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+#进入容器
+$ sudo docker exec -it <container> /bin/bash
+#查看容器元数据
+$ sudo docker inspect <container>
+docker inspect 参数及作用可以自己去了解一下，另外可以结合grep、awk查找出需要的元数据。
+例如：查看所有运行容器的IP地址
+$ sudo docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+
+九、Dockerfile 文件
+学会使用 image 文件以后，接下来的问题就是，如何可以生成 image 文件？如果你要推广自己的软件，势必要自己制作 image 文件。
+这就需要用到 Dockerfile 文件。它是一个文本文件，用来配置 image。Docker 根据 该文件生成二进制的 image 文件。
+下面通过一个实例，演示如何编写 Dockerfile 文件。
+FROM  node:8.4
+COPY  . /app
+WORKDIR  /app
+RUN  npm install --registry=https://registry.npm.taobao.org
+EXPOSE  3000
+上面一共五行，含义如下。
+FROM node:8.4：该 image 文件继承官方的 node image，冒号表示标签，这里标签是8.4，即8.4版本的 node。
+COPY . /app：将当前目录下的所有文件（除了.dockerignore排除的路径），都拷贝进入 image 文件的/app目录。
+WORKDIR /app：指定接下来的工作路径为/app。
+RUN npm install：在/app目录下，运行npm install命令安装依赖。注意，安装后所有的依赖，都将打包进入 image 文件。
+EXPOSE 3000：将容器 3000 端口暴露出来， 允许外部连接这个端口。
+#创建镜像
+$ sudo docker build -t [imagename:tag] .
+$ sudo docker build -t [imagename:tag] -f  [dockerfile-path]
+
+十、Docker-Compose
+1. docker-compose 是什么？
+docker-compose 是一个用来把 docker 自动化的东西。有了 docker-compose 你可以把所有复杂的 docker 操作全都一条命令，自动化的完成。
+2. 为什么要用 docker-compose，它解决了什么？
+用通俗的语言来说，我们平时操作 docker 还是很原始的一系列动作，你手动使用 docker 的动作可以拆分成：
+找到一个系统镜像 // docker search
+拉取一个镜像  // docker pull
+运行镜像 // docker run -d -it 你的镜像
+略..
+这是最小的动作， 如果你要映射硬盘，设置nat网络或者桥接网络，等等…你就要做更多的 docker 操作， 这显然是非常没有效率的。
+但是我们写在 docker-compose.yml 里面就很好了。 你只需要写好后只运行一句：
+docker-compose up -d
+一切都是那么的简单。
+3. 安装Compose
+在安装compose之前，要确保已经安装了docker1.3或以上版本 
+sudo curl -L 
+https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose 
+sudo chmod +x /usr/local/bin/docker-compose  
+CLI 说明（docker-compose 命令）
+build 创建或者再建服务 服务被创建后会标记为project_service(比如composetest_db)，如果改变了一个服务的Dockerfile或者构建目录的内容，可以使用docker-compose build来重建它
+help 显示命令的帮助和使用信息
+kill 通过发送SIGKILL的信号强制停止运行的容器，这个信号可以选择性的通过，比如： docker-compose kill -s SIGKINT
+logs 显示服务的日志输出
+port 为端口绑定输出公共信息
+ps 显示容器
+pull 拉取服务镜像
+rm 删除停止的容器
+run 在服务上运行一个一次性命令，比如： docker-compose run web python manage.py shell
+scale 设置为一个服务启动的容器数量，数量是以这样的参数形式指定的：service=num，比如： docker-compose scale web=2 worker=3
+start 启动已经存在的容器作为一个服务
+stop 停止运行的容器而不删除它们，它们可以使用命令docker-compose start重新启动起来
+up 为一个服务构建、创建、启动、附加到容器 
+docker-compose.yml命令说明
+Image 标明image的ID，这个image ID可以是本地也可以是远程的，如果本地不存在，Compose会尝试去pull下来
+image: ubuntu  
+image: orchardup/postgresql  
+image: a4bc65fd  
+
+build 该参数指定Dockerfile文件的路径，该目录也是发送到守护进程的构建环境，Compose将会以一个已存在的名称进行构建并标记，并随后使用这个image
+build: /path/to/build/dir  
+
+links 连接到其他服务中的容器，可以指定服务名称和这个链接的别名，或者只指定服务名称
+links:  
+ - db  
+ - db:database  
+ - redis 
+此时，在容器内部，会在/etc/hosts文件中用别名创建一个条目，就像这样：
+172.17.2.186  db  
+172.17.2.186  database  
+172.17.2.186  redis
+
+ports 暴露端口，指定两者的端口（主机：容器），或者只是容器的端口（主机会被随机分配一个端口）ports:  
+ - "3000"  
+ - "8000:8000"  
+ - "49100:22"  
+ - "127.0.0.1:8001:8001"  
+
+expose 暴露端口而不必向主机发布它们，而只是会向链接的服务（linked service）提供，只有内部端口可以被指定
+expose:  
+ - "3000"  
+ - “8000"
+
+volumes 挂载路径作为，可以选择性的指定一个主机上的路径（主机：容器），或是一种可使用的模式（主机：容器：ro）
+volumes_from:  
+ - service_name  
+ - container_name  
+ 
+environment 加入环境变量，可以使用数组或者字典，只有一个key的环境变量可以在运行Compose的机器上找到对应的值，这有助于加密的或者特殊主机的值
+environment:  
+  RACK_ENV: development  
+  SESSION_SECRET:  
+environments:  
+  - RACK_ENV=development  
+  - SESSION_SECRET  
+
+env_file 从一个文件中加入环境变量，该文件可以是一个单独的值或者一张列表，在environment中指定的环境变量将会重写这些值
+env_file:  
+  - .env  
+RACK_ENV: development  
+
+net 网络模式，可以在docker客户端的--net参数中指定这些值
+net: "bridge"  
+net: "none"  
+net: "container:[name or id]"  
+net: "host" 
+
+docker-compose.yml示例
+version: '2'
+
+networks:
+    monitor:
+        driver: bridge
+
+services:
+    prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        hostname: prometheus
+        restart: always
+        volumes:
+            - /Users/caizh/fsdownload/prometheus.yml:/etc/prometheus/prometheus.yml
+            - /Users/caizh/fsdownload/node_down.yml:/etc/prometheus/node_down.yml
+            - /Users/caizh/fsdownload/memory_over.yml:/etc/prometheus/memory_over.yml
+            - /Users/caizh/fsdownload/record_rule.yml:/etc/prometheus/record_rule.yml
+        ports:
+            - "9090:9090"
+        networks:
+            - monitor
+
+    alertmanager:
+        image: prom/alertmanager
+        container_name: alertmanager
+        hostname: alertmanager
+        restart: always
+        volumes:
+            - /Users/sf/fsdownload/config.yml:/etc/alertmanager/config.yml
+        ports:
+            - "9093:9093"
+        networks:
+            - monitor
+
+    grafana:
+        image: grafana/grafana
+        container_name: grafana
+        hostname: grafana
+        restart: always
+        ports:
+            - "3000:3000"
+        networks:
+            - monitor
+
+十一、doker和主机通信
+这里先要来说一下docker网络的四种方式：
+Host模式
+Container模式
+None模式
+Bridge模式
+
+1. Host模式
+Host 模式并没有为容器创建一个隔离的网络环境。该模式下的Docker 容器会和Host宿主机共享同一个网络namespace， Docker Container。可以和宿主机一样，使用宿主机的eth0，实现和外界的通信。
+Host模式特点包括：
+容器没有隔离的 network namespace
+容器的 IP 地址同 Docker host 的 IP 地址
+注意：容器中服务端口号不能与Host宿主机上已经使用的端口号相冲突
+host 模式能够和其它模式共存
+
+2. Container模式
+Container网络模式是 Docker 中一种较为特别的网络的模式。处于这个模式下的 Docker 容器会共享其他容器的网络环境，因此，至少这两个容器之间不存在网络隔离，而这两个容器又与宿主机以及除此之外其他的容器存在网络隔离。
+
+3. None模式
+None 网络就是什么都没有的网络。挂在这个网络下的容器除了 lo，没有其他任何网卡。需要我们自行去配置。
+
+4. Bridge模式
+Docker 容器默认使用Bridge模式的网络。Docker的Bridge模式和VM虚拟机的Bridge模式不同，虽然也叫Bridge，但实质上类似于VM的NAT模式。
+
+原理是在宿主机上虚出一块网卡bridge0，然后所有容器会桥接在这块网卡的网段上。
+默认情况下容器能访问外部网络，但外部网络无法访问容器，需要通过暴露容器端口的方式（docker run -p）让外部网络访问容器内的服务。
+=================================================================================================================================================================
+ 
+ CENTOS7.5安装docker；
+ 1、由于docker是必须在内核版本在3.1以上的linux系统上安装；
+
+  uname -r   ：查看当前linux的的内核版本；
+
+ 2、yum install docker -y    ：在根目录执行安装docker命令；
+  卸载：
+  　　1、查询docker安装过的包：
+  　　　　yum list installed | grep docker
+         rpm -qa | grep docker
+
+  　　2、删除安装包：
+  　　　  yum remove docker-ce.x86_64 ddocker-ce-cli.x86_64 -y
+         yum –y remove docker.x86_64
+
+  　　3、删除镜像/容器等
+  　　　　rm -rf /var/lib/docker
+
+更改linux的centos7的yum源
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+https://www.cnblogs.com/imxiangbei/p/8872507.html
+
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+查看linux的版本信息
+lsb_release -a
+
+
+ 3、docker -v      ：查看docker的版本号；
+ 
+ 4、systemctl start docker    ：启动docker；
+    systemctl restart docker  ：启动docker；
+    查看docker的配置：cat /usr/lib/systemd/system/docker.service
+    命令查看docker的配置：docker info
+
+ 5、systemctl stop docker     :停止docker；
+ 
+ 6、systemctl enable docker   :将docker安装设置为开机启动；
+ 
+ 7、docker search mysql       ：搜索MySQL镜像；
+ 
+ 8、docker pull mysql         ：从docker的公共仓库中拉取MySQL的默认镜像；
+ 
+ 9、docker images             ：查看当前docker中是否安装了哪些镜像；
+ 
+ 10、docker rmi (images ID)   ：删除镜像（镜像ID）；
+ 
+ 11、docker ps				  ：查看安装并启动的镜像；
+ 
+ 12、docker ps -a             ：查看所有的已启动的镜像实例；
+ 
+ 13、删除一个镜像实例时，必须停止要删除的镜像实例：  docker rm  (images id(镜像实例的ID))
+ 
+ 14、启动一个镜像实例：docker run --name 指定的实例名称
+ 
+ 15、启动一个完成端口映射的镜像实例：docker run -d(标识后台运行) -p(指定映射的端口号(主机端口号:容器内部端口号))  (mysql(必填指的是容器的REPOSITORY(docker images命令查出来的第一列))) 
+ 
+ 16、查看正在运行的镜像实例日志：docker logs mysql ;
+     实时查看日志：docker logs -f mysql(容器运行的ID)
+	 
+ 17、docker上启动MySQL镜像实例：docker run --name MySQL3306 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql
+ 
+ 18、docker上启动带映射的MySQL镜像实例：docker run -p 3307:3306 --name MySQL3306 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql
+ 
+ 19、docker上启动带映射并设置字符集的MySQL镜像实例：
+	 docker run -p 3308:3306 --name mysql3308 -e MYSQL_ROOT_PASSWORD=1234567 -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+		#进入MySQL镜像实例容器中
+		docker exec -it MySQL3306(镜像名称) bash
+		docker exec -it 55b1faff3521 bash
+		#退出容器：
+		exit;
+		#登录mysql
+		mysql -u root -p
+		ALTER USER 'root'@'localhost' IDENTIFIED BY '1234567';
+		客户端在使用root连接的时候会出现：client does not support authentication protocol requested by server;consider upgrading mysql client 
+		#添加远程登录用户
+		CREATE USER 'qjyn1314'@'%' IDENTIFIED WITH mysql_native_password BY '1234567';
+		GRANT ALL PRIVILEGES ON *.* TO 'qjyn1314'@'%';
+		#程序中的应用是：
+		 IP地址是公网的IP地址
+		#账号分别是
+		 root:1234567
+		 qjyn1314:1234567
+		#程序在链接数据库(docker默认安装的是mysql最新版本)时出现的问题：
+		 1、Could not retrieve transation read-only status server
+			解决：
+			 将pom文件中的MySQL链接的的驱动换成Maven仓库中最新版本，
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>8.0.13</version>
+				</dependency>
+		 2、在MySQL5.7之后默认不开启，group by的函数的问题：
+		    SELECT @@GLOBAL.sql_mode;
+            SELECT @@SESSION.sql_mode;
+			set sql_mode ='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+			
+
+ 20、docker安装jenkins
+		#搜索jenkins
+		docker search jenkins
+		#拉取jenkins镜像
+		docker pull jenkins
+		#创建主机的jenkins文件存储路径
+		mkdir /usr/local/jenkins
+		#运行带映射端口的jenkins，并指定文件配置路径
+		docker run -p 8080:8080 -p 50000:50000 -v /usr/local/jenkins:/var/jenkins_home -d jenkins
+		#查看是否启动成功
+		docker ps -a 
+		#查看日志
+		docker logs jenkins的启动后的容器ID
+		#得到密码
+		Please use the following password to proceed to installation:
+		d406a25e9e2c49b4ad42a9205cedba80    #此字符串为jenkins的admin密码；
+		This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+		然后紧接着进行操作。
+		
+ 21、docker安装redis
+		#搜索redis
+		docker search redis
+		#拉取redis
+		docker pull redis
+		#运行带参数的redis，并指定密码
+		docker run --name redis6666 -p 6666:6379 -d redis --requirepass "1234567"
+		#查看运行成功的redis
+		docker ps -a
+		程序中应用的：ip地址是，服务器的公网ip，端口号是6666。
+	
+ 22、docker安装zookeeper
+		#搜索zookeeper
+		docker search zookeeper
+		#拉取zookeeper
+		docker pull zookeeper
+		#运行带参数的zookeeper
+		docker run --name zookeeper4181 --restart always -p 4181:2181 -d zookeeper
+		docker run --name zookeeper4182 --restart always -p 4182:2181 -d zookeeper
+		docker run --name zookeeper4183 --restart always -p 4183:2181 -d zookeeper
+		程序中的使用:dubbo配置文件中的ip地址以及端口号是：47.104.78.115:4181
+		
+ 23、docker安装rabbit
+		#搜索rabbit
+		docker search rabbit
+		#拉取rabbit
+		docker pull rabbit 
+		#运行带参数的rabbit
+		docker run -d --hostname my-rabbit5672 --name rabbit5672 -p 5672:5672 rabbitmq
+		#查看实时日志：docker logs -f 正在运行的容器ID
+		47.104.78.115:5672
+	
+	docker安装带管理页面的rabbitmq(rabbitmq:management)
+	#搜索rabbitmq:management
+	docker search rabbitmq:management
+	#拉取rabbitmq:management
+	docker pull rabbitmq:management
+	#运行带管理界面的rabbitmq:management
+	docker run -d --name rabbitmqAndManager --publish 5671:5671 --publish 5672:5672 --publish 4369:4369 --publish 5674:25672 --publish 5675:15671 --publish 5676:15672 rabbitmq:management
+	#访问管理页面：
+	47.104.78.115:5676   即可打开rabbitmq的管理页面
+	默认的登录账户密码：guest：guest
+	1、创建一个admin权限的admin,admin123的一个用户，需要在程序中使用这个用户的账号和密码
+	2、或者直接使用默认的账户密码也行
+ 
+===========================================================================================================================================================
+ Springboot(1.5.19)的启动原理以及启动步骤(大部分版本的启动方式)：
+	1、创建SpringApplication对象，
+		1.initialize();方法，
+		if (sources != null && sources.length > 0) {
+		//保存主配置类
+            this.sources.addAll(Arrays.asList(sources));
+        }
+		//判断当前应用是否是web应用
+        this.webEnvironment = this.deduceWebEnvironment();
+        //加载MATE/INFO下面的springboot.factories配置的所有ApplicationContextInitializers,(找到自动配置类)并保存。
+		this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
+	    //加载MATE/INFO下面的springboot.factories配置的所有ApplicationListener,(找到监听器)并保存。
+        this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+		//从多个配置类中找到带有main方法的主配置类
+        this.mainApplicationClass = this.deduceMainApplicationClass();
+		
+	
+	2、运行run方法，
+	 public ConfigurableApplicationContext run(String... args) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        ConfigurableApplicationContext context = null;
+        FailureAnalyzers analyzers = null;
+        this.configureHeadlessProperty();
+		//获取SpringApplicationRunListeners：从类路径下META-INF下获取监听器，
+        SpringApplicationRunListeners listeners = this.getRunListeners(args);
+        //回调所有的获取SpringApplicationRunListeners的starting()方法，
+		listeners.starting();
+        try {
+			//开启
+            ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+            //准备环境并创建：IOC环境，
+			ConfigurableEnvironment environment = this.prepareEnvironment(listeners, applicationArguments);
+			//创建完成SpringApplicationRunListeners，ApplicationArguments，并打印banner；
+            Banner printedBanner = this.printBanner(environment);
+			//创建ApplicationContext，根据是否是web应用，利用反射，来创建IOC容器；
+            context = this.createApplicationContext();
+            new FailureAnalyzers(context);
+			//准备上下文环境：将environment保存在ioc中；其中applyInitializers方法里面调用ApplicationContextInitializer的initialize()方法，
+			//将初始化器进行回调，将环境都准备好之后，回调的方法：SpringApplicationRunListeners的contextLoaded(),在方法的最后执行；
+			this.prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+			//刷新容器，初始化ioc容器，同步的并创建安全的容器(如果是web应用还会创建嵌入式的tomcat)，
+			//扫描，创建，加载所有组件的地方；(配置类，组件，自动配置)
+            this.refreshContext(context);
+			//从ioc容器中获取ApplicationRunner和CommandLineRunner，；来进行回调
+            this.afterRefresh(context, applicationArguments);
+			//所有的SpringApplicationRunListener回调finished，进行启动；
+            listeners.finished(context, (Throwable)null);
+            stopWatch.stop();
+            if (this.logStartupInfo) {
+                (new StartupInfoLogger(this.mainApplicationClass)).logStarted(this.getApplicationLog(), stopWatch);
+            }
+            return context;
+        } catch (Throwable var9) {
+            this.handleRunFailure(context, listeners, (FailureAnalyzers)analyzers, var9);
+            throw new IllegalStateException(var9);
+        }
+    }
+		
+		
+================
+================
+==========================	
+	CENTOS7安装hadoop
+
+1、hostname 
+   查看当前linux上的hostname是什么
+   hostname Master   -->将hostname 修改为：Master
+ 
+2、修改hosts文件
+	vim /etc/hosts 
+	新增 47.104.78.115  Master 
+	
+	检测是否修改成功：
+	使用  ping Master 将出现一下效果：
+	[root@izm5e9ibpdra8rjti7v0xrz hadoop]# ping Master
+	PING Master (47.104.78.115) 56(84) bytes of data.
+	64 bytes from Master (47.104.78.115): icmp_seq=1 ttl=64 time=0.221 ms
+	64 bytes from Master (47.104.78.115): icmp_seq=2 ttl=64 time=0.214 ms
+	64 bytes from Master (47.104.78.115): icmp_seq=3 ttl=64 time=0.201 ms
+ 3、
+ 
+================ ================ ================ ================ ================ ================ ================ ================ ================
+==========================	==========================	==========================	==========================	==========================	
+================ ================ ================ ================ ================ ================ ================ ================ ================
+
+ maven的学习 ：
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+========================================================================================================= 
+ 数据库规范
+Skip to end of metadata
+Created by 毛伟, last modified on Feb 23, 2019 Go to start of metadata
+一、基础规范
+（1）必须使用InnoDB存储引擎
+
+解读：支持事务、行级锁、并发性能更好、CPU及内存缓存页优化使得资源利用率更高
+
+（2）必须使用UTF8字符集
+
+解读：万国码，无需转码，无乱码风险，节省空间（由于移动设备原因最好使用utf8mb4)
+
+（3）数据表、数据字段必须加入中文注释
+
+解读：N年后谁tm知道这个r1,r2,r3字段是干嘛的
+
+（4）禁止使用存储过程、视图、触发器、Event
+
+解读：高并发大数据的互联网业务，架构设计思路是“解放数据库CPU，将计算转移到服务层”，并发量大的情况下，这些功能很可能将数据库拖死，业务逻辑放到服务层具备更好的扩展性，能够轻易实现“增机器就加性能”。数据库擅长存储与索引，CPU计算还是上移吧
+
+（5）禁止存储大文件或者大照片
+
+解读：为何要让数据库做它不擅长的事情？大文件和照片存储在文件系统，数据库里存URI多好
+
+二、命名规范
+（6）只允许使用内网域名，而不是ip连接数据库
+
+（7）线上环境、开发环境、测试环境数据库内网域名遵循命名规范(虽然IP访问更快，域名访问需要内网dns,但是对于大数据库的扩展和迁库考虑，域名更好）
+
+业务名称：xxx
+
+线上环境：dj.xxx.db
+
+开发环境：dj.xxx.rdb
+
+测试环境：dj.xxx.tdb
+
+从库在名称后加-s标识，备库在名称后加-ss标识
+
+线上从库：dj.xxx-s.db
+
+线上备库：dj.xxx-sss.db
+
+ 
+
+（8）库名、表名、字段名：小写，下划线风格，不超过32个字符，必须见名知意，禁止拼音英文混用 
+
+（9）表名t_xxx，非唯一索引名idx_xxx，唯一索引名uniq_xxx
+
+三、表设计规范
+（10）单实例表数目必须小于500
+
+（11）单表列数目必须小于30
+
+（12）表必须有主键，例如自增主键
+
+解读：
+
+a）主键递增，数据行写入可以提高插入性能，可以避免page分裂，减少表碎片提升空间和内存的使用
+
+b）主键要选择较短的数据类型， Innodb引擎普通索引都会保存主键的值，较短的数据类型可以有效的减少索引的磁盘空间，提高索引的缓存效率
+
+c） 无主键的表删除，在row模式的主从架构，会导致备库夯住
+
+（13）禁止使用外键，如果有外键完整性约束，需要应用程序控制
+
+解读：外键会导致表与表之间耦合，update与delete操作都会涉及相关联的表，十分影响sql 的性能，甚至会造成死锁。高并发情况下容易造成数据库性能，大数据高并发业务场景数据库使用以性能优先
+
+ 
+
+四、字段设计规范
+（14）必须把字段定义为NOT NULL并且提供默认值
+
+解读：
+
+a）null的列使索引/索引统计/值比较都更加复杂，对MySQL来说更难优化
+
+b）null 这种类型MySQL内部需要进行特殊处理，增加数据库处理记录的复杂性；同等条件下，表中有较多空字段的时候，数据库的处理性能会降低很多
+
+c）null值需要更多的存储空，无论是表还是索引中每行中的null的列都需要额外的空间来标识
+
+d）对null 的处理时候，只能采用is null或is not null，而不能采用=、in、<、<>、!=、not in这些操作符号。如：where name!=’shenjian’，如果存在name为null值的记录，查询结果就不会包含name为null值的记录
+
+ 
+
+（15）禁止使用TEXT、BLOB类型
+
+解读：会浪费更多的磁盘和内存空间，非必要的大量的大字段查询会淘汰掉热数据，导致内存命中率急剧降低，影响数据库性能
+
+（16）禁止使用小数存储货币（可以把单位算作分，显示和计算时x100,...）
+
+解读：使用整数吧，小数容易导致钱对不上
+
+（17）必须使用varchar(20)存储手机号
+
+解读：
+
+a）涉及到区号或者国家代号，可能出现+-()
+
+b）手机号会去做数学运算么？
+
+c）varchar可以支持模糊查询，例如：like“138%”
+
+ 
+
+（18）禁止使用ENUM，可使用TINYINT代替
+
+解读：
+
+a）增加新的ENUM值要做DDL操作
+
+b）ENUM的内部实际存储就是整数，你以为自己定义的是字符串？
+
+ 
+
+五、索引设计规范
+（19）单表索引建议控制在5个以内
+
+（20）单索引字段数不允许超过5个
+
+解读：字段超过5个时，实际已经起不到有效过滤数据的作用了 
+
+（21）禁止在更新十分频繁、区分度不高的属性上建立索引
+
+解读：
+
+a）更新会变更B+树，更新频繁的字段建立索引会大大降低数据库性能
+
+b）“性别”这种区分度不大的属性，建立索引是没有什么意义的，不能有效过滤数据，性能与全表扫描类似
+
+（22）建立组合索引，必须把区分度高的字段放在前面
+
+解读：能够更加有效的过滤数据
+
+六、SQL使用规范
+（23）禁止使用SELECT *，只获取必要的字段，需要显示说明列属性
+
+解读：
+
+a）读取不需要的列会增加CPU、IO、NET消耗
+
+b）不能有效的利用覆盖索引
+
+c）使用SELECT *容易在增加或者删除字段后出现程序BUG
+
+ 
+
+（24）禁止使用INSERT INTO t_xxx VALUES(xxx)，必须显示指定插入的列属性
+
+解读：容易在增加或者删除字段后出现程序BUG
+
+（25）禁止使用属性隐式转换
+
+解读：SELECT uid FROM t_user WHERE phone=13812345678 会导致全表扫描，而不能命中phone索引，猜猜为什么？（这个线上问题不止出现过一次）
+
+int数据类型优先级高于archer， 该查询会把phone转换为int，因此需要把表中所有数据改成int，所以必须全盘扫描
+
+（26）禁止在WHERE条件的属性上使用函数或者表达式
+
+解读：SELECT uid FROM t_user WHERE from_unixtime(day)>='2017-02-15' 会导致全表扫描
+
+正确的写法是：SELECT uid FROM t_user WHERE day>= unix_timestamp('2017-02-15 00:00:00')
+
+（27）禁止负向查询，以及%开头的模糊查询
+
+解读：
+
+a）负向查询条件：NOT、!=、<>、!<、!>、NOT IN、NOT LIKE等，会导致全表扫描
+
+b）%开头的模糊查询，会导致全表扫描
+
+（28）禁止大表使用JOIN查询，禁止大表使用子查询
+
+解读：会产生临时表，消耗较多内存与CPU，极大影响数据库性能
+
+（29）禁止使用OR条件，必须改为IN查询
+
+解读：旧版本Mysql的OR查询是不能命中索引的，即使能命中索引，为何要让数据库耗费更多的CPU帮助实施查询优化呢？
+
+（30）应用程序必须捕获SQL异常，并有相应处理
+
+  (31)  表(关联表除外)创建必须字段：
+
+                code  varchar2 （编码）,
+
+                deleted  bit（是否删除）,
+
+                create_time  datetime  (创建时间)    ,
+
+                update_time datetime（修改时间） ,
+
+                create_user  bigint(20) ,
+
+                update_user  bigint(20)；
+
+   (32)  在（31）中的字段编写在末尾
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

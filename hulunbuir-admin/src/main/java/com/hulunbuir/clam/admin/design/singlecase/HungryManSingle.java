@@ -12,10 +12,10 @@ public class HungryManSingle {
     private HungryManSingle() {
     }
 
-    private final static HungryManSingle hungryManSingle = new HungryManSingle();
+    private final static HungryManSingle HUNGRY_MAN_SINGLE = new HungryManSingle();
 
     public static HungryManSingle getInstance() {
-        return hungryManSingle;
+        return HUNGRY_MAN_SINGLE;
     }
 
     /**

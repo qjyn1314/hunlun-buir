@@ -28,11 +28,8 @@ public class DynaProxy implements InvocationHandler {
         Object result = null;
         try {
             System.out.println("JVM通过这条语句执行原来的方法(反射机制)--之前");
-
             AnnotatedType returnType = method.getAnnotatedReturnType();
-
             System.out.println(returnType.getType());
-
             result = method.invoke(this.delegate, args);
             System.out.println(result);
             System.out.println("JVM通过这条语句执行原来的方法(反射机制)--之后");
