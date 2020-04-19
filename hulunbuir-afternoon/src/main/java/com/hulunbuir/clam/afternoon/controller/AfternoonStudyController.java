@@ -1,5 +1,6 @@
 package com.hulunbuir.clam.afternoon.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hulunbuir.clam.afternoon.persistence.entity.KoUser;
 import com.hulunbuir.clam.afternoon.persistence.service.IKoUserService;
 import com.hulunbuir.clam.common.base.BaseController;
@@ -12,7 +13,10 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,11 +47,13 @@ public class AfternoonStudyController extends BaseController {
      */
     @ApiOperation("获取当前时间")
     @GetMapping("/nowDate")
-    public String getNowDateTime() {
+    @ResponseBody
+    public Object getNowDateTime() {
         KoUser user = new KoUser();
         user.setUserName("排骨-"+DateUtils.getDateTimes());
-        boolean flag = userService.insertUserGlob(user);
-        return user.toString();
+//        boolean flag = userService.insertUserGlob(user);
+        List<KoUser> list = userService.list();
+        return JSON.toJSON(list);
     }
 
 

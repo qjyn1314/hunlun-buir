@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 /**
  * <p>
  * Explain:分布式事务的配置类
@@ -16,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-public class SeataTransactionConfig {
+public class DruidDataConfig {
 
     /**
      * 创建数据源
@@ -25,12 +27,10 @@ public class SeataTransactionConfig {
      * @author wangjunming
      * @since 2020/1/23 15:25
      */
-    @Bean(name = "druidDataSource",destroyMethod = "close", initMethod = "init")
+    @Bean(name = "druidDataSource")
     @ConfigurationProperties(prefix = "spring.datasource")
-    public DruidDataSource druidDataSource() {
-        DruidDataSource druidDataSource = new DruidDataSource();
-        log.info("当前工程的数据源信息：{}", druidDataSource);
-        return druidDataSource;
+    public DataSource druidDataSource() {
+        return new DruidDataSource();
     }
 //
 //    /**
