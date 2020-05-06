@@ -1,8 +1,8 @@
 # hunlun-buir
 
-为实现分布式事务的管理，而创建的spring-boot项目，现已实现分布式事务的正常事务，以及异常后事务的回滚
+为学习分布式项目的管理，而创建的spring-boot项目
 
-项目中使用的框架：
+### 项目中使用的框架：
 
 spring-boot:2.2.2.RELEASE
 
@@ -20,14 +20,12 @@ mybatis-plus-boot-starter:3.3.0
 druid:1.1.21
 
 ### 分布式中使用的rpc框架dubbo
-dubbo-spring-boot-starter:2.0.0
+org.apache.dubbo:dubbo-spring-boot-starter:2.7.1
 
 ### 分布式中的注册中心使用zookeeper
 zookeeper:3.5.6
 zkclient:0.11
-
-### 阿里开源的分布式事务的解决方案
-seata-all:1.0.0
+ 
 
 ## 项目环境：
 
@@ -38,30 +36,7 @@ seata-all:1.0.0
 数据库：mysql5.7
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
