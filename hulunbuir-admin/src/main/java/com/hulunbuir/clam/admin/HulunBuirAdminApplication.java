@@ -26,18 +26,18 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @Configuration
 @Slf4j
 @SpringBootApplication
-public class HulunbuirAdminApplication {
+public class HulunBuirAdminApplication {
 
-    public static void main(String[] args) {
-        log.info("开始启动-->{}", DateUtils.getDateTimes());
-        SpringApplication.run(HulunbuirAdminApplication.class, args);
-        log.info("启动结束-->{}", DateUtils.getDateTimes());
+    public HulunBuirAdminApplication(AdminServerProperties adminServer) {
+        this.adminServer = adminServer;
     }
 
     private final AdminServerProperties adminServer;
 
-    public HulunbuirAdminApplication(AdminServerProperties adminServer) {
-        this.adminServer = adminServer;
+    public static void main(String[] args) {
+        log.info("开始启动-->{}", DateUtils.getDateTimes());
+        SpringApplication.run(HulunBuirAdminApplication.class, args);
+        log.info("启动结束-->{}", DateUtils.getDateTimes());
     }
 
     @Configuration

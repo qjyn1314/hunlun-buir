@@ -8,7 +8,7 @@ import com.hulunbuir.clam.afternoon.params.qo.LoginUser;
 import com.hulunbuir.clam.afternoon.params.qo.RegUser;
 import com.hulunbuir.clam.afternoon.persistence.entity.User;
 import com.hulunbuir.clam.afternoon.persistence.service.IUserService;
-import com.hulunbuir.clam.common.config.RedisHelper;
+import com.hulunbuir.clam.common.config.RedisConfig;
 import com.hulunbuir.clam.common.mail.MailConstants;
 import com.hulunbuir.clam.distributed.admin.AdminMailProvider;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
@@ -45,7 +45,7 @@ public class AfterLoginController {
     private AdminMailProvider mailProvider;
 
     @Autowired
-    private RedisHelper redisHelper;
+    private RedisConfig redisHelper;
 
     /**
      * 发送登录的邮箱验证码

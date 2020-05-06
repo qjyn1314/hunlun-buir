@@ -41,21 +41,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Autowired
     private HttpServletRequest request;
 
-    /**
-     * 添加swagger-ui的资源文件访问权限
-     *
-     * @author wangjunming
-     * @since 2020/1/17 10:59
-     * @param registry:
-     * @return void
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+    private String licenseUrl = "http://%s:%s/swagger-ui.html";
 
     @Bean
     public Docket createRestApi() {
@@ -72,13 +58,27 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .globalOperationParameters(pars);
     }
 
-   private String licenseUrl = "http://%s:%s/swagger-ui.html";
+    /**
+     * 添加swagger-ui的资源文件访问权限
+     *
+     * @param registry:
+     * @return void
+     * @author wangjunming
+     * @since 2020/1/17 10:59
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("称，个个棒棒哒~--RESTful APIS")
                 .description("称，个个棒棒哒~~搭建springboot2.2.2+mybatis-plus3.3.0")
-                .licenseUrl(String.format(CommonUtils.getIpAddr(request),licenseUrl,port))
+                .licenseUrl(String.format(CommonUtils.getIpAddr(request), licenseUrl, port))
                 .version("1.0")
                 .build();
     }

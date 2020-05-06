@@ -3,12 +3,11 @@ package com.hulunbuir.clam.afternoon;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.hulunbuir.clam.afternoon.persistence.entity.User;
-import com.hulunbuir.clam.common.config.RedisHelper;
+import com.hulunbuir.clam.common.config.RedisConfig;
 import com.hulunbuir.clam.common.mail.MailConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 
 @SpringBootTest
 class HulunBuirAfternoonApplicationTests {
@@ -16,7 +15,7 @@ class HulunBuirAfternoonApplicationTests {
 //    @Autowired
 //    private RedisTemplate<String,Object> redisTemplate;
     @Autowired
-    private RedisHelper redisHelper;
+    private RedisConfig redisHelper;
     @Test
     void contextLoads() {
         String randomNumbers = RandomUtil.randomNumbers(6);
