@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * <p>
- * explain: 缓冲区读文件
+ * explain: 使用缓冲区向文件中写数据
  * </p>
  *
  * @author wangjunming

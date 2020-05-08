@@ -17,8 +17,8 @@ public class HulunBuirException extends Exception{
         super(message);
     }
 
-    public static HulunBuirException build(String message){
-        return new HulunBuirException(message);
+    public static HulunBuirException build(String message) throws HulunBuirException {
+        throw new HulunBuirException(message);
     }
 
 

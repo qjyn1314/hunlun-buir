@@ -168,6 +168,13 @@
             <version>4.5.10</version>
         </dependency>
         <!--httpclient-end-->
+        <!--excel相关-start-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!--excel相关-end-->
         <!--解析xml-start-->
         <dependency>
             <groupId>org.dom4j</groupId>
@@ -230,20 +237,8 @@
             <artifactId>p6spy</artifactId>
             <version>3.8.5</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.21</version>
-        </dependency>-->
         <!--mysql-end-->
 
-        <!--seata-start-->
-       <!-- <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
-            <version>1.0.0</version>
-        </dependency>-->
-        <!--seata-end-->
         <!--spring-boot-admin-start-->
         <dependency>
             <groupId>de.codecentric</groupId>

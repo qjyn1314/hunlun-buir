@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  * <p>
- * explain: 将数据写入文件中
+ * explain: 向文件中进行写数据
  * </p>
  *
  * @author wangjunming
@@ -42,7 +42,7 @@ public class FileWriterDemo {
     }
 
     /**
-     * 对已有的文件进行续写
+     * 对已有的文件进行续写，其本质就是更改构造函数，增加传参
      *
      * @author wangjunming
      * @since 2020/4/30 16:17
