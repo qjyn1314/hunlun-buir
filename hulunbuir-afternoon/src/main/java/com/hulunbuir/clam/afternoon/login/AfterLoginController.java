@@ -93,7 +93,7 @@ public class AfterLoginController {
     @PostMapping("/regUser")
     public JsonResult regUser(@Valid RegUser regUser) throws Exception {
         boolean regUserFlag = false;
-        boolean vaildate = redisHelper.vaildate(MailConstants.VERIFICATION.name() + regUser.getUserMail());
+        boolean vaildate = redisHelper.validationStrValue(MailConstants.VERIFICATION.name() + regUser.getUserMail());
         if (vaildate) {
             throw HulunBuirException.build("验证码已失效，请重新点击获取验证码");
         }

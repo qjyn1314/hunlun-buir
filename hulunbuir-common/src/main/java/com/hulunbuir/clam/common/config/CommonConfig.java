@@ -28,6 +28,7 @@ import java.util.List;
  */
 @Configuration
 public class CommonConfig {
+    /**增加资源访问的路径*/
     @EnableWebMvc
     @Configuration
     public static class WebConfig implements WebMvcConfigurer {
@@ -37,7 +38,7 @@ public class CommonConfig {
             registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
         }
     }
-
+    /**用于配置admin监控的信息*/
     @Configuration
     public static class JacksonMVCConfig implements WebMvcConfigurer {
         @Override

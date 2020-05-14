@@ -3,7 +3,6 @@ package com.hulunbuir.clam.admin.mail;
 import com.hulunbuir.clam.admin.test_demo.Person;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.tool.DateUtils;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,8 +91,7 @@ public class MailService {
         messageHelper.setSentDate(new Date());//发送时间
         String emailFileName = "测试excel发送-" + DateUtils.getDateTimes() + ".xlsx";
         DataSource dataSource = new FileDataSource(new File(""));
-        final String fileName = MimeUtility.encodeText(emailFileName);
-        messageHelper.addAttachment(fileName, dataSource);//添加附件信息
+        messageHelper.addAttachment(emailFileName, dataSource);//添加附件信息
         mailSender.send(messageHelper.getMimeMessage());//正式发送邮件
     }
 

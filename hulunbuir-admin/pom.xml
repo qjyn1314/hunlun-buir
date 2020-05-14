@@ -32,9 +32,15 @@
             <groupId>com.hulunbuir.clam.route</groupId>
             <artifactId>hulunbuir-route</artifactId>
         </dependency>
+        <!--整合邮件发送-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!--整合rabbitmq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 

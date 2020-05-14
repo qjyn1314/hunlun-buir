@@ -2,7 +2,7 @@ package com.hulunbuir.clam.admin.design.factory.messagefactory;
 
 /**
  * <p>
- * Explain:抽象的发送短信的公共类
+ * Explain:抽象的发送短信的公共接口
  * </p >
  *
  * @author wangjunming
@@ -13,14 +13,37 @@ public interface Message {
     /**
      * 抽象方法--发送短信
      * 具体的实现在各个继承类中
-     *
-     * @param tenId:租户ID-用于查找相应的短信签名，以及不同租户所要求的短信模板内容不一致
-     * @param contentType:短息模板的类型
-     * @param paramsStr:短信模板中所携带的参数，必须以半角英文逗号隔开
+     * @param otherData 某一标识，用于查询某一套的模板，需要根据具体使用场景来判断使用
+     * @param phone 短信内容
+     * @param signatureCode 签名唯一标识
+     * @param messageTemplateCode 模板唯一标识
+     * @param params 短信内容
      * @author wangjunming
      * @since 2020/2/24 11:28
      */
-     void sendMessage(Long tenId, String contentType, String paramsStr);
+     void sendMessage(String otherData,String phone,String signatureCode,String messageTemplateCode,String params);
+
+
+    /**
+     * 封装短信内容
+     * @param messageTemplateCode 短信模板唯一标识
+     * @param params 短信模板中所需要的参数
+     * @author wangjunming
+     * @since 2020/5/12 17:45
+     */
+     String encapsulationMessageContent(String messageTemplateCode,String params);
+
+
+     /**
+      * 获取短信签名
+      * @param signatureCode 签名唯一标识
+      * @author wangjunming
+      * @since 2020/5/12 18:14
+      */
+     String acquireSignature(String signatureCode);
+
+
+
 
 
 }

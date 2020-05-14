@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
+@Slf4j
 @ComponentScan(basePackages = {
         "com.hulunbuir.clam.admin",
         "com.hulunbuir.clam.parent",
@@ -22,9 +22,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
         "com.hulunbuir.clam.distributed",
 })
 @EnableDubbo
-@EnableAdminServer
 @Configuration
-@Slf4j
+@EnableAdminServer
 @SpringBootApplication
 public class HulunBuirAdminApplication {
 

@@ -16,7 +16,7 @@ import java.util.*;
  */
 @Component("messageFactory")
 @ConfigurationProperties(prefix = "message")
-public class MessageFactoryServiceImpl implements MessageFactoryService {
+public class MessageFactory {
     private HashMap<String, Integer> map;
 
     public HashMap<String, Integer> getMap() {
@@ -27,12 +27,14 @@ public class MessageFactoryServiceImpl implements MessageFactoryService {
         this.map = map;
     }
 
+    String HC = "HC",ALI = "ALI";
+
     /**
      * 获取优先级最高的api接口类型
      *
+     * @return java.lang.String
      * @author wangjunming
      * @since 2020/2/25 13:42
-     * @return java.lang.String
      */
     private String getMessageType() {
         String messageType = "";
@@ -48,16 +50,12 @@ public class MessageFactoryServiceImpl implements MessageFactoryService {
         }
         return messageType;
     }
-
-    @Override
     @Bean
     public Message getMessageServiceImplByType() {
         if (HC.equals(getMessageType())) {
             return new MessageHc();
         } else if (ALI.equals(getMessageType())) {
             return new MessageAli();
-        } else if (CL.equals(getMessageType())) {
-            return new MessageCl();
         } else {
             return null;
         }

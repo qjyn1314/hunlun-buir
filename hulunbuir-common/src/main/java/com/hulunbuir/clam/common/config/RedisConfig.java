@@ -91,7 +91,7 @@ public class RedisConfig {
      * @author wangjunming
      * @since 2020/3/3 15:17
      */
-    public boolean vaildate(String key) {
+    public boolean validationStrValue(String key) {
         Object strValue = getStrValue(key);
         if (null == strValue) {
             return true;
