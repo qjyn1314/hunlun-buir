@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * explain:
+ * explain: 定时任务
  * </p>
  *
  * @author wangjunming
@@ -17,22 +17,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ScheduleJob {
 
-
     /**
-     * 测试定时任务-每两秒执行一次
-     * 参考： https://www.bejson.com/othertools/cron/
+     * 测试定时任务-每十秒执行一次
+     * 表达式参考：  https://www.bejson.com/othertools/cron/
      *
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/15 * * * * ?")
     public void checkState1() {
-        RabbitMqUtils.messageTest("进行测试使用MQ进行发送消息，并进行监听！！");
-        log.info(">>>>> cron测试定时任务-每两秒执行一次检查开始....");
-        log.info(">>>>> cron测试定时任务-每两秒执行一次检查完成....");
+        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息开始....");
+        RabbitMqUtils.messageTest("使用testMQ进行发送消息，并进行监听！！");
+        RabbitMqUtils.messageDev("使用devMQ进行发送消息，并进行监听！！");
+        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息结束....");
     }
-
-
-
 
 }

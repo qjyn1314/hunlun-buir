@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
  * @author wangjunming
  * @since 2020/4/16 17:40
  */
-public class ThreadDemo4 implements Callable<String> {
+public class ThreadDemo4实现callable接口 implements Callable<String> {
 
     @Override
     public String call() throws Exception {

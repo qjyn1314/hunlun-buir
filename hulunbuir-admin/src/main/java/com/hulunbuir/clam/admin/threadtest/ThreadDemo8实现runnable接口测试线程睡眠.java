@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.threadtest;
  * @author wangjunming
  * @since 2020/4/16 17:19
  */
-public class ThreadDemo8 implements Runnable {
+public class ThreadDemo8实现runnable接口测试线程睡眠 implements Runnable {
 
     @Override
     public void run() {

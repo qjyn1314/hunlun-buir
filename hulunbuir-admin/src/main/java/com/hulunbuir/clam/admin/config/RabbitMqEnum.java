@@ -10,8 +10,8 @@ package com.hulunbuir.clam.admin.config;
  */
 public enum RabbitMqEnum {
 
-
-    TEST_MAIL_SEND("test:MAIL_SEND:exchanges", "test:MAIL_SEND:queues");
+    TEST_MAIL_SEND(RabbitMqUtils.TEST_MAIL_SEND_EXCHANGES, RabbitMqUtils.TEST_MAIL_SEND_QUEUES),
+    DEV_MAIL_SEND(RabbitMqUtils.DEV_MAIL_SEND_EXCHANGES, RabbitMqUtils.DEV_MAIL_SEND_QUEUES);
 
     private String exchanges;
     private String queues;

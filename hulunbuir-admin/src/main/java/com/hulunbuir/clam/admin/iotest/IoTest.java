@@ -1,9 +1,9 @@
 package com.hulunbuir.clam.admin.iotest;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -117,17 +117,6 @@ public class IoTest {
         FileDemo fileDemo = new FileDemo();
         fileDemo.FileDemoMethods001();
 
-        String totalPrice = "0.4000";
-        final BigDecimal bigDecimal = new BigDecimal(totalPrice);
-        System.out.println(bigDecimal);
-
-
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        final Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.HOUR_OF_DAY,-24);
-        final Date instanceTime = instance.getTime();
-        final String format = simpleDateFormat.format(instanceTime);
-        System.out.println(format);
 
     }
 

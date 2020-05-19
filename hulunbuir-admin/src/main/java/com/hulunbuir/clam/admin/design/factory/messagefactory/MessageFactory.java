@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * <p>
  * Explain:创建发送短信的工具的工厂
- * </p >
  *
  * @author wangjunming
  * @since 2020-02-24 10:20
@@ -27,7 +25,7 @@ public class MessageFactory {
         this.map = map;
     }
 
-    String HC = "HC",ALI = "ALI";
+    String HC = "HC", ALI = "ALI";
 
     /**
      * 获取优先级最高的api接口类型
@@ -41,15 +39,21 @@ public class MessageFactory {
         IntSummaryStatistics stats = map.values().stream().mapToInt((x) -> x).summaryStatistics();
         Integer max = stats.getMax();
         Set<Map.Entry<String, Integer>> entries = map.entrySet();
-        for (Iterator<Map.Entry<String, Integer>> iterator = entries.iterator(); iterator.hasNext(); ) {
-            Map.Entry<String, Integer> next = iterator.next();
-            Integer value = next.getValue();
-            if (value.equals(max)) {
-                messageType = next.getKey();
-            }
+      for (Map.Entry<String, Integer> next : entries) {
+        Integer value = next.getValue();
+        if (value.equals(max)) {
+          messageType = next.getKey();
         }
+      }
         return messageType;
     }
+
+    /**
+     * 创建message的工厂
+     *
+     * @author wangjunming
+     * @since 2020/5/19 10:20
+     */
     @Bean
     public Message getMessageServiceImplByType() {
         if (HC.equals(getMessageType())) {

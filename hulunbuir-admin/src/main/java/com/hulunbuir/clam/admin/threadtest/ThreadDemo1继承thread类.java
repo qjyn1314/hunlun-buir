@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.threadtest;
  * @author wangjunming
  * @since 2020/4/16 17:12
  */
-public class ThreadDemo1 extends Thread {
+public class ThreadDemo1继承thread类 extends Thread {
 
     @Override
     public void run() {

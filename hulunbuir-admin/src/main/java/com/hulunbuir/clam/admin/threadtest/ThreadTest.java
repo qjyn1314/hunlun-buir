@@ -118,7 +118,7 @@ public class ThreadTest {
 
 
 //        当多个线程处理同一个变量的时候出现了并发问题
-        ThreadDemo3 threadDemo3 = new ThreadDemo3();
+        ThreadDemo3实现runnable接口测试锁 threadDemo3 = new ThreadDemo3实现runnable接口测试锁();
         new Thread(threadDemo3,"张三").start();
         new Thread(threadDemo3,"李四").start();
         new Thread(threadDemo3,"王五").start();

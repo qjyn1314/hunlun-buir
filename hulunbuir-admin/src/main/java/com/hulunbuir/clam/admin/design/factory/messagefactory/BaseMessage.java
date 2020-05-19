@@ -53,10 +53,10 @@ public abstract class BaseMessage implements Message {
      * @author wangjunming
      * @since 2020/2/24 11:28
      */
-    @Override
+    /*@Override
     public void sendMessage(String otherData,String phone,String signatureCode,String messageTemplateCode,String params) {
 
-    }
+    }*/
 
     /**
      * 封装短信内容

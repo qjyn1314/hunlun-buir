@@ -1,8 +1,10 @@
 package com.hulunbuir.clam.admin.iotest;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
  * <p>
@@ -70,10 +72,11 @@ public class FileDemo {
         System.out.println("absolutePath:"+absolutePath);
         final String parent = file3.getParent();
         System.out.println("parent:"+parent);
-String price = "0.4";
 
-        final BigDecimal bigDecimal = new BigDecimal(price);
-        System.out.println(bigDecimal);
+        final File file = new File(parent);
+
+        final String[] fileList = file.list();
+        System.out.println("路径"+parent+"下的文件:"+ JSON.toJSONString(fileList, SerializerFeature.PrettyFormat));
 
 
     }

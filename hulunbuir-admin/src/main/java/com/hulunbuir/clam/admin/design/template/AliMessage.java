@@ -11,4 +11,5 @@ package com.hulunbuir.clam.admin.design.template;
 public class AliMessage extends MessageTime{
 
 
+
 }

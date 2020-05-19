@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.threadtest;
  * @author wangjunming
  * @since 2020/4/16 17:26
  */
-public class ThreadDemo3 implements Runnable {
+public class ThreadDemo3实现runnable接口测试锁 implements Runnable {
     boolean flag = true;
     private int ticketNum = 100;
 

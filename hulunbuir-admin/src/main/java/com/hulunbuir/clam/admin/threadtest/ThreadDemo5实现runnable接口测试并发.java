@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.threadtest;
  * @author wangjunming
  * @since 2020/4/16 17:19
  */
-public class ThreadDemo5 implements Runnable {
+public class ThreadDemo5实现runnable接口测试并发 implements Runnable {
 
     private boolean flag = false;
 
