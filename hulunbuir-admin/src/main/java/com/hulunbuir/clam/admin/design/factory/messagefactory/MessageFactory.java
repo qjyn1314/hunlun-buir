@@ -4,7 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.IntSummaryStatistics;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Explain:创建发送短信的工具的工厂
@@ -39,17 +42,17 @@ public class MessageFactory {
         IntSummaryStatistics stats = map.values().stream().mapToInt((x) -> x).summaryStatistics();
         Integer max = stats.getMax();
         Set<Map.Entry<String, Integer>> entries = map.entrySet();
-      for (Map.Entry<String, Integer> next : entries) {
-        Integer value = next.getValue();
-        if (value.equals(max)) {
-          messageType = next.getKey();
+        for (Map.Entry<String, Integer> next : entries) {
+            Integer value = next.getValue();
+            if (value.equals(max)) {
+                messageType = next.getKey();
+            }
         }
-      }
         return messageType;
     }
 
     /**
-     * 创建message的工厂
+     * 使用创建工厂模式，根据不同的条件进行创建不同的对象
      *
      * @author wangjunming
      * @since 2020/5/19 10:20

@@ -1,10 +1,8 @@
 package com.hulunbuir.clam.admin.design.adapter;
 
-import java.util.HashMap;
-
 /**
  * <p>
- * Explain:
+ * Explain:适配器的使用
  * </p >
  *
  * @author wangjunming
@@ -14,10 +12,10 @@ public class AdapterDemo {
 
     public static void main(String[] args) {
 
-        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
-        StringBuilder stringBuilder = new StringBuilder();
+        AdapterSpecific adapterSpecific = new AdapterSpecific();
+        final String adapterSend = adapterSpecific.adapterSend();
+        System.out.println(adapterSend);
 
-        stringObjectHashMap.put("doc", stringBuilder);
     }
 
 }
