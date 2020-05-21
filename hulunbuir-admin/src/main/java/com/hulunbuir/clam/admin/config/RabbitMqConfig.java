@@ -57,6 +57,13 @@ import org.springframework.context.annotation.Configuration;
  * 出现这样的异步情况，为了不影响主流业务流程的问题，则使用rabbitmq
  * </p>
  *
+ *
+ * 使用步骤：
+ * 1.在RabbitMqUtils类中添加指定的交换机和队列。
+ * 2.将添加的交换机和队列变量同步到RabbitMqEnum枚举类中。
+ * 3.在RabbitMqUtils类中添加发送消息的静态方法，并指定添加的交换机和队列的key
+ * 4.在RabbitMqConsumer类中添加监听指定所添加队列的方法，并接收消息做逻辑处理
+ *
  * @author wangjunming
  * @since 2020/5/13 14:15
  */
@@ -79,28 +86,44 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 相关mq创建绑定
+     * 相关mq创建绑定,DIRECT(直连)模式
      */
     @Bean
     public void MqCreateBinding() {
         //获取MQ枚举所有枚举值
         for (RabbitMqEnum enums : RabbitMqEnum.values()) {
             //枚举值创建交换机
+            final Integer exchangesType = enums.getExchangesType();
             DirectExchange directExchange = null;
-            try {
-                directExchange = new DirectExchange(enums.getExchanges());
-                amqpAdmin.declareExchange(directExchange);
-            } catch (Exception e) {
-                log.error("停止创建MQ，原因：创建MQ的交换机异常：{}，可能没有创建spring.rabbitmq.virtual-host>>>", e.getMessage());
-                break;
+            FanoutExchange fanoutExchange = null;
+            if (Integer.valueOf("1").equals(exchangesType)) {
+                try {
+                    directExchange = new DirectExchange(enums.getExchanges());
+                    amqpAdmin.declareExchange(directExchange);
+                } catch (Exception e) {
+                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>", e);
+                    break;
+                }
+            } else if (Integer.valueOf("2").equals(exchangesType)) {
+                try {
+                    fanoutExchange = new FanoutExchange(enums.getExchanges());
+                    amqpAdmin.declareExchange(fanoutExchange);
+                } catch (Exception e) {
+                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>", e);
+                    break;
+                }
             }
             //枚举值创建消息队列
             Queue paymentCreditQueue = new Queue(enums.getQueues());
             amqpAdmin.declareQueue(paymentCreditQueue);
-
             //绑定关联关系
-            Binding binding = BindingBuilder.bind(paymentCreditQueue).to(directExchange).with(enums.getQueues());
-            amqpAdmin.declareBinding(binding);
+            if (Integer.valueOf("1").equals(exchangesType)) {
+                Binding binding = BindingBuilder.bind(paymentCreditQueue).to(directExchange).with(enums.getQueues());
+                amqpAdmin.declareBinding(binding);
+            } else if (Integer.valueOf("2").equals(exchangesType)) {
+                Binding binding = BindingBuilder.bind(paymentCreditQueue).to(fanoutExchange);
+                amqpAdmin.declareBinding(binding);
+            }
         }
     }
 

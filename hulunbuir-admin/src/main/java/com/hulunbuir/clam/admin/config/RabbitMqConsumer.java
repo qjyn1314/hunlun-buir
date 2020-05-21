@@ -1,5 +1,7 @@
 package com.hulunbuir.clam.admin.config;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -7,10 +9,12 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * <p>
  * explain: 调用mq信息，进行消费
- *
+ * <p>
  * 在整合的时候出现了错误信息：Channel shutdown: channel error; protocol method:
  * 错误信息参考了：https://blog.csdn.net/qq_38082304/article/details/103049696 已解决
  * </p>
@@ -22,32 +26,148 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMqConsumer {
 
+
+    private MessageProperties getMessageProperties(Message message) {
+        return message.getMessageProperties();
+    }
+
+    private String getMessageContent(Message message) {
+        String consumerMessage = new String(message.getBody());
+        log.info("消费端所消费消息：---->>>>----{}", consumerMessage);
+        String consumerQueue = getMessageProperties(message).getConsumerQueue();
+        String receivedExchange = getMessageProperties(message).getReceivedExchange();
+        log.info("---->>>---------MQ消息消费端的交换机是:{}，队列是:{} ", receivedExchange, consumerQueue);
+        return consumerMessage;
+    }
+
+    private void consumerException(Message message, Exception e) {
+        String consumerQueue = getMessageProperties(message).getConsumerQueue();
+        String receivedExchange = getMessageProperties(message).getReceivedExchange();
+        log.error("消费端的交换机:{},消费端的队列:{}-->异常报错:{}", receivedExchange, consumerQueue, e);
+    }
+
+    private void ackMessage(Message message, Channel channel) {
+        log.info("---->>>-----扔掉消息");
+        try {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+        } catch (IOException e) {
+            log.error("扔掉消息失败异常：", e);
+        }
+    }
+
+    private void publishMessage(Message message, Channel channel) {
+        final String consumerQueue = getMessageProperties(message).getConsumerQueue();
+        String receivedExchange = getMessageProperties(message).getReceivedExchange();
+        log.info("---->>>-----扔掉消息之后>>>>异常重新放回队列----MQ消息消费端测试: " + consumerQueue);
+        try {
+            channel.basicPublish(receivedExchange, consumerQueue, null, message.getBody());
+        } catch (IOException e) {
+            log.error("重新放回消息队列失败异常：", e);
+        }
+    }
+
     /**
-     * MQ消息消费端消费消息，只监听测试环境的和开发环境的消息接收
+     * DIRECT(直连)模式
+     * MQ消息消费端消费消息，只监听开发环境的消息接收
      */
-    @RabbitListener(queues = {RabbitMqUtils.TEST_MAIL_SEND_QUEUES,RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
-    public synchronized void testAndDevMessageConsumer(Message message, Channel channel) throws Exception {
-        log.info("消费端所消费消息：---->>>>----{}", new String(message.getBody()));
-        final MessageProperties messageProperties = message.getMessageProperties();
-        final String consumerQueue = messageProperties.getConsumerQueue();
-        final String receivedExchange = messageProperties.getReceivedExchange();
-        log.info("---->>>---------MQ消息消费端的交换机是:{} ", receivedExchange);
-        log.info("---->>>---------MQ消息消费端的队列是:{} ", consumerQueue);
+    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
+    public void devMessageConsumer(Message message, Channel channel) {
+        final String messageContent = getMessageContent(message);
         boolean flag = true;
+        try {
+            final Object object = JSON.toJSON(messageContent);
+            log.info("消费端所消费消息的-json：---->>>>----{}", object);
+            RabbitMqQo rabbitMqQo = JSONArray.parseObject(object.toString(), RabbitMqQo.class);
+            log.info("消费端所消费消息解析后的对象：---->>>>----{}", rabbitMqQo);
+        } catch (Exception e) {
+            flag = false;
+            log.error("解析消息内容失败异常");
+            //异常打印
+            consumerException(message, e);
+        }
         try {
 //            int i = 1/0;
         } catch (Exception e) {
             flag = false;
-            log.error("消费端的交换机:{},消费端的队列:{}-->异常报错！:{}", receivedExchange, consumerQueue, e);
+            //异常打印
+            consumerException(message, e);
         }
         if (flag) {
             //扔掉消息
-            log.info("---->>>-----扔掉消息");
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+            ackMessage(message, channel);
         } else {
-            log.info("---->>>-----扔掉消息之后>>>>异常重新放回队列----MQ消息消费端测试: " + consumerQueue);
             //重新放回消息队列
-            channel.basicPublish(receivedExchange, consumerQueue, null, message.getBody());
+            publishMessage(message, channel);
+        }
+    }
+
+    /**
+     * DIRECT(直连)模式
+     * MQ消息消费端消费消息，只监听测试环境的消息接收
+     */
+    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
+    public void testMessageConsumer(Message message, Channel channel) {
+        final String messageContent = getMessageContent(message);
+        boolean flag = true;
+        try {
+            //进行解析消息内容
+            final Object object = JSON.toJSON(messageContent);
+            log.info("消费端所消费消息的-json：---->>>>----{}", object);
+            RabbitMqQo rabbitMqQo = JSONArray.parseObject(object.toString(), RabbitMqQo.class);
+            log.info("消费端所消费消息解析后的对象：---->>>>----{}", rabbitMqQo);
+        } catch (Exception e) {
+            flag = false;
+            log.error("解析消息内容失败异常：", e);
+        }
+        try {
+//            int i = 1/0;
+        } catch (Exception e) {
+            flag = false;
+            consumerException(message, e);
+        }
+        if (flag) {
+            //扔掉消息
+            ackMessage(message, channel);
+        } else {
+            //重新放回消息队列
+            publishMessage(message, channel);
+        }
+    }
+
+
+
+    /**
+     * FANOUT(广播)模式
+     * MQ消息消费端消费消息，只监听测试环境的广播消息接收
+     */
+    @RabbitListener(queues = {RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_ONE,RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_TWO})
+    public void fanoutTestMessageConsumerOne(Message message, Channel channel) {
+        final String messageContent = getMessageContent(message);
+        boolean flag = true;
+        try {
+            final Object object = JSON.toJSON(messageContent);
+            log.info("消费端所消费消息的-json：---->>>>----{}", object);
+            RabbitMqQo rabbitMqQo = JSONArray.parseObject(object.toString(), RabbitMqQo.class);
+            log.info("消费端所消费消息解析后的对象：---->>>>----{}", rabbitMqQo);
+        } catch (Exception e) {
+            flag = false;
+            log.error("解析消息内容失败异常");
+            //异常打印
+            consumerException(message, e);
+        }
+        try {
+//            int i = 1/0;
+        } catch (Exception e) {
+            flag = false;
+            //异常打印
+            consumerException(message, e);
+        }
+        if (flag) {
+            //扔掉消息
+            ackMessage(message, channel);
+        } else {
+            //重新放回消息队列
+            publishMessage(message, channel);
         }
     }
 

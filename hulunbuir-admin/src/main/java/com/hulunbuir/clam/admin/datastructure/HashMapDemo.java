@@ -125,6 +125,9 @@ public class HashMapDemo {
          * 对于查找操作来讲，仍需遍历链表，然后通过key对象的equals方法逐一比对查找。
          * 所以，性能考虑，HashMap中的链表出现越少，性能才会越好。
          *
+         *
+         * 线程不安全的hashmap出现的问题：
+         *
          */
         String hashKey = "qjyn1314";
         map2.put(hashKey, tableSizeFor);
