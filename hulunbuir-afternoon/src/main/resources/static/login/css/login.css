@@ -77,21 +77,22 @@ a {
     background-color: #eee;
 }
 
-.verificationInput {
-    width: 150px;
-    float: left;
-}
-.verificationBtn {
-    float: right;
-    margin: 9px 0px 0px 16px;
-}
-
-input {
+.input-groups input {
     background: #eee;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+    outline: none;
+}
+
+.verification input {
+    background: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin-right: 15px;
+    width: 150px;
+    height: 45px;
     outline: none;
 }
 
@@ -106,7 +107,7 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
-    /*cursor: pointer;*/
+    cursor: pointer;
 }
 
 button:active {

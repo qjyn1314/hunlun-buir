@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * Explain:生成mybatis开发代码
+ * Explain:生成mybatis后端的开发代码
  * </p >
  *
  * @author wangjunming
@@ -27,9 +27,9 @@ public class MybatisGenerator {
         GlobalConfig gc = new GlobalConfig();
 //        F:\IDEA\hulun-buir\hulunbuir-afternoon\src\main\java
 //        F:\IDEA\hulun-buir\hulunbuir-evening\src\main\java
-        String afternoonurl = "F:\\IDEA\\hulun-buir\\hulunbuir-afternoon\\src\\main\\java";
+        String afternoonurl = "F:\\IDEA_entertainment\\hunlun-buir\\hulunbuir-afternoon\\src\\main\\java";
 
-        String eveningUrl = "F:\\IDEA\\hulun-buir\\hulunbuir-evening\\src\\main\\java";
+        String eveningUrl = "F:\\IDEA_entertainment\\hunlun-buir\\hulunbuir-evening\\src\\main\\java";
 
         gc.setOutputDir(afternoonurl);//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
@@ -46,14 +46,15 @@ public class MybatisGenerator {
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/king?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/buir?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
         mpg.setDataSource(dsc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(new String[]{"user"});
+        String[] include = {"buir_user","buir_role","buir_user_role","buir_permission","buir_role_permission"};
+        strategy.setInclude(include);
         //生成实体的@TableFile注解
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);
@@ -64,7 +65,6 @@ public class MybatisGenerator {
          * 下面的包名都根据实际情况编写
          * com.hulunbuir.clam.afternoon.persistence
          */
-
         String afternoonEntity = "com.hulunbuir.clam.afternoon.persistence.entity";
         String afternoonMapper = "com.hulunbuir.clam.afternoon.persistence.mapper";
         String afternoonXml = "com.hulunbuir.clam.afternoon.persistence.mapper.xml";

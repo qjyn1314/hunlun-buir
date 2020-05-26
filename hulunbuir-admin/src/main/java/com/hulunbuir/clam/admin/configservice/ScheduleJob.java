@@ -2,8 +2,11 @@ package com.hulunbuir.clam.admin.configservice;
 
 import com.hulunbuir.clam.admin.config.RabbitMqQo;
 import com.hulunbuir.clam.admin.config.RabbitMqUtils;
+import com.hulunbuir.clam.common.config.RedisConfig;
+import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +20,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ScheduleJob {
+    @Autowired
+    RedisConfig redisConfig;
+    @Autowired
+    private RedisTemplate<String, Object> redisStrKeyTemplate;
 
     /**
      * 测试定时任务-每十秒执行一次
@@ -25,11 +32,16 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/15 * * * * ?")
+//    @Scheduled(cron = "0/15 * * * * ?")
     public void checkState1() {
-        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息开始....");
-        RabbitMqUtils.messageTestFanout(new RabbitMqQo());
-        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息结束....");
+        log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息开始....");
+        String key = "nowDateTimes";
+        String value = DateUtils.getDateTimes();
+        long overdueTime = 800000;
+        redisConfig.setStrKey(key,value,overdueTime);
+        final Object strValue = redisConfig.getStrValue(key);
+        log.info("redis中存储的key：{}，value：{}",key,strValue);
+        log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息结束....");
     }
 
     /**
@@ -39,11 +51,25 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/25 * * * * ?")
     public void checkState2() {
-        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息开始....");
+        log.info(">>>>> cron测试定时任务-每25秒执行一次检查MQ信息开始....");
         RabbitMqUtils.messageDevJson(new RabbitMqQo());
-        log.info(">>>>> cron测试定时任务-每十秒执行一次检查MQ信息结束....");
+        log.info(">>>>> cron测试定时任务-每25秒执行一次检查MQ信息结束....");
+    }
+
+    /**
+     * 测试定时任务-每十秒执行一次
+     * 表达式参考：  https://www.bejson.com/othertools/cron/
+     *
+     * @author wangjunming
+     * @since 2020/5/13 16:22
+     */
+//    @Scheduled(cron = "0/15 * * * * ?")
+    public void checkRedisMessage() {
+        log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
+
+        log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息结束....");
     }
 
 }

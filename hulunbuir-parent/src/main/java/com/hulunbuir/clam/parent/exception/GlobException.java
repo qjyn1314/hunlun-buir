@@ -3,16 +3,17 @@ package com.hulunbuir.clam.parent.exception;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ import java.util.Set;
  * @author wangjunming
  * @since 2020-02-12 17:54
  */
-@RestControllerAdvice
+@ControllerAdvice
 @Slf4j
 public class GlobException {
 
@@ -35,6 +36,7 @@ public class GlobException {
      * @author wangjunming
      * @since 2020/2/12 18:03
      */
+    @ResponseBody
     @ExceptionHandler(value = HulunBuirException.class)
     public JsonResult handleHulunBuirException(HulunBuirException e) {
         log.error("系统错误", e);
@@ -49,6 +51,7 @@ public class GlobException {
      * @author wangjunming
      * @since 2020/2/12 18:03
      */
+    @ResponseBody
     @ExceptionHandler(BindException.class)
     public JsonResult validExceptionHandler(BindException e) {
         log.error("实体对象传参-异常", e);
@@ -67,6 +70,7 @@ public class GlobException {
      * @author wangjunming
      * @since 2020/2/12 18:05
      */
+    @ResponseBody
     @ExceptionHandler(value = ConstraintViolationException.class)
     public JsonResult handleConstraintViolationException(ConstraintViolationException e) {
         log.error("普通传参-异常", e);
@@ -79,6 +83,18 @@ public class GlobException {
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return JsonResult.error(message.toString());
+    }
+
+    /**
+     * 统一处理请求的方法不正确异常
+     *
+     * @author wangjunming
+     * @since 2020/2/12 18:05
+     */
+    @ExceptionHandler(value = RequestRejectedException.class)
+    public String handleHttpRequestMethodNotSupportedException(RequestRejectedException e) {
+        log.error("统一处理请求的方法不正确异常-异常", e);
+        return "/error/404";
     }
 
 }

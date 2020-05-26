@@ -93,10 +93,6 @@ public class RedisConfig {
      */
     public boolean validationStrValue(String key) {
         Object strValue = getStrValue(key);
-        if (null == strValue) {
-            return true;
-        } else {
-            return false;
-        }
+        return null == strValue;
     }
 }

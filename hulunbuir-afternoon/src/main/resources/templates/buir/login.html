@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>呼伦贝尔大草原的下午</title>
     <link rel="shortcut icon" href="../../static/icon/ali.gif" type="image/gif"/>
+    <link href="../../static/Parallax/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../static/login/css/login.css">
 </head>
 
@@ -15,23 +16,27 @@
             <div class="reg_form form_class">
                 <h1>注册</h1>
                 <div class="social-container">
-                    <a href="#" ><i class=" "></i></a>
-                    <a href="#" ><i class=" "></i></a>
-                    <a href="#" ><i class=" "></i></a>
+                    <a href="#"><i class=" "></i></a>
+                    <a href="#"><i class=" "></i></a>
+                    <a href="#"><i class=" "></i></a>
                 </div>
                 <span>或使用邮箱注册</span>
-                <input type="text" name="regUserName" placeholder="姓名">
-                <input type="email" name="regUserMail" placeholder="电子邮箱">
-                <input type="password" name="regUserPassword" placeholder="密码">
-                <div>
-                    <div class="verificationInput">
+                <div class="input-groups">
+                    <input name="regUserName" placeholder="昵称" type="text">
+                    <input name="regUserMail" placeholder="电子邮箱" type="email">
+                    <input name="regUserPassword" placeholder="密码" type="password">
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 verification">
                         <input type="text" name="verification" placeholder="邮箱验证码">
                     </div>
-                    <div class="verificationBtn">
+                    <div class="col-xs-5">
                         <button class="send_verification">发送</button>
                     </div>
                 </div>
-                <button class="reg_user" data-dialog="somedialog">注册</button>
+                <div class="row" style="margin-top: 8px">
+                    <button class="reg_user" data-dialog="somedialog">注册</button>
+                </div>
             </div>
         </div>
         <div class="form-container sign-in-container">
@@ -43,8 +48,21 @@
                     <a href="#" class="layui-icon"><i class=" layui-icon-login-weibo"></i></a>
                 </div>
                 <span>或使用您的帐号</span>
-                <input type="email" name="userMail" placeholder="电子邮箱">
-                <input type="password" name="userPassword" placeholder="密码">
+                <div class="input-groups">
+                    <input name="userMail" placeholder="电子邮箱" type="email">
+                    <input name="userPassword" placeholder="密码" type="password">
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 verification">
+                        <input autocomplete="off" name="captcha" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('请输入验证码')"
+                               placeholder="验证码" type="text">
+                    </div>
+                    <div class="col-xs-5">
+                        <div style="height: 45px;width: 120px;">
+                            <img height="100%" id="kaptcha" width="100%"/>
+                        </div>
+                    </div>
+                </div>
                 <a href="#">忘记密码?</a>
                 <button class="user_login">登录</button>
             </div>
@@ -67,10 +85,23 @@
 
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.bootcss.com/snap.svg/0.5.1/snap.svg-min.js"></script>
 <script src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../../static/buir-js/common/Ajax.js"></script>
 <script src="../../static/login/js/login.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+        changeKaptcha();
+        //获取验证码图片
+        $("#kaptcha").click(function () {
+            changeKaptcha();
+        });
+    });
+
+    function changeKaptcha() {
+        $("#kaptcha").attr('src', '/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();
+    }
+</script>
 </body>
 </html>

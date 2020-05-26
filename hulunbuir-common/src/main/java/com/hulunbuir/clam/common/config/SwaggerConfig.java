@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -41,8 +43,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Autowired
     private HttpServletRequest request;
 
-    private String licenseUrl = "http://%s:%s/swagger-ui.html";
-
     @Bean
     public Docket createRestApi() {
         ParameterBuilder tokenPar = new ParameterBuilder();
@@ -62,7 +62,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
      * 添加swagger-ui的资源文件访问权限
      *
      * @param registry:
-     * @return void
      * @author wangjunming
      * @since 2020/1/17 10:59
      */
@@ -75,6 +74,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     }
 
     private ApiInfo apiInfo() {
+        String licenseUrl = "http://%s:%s/swagger-ui.html";
         return new ApiInfoBuilder()
                 .title("称，个个棒棒哒~--RESTful APIS")
                 .description("称，个个棒棒哒~~搭建springboot2.2.2+mybatis-plus3.3.0")
@@ -83,5 +83,15 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .build();
     }
 
+    /**
+     * 允许多请求地址多加斜杠  比如 /msg/list   //msg/list
+     *
+     * @author wangjunming
+     * @since 2020/5/26 15:37
+     */
+    @Bean
+    public HttpFirewall httpFirewall() {
+        return new DefaultHttpFirewall();
+    }
 
 }

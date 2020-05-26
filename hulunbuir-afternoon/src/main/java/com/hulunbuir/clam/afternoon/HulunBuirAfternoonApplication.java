@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @ComponentScan(basePackages = {
         "com.hulunbuir.clam.afternoon",
         "com.hulunbuir.clam.parent",
-        "com.hulunbuir.clam.common",
-        "com.hulunbuir.clam.route.config",
+        "com.hulunbuir.clam.common.*",
+        "com.hulunbuir.clam.route",
         "com.hulunbuir.clam.distributed",
 })
 @EnableDubbo

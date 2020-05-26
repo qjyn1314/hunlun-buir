@@ -523,7 +523,7 @@ http://132.232.152.117:8080/index.jsp
 如果需要通过使用wget命令，直接通过网络下载maven安装包时，需要在linux系统中安装wget命令。
 yum -y install wget
 2、下载maven安装包
-wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz
+wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 3、解压缩maven
 
 tar -zxvf apache-maven-3.5.2-bin.tar.gz
@@ -534,18 +534,17 @@ tar -zxvf apache-maven-3.5.2-bin.tar.gz
 
 vi /etc/profile
 
-添加环境变量
+添加环境变量 /usr/maven/maven-3.6.3
 
-/usr/local/maven/maven-3.6.2
+/usr/maven/maven-3.6.3
 
-export MAVEN_HOME=/usr/local/maven/maven-3.6.2
+export MAVEN_HOME=/usr/maven/maven-3.6.3
 export PATH=$PATH:$MAVEN_HOME/bin
 
 
 export PATH=${MAVEN_HOME}/bin:${PATH}
 
-export MAVEN_HOME=/usr/maven-3.5.4
-export MAVEN_HOME
+export MAVEN_HOME=/usr/maven/maven-3.6.3
 export PATH=$PATH:$MAVEN_HOME/bin
 
 编辑之后记得使用source /etc/profile命令是改动生效。

@@ -9,6 +9,7 @@
     </parent>
     <groupId>com.hulunbuir.clam.common</groupId>
     <artifactId>hulunbuir-common</artifactId>
+    <version>${hulunbuir.version}</version>
     <packaging>jar</packaging>
     <name>hulunbuir-common</name>
     <description>Clam project for Spring Boot</description>

@@ -9,6 +9,7 @@
     </parent>
     <groupId>com.hulunbuir.clam.afternoon</groupId>
     <artifactId>hulunbuir-afternoon</artifactId>
+    <version>${hulunbuir.version}</version>
     <packaging>jar</packaging>
     <name>hulunbuir-afternoon</name>
     <description>Clam project for Spring Boot</description>
@@ -28,33 +29,11 @@
             <groupId>com.hulunbuir.clam.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
         </dependency>
+        <!--用于引用shiro的功能-->
         <dependency>
             <groupId>com.hulunbuir.clam.route</groupId>
             <artifactId>hulunbuir-route</artifactId>
         </dependency>
-        <!--整合springboot+shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-            <version>3.2.3</version>
-            <!-- 排除最新3.1.0版本，引用2.9.0版本,https://github.com/alexxiyang/shiro-redis/issues/113 -->
-            <exclusions>
-                <exclusion>
-                    <groupId>redis.clients</groupId>
-                    <artifactId>jedis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>shiro-core</artifactId>
-                    <groupId>org.apache.shiro</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 
     <build>

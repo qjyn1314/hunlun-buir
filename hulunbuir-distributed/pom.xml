@@ -9,6 +9,7 @@
     </parent>
     <groupId>com.hulunbuir.clam.distributed</groupId>
     <artifactId>hulunbuir-distributed</artifactId>
+    <version>${hulunbuir.version}</version>
     <packaging>jar</packaging>
     <name>hulunbuir-distributed</name>
     <description>Clam project for Spring Boot</description>

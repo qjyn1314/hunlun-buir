@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hulunbuir.clam.afternoon.persistence.mapper.BuirUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hulunbuir.clam.afternoon.persistence.entity.BuirUser">
+        <id column="id" property="id"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        bu.id, bu.nick_name, bu.user_name, bu.password, bu.salt, bu.status, bu.create_time, bu.update_time
+    </sql>
+    <!--通用查询-->
+    <sql id="query_Where">
+        <where>
+            <if test="queryQo.nickName != null and queryQo.nickName != '' ">
+                bu.nick_name = #{queryQo.nickName}
+            </if>
+            <if test="queryQo.userName != null and queryQo.userName != '' ">
+                bu.user_name = #{queryQo.userName}
+            </if>
+        </where>
+    </sql>
+    <!--获取唯一的用户查询-->
+    <select id="selectBuirUser" resultType="com.hulunbuir.clam.afternoon.persistence.entity.BuirUser">
+        select
+        <include refid="Base_Column_List"/>
+        from buir_user bu
+        <include refid="query_Where"/>
+    </select>
+
+</mapper>

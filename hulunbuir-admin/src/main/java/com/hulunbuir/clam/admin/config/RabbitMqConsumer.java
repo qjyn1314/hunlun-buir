@@ -49,7 +49,7 @@ public class RabbitMqConsumer {
     private void ackMessage(Message message, Channel channel) {
         log.info("---->>>-----扔掉消息");
         try {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+            channel.basicAck(getMessageProperties(message).getDeliveryTag(), true);
         } catch (IOException e) {
             log.error("扔掉消息失败异常：", e);
         }

@@ -70,7 +70,6 @@ public class OrgServiceImpl extends ServiceImpl<OrgMapper, Org> implements IOrgS
         int insert = this.baseMapper.insert(byId);
         UserQo userQo = new UserQo();
         userQo.setUserName(dateTimes);
-        afternoonProvider.insertKoUser(userQo);
     }
 
 

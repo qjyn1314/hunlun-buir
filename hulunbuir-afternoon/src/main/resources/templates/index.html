@@ -191,7 +191,8 @@
                         <b>Email Address：</b>qjyn1314@163.com<br>
                         <br>
                         <b>Login Ours：</b>
-                    <a href="javascript:void(0);" onclick="window.location.href='login.html'" target="_blank">Email Login</a>
+                        <a href="javascript:void(0);" onclick="window.location.href='login.html'" target="_blank">Email
+                            Login</a>
                         <br>
                     </address>
                 </div>
@@ -259,9 +260,9 @@
             };
             //联系我们
             $.axPost("/", data, function (result) {
-                if(result.flag){
+                if (result.flag) {
                     alert(result.message);
-                }else{
+                } else {
                     alert(result.message);
                 }
             });

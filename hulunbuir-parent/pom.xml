@@ -9,6 +9,7 @@
     </parent>
     <groupId>com.hulunbuir.clam.parent</groupId>
     <artifactId>hulunbuir-parent</artifactId>
+    <version>${hulunbuir.version}</version>
     <packaging>jar</packaging>
     <name>hulunbuir-parent</name>
     <description>Clam project for Spring Boot</description>
@@ -18,17 +19,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>releases</id>
-            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <!--springboot-start-->
@@ -293,5 +283,16 @@
         <!--使用jwt-end-->
 
     </dependencies>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 
 </project>

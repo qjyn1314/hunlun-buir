@@ -113,10 +113,18 @@ public class HashMapDemo {
         System.out.println(tableSizeFor);
 
         /*
-         * JDK1.8的put方法详解：
+         * JDK1.7的put方法详解：
          * put方法，会先调用一个hash()方法，得到当前key的一个hash值。
-         * 用于确定当前key应该存放在数组的哪个下标位置，之后则对value进行hash值比较，依次排列在链表中，当链表中的数据长度达到阈值8就会转化为红黑树。
+         * 用于确定key应该存放在数组的哪个下标位置(通过当前key的hash值取模(%)数组的长度 来确定key在数组的什么位置)，
+         * 如果新的hash值与已有的hash值出现了碰撞，则使用头插法将此键值对添加至此数组下标的线性链表中，
+         *
+         * 之后则对value进行hash值比较，依次排列在链表中，当链表中的数据长度达到阈值8就会转化为红黑树。
          * 转化为红黑树目的：是为了增加效率，以及查询速度。
+         *
+         * 因为多线程环境下，使用Hashmap进行put操作会引起死循环，导致CPU利用率接近100%，所以在并发情况下不能使用HashMap。
+         *
+         * JDK1.8的put方法详解：
+         *
          *
          * HashMap由数组+链表组成的：
          * 数组是HashMap的主体，而链表则是主要为了解决哈希冲突(hash碰撞)而存在的。
@@ -127,6 +135,11 @@ public class HashMapDemo {
          *
          *
          * 线程不安全的hashmap出现的问题：
+         * 添加元素方法 -> 添加新节点方法 -> 扩容方法 -> 把原数组元素重新分配到新数组中
+         * put()  --> addEntry()  --> resize() -->  transfer()
+         * 问题就发生在 transfer  这个方法中。
+         *
+         *
          *
          */
         String hashKey = "qjyn1314";
