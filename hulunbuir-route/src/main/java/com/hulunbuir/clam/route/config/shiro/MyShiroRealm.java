@@ -2,14 +2,13 @@ package com.hulunbuir.clam.route.config.shiro;
 
 import com.hulunbuir.clam.distributed.afternoon.ManagerUserProvider;
 import com.hulunbuir.clam.distributed.model.UserManager;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -49,8 +48,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 //        实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         HashMap<String, Object> queryMaps = new HashMap<>();
         queryMaps.put("userName", username);
-        UserManager userManager = managerUserProvider.queryBuirUser(queryMaps);
-        if (null == userManager) {
+        UserManager userManager = null;
+        try {
+            userManager = managerUserProvider.queryBuirUser(queryMaps);
+        } catch (HulunBuirException e) {
             throw new NoUserException();
         }
         //将用户输入的密码、用户名、加上数据库中的盐值进行生成一个md5的密文
@@ -100,17 +101,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 //            }
 //        }
         return authorizationInfo;
-    }
-
-    /**
-     * 设置认证加密方式
-     */
-    @Override
-    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-        HashedCredentialsMatcher md5CredentialsMatcher = new HashedCredentialsMatcher();
-        md5CredentialsMatcher.setHashAlgorithmName(ShiroTool.HASH_ALGORITHM_NAME);
-        md5CredentialsMatcher.setHashIterations(ShiroTool.HASH_ITERATIONS);
-        super.setCredentialsMatcher(md5CredentialsMatcher);
     }
 
 }

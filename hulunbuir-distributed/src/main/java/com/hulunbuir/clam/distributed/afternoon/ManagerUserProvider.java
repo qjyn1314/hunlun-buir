@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.distributed.afternoon;
 
 import com.hulunbuir.clam.distributed.model.UserManager;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ public interface ManagerUserProvider {
      * @author wangjunming
      * @since 2020/5/25 15:04
      */
-    UserManager queryBuirUser(HashMap<String,Object> queryMap);
+    UserManager queryBuirUser(HashMap<String,Object> queryMap) throws HulunBuirException;
 
 
 }

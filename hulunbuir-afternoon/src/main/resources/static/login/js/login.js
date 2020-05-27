@@ -40,6 +40,7 @@ $(function () {
                     $(".login_form input[name = 'userPassword']").val(userPassword);
                     $(".dowebok").removeClass("right-panel-active");
                     clearForm(".reg_form");
+                    window.location.reload();
                 }else{
                     alert(result.message);
                 }

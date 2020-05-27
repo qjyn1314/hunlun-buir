@@ -18,7 +18,6 @@ package com.hulunbuir.clam.route.config.shiro;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
@@ -41,20 +40,16 @@ public class ShiroTool {
     private static final String NAMES_DELIMETER = ",";
 
     /**
-     * shiro密码加密工具类
-     *
-     * @param credentials 密码
-     * @param saltSource  密码盐
-     * @return
+     * MD5进行密码加密
+     * @param password 密码
+     * @param salt 盐值
+     * @author wangjunming
+     * @since 2020/5/27 17:11
      */
-    public static String md5(String credentials, String saltSource) {
+    public static String encryptPassword(String password, String salt) {
+        return new Md5Hash(password , salt).toHex();
+    }
 
-        return new SimpleHash(HASH_ALGORITHM_NAME, credentials, saltSource, HASH_ITERATIONS).toHex();
-    }
-    public static String encryptPassword(String username, String password, String salt)
-    {
-        return new Md5Hash(username + password + salt).toHex();
-    }
     /**
      * 获取随机盐值
      *
@@ -251,5 +246,17 @@ public class ShiroTool {
         }
         return "";
     }
+
+
+    public static void main(String[] args) {
+        String password = "123456";
+        String username = "qjyn1314@163.com";
+        final String randomSalt = getRandomSalt(5);
+        System.out.println(randomSalt);
+        final String salt = username + randomSalt;
+        final String md5 = encryptPassword(password,salt);
+        System.out.println(md5);
+    }
+
 
 }

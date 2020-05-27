@@ -37,7 +37,7 @@ public class ScheduleJob {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息开始....");
         String key = "nowDateTimes";
         String value = DateUtils.getDateTimes();
-        long overdueTime = 800000;
+        long overdueTime = 60*60*24;
         redisConfig.setStrKey(key,value,overdueTime);
         final Object strValue = redisConfig.getStrValue(key);
         log.info("redis中存储的key：{}，value：{}",key,strValue);

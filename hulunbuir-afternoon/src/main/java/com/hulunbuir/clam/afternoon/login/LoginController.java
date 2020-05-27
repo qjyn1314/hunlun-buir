@@ -29,7 +29,7 @@ import java.util.Enumeration;
  */
 @Controller
 @Slf4j
-public class ViewController {
+public class LoginController {
     /**
      * 直接访问首页页面
      *

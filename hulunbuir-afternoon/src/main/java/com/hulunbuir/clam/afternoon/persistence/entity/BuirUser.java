@@ -72,12 +72,11 @@ public class BuirUser extends Model<BuirUser> {
     }
 
     public BuirUser(RegUser regUser) {
-        String randomSalt = ShiroTool.getRandomSalt(5);
+        String randomSalt = ShiroTool.getRandomSalt(15);
         String userPassword = regUser.getUserPassword();
-        String userMail = regUser.getUserMail();
         this.nickName = regUser.getUserName();
         this.userName = regUser.getUserMail();
-        this.password = ShiroTool.md5(userPassword,userMail+randomSalt);
+        this.password = ShiroTool.encryptPassword(userPassword, randomSalt);
         this.salt = randomSalt;
         this.status = UserStatus.TO_AUDIT;
         this.createTime = LocalDateTime.now();

@@ -32,7 +32,7 @@ import javax.validation.Valid;
 @RestController
 @Slf4j
 @RequestMapping("/login")
-public class AfterLoginController {
+public class RegisteredController {
 
     /**
      * 调用的dubbo服务接口，必须这样定义，check：初始化时不进行检测，timeout：超时时间，retries：重试次数
@@ -64,7 +64,7 @@ public class AfterLoginController {
         if (StringUtils.isNotBlank(strValue)) {
             randomNumbers = strValue;
         }
-        log.info("发送邮箱：{}，验证码{}", userMail, randomNumbers);
+        log.info("发送邮箱：{}，验证码：{}", userMail, randomNumbers);
         redisHelper.setStrKey(MailConstants.VERIFICATION.name() + userMail, randomNumbers, 3000);
         try {
 //            mailProvider.sendSimpleMail(userMail, MailConstants.VERIFICATION.getSubject(), String.format(MailConstants.VERIFICATION.getContent(), randomNumbers));

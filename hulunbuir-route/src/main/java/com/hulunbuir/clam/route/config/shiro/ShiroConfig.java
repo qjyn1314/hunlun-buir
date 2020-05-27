@@ -15,7 +15,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -29,7 +28,7 @@ import java.util.Map;
  * @since 2020/5/25 17:02
  */
 @Configuration
-@Order(1)
+//@Order(1)
 public class ShiroConfig {
 
     /**
@@ -153,6 +152,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/doc.html", "anon");
 //        springbootAdmin的监控访问的url
         filterChainDefinitionMap.put("/health", "anon");
+        filterChainDefinitionMap.put("/instances", "anon");
 
         // 其他的进行认证
         filterChainDefinitionMap.put("/**", "authc");
@@ -211,9 +211,9 @@ public class ShiroConfig {
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(2);// 散列的次数，比如散列两次，相当于md5(md5(""));
-        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);//表示是否存储散列后的密码为16进制，需要和生成密码时的一样，默认是base64；
+        hashedCredentialsMatcher.setHashAlgorithmName(ShiroTool.HASH_ALGORITHM_NAME);// 散列算法:MD5
+//        hashedCredentialsMatcher.setHashIterations(2);// 散列的次数，比如散列两次，相当于md5(md5(""));
+//        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);//表示是否存储散列后的密码为16进制，需要和生成密码时的一样，默认是base64；
         return hashedCredentialsMatcher;
     }
 
@@ -229,20 +229,6 @@ public class ShiroConfig {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
-
-
-    /**
-     * shiro缓存管理器;
-     *
-     * @author wangjunming
-     * @since 2020/5/25 17:04
-     */
-   /* @Bean
-    public EhCacheManager ehCacheManager() {
-        EhCacheManager cacheManager = new EhCacheManager();
-        cacheManager.setCacheManagerConfigFile("classpath:ehcache.xml");
-        return cacheManager;
-    }*/
 
     /**
      * cookie对象;
