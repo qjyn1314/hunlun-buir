@@ -128,12 +128,7 @@ public class ShiroConfig {
         //登录的接口进入拦截器进行验证用户名，密码，验证码
         filterChainDefinitionMap.put("/login", "kaptchaFilter");
         // <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //这段是配合 actuator框架使用的，配置相应的角色才能访问
-        // filterChainDefinitionMap.put("/health", "roles[aix]");//服务器健康状况页面
-        // filterChainDefinitionMap.put("/info", "roles[aix]");//服务器信息页面
-        // filterChainDefinitionMap.put("/env", "roles[aix]");//应用程序的环境变量
-        // filterChainDefinitionMap.put("/metrics", "roles[aix]");
-        // filterChainDefinitionMap.put("/configprops", "roles[aix]");
+
         //开放的静态资源
         filterChainDefinitionMap.put("/favicon.ico", "anon");//网站图标
         filterChainDefinitionMap.put("/static/**", "anon");//配置static文件下资源能被访问的，这是个例子
@@ -151,8 +146,14 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");
 //        springbootAdmin的监控访问的url
-        filterChainDefinitionMap.put("/health", "anon");
-        filterChainDefinitionMap.put("/instances", "anon");
+//        这段是配合 actuator框架使用的，配置相应的角色才能访问
+        filterChainDefinitionMap.put("/actuator/**/**", "anon");//服务器健康状况页面
+        filterChainDefinitionMap.put("/health", "anon");//服务器健康状况页面
+        filterChainDefinitionMap.put("/instances/**/**", "anon");
+        filterChainDefinitionMap.put("/info", "anon");//服务器信息页面
+        filterChainDefinitionMap.put("/env", "anon");//应用程序的环境变量
+        filterChainDefinitionMap.put("/metrics", "anon");
+        filterChainDefinitionMap.put("/configprops", "anon");
 
         // 其他的进行认证
         filterChainDefinitionMap.put("/**", "authc");
@@ -164,7 +165,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/console.html");
 
         // 未授权界面，不生效(详情原因看MyExceptionResolver)
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error/404.html");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/error/404");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
@@ -178,7 +179,7 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // 设置realm.
+        //设置realm.
         securityManager.setRealm(myShiroRealm());
         //注入缓存管理器
 //        securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
@@ -277,7 +278,7 @@ public class ShiroConfig {
         sessionManager.setSessionValidationInterval(18000000);
         sessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler());
         //设置SessionIdCookie 导致认证不成功，不从新设置新的cookie,从sessionManager获取sessionIdCookie
-        //sessionManager.setSessionIdCookie(simpleIdCookie());
+//        sessionManager.setSessionIdCookie(simpleIdCookie());
         sessionManager.getSessionIdCookie().setName("hulunbuir-session-z-id");
         sessionManager.getSessionIdCookie().setPath("/");
         sessionManager.getSessionIdCookie().setMaxAge(60 * 60 * 24 * 7);

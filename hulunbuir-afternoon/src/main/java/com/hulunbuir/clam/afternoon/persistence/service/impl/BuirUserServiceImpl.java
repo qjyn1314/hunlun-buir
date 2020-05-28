@@ -5,6 +5,7 @@ import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirUserMapper;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,15 +46,19 @@ public class BuirUserServiceImpl extends ServiceImpl<BuirUserMapper, BuirUser> i
     public void validate(BuirUser buirUser) throws HulunBuirException {
         HashMap<String, Object> queryNickNameMap = new HashMap<>();
         queryNickNameMap.put("nickName", buirUser.getNickName());
-        final BuirUser userNickName = this.baseMapper.selectBuirUser(queryNickNameMap);
-        if (null != userNickName) {
-            throw HulunBuirException.build("昵称已注册！");
+        if(StringUtils.isNotBlank(buirUser.getNickName())){
+            final BuirUser userNickName = this.baseMapper.selectBuirUser(queryNickNameMap);
+            if (null != userNickName) {
+                throw HulunBuirException.build("昵称已注册！");
+            }
         }
-        HashMap<String, Object> queryUserNameMap = new HashMap<>();
-        queryUserNameMap.put("userName", buirUser.getUserName());
-        final BuirUser userMail = this.baseMapper.selectBuirUser(queryUserNameMap);
-        if (null != userMail) {
-            throw HulunBuirException.build("邮箱已注册！");
+        if(StringUtils.isNotBlank(buirUser.getUserName())){
+            HashMap<String, Object> queryUserNameMap = new HashMap<>();
+            queryUserNameMap.put("userName", buirUser.getUserName());
+            final BuirUser userMail = this.baseMapper.selectBuirUser(queryUserNameMap);
+            if (null != userMail) {
+                throw HulunBuirException.build("邮箱已注册！");
+            }
         }
     }
 

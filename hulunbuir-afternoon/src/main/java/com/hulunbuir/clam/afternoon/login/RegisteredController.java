@@ -59,6 +59,11 @@ public class RegisteredController {
             return JsonResult.error("请填写正确的邮箱!!!");
         }
         String userMail = email.getUserMail();
+        try {
+            buirUserService.validate(BuirUser.buildByMail(userMail));
+        } catch (HulunBuirException e) {
+            return JsonResult.error(e.getMessage());
+        }
         String randomNumbers = RandomUtil.randomNumbers(6);
         String strValue = (String) redisHelper.getStrValue(MailConstants.VERIFICATION.name() + userMail);
         if (StringUtils.isNotBlank(strValue)) {

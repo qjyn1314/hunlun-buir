@@ -41,7 +41,7 @@ public class KaptchaFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             subject.login(token);//正常验证
             //到这里就算验证成功了,把用户信息放到session中
-            final Object user = ShiroTool.getUser();
+            Object user = ShiroTool.getUser();
             log.info("登录成功的用户信息是：{}",user);
             //将用户信息转换成为JWT形式的token，放到redis缓存中，并返回给页面这个token
 //            ((HttpServletRequest) request).getSession().setAttribute("user", user);
@@ -94,7 +94,7 @@ public class KaptchaFilter extends FormAuthenticationFilter {
         if(StringUtils.isBlank(captcha)){
             HulunBuirException.build("请填写验证码！");
         }
-        boolean rememberMe = true;//isRememberMe(request);
+        boolean rememberMe = isRememberMe(request);
         String host = getHost(request);
         return new CaptchaUsernamePasswordToken(username, password.toCharArray(), true, host, captcha);
     }

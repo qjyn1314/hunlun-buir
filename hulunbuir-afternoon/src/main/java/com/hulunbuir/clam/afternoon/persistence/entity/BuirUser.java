@@ -83,6 +83,14 @@ public class BuirUser extends Model<BuirUser> {
         this.updateTime = LocalDateTime.now();
     }
 
+    private BuirUser(@NotBlank(message = "请输入用户邮箱") @Email(message = "请输入正确的邮箱地址") String userName) {
+        this.userName = userName;
+    }
+
+    public static BuirUser buildByMail(String userName){
+        return new BuirUser(userName);
+    }
+
     public String getNickName() {
         return nickName;
     }

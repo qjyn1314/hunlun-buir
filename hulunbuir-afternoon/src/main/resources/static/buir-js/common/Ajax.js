@@ -1,4 +1,4 @@
-var BaseUrl = "http://127.0.0.1:8026";
+const BaseUrl = "http://127.0.0.1:8026";
 
 /**
  * ajax封装
