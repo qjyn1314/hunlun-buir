@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,7 +26,9 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         BankMoneyMapper mapper = sqlSession.getMapper(BankMoneyMapper.class);
-        List<Bankmoney> bankmonies = mapper.bankMoneyLists();
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("id",2);
+        List<Bankmoney> bankmonies = mapper.bankMoneyLists(map);
         System.out.println(bankmonies);
     }
 

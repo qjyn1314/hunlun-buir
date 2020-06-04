@@ -36,7 +36,8 @@ public class RabbitMqConsumer {
         log.info("消费端所消费消息：---->>>>----{}", consumerMessage);
         String consumerQueue = getMessageProperties(message).getConsumerQueue();
         String receivedExchange = getMessageProperties(message).getReceivedExchange();
-        log.info("---->>>---------MQ消息消费端的交换机是:{}，队列是:{} ", receivedExchange, consumerQueue);
+        String consumerTag = getMessageProperties(message).getConsumerTag();
+        log.info("---->>>---------MQ消息消费端的交换机是:{}，队列是:{}，消费Tag：{}", receivedExchange, consumerQueue,consumerTag);
         return consumerMessage;
     }
 
@@ -49,7 +50,7 @@ public class RabbitMqConsumer {
     private void ackMessage(Message message, Channel channel) {
         log.info("---->>>-----扔掉消息");
         try {
-            channel.basicAck(getMessageProperties(message).getDeliveryTag(), true);
+            channel.basicAck(getMessageProperties(message).getDeliveryTag(), false);
         } catch (IOException e) {
             log.error("扔掉消息失败异常：", e);
         }
@@ -170,5 +171,30 @@ public class RabbitMqConsumer {
             publishMessage(message, channel);
         }
     }
+
+
+    @RabbitListener(queues = {RabbitMqUtils.PRO_MAIL_SEND_QUEUES})
+    public void proMessageConsumer(Message message, Channel channel) {
+        final String messageContent = getMessageContent(message);
+        boolean flag = true;
+        try {
+            //进行解析消息内容
+            final Object object = JSON.toJSON(messageContent);
+            log.info("消费端所消费消息的-json：---->>>>----{}", object);
+        } catch (Exception e) {
+            flag = false;
+            log.error("解析消息内容失败异常：", e);
+        }
+        if (flag) {
+            //扔掉消息
+            ackMessage(message, channel);
+        } else {
+            //重新放回消息队列
+            publishMessage(message, channel);
+        }
+    }
+
+
+
 
 }

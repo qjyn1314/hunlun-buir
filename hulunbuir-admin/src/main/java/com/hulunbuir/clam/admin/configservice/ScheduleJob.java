@@ -7,6 +7,7 @@ import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,6 +35,8 @@ public class ScheduleJob {
      */
 //    @Scheduled(cron = "0/15 * * * * ?")
     public void checkState1() {
+//        ReflectionUtils.findMethod();
+//        ReflectionUtils.invokeMethod();
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息开始....");
         String key = "nowDateTimes";
         String value = DateUtils.getDateTimes();
@@ -65,10 +68,10 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-//    @Scheduled(cron = "0/15 * * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void checkRedisMessage() {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
-
+        RabbitMqUtils.messageProdFanout("MQ消息手动确认信息！！");
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息结束....");
     }
 

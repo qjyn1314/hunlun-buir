@@ -25,4 +25,13 @@ public class AfternoonStudyController extends BaseController {
     @Reference(check = false,timeout = 500000,retries = 0)
     private EveningProvider eveningProvider;
 
+
+//    @Autowired
+//    private IBuirUserService buirUserService;
+//
+//    public  vaildateBuirUser(){
+//
+//    }
+
+
 }

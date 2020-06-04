@@ -1,5 +1,8 @@
 package com.hulunbuir.clam.admin.mybatis;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,7 +15,7 @@ import java.util.List;
  */
 public interface BankMoneyMapper {
 
-    List<Bankmoney> bankMoneyLists();
+    List<Bankmoney> bankMoneyLists(@Param("map") HashMap<String, Object> map);
 
 
 }

@@ -5,7 +5,12 @@
 <mapper namespace="com.hulunbuir.clam.admin.mybatis.BankMoneyMapper">
 
     <select id="bankMoneyLists" resultType="com.hulunbuir.clam.admin.mybatis.Bankmoney">
-    select bm.* from bankmoney AS bm
+        select bm.id,bm.username,bm.money,bm.data_json AS dataJson from bankmoney bm
+        <where>
+            <if test="map.id != null and map.id != ''">
+                bm.id = #{map.id}
+            </if>
+        </where>
     </select>
 
 

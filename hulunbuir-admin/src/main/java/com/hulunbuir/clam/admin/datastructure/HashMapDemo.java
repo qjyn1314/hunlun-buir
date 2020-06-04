@@ -125,7 +125,6 @@ public class HashMapDemo {
          *
          * JDK1.8的put方法详解：
          *
-         *
          * HashMap由数组+链表组成的：
          * 数组是HashMap的主体，而链表则是主要为了解决哈希冲突(hash碰撞)而存在的。
          * 如果定位到的数组位置不含链表（当前entry的next指向null）,那么查找，添加等操作很快，仅需一次寻址即可；
@@ -133,13 +132,10 @@ public class HashMapDemo {
          * 对于查找操作来讲，仍需遍历链表，然后通过key对象的equals方法逐一比对查找。
          * 所以，性能考虑，HashMap中的链表出现越少，性能才会越好。
          *
-         *
          * 线程不安全的hashmap出现的问题：
          * 添加元素方法 -> 添加新节点方法 -> 扩容方法 -> 把原数组元素重新分配到新数组中
          * put()  --> addEntry()  --> resize() -->  transfer()
          * 问题就发生在 transfer  这个方法中。
-         *
-         *
          *
          */
         String hashKey = "qjyn1314";
