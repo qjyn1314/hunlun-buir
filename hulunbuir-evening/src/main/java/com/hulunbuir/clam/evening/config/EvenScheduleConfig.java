@@ -18,12 +18,13 @@ import java.util.concurrent.Executors;
 @Configuration
 @EnableScheduling
 public class EvenScheduleConfig implements SchedulingConfigurer {
+
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         scheduledTaskRegistrar.setScheduler(scheduleTaskExecutor());
     }
 
-    @Bean(destroyMethod="shutdown")
+    @Bean(destroyMethod = "shutdown")
     public ExecutorService scheduleTaskExecutor() {
 
 //        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();

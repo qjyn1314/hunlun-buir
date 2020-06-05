@@ -44,8 +44,8 @@ public class EvenIntercept implements HandlerInterceptor {
         log.info("进入 preHandle 方法...路径：{}", requestURI);
         String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(authentication, StringPool.COMMA);
         boolean flag= false;
-        for (String u : anonUrl) {
-            if (pathMatcher.match(u, requestURI)){
+        for (String url : anonUrl) {
+            if (pathMatcher.match(url, requestURI)){
                 flag = true;
             }
         }

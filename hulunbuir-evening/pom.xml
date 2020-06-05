@@ -29,10 +29,6 @@
             <groupId>com.hulunbuir.clam.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.hulunbuir.clam.route</groupId>
-            <artifactId>hulunbuir-route</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

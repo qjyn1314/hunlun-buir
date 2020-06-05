@@ -27,11 +27,11 @@ import java.io.IOException;
 public class RabbitMqConsumer {
 
 
-    private MessageProperties getMessageProperties(Message message) {
+    private static MessageProperties getMessageProperties(Message message) {
         return message.getMessageProperties();
     }
 
-    private String getMessageContent(Message message) {
+    private static String getMessageContent(Message message) {
         String consumerMessage = new String(message.getBody());
         log.info("消费端所消费消息：---->>>>----{}", consumerMessage);
         String consumerQueue = getMessageProperties(message).getConsumerQueue();
@@ -47,7 +47,7 @@ public class RabbitMqConsumer {
         log.error("消费端的交换机:{},消费端的队列:{}-->异常报错:{}", receivedExchange, consumerQueue, e);
     }
 
-    private void ackMessage(Message message, Channel channel) {
+    private static void ackMessage(Message message, Channel channel) {
         log.info("---->>>-----扔掉消息");
         try {
             channel.basicAck(getMessageProperties(message).getDeliveryTag(), false);
@@ -56,7 +56,7 @@ public class RabbitMqConsumer {
         }
     }
 
-    private void publishMessage(Message message, Channel channel) {
+    private static void publishMessage(Message message, Channel channel) {
         final String consumerQueue = getMessageProperties(message).getConsumerQueue();
         String receivedExchange = getMessageProperties(message).getReceivedExchange();
         log.info("---->>>-----扔掉消息之后>>>>异常重新放回队列----MQ消息消费端测试: " + consumerQueue);
@@ -174,7 +174,7 @@ public class RabbitMqConsumer {
 
 
     @RabbitListener(queues = {RabbitMqUtils.PRO_MAIL_SEND_QUEUES})
-    public void proMessageConsumer(Message message, Channel channel) {
+    public static void proMessageConsumer(Message message, Channel channel) {
         final String messageContent = getMessageContent(message);
         boolean flag = true;
         try {

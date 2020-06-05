@@ -13,12 +13,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
 @Slf4j
 @ComponentScan(basePackages = {
         "com.hulunbuir.clam.admin",
         "com.hulunbuir.clam.parent",
         "com.hulunbuir.clam.common",
-        "com.hulunbuir.clam.route.config",
         "com.hulunbuir.clam.distributed",
 })
 @EnableDubbo

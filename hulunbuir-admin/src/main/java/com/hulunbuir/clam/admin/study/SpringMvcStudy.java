@@ -2,7 +2,7 @@ package com.hulunbuir.clam.admin.study;
 
 /**
  * <p>
- * Explain:
+ * Explain:参考：https://www.cnblogs.com/xiaoxi/p/6164383.html
  * </p >
  *
  * @author wangjunming
