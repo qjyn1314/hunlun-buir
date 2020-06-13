@@ -1,7 +1,11 @@
 package com.hulunbuir.clam.common.utils;
 
 import javax.crypto.Cipher;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>
@@ -153,20 +157,60 @@ public class DateAsc {
     };
 
     /**
+     * MD5--进行加密
+     * @author wangjunming
+     * @since 2020/6/11 15:52
+     */
+    public static String Md5Encryption(String inputEncryption) {
+        try {
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(inputEncryption.getBytes(StandardCharsets.UTF_8));
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+            // Convert message digest into hex value
+            final StringBuilder hashText = new StringBuilder(no.toString(16));
+            while (hashText.length() < 32) {
+                hashText.insert(0, "0").append(hashText);
+            }
+            return hashText.toString();
+        }
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+    /**
      * 用法实例
      */
     public static void main(String[] args) {
         try {
-            String APPID = "wxd664398c8d7e4f6b";
-            String APPIDs = encryptStr(APPID);
-            String SECRITY = "ee33fcbf85f1f28a70a7e6c62e4c4c28";
-            String SECRITYs = encryptStr(SECRITY);
-            System.out.println("-------------");
+//            String APPID = "wxd664398c8d7e4f6b";
+//            String APPIDs = encryptStr(APPID);
+//            String SECRITY = "ee33fcbf85f1f28a70a7e6c62e4c4c28";
+//            String SECRITYs = encryptStr(SECRITY);
+//            System.out.println("-------------");
+//            String sappid = decryptStr(APPIDs);
+//            String ssecrity = decryptStr(SECRITYs);
 
-            String sappid = decryptStr(APPIDs);
+            String inputEncryption = "yonghuming"+"mima";
+            final String encryption = Md5Encryption(inputEncryption);
+            System.out.println(encryption);
+            //ef2a4479289d43c1ba71dfb9b64aeebe
 
-            String ssecrity = decryptStr(SECRITYs);
+            String validationEncryption = "yonghuming"+"mimwa";
+            final String validation = Md5Encryption(validationEncryption);
+            System.out.println(validation);
 
+            System.out.println("-----");
+            System.out.println(encryption.equals(validation));
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,12 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <link href="../static/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
-    <title>呼伦贝尔大草原的下午控制台</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <link href="../../static/layui/css/layui.css" rel="stylesheet">
+    <link href="../../static/layui/css/admin.css" rel="stylesheet">
+    <link href="../../static/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <title>管理后台</title>
 </head>
-<body>
-<h1>呼伦贝尔大草原的下午控制台</h1>
-<h2>您已登陆成功!!!!</h2>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header custom-header">
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item slide-sidebar" lay-unselect>
+                <a class="icon-font" href="javascript:;"><i class="ai ai-menufold"></i></a>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">BieJun</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">帮助中心</a></dd>
+                    <dd><a href="login.html">退出</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side custom-admin">
+        <div class="layui-side-scroll">
+            <div class="custom-logo">
+                <img alt="" src="../../static/icon/ali.gif"/>
+                <h1>呼伦贝尔大草原</h1>
+            </div>
+            <ul class="layui-nav layui-nav-tree" id="Nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>主页</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="index.html">控制台</a></dd>
+                    </dl>
+                </li>
+
+                    <!--<li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe857;</i>
+                            <em>组件</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/form.html">表单</a></dd>
+                            <dd>
+                                <a href="javascript:;">页面</a>
+                                <dl class="layui-nav-child">
+                                    <dd>
+                                        <a href="login.html">登录页</a>
+                                    </dd>
+                                </dl>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe612;</i>
+                            <em>用户</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/users.html">用户组</a></dd>
+                            <dd><a href="views/operaterule.html">权限配置</a></dd>
+                        </dl>
+                    </li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body">
+        <div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">
+            <ul class="layui-tab-title custom-tab" id="appTabs"></ul>
+            <div class="layui-tab-content" id="appTabPage"></div>
+        </div>
+    </div>
+    <div class="layui-footer">
+        <p>欢迎来到呼伦贝尔大草原的下午</p>
+    </div>
+    <div class="mobile-mask"></div>
+</div>
+<script src="../../static/layui/layui.js"></script>
+<script data-main="home" src="../../static/buir/common/console.js"></script>
+
 </body>
 </html>

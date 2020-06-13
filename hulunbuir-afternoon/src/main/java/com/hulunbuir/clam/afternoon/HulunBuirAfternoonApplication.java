@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
         "com.hulunbuir.clam.parent",
         "com.hulunbuir.clam.common.*",
         "com.hulunbuir.clam.route",
+        "com.hulunbuir.clam.route.config.jwt",
         "com.hulunbuir.clam.distributed",
 })
 @EnableDubbo

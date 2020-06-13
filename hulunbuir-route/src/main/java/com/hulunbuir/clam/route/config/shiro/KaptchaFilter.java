@@ -111,7 +111,7 @@ public class KaptchaFilter extends FormAuthenticationFilter {
         return WebUtils.getCleanParam(request, getCaptchaParam());
     }
 
-    //保存异常对象到request
+    //保存异常对象到request，即，  shiroLoginFailure   则需要在login方法中进行获取不同的异常并返回给前端
     @Override
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);

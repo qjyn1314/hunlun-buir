@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.evening.config;
+package com.hulunbuir.clam.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +17,13 @@ import java.util.concurrent.Executors;
  */
 @Configuration
 @EnableScheduling
-public class EvenScheduleConfig implements SchedulingConfigurer {
-
+public class ScheduleConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         scheduledTaskRegistrar.setScheduler(scheduleTaskExecutor());
     }
 
-    @Bean(destroyMethod = "shutdown")
+    @Bean(destroyMethod="shutdown")
     public ExecutorService scheduleTaskExecutor() {
 
 //        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
@@ -35,5 +34,4 @@ public class EvenScheduleConfig implements SchedulingConfigurer {
 
         return Executors.newScheduledThreadPool(5);
     }
-
 }

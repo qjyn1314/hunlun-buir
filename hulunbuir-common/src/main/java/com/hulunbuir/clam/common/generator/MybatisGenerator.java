@@ -31,6 +31,7 @@ public class MybatisGenerator {
 
         String eveningUrl = "F:\\IDEA_entertainment\\hunlun-buir\\hulunbuir-evening\\src\\main\\java";
 
+//        gc.setOutputDir(eveningUrl);//这里写你自己的java目录
         gc.setOutputDir(afternoonurl);//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
@@ -45,15 +46,15 @@ public class MybatisGenerator {
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/buir?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
+        dsc.setPassword("1234567");
+        dsc.setUrl("jdbc:mysql://47.104.78.115:3308/buir?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT");
         mpg.setDataSource(dsc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setRestControllerStyle(true);
-        String[] include = {"buir_user","buir_role","buir_user_role","buir_permission","buir_role_permission"};
+        String[] include = {"buir_user_third"};
         strategy.setInclude(include);
         //生成实体的@TableFile注解
         strategy.setEntityTableFieldAnnotationEnable(true);
@@ -86,6 +87,15 @@ public class MybatisGenerator {
         pc.setService(afternoonService);
         pc.setServiceImpl(afternoonServiceImpl);
         pc.setController(afternoonController);
+//-------------------------------
+//        pc.setEntity(eveningEntity);
+//        pc.setMapper(eveningMapper);
+//        pc.setXml(eveningXml);
+//        pc.setService(eveningService);
+//        pc.setServiceImpl(eveningServiceImpl);
+//        pc.setController(eveningController);
+
+
         mpg.setPackageInfo(pc);
         // 执行生成
         mpg.execute();

@@ -38,10 +38,11 @@ public class LoginController {
      */
     @GetMapping("/")
     public String index() {
-//        if (ShiroTool.isAuthenticated()) {
-//            return "redirect:/console.html";
-//        }
-        return "index";
+        if (ShiroTool.isAuthenticated()) {
+            return "redirect:/console.html";
+        }
+        return "buir/login";
+//        return "index";
     }
 
     /**
@@ -107,7 +108,7 @@ public class LoginController {
             } else if (exception instanceof IncorrectCredentialsException) {
                 HulunBuirException.build("密码错误，请重新输入");
             } else if (exception instanceof IncorrectCaptchaException) {
-                HulunBuirException.build("验证码错误");
+                HulunBuirException.build("验证码已过期");
             } else if (exception instanceof ForbiddenUserException) {
                 HulunBuirException.build("该用户已被禁用，如有疑问请联系系统管理员");
             } else if(exception instanceof NoUserException){

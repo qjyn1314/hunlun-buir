@@ -249,8 +249,8 @@ public class ShiroTool {
 
 
     public static void main(String[] args) {
-        String password = "123456";
         String username = "qjyn1314@163.com";
+        String password = "123456";
         final String randomSalt = getRandomSalt(5);
         System.out.println(randomSalt);
         final String salt = username + randomSalt;
