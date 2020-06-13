@@ -62,6 +62,14 @@ public class LoginController {
         return JsonResult.success();
     }
 
+    public static void main(String[] args) {
+        String url = "index.html";
+
+        String reurl = url.substring(0,url.lastIndexOf("."));
+
+        System.out.println(reurl);
+    }
+
     /**
      * 用于登陆成功之后的跳转页面
      *
@@ -70,8 +78,30 @@ public class LoginController {
      */
     @GetMapping("/console.html")
     public String consoleHtml() {
-        return "/buir/console";
+        if (ShiroTool.isAuthenticated()) {
+            return "/buir/console";
+        }
+        return "buir/login";
     }
+
+    /**
+     * 用于菜单页面的跳转
+     *
+     * @author wangjunming
+     * @since 2020/2/12 11:54
+     */
+    @GetMapping("/{viewPage}.do")
+    public String viewHandle(@PathVariable String viewPage) {
+        log.info("请求的路径是：{}",viewPage);
+        final String pages = viewPage.substring(0, viewPage.lastIndexOf("."));
+        final String index = "index";
+        if(index.equals(pages)){
+            return index;
+        }
+        return "/buir/"+pages;
+    }
+
+
 
     /**
      * 用于首页的跳转到登录页面

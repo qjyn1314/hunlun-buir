@@ -36,6 +36,9 @@ public class HulunBuirAfternoonApplication {
     public static class SecurityAdminConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            //in a frame because it set 'X-Frame-Options' to 'deny'.      为了解决此错误信息
+            http.headers().frameOptions().sameOrigin();
+
             http.authorizeRequests().anyRequest().permitAll()
                     .and().csrf().disable();
         }

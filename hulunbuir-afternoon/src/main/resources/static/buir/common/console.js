@@ -9,8 +9,7 @@
         // 如果你在引入此脚本的script标签上没有设置data-main属性，程序将会默认访问home.js文件
         app = {
         // 找到首页的js进行页面的操作
-            home: '../../../../static/buir/common/home',
-            // login: '{/}login'
+            home: '../../../../static/buir/view/home',
         };
     (function () {
         let dataMain, scripts = document.getElementsByTagName('script'),
@@ -23,6 +22,6 @@
         [].slice.call(scripts).forEach(eachScripts);
     })();
     layui.config({
-        base: '../../static/layui/css/modules/'
+        base: '../../static/buir/view/'
     }).extend(app).use(entry || 'home');
 })();

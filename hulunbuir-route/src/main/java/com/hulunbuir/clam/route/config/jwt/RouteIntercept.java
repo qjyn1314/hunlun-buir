@@ -39,7 +39,7 @@ public class RouteIntercept implements HandlerInterceptor {
         response.setContentType("text/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         final String requestURI = request.getRequestURI();
-        log.info("进入 preHandle 方法...路径：{}", requestURI);
+//        log.info("进入 preHandle 方法...路径：{}", requestURI);
         /*  String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(authentication, StringPool.COMMA);
         boolean flag= false;
         for (String url : anonUrl) {
