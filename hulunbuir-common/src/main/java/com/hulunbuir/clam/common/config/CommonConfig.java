@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,13 +29,30 @@ import java.util.List;
 @Configuration
 public class CommonConfig {
     /**增加资源访问的路径*/
-    @EnableWebMvc
+//    @EnableWebMvc
     @Configuration
     public static class WebConfig implements WebMvcConfigurer {
+        /**
+         * 静态资源的加载问题
+         */
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/");
             registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
+            registry.addResourceHandler("/**").addResourceLocations(
+                    ResourceUtils.CLASSPATH_URL_PREFIX + "/resources/",
+                    ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
+        }
+        /**
+         * 跨域支持
+         */
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("*")
+                    .allowCredentials(true)
+                    .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                    .maxAge(3600 * 24);
         }
     }
     /**用于配置admin监控的信息*/

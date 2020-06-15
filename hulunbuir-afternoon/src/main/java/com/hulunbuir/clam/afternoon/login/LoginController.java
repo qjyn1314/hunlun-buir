@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,11 @@ import java.util.Enumeration;
 @Controller
 @Slf4j
 public class LoginController {
+
+    @Autowired
+    private HttpServletRequest request;
+
+
     /**
      * 直接访问首页页面
      *
@@ -62,14 +68,6 @@ public class LoginController {
         return JsonResult.success();
     }
 
-    public static void main(String[] args) {
-        String url = "index.html";
-
-        String reurl = url.substring(0,url.lastIndexOf("."));
-
-        System.out.println(reurl);
-    }
-
     /**
      * 用于登陆成功之后的跳转页面
      *
@@ -90,15 +88,17 @@ public class LoginController {
      * @author wangjunming
      * @since 2020/2/12 11:54
      */
-    @GetMapping("/{viewPage}.do")
+    @GetMapping({"/{viewPage}.do","/**/{viewPage}.do"})
     public String viewHandle(@PathVariable String viewPage) {
-        log.info("请求的路径是：{}",viewPage);
-        final String pages = viewPage.substring(0, viewPage.lastIndexOf("."));
+        final String requestUri = request.getRequestURI();
+        log.info("请求的路径是-requestUri：{}，进入的页面是：{}",requestUri,viewPage);
+        String pages = viewPage.substring(0, viewPage.lastIndexOf("."));
         final String index = "index";
         if(index.equals(pages)){
             return index;
         }
-        return "/buir/"+pages;
+        pages = requestUri.substring(0,requestUri.indexOf("."));
+        return "buir"+pages;
     }
 
 
