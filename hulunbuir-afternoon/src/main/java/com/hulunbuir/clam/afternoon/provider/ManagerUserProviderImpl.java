@@ -23,7 +23,7 @@ import java.util.HashMap;
  */
 @Slf4j
 @Component
-@Service(interfaceClass = ManagerUserProvider.class,timeout = 500000)
+@Service
 public class ManagerUserProviderImpl implements ManagerUserProvider {
 
     @Autowired

@@ -37,7 +37,7 @@ public class RegisteredController {
     /**
      * 调用的dubbo服务接口，必须这样定义，check：初始化时不进行检测，timeout：超时时间，retries：重试次数
      */
-    @Reference(check = false, timeout = 500000, retries = 0)
+    @Reference(check = false)
     private AdminMailProvider mailProvider;
 
     @Autowired

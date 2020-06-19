@@ -171,31 +171,6 @@ public final class JwtTokenUtil {
         return flag;
     }
 
-//    public static void main(String[] args) {
-//        JwtTokenUtil jwtToken = new JwtTokenUtil();
-////        HashMap<String, Object> map = new HashMap<>();
-////        map.put("userName", "zhangsan");
-////        map.put("userId", 20);
-////        String token = jwtToken.doGenerateToken(map);
-////        System.out.println(token);
-////        Claims claimFromToken = jwtToken.getClaimFromToken(token);
-////        Date expiration = claimFromToken.getExpiration();
-////        Integer userId = claimFromToken.get("userId",Integer.class);
-////        String userName = claimFromToken.get("userName", String.class);
-////        System.out.println("expiration:" + expiration);
-////        System.out.println("userId:" + userId);
-////        System.out.println("userName:" + userName);
-////        System.out.println("parseToken:" + jwtToken.parseToken(token));
-//        LoginUser user = new LoginUser();
-//        user.setUserMail("qjyn1314@163.com");
-//        String userInfoToken = jwtToken.doUserInfoToken(user);
-//        boolean b = jwtToken.parseToken(userInfoToken);
-//        System.out.println("解析："+b);
-//        LoginUser userInfoByToken = jwtToken.getUserInfoByToken(userInfoToken);
-//        String userMail = userInfoByToken.getUserMail();
-//        System.out.println(userMail);
-//    }
-
     /**
      * 获取登录用户信息,调用此接口之前请先调用parseToken(userToken)并保证返回true
      *

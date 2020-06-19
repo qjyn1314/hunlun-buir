@@ -1,5 +1,8 @@
 package com.hulunbuir.clam.admin.test_demo;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 /**
  * <p>
  * explain:
@@ -28,7 +31,15 @@ public class MyTest {
 
 //        short s1 = 1; s1 += 1;
 
+        String amount = "6,725,474.43";
+        DecimalFormat df2 =new DecimalFormat("#.0000");
+        final String format = df2.format(amount);
+        System.out.println(format);
 
+
+        amount = amount.replaceAll(",","");
+        final BigDecimal bigDecimal = new BigDecimal(amount);
+        System.out.println(bigDecimal);
 
 
     }

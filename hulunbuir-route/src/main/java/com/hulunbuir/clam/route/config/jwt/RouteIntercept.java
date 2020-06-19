@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RouteIntercept implements HandlerInterceptor {
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
-//    @Value("${intercept.authentication}")
-//    private String authentication;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

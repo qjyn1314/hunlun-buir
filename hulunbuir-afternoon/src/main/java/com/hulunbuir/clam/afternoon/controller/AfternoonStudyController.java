@@ -1,10 +1,8 @@
 package com.hulunbuir.clam.afternoon.controller;
 
 import com.hulunbuir.clam.common.base.BaseController;
-import com.hulunbuir.clam.distributed.evening.EveningProvider;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Afternoon项目的学习控制层，仅个人使用")
 public class AfternoonStudyController extends BaseController {
 
-    @Reference(check = false,timeout = 500000,retries = 0)
-    private EveningProvider eveningProvider;
+//    @DubboReference(check = false,timeout = 500000,retries = 0)
+//    private EveningProvider eveningProvider;
 
 
 //    @Autowired

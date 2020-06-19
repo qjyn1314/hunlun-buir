@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  * @author wangjunming
  * @since 2020-02-17 12:53
  */
-@Service(interfaceClass = AdminMailProvider.class,timeout = 500000)
-@Component
 @Slf4j
+@Component
+@Service
 public class AdminMailProviderImpl implements AdminMailProvider {
 
     @Autowired
@@ -36,3 +36,4 @@ public class AdminMailProviderImpl implements AdminMailProvider {
         mailService.sendSimpleMail(to, subject, content, cc);
     }
 }
+

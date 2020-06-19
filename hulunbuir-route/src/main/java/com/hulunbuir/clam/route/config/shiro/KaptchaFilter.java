@@ -1,7 +1,9 @@
 package com.hulunbuir.clam.route.config.shiro;
 
 import com.google.code.kaptcha.Constants;
+import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
+import com.hulunbuir.clam.route.config.jwt.CurrentUser;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,7 @@ import org.apache.shiro.web.util.WebUtils;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 验证码过滤器此过滤器已经在shiro中配置，这里不需要再次配置拦截路径
@@ -28,27 +31,36 @@ public class KaptchaFilter extends FormAuthenticationFilter {
 
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 
+//    @Autowired
+//    private CurrentUser user;
+//    private static CurrentUser CURRENT_USER;
+//
+//    @PostConstruct
+//    public void init() {
+//        CURRENT_USER = user;
+//    }
+
     //登录验证
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response)
             throws Exception {
-
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         CaptchaUsernamePasswordToken token = createToken(request, response);
         try {
             log.info("KaptchaFilter.executeLogin");
             /*图形验证码验证*/
-            doCaptchaValidate((HttpServletRequest) request, token);
-            Subject subject = getSubject(request, response);
+            doCaptchaValidate(httpServletRequest, token);
+            Subject subject = getSubject(httpServletRequest, response);
             subject.login(token);//正常验证
             //到这里就算验证成功了,把用户信息放到session中
-            Object user = ShiroTool.getUser();
-            log.info("登录成功的用户信息是：{}",user);
-            //将用户信息转换成为JWT形式的token，放到redis缓存中，并返回给页面这个token
-//            ((HttpServletRequest) request).getSession().setAttribute("user", user);
-            return onLoginSuccess(token, subject, request, response);
-
+            UserManager user = (UserManager) ShiroTool.getUser();
+            log.info("登录成功的用户信息是：{}", user);
+            //将用户信息转换成为JWT形式的token，放到redis缓存中，放置cookie中，并返回给页面这个token
+            httpServletResponse = CurrentUser.handleUserMessage(user, httpServletResponse);
+            return onLoginSuccess(token, subject, request, httpServletResponse);
         } catch (AuthenticationException e) {
-            return onLoginFailure(token, e, request, response);
+            return onLoginFailure(token, e, request, httpServletResponse);
         }
     }
 
@@ -71,8 +83,8 @@ public class KaptchaFilter extends FormAuthenticationFilter {
         String captcha = (String) request.getSession().getAttribute(
                 Constants.KAPTCHA_SESSION_KEY);
         String tokenCaptcha = token.getCaptcha();
-        log.info("session中的图形码字符串:{}",captcha);
-        log.info("用户输入的图形码字符串:{}",tokenCaptcha);
+        log.info("session中的图形码字符串:{}", captcha);
+        log.info("用户输入的图形码字符串:{}", tokenCaptcha);
         //比对
         if (captcha == null || !captcha.equalsIgnoreCase(tokenCaptcha)) {
             throw new IncorrectCaptchaException();
@@ -83,15 +95,15 @@ public class KaptchaFilter extends FormAuthenticationFilter {
     @Override
     protected CaptchaUsernamePasswordToken createToken(ServletRequest request, ServletResponse response) {
         String username = getUsername(request);
-        if(StringUtils.isBlank(username)){
+        if (StringUtils.isBlank(username)) {
             HulunBuirException.build("请填写登录邮箱！");
         }
         String password = getPassword(request);
-        if(StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(password)) {
             HulunBuirException.build("请填写登录密码！");
         }
         String captcha = getCaptcha(request);
-        if(StringUtils.isBlank(captcha)){
+        if (StringUtils.isBlank(captcha)) {
             HulunBuirException.build("请填写验证码！");
         }
         boolean rememberMe = isRememberMe(request);

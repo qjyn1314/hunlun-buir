@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * <p>
- * explain:
+ * explain: 查询用户信息的dubbo接口
  * </p>
  *
  * @author wangjunming

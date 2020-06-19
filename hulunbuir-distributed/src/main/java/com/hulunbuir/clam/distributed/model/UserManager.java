@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.distributed.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @author wangjunming
  * @since 2020/5/24 11:57
  */
+@Data
 public class UserManager implements Serializable {
 
     @ApiModelProperty(value = "主键ID")

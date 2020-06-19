@@ -155,6 +155,14 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/env", "anon");//应用程序的环境变量
         filterChainDefinitionMap.put("/metrics", "anon");
         filterChainDefinitionMap.put("/configprops", "anon");
+        filterChainDefinitionMap.put("/logfile/**/**", "anon");
+        filterChainDefinitionMap.put("/liquibase/**/**", "anon");
+        filterChainDefinitionMap.put("/dump/**/**", "anon");
+        filterChainDefinitionMap.put("/trace/**/**", "anon");
+        filterChainDefinitionMap.put("/refresh/**/**", "anon");
+        filterChainDefinitionMap.put("/flyway/**/**", "anon");
+        filterChainDefinitionMap.put("/httptrace/**/**", "anon");
+        filterChainDefinitionMap.put("/auditevents/**/**", "anon");
 
         // 其他的进行认证
         filterChainDefinitionMap.put("/**", "authc");
@@ -244,7 +252,8 @@ public class ShiroConfig {
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
-        simpleCookie.setMaxAge(259200);
+        int maxAge = 259200;
+        simpleCookie.setMaxAge(maxAge);
         return simpleCookie;
     }
 
