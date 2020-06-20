@@ -51,6 +51,7 @@ public class KaptchaFilter extends FormAuthenticationFilter {
             log.info("KaptchaFilter.executeLogin");
             /*图形验证码验证*/
             doCaptchaValidate(httpServletRequest, token);
+            token.setRememberMe(true);
             Subject subject = getSubject(httpServletRequest, response);
             subject.login(token);//正常验证
             //到这里就算验证成功了,把用户信息放到session中
@@ -106,9 +107,9 @@ public class KaptchaFilter extends FormAuthenticationFilter {
         if (StringUtils.isBlank(captcha)) {
             HulunBuirException.build("请填写验证码！");
         }
-        boolean rememberMe = isRememberMe(request);
+        boolean rememberMe = true;//isRememberMe(request);
         String host = getHost(request);
-        return new CaptchaUsernamePasswordToken(username, password.toCharArray(), true, host, captcha);
+        return new CaptchaUsernamePasswordToken(username, password.toCharArray(), rememberMe, host, captcha);
     }
 
     public String getCaptchaParam() {

@@ -3,6 +3,7 @@ package com.hulunbuir.clam.route.config.shiro;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.servlet.KaptchaServlet;
+import com.hulunbuir.clam.route.config.jwt.CurrentUser;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -165,7 +166,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/auditevents/**/**", "anon");
 
         // 其他的进行认证
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "user");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -250,10 +251,10 @@ public class ShiroConfig {
     public SimpleCookie rememberMeCookie() {
         //System.out.println("ShiroConfiguration.rememberMeCookie()");
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
-        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        SimpleCookie simpleCookie = new SimpleCookie(CurrentUser.USER_REMEMBER_ME);
+        simpleCookie.setHttpOnly(true);
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
-        int maxAge = 259200;
-        simpleCookie.setMaxAge(maxAge);
+        simpleCookie.setMaxAge(CurrentUser.USER_COOKIE_TIME_OUT);
         return simpleCookie;
     }
 
@@ -312,6 +313,21 @@ public class ShiroConfig {
         return scheduler;
     }
 
+    /*@Bean
+    public FilterRegistrationBean shiroFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new DelegatingFilterProxy("logout"));
+        //该值缺省为false，表示生命周期由SpringApplicationContext管理，设置为true则表示由ServletContainer管理
+        registration.addInitParameter("targetFilterLifecycle", "true");
+        registration.setEnabled(true);
+        registration.setOrder(Integer.MAX_VALUE - 1);
+        registration.addUrlPatterns("/*");
+
+        //支持异步
+        registration.setAsyncSupported(true);
+        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
+        return registration;
+    }*/
 
     /**
      * 必须（thymeleaf页面使用shiro标签控制按钮是否显示）

@@ -20,7 +20,7 @@ mybatis-plus-boot-starter:3.3.0
 druid:1.1.21
 
 ### 分布式中使用的rpc框架dubbo
-org.apache.dubbo:dubbo-spring-boot-starter:2.7.1
+org.apache.dubbo:dubbo-spring-boot-starter:2.7.5
 
 ### 分布式中的注册中心使用zookeeper
 zookeeper:3.5.6

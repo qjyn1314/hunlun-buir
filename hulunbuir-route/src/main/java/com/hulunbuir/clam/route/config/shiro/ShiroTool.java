@@ -15,11 +15,14 @@
  */
 package com.hulunbuir.clam.route.config.shiro;
 
+import com.hulunbuir.clam.distributed.model.UserManager;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
 
 /**
  * shiro工具类
@@ -27,16 +30,14 @@ import org.apache.shiro.subject.Subject;
  * @author wangjunming
  * @since 2020/5/24 19:15
  */
+@Slf4j
+@Component
 public class ShiroTool {
 
     /**
      * 散列算法
      */
     public final static String HASH_ALGORITHM_NAME = "MD5";
-    /**
-     * 循环次数
-     */
-    public final static int HASH_ITERATIONS = 2;
     private static final String NAMES_DELIMETER = ",";
 
     /**
@@ -239,12 +240,32 @@ public class ShiroTool {
      *
      * @return 当前用户信息
      */
-    public static String principal() {
+    public static Object principal() {
         if (getSubject() != null) {
-            Object principal = getSubject().getPrincipal();
-            return principal.toString();
+            return getSubject().getPrincipal();
         }
-        return "";
+        return null;
+    }
+
+    /**
+     * 当前登录用户
+     *
+     * @author wangjunming
+     * @since 2020/6/20 13:57
+     */
+    public static UserManager currentUser() {
+        return (UserManager)principal();
+    }
+
+    /**
+     * 记住我的判断
+     *
+     * @author wangjunming
+     * @since 2020/6/19 21:28
+     */
+    public static boolean isRemembered() {
+        final boolean remembered = getSubject().isRemembered();
+        return remembered;
     }
 
 

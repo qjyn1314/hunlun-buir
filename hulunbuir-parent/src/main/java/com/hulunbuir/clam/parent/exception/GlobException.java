@@ -9,6 +9,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.NestedServletException;
+import org.thymeleaf.exceptions.TemplateInputException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -93,6 +95,30 @@ public class GlobException {
      */
     @ExceptionHandler(value = RequestRejectedException.class)
     public String handleHttpRequestMethodNotSupportedException(RequestRejectedException e) {
+        log.error("统一处理请求的方法不正确异常-异常", e);
+        return "/error/404";
+    }
+
+    /**
+     * 统一处理请求的方法不正确异常
+     *
+     * @author wangjunming
+     * @since 2020/2/12 18:05
+     */
+    @ExceptionHandler(value = TemplateInputException.class)
+    public String handleTemplateInputException(TemplateInputException e) {
+        log.error("统一处理请求的方法不正确异常-异常", e);
+        return "/error/404";
+    }
+
+    /**
+     * 统一处理请求的方法不正确异常
+     *
+     * @author wangjunming
+     * @since 2020/2/12 18:05
+     */
+    @ExceptionHandler(value = NestedServletException.class)
+    public String handleNestedServletException(NestedServletException e) {
         log.error("统一处理请求的方法不正确异常-异常", e);
         return "/error/404";
     }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Reference(check = false)
+    @Reference
     private ManagerUserProvider userProvider;
 
 

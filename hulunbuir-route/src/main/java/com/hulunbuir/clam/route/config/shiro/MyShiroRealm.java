@@ -26,7 +26,7 @@ import java.util.HashMap;
 @Slf4j
 public class MyShiroRealm extends AuthorizingRealm {
 
-    @Reference(check = false)
+    @Reference
     private ManagerUserProvider managerUserProvider;
 
     /**

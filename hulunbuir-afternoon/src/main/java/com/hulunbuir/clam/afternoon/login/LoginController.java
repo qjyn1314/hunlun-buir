@@ -44,11 +44,10 @@ public class LoginController {
      */
     @GetMapping("/")
     public String index() {
-        if (ShiroTool.isAuthenticated()) {
+        if (ShiroTool.isAuthenticated() || ShiroTool.isRemembered()) {
             return "redirect:/console.html";
         }
         return "buir/login";
-//        return "index";
     }
 
     /**
@@ -79,6 +78,9 @@ public class LoginController {
         if (ShiroTool.isAuthenticated()) {
             return "/buir/console";
         }
+        if(ShiroTool.isRemembered()){
+            return "/buir/console";
+        }
         return "buir/login";
     }
 
@@ -90,15 +92,24 @@ public class LoginController {
      */
     @GetMapping({"/{viewPage}.do","/**/{viewPage}.do"})
     public String viewHandle(@PathVariable String viewPage) {
-        final String requestUri = request.getRequestURI();
-        log.info("请求的路径是-requestUri：{}，进入的页面是：{}",requestUri,viewPage);
-        String pages = viewPage.substring(0, viewPage.lastIndexOf("."));
-        final String index = "index";
-        if(index.equals(pages)){
-            return index;
+        if (ShiroTool.isAuthenticated() || ShiroTool.isRemembered()) {
+            final String requestUri = request.getRequestURI();
+            log.info("请求的路径是-requestUri：{}，进入的页面是：{}", requestUri, viewPage);
+            String pages = null;
+            try {
+                pages = viewPage.substring(0, viewPage.lastIndexOf("."));
+            } catch (Exception e) {
+                log.error("跳转页面异常！",e);
+                return "/error/404";
+            }
+            final String index = "index";
+            if (index.equals(pages)) {
+                return index;
+            }
+            pages = requestUri.substring(0, requestUri.indexOf("."));
+            return "buir" + pages;
         }
-        pages = requestUri.substring(0,requestUri.indexOf("."));
-        return "buir"+pages;
+        return "buir/login";
     }
 
 
@@ -111,7 +122,21 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        if (ShiroTool.isAuthenticated()) {
+        if (ShiroTool.isAuthenticated() || ShiroTool.isRemembered()) {
+            return "redirect:/console.html";
+        }
+        return "buir/login";
+    }
+
+    /**
+     * 用于退出登录的跳转到登录页面
+     *
+     * @author wangjunming
+     * @since 2020/2/12 11:54
+     */
+    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    public String loginHtml() {
+        if (ShiroTool.isAuthenticated() || ShiroTool.isRemembered()) {
             return "redirect:/console.html";
         }
         return "buir/login";

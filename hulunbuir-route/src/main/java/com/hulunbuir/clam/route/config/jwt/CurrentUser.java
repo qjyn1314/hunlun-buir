@@ -26,10 +26,15 @@ import java.util.Map;
 @Component
 public class CurrentUser {
 
-    //用户的cookie名称
-    private static final String USER_COOKIE = "user_token";
-    //七天
-    private static final int USER_COOKIE_TIME_OUT = 60 * 24 * 7;
+    /**
+     * 用户的token存在于cookie中名称，
+     */
+    public static final String USER_COOKIE = "user_token";
+    public static final String USER_REMEMBER_ME = "user_remember_me";
+    /**
+     * 30 天
+     */
+    public static final int USER_COOKIE_TIME_OUT = 60 * 60 * 24 * 30;
     private static JwtTokenUtil JWT_TOKEN_UTIL;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
