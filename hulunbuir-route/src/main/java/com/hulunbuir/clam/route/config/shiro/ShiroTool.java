@@ -16,6 +16,7 @@
 package com.hulunbuir.clam.route.config.shiro;
 
 import com.hulunbuir.clam.distributed.model.UserManager;
+import com.hulunbuir.clam.route.config.jwt.CurrentUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -254,7 +255,21 @@ public class ShiroTool {
      * @since 2020/6/20 13:57
      */
     public static UserManager currentUser() {
-        return (UserManager)principal();
+        final UserManager principal = (UserManager) principal();
+        if(null == principal){
+            return getCurrentUser();
+        }
+        return principal;
+    }
+
+    /**
+     * 从当前浏览器的cookie中获取用户信息
+     *
+     * @author wangjunming
+     * @since 2020/6/21 12:45
+     */
+    private static UserManager getCurrentUser() {
+        return CurrentUser.getUserMessage();
     }
 
     /**
@@ -264,8 +279,7 @@ public class ShiroTool {
      * @since 2020/6/19 21:28
      */
     public static boolean isRemembered() {
-        final boolean remembered = getSubject().isRemembered();
-        return remembered;
+        return getSubject().isRemembered();
     }
 
 

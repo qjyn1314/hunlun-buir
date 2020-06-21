@@ -10,6 +10,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -103,14 +104,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        //验证码过滤器
-        Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
-        KaptchaFilter kaptchaFilter = new KaptchaFilter();
-        filtersMap.put("kaptchaFilter", kaptchaFilter);
-        //实现自己规则roles,这是为了实现or的效果
-        //RoleFilter roleFilter = new RoleFilter();
-        //filtersMap.put("roles", roleFilter);
-        shiroFilterFactoryBean.setFilters(filtersMap);
+
         // 拦截器
         //rest：比如/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user：method] ,其中method为post，get，delete等。
         //port：比如/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal：//serverName：8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。
@@ -123,7 +117,8 @@ public class ShiroConfig {
         //user：比如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/logout", "logout");
+//        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/userLogout", "userLogout");
         //配置记住我或认证通过可以访问的地址
 //        filterChainDefinitionMap.put("/index", "user");
         filterChainDefinitionMap.put("/console.html", "user");
@@ -176,6 +171,15 @@ public class ShiroConfig {
 
         // 未授权界面，不生效(详情原因看MyExceptionResolver)
         shiroFilterFactoryBean.setUnauthorizedUrl("/error/404");
+
+        //验证码过滤器
+        Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
+        filtersMap.put("kaptchaFilter", new KaptchaFilter());
+        filtersMap.put("userLogout", new HulunBuirLogout());
+        //实现自己规则roles,这是为了实现or的效果
+        //RoleFilter roleFilter = new RoleFilter();
+        //filtersMap.put("roles", roleFilter);
+        shiroFilterFactoryBean.setFilters(filtersMap);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
@@ -195,6 +199,8 @@ public class ShiroConfig {
 //        securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
         //注入记住我管理器;
         securityManager.setRememberMeManager(rememberMeManager());
+        //为了解决：UnavailableSecurityManagerException
+        ThreadContext.bind(securityManager);
         return securityManager;
     }
 
@@ -313,18 +319,19 @@ public class ShiroConfig {
         return scheduler;
     }
 
-    /*@Bean
+/*    @Bean
     public FilterRegistrationBean shiroFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new DelegatingFilterProxy("logout"));
+        registration.setFilter(new DelegatingFilterProxy("hulunBuirLogout"));
+        registration.setFilter(new DelegatingFilterProxy("kaptchaFilter"));
         //该值缺省为false，表示生命周期由SpringApplicationContext管理，设置为true则表示由ServletContainer管理
         registration.addInitParameter("targetFilterLifecycle", "true");
         registration.setEnabled(true);
-        registration.setOrder(Integer.MAX_VALUE - 1);
+//        registration.setOrder(Integer.MAX_VALUE - 1);
         registration.addUrlPatterns("/*");
-
         //支持异步
         registration.setAsyncSupported(true);
+//        registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC,DispatcherType.FORWARD,DispatcherType.INCLUDE,DispatcherType.ERROR);
         registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
         return registration;
     }*/

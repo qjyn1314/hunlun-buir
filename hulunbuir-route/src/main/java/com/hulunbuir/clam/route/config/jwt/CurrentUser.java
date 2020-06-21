@@ -1,5 +1,6 @@
 package com.hulunbuir.clam.route.config.jwt;
 
+import com.hulunbuir.clam.common.config.ApplicationContextUtils;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 /**
  * <p>
- * explain:获取当前登录用户信息
+ * explain: 获取当前浏览器中的登录用户cookie信息
  * </p>
  *
  * @author wangjunming
@@ -61,6 +62,16 @@ public class CurrentUser {
         assert userCookie != null;
         final String userTokenCookie = userCookie.getValue();
         return JWT_TOKEN_UTIL.getUserInfoByToken(userTokenCookie);
+    }
+
+    /**
+     * 从当前登录浏览器中获取当前登录用户
+     *
+     * @author wangjunming
+     * @since 2020/6/18 17:23
+     */
+    public static UserManager getUserMessage() {
+        return JWT_TOKEN_UTIL.getUserInfoByToken(getCookieByName(ApplicationContextUtils.getHttpServletRequest(), USER_COOKIE).getValue());
     }
 
     /**
