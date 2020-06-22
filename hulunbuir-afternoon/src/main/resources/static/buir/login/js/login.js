@@ -1,4 +1,7 @@
-$(function () {
+layui.use(["asucUtils", ], function () {
+
+    let asucUtils = layui.asucUtils;
+
     $("#signUp").click(function () {
         clearForm(".reg_form");
         $(".dowebok").addClass("right-panel-active");
@@ -11,7 +14,7 @@ $(function () {
     //发送注册邮箱的验证码
     $(".send_verification").click(function () {
         var mail = $('.reg_form input[name="regUserMail"]').val();
-        $.axsPost("/login/sendMailCode", {userMail: mail},
+        asucUtils.axsPost("/login/sendMailCode", {userMail: mail},
             function (result) {
                 if (result.flag) {
                     countdown();
@@ -44,7 +47,7 @@ $(function () {
         let userMail = $('.reg_form input[name="regUserMail"]').val();
         let userPassword = $('.reg_form input[name="regUserPassword"]').val();
         let verification = $('.reg_form input[name="verification"]').val();
-        $.axsPost("/login/regUser", {
+        asucUtils.axsPost("/login/regUser", {
                 userName: userName,
                 userMail: userMail,
                 userPassword: userPassword,
@@ -91,7 +94,7 @@ $(function () {
         let userMail = $(".login_form input[name = 'userMail']").val();
         let userPassword = $(".login_form input[name = 'userPassword']").val();
         let captcha = $(".login_form input[name = 'captcha']").val();
-        $.axsPost("/login",
+        asucUtils.axsPost("/login",
             {
                 username: userMail,
                 password: userPassword,
@@ -111,7 +114,7 @@ $(function () {
                 }
                 //当登录成功之后是没有返回的json数据的，即可刷新页面直接进入登录成功之后的首页，get请求：/login
                 window.location.reload();
-            });
+        });
     }
 
 });

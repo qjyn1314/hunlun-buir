@@ -1,7 +1,8 @@
 package com.hulunbuir.clam.afternoon.persistence.service;
 
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.hulunbuir.clam.common.base.Pages;
+import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.HashMap;
  * @author wangjunming
  * @since 2020-05-25
  */
-public interface IBuirUserService extends IService<BuirUser> {
+public interface IBuirUserService{
 
     /**
      * 注册用户信息
@@ -40,6 +41,15 @@ public interface IBuirUserService extends IService<BuirUser> {
      * @since 2020/5/25 15:07
      */
     BuirUser queryBuirUser(HashMap<String, Object> queryMap);
+
+
+    /**
+     * 查询用户分页
+     *
+     * @author wangjunming
+     * @since 2020/6/21 22:01
+     */
+    Pages<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser);
 
 
 }

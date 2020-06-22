@@ -1,110 +1,161 @@
-var table = layui.table;
-var form = layui.form;
-//展示已知数据  //cols--标题栏
-table.render({
-    elem: '#demo',
-    cols: [[
-        {field: 'id', title: 'ID', width: 80, sort: true},
-        {field: 'username', title: '用户名', width: 120},
-        {field: 'email', title: '邮箱', minWidth: 150},
-        {field: 'sign', title: '签名', minWidth: 160},
-        {field: 'sex', title: '性别', width: 80},
-        {field: 'city', title: '城市', width: 100},
-        {field: 'experience', title: '积分', width: 80, sort: true}
-    ]]
-    , data: [{
-        "id": "10001"
-        , "username": "杜甫"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "116"
-        , "ip": "192.168.0.8"
-        , "logins": "108"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10002"
-        , "username": "李白"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "12"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-        , "LAY_CHECKED": true
-    }, {
-        "id": "10003"
-        , "username": "王勃"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "65"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10004"
-        , "username": "贤心"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "666"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10005"
-        , "username": "贤心"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "86"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10006"
-        , "username": "贤心"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "12"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10007"
-        , "username": "贤心"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "16"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }, {
-        "id": "10008"
-        , "username": "贤心"
-        , "email": "xianxin@layui.com"
-        , "sex": "男"
-        , "city": "浙江杭州"
-        , "sign": "人生恰似一场修行"
-        , "experience": "106"
-        , "ip": "192.168.0.8"
-        , "logins": "106"
-        , "joinTime": "2016-10-14"
-    }]
-    , skin: 'line' //表格风格
-    // , even: true
-    , page: true //是否显示分页
-    , limits: [5, 7, 10]
-    , limit: 5 //每页默认显示的数量
-});
+layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], function () {
+    let asucUtils = layui.asucUtils;
+    let $ = layui.jquery;
+    let searchForm = $('#searchForm');
+    let laydate = layui.laydate;
+    //搜索中的日期
+    let startTime = laydate.render({elem: "#startTime", type: "datetime"});
+    let endTime = laydate.render({elem: "#endTime", type: "datetime"});
+
+    //列表
+    let dataTable =  asucUtils.tableInit({
+        elem: '#userTable',
+        id: 'userTable',
+        url: asucUtils.backendURL + "/buirUser/userPage",
+        cols: [[
+            {type: "checkbox", fixed: "left"},
+            {field: "id", title: "ID",width: 80},
+            {field: "nickName", title: "用户昵称",},
+            {field: "userName", title: "用户登录邮箱"},
+            {field: "status", title: "状态",},
+            {field: "createTime", title: "创建时间",},
+            {field: "updateTime", title: "更新时间",},
+            {title: "操作", width: 100, align: "center", fixed: "right", templet: "#operationTpl"}
+        ]],
+    });
+
+    //搜索
+    // $('#query').on('click',function (data) {
+    //     var sortObject = {field: 'createTime', type: null};
+    //     // var params = $.extend(getQueryParams(), {field: data.field,});
+    //     var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+    //     dataTable.reload('userTable',{where: params, page: {curr: 1}});
+    // });
+
+    //搜索条件
+    function getQueryParams() {
+        return {
+            startTime: startTime,
+            endTime: endTime,
+            nickName: searchForm.find('input[name="username"]').val().trim(),
+            userName: searchForm.find("input[name='usermail']").val().trim(),
+            status: searchForm.find("select[name='status']").val(),
+        };
+    }
+
+    //刷新
+    // $('#reset').on('click', function () {
+    //     searchForm[0].reset();
+    //     dataTable.reload({where: getQueryParams(), page: {curr: 1}});
+    // });
+
+    // form.on("submit(search)", function (data) {
+    //     userTable.reload({
+    //         where: data.field,
+    //         page: {curr: 1}
+    //     });
+    //     return false;
+    // });
+
+    // table.on("toolbar(tableFilter)", function (obj) {
+    //     switch (obj.event) {
+    //         case "batchEnabled":
+    //             batchEnabled();
+    //             break;
+    //         case "batchDisabled":
+    //             batchDisabled();
+    //             break;
+    //         case "batchDel":
+    //             batchDel();
+    //             break;
+    //         case "add":
+    //             add();
+    //             break;
+    //     }
+    // });
+    //
+    // table.on("tool(tableFilter)", function (obj) {
+    //     let data = obj.data;
+    //     switch (obj.event) {
+    //         case "edit":
+    //             edit(data);
+    //             break;
+    //         case "del":
+    //             del(data.id);
+    //             break;
+    //     }
+    // });
+    //
+    // function batchEnabled() {
+    //     okLayer.confirm("确定要批量启用吗？", function (index) {
+    //         layer.close(index);
+    //         let idsStr = okUtils.tableBatchCheck(table);
+    //         if (idsStr) {
+    //             okUtils.ajax("/user/normalUser", "put", {idsStr: idsStr}, true).done(function (response) {
+    //                 console.log(response);
+    //                 okUtils.tableSuccessMsg(response.msg);
+    //             }).fail(function (error) {
+    //                 console.log(error)
+    //             });
+    //         }
+    //     });
+    // }
+    //
+    // function batchDisabled() {
+    //     okLayer.confirm("确定要批量停用吗？", function (index) {
+    //         layer.close(index);
+    //         let idsStr = okUtils.tableBatchCheck(table);
+    //         if (idsStr) {
+    //             okUtils.ajax("/user/stopUser", "put", {idsStr: idsStr}, true).done(function (response) {
+    //                 console.log(response);
+    //                 okUtils.tableSuccessMsg(response.msg);
+    //             }).fail(function (error) {
+    //                 console.log(error)
+    //             });
+    //         }
+    //     });
+    // }
+    //
+    // function batchDel() {
+    //     okLayer.confirm("确定要批量删除吗？", function (index) {
+    //         layer.close(index);
+    //         let idsStr = okUtils.tableBatchCheck(table);
+    //         if (idsStr) {
+    //             okUtils.ajax("/user/deleteUser", "delete", {idsStr: idsStr}, true).done(function (response) {
+    //                 console.log(response);
+    //                 okUtils.tableSuccessMsg(response.msg);
+    //             }).fail(function (error) {
+    //                 console.log(error)
+    //             });
+    //         }
+    //     });
+    // }
+    //
+    // function add() {
+    //     okLayer.open("添加用户", "user-add.html", "90%", "90%", null, function () {
+    //         userTable.reload();
+    //     })
+    // }
+    //
+    // function edit(data) {
+    //     okLayer.open("更新用户", "user-edit.html", "90%", "90%", function (layero) {
+    //         let iframeWin = window[layero.find("iframe")[0]["name"]];
+    //         iframeWin.initForm(data);
+    //     }, function () {
+    //         userTable.reload();
+    //     })
+    // }
+    //
+    // function del(id) {
+    //     okLayer.confirm("确定要删除吗？", function () {
+    //         okUtils.ajax("/user/deleteUser", "delete", {idsStr: id}, true).done(function (response) {
+    //             console.log(response);
+    //             okUtils.tableSuccessMsg(response.msg);
+    //         }).fail(function (error) {
+    //             console.log(error)
+    //         });
+    //     })
+    // }
+
+
+})

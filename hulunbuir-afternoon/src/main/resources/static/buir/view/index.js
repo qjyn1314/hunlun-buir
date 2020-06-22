@@ -1,4 +1,9 @@
-console.log("访问首页")
+console.log("访问首页-将获取权限")
+
+
+
+
+
 
 
 

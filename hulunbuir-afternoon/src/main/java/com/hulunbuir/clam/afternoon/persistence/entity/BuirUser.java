@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hulunbuir.clam.afternoon.params.qo.RegUser;
 import com.hulunbuir.clam.route.config.shiro.ShiroTool;
 import io.swagger.annotations.ApiModel;
@@ -62,10 +63,12 @@ public class BuirUser extends Model<BuirUser> {
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
     @TableField("update_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     public BuirUser() {

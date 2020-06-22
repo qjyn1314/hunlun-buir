@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.common.base;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -11,9 +12,10 @@ import io.swagger.annotations.ApiModelProperty;
  * @author wangjunming
  * @since 2020-01-18 11:39
  */
+@ApiModel("分页信息")
 public class Pages<T> extends Page<T> {
 
-    @ApiModelProperty(value = "分页参数中的其他参数，比如：当前页面中的汇总信息")
+    @ApiModelProperty(value = "其他参数，比如：当前页面中的汇总信息")
     private Object otherDate;
 
     public Object getOtherDate() {

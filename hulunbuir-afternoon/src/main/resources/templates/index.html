@@ -215,7 +215,8 @@
 <!-- Slick Carousel -->
 <!-- Magnific Popup core JS file -->
 <script src="../static/Parallax/js/jquery.magnific-popup.min.js"></script>
-<script src="../static/buir/common/Ajax.js"></script>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/layui/lay/modules/asucUtils.js"></script>
 <script>
     function setCarousel() {
         var slider = $('.tm-img-slider');
@@ -253,7 +254,8 @@
     });
 </script>
 <script>
-    $(function () {
+    layui.use(["asucUtils", ], function () {
+        let asucUtils = layui.asucUtils;
         $(".indexSubmit").click(function () {
             var data = {
                 contactName: $("#contact_name").val(),
@@ -261,7 +263,7 @@
                 contactMessage: $("#contact_message").val()
             };
             //联系我们
-            $.axPost("/", data, function (result) {
+            asucUtils.axPost("/", data, function (result) {
                 if (result.flag) {
                     alert(result.message);
                 } else {
