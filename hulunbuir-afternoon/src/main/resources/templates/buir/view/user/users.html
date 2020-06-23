@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
-    <link href="/layui/css/layui.css" rel="stylesheet" >
-    <link href="/layui/css/view.css" rel="stylesheet" />
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
     <title>管理后台</title>
 </head>
 <body class="layui-view-body">
 <div class="layui-content">
-    <!--
-    <div class="layui-page-header">
-        <div class="pagewrap">
-                <span class="layui-breadcrumb">
-                  <a href="">首页</a>
-                  <a href="">用户</a>
-                  <a><cite>用户组</cite></a>
-                </span>
-            <h2 class="title">用户组</h2>
-        </div>
-    </div>
-    -->
     <div class="layui-row">
         <div class="layui-card">
             <div class="layui-card-body">
@@ -56,23 +44,27 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">注册时间</label>
                                         <div class="layui-input-inline">
-                                            <input autocomplete="off" class="layui-input" id="startTime" name="startTime" placeholder="开始时间">
+                                            <input autocomplete="off" class="layui-input" id="startTime" lay-verify="date"
+                                                   name="startTime" placeholder="开始时间" type="text">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">注册时间</label>
                                         <div class="layui-input-inline">
-                                            <input autocomplete="off" class="layui-input" id="endTime" name="endTime" placeholder="截止时间">
+                                            <input autocomplete="off" class="layui-input" id="endTime" lay-verify="date"
+                                                   name="endTime" placeholder="截止时间" type="text">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!--搜索，刷新-->
                             <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action" id="query">
+                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action" id="query"
+                                     type="button">
                                     <i class="layui-icon">&#xe615;</i>
                                 </div>
-                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action " id="reset">
+                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action " id="reset"
+                                     type="reset">
                                     <i class="layui-icon">&#xe669;</i>
                                 </div>
                             </div>

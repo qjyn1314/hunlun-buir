@@ -3,9 +3,8 @@ layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], func
     let $ = layui.jquery;
     let searchForm = $('#searchForm');
     let laydate = layui.laydate;
-    //搜索中的日期
-    let startTime = laydate.render({elem: "#startTime", type: "datetime"});
-    let endTime = laydate.render({elem: "#endTime", type: "datetime"});
+    laydate.render({elem: "#startTime", type: "datetime"});
+    laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
     let dataTable =  asucUtils.tableInit({
@@ -25,18 +24,15 @@ layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], func
     });
 
     //搜索
-    // $('#query').on('click',function (data) {
-    //     var sortObject = {field: 'createTime', type: null};
-    //     // var params = $.extend(getQueryParams(), {field: data.field,});
-    //     var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
-    //     dataTable.reload('userTable',{where: params, page: {curr: 1}});
-    // });
+    $('#query').on('click',function (data) {
+        dataTable.reload('userTable', {page: {curr: 1}, where: getQueryParams() });
+    });
 
     //搜索条件
     function getQueryParams() {
         return {
-            startTime: startTime,
-            endTime: endTime,
+            startTime: searchForm.find('input[name="startTime"]').val(),
+            endTime: searchForm.find('input[name="endTime"]').val(),
             nickName: searchForm.find('input[name="username"]').val().trim(),
             userName: searchForm.find("input[name='usermail']").val().trim(),
             status: searchForm.find("select[name='status']").val(),
@@ -44,10 +40,10 @@ layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], func
     }
 
     //刷新
-    // $('#reset').on('click', function () {
-    //     searchForm[0].reset();
-    //     dataTable.reload({where: getQueryParams(), page: {curr: 1}});
-    // });
+    $('#reset').on('click', function () {
+        searchForm[0].reset();
+        dataTable.reload('userTable', {page: {curr: 1}, where: getQueryParams()});
+    });
 
     // form.on("submit(search)", function (data) {
     //     userTable.reload({

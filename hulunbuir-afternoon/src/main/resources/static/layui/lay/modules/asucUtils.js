@@ -13,7 +13,7 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
          * 服务器地址
          * //后台服务地址
          */
-        backendURL: "http://127.0.0.1:8026/"
+        backendURL: "http://127.0.0.1:8026"
         ,
         /**
          * 获取body的总宽度
@@ -47,7 +47,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 limit: 10,
                 limits: [10, 20, 30, 40, 100],
                 autoSort: false,
-                minWidth: 120,
                 size: "lg",
                 request: {
                     pageName: 'current',
@@ -61,9 +60,7 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                     }
                 }
             };
-            return table.render(
-                $.extend({}, defaultSetting, params)
-            );
+            return table.render($.extend(defaultSetting, params));
         },
 
         /**
