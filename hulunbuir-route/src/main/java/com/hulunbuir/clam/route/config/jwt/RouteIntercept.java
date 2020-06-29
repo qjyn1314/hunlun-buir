@@ -1,6 +1,9 @@
 package com.hulunbuir.clam.route.config.jwt;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RouteIntercept implements HandlerInterceptor {
 
+    @Autowired
+    private AfternoonConfig afternoonConfig;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
@@ -37,6 +42,11 @@ public class RouteIntercept implements HandlerInterceptor {
         response.setContentType("text/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         final String requestURI = request.getRequestURI();
+        final String interceptUrl = afternoonConfig.getInterceptUrl();
+        String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(interceptUrl, StringPool.COMMA);
+//        log.info("anonUrl::{}", Arrays.asList(anonUrl));
+//        log.info("requestURI：：{}",requestURI);
+//        log.info("interceptUrl：：{}",interceptUrl);
 //        log.info("进入 preHandle 方法...路径：{}", requestURI);
         /*  String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(authentication, StringPool.COMMA);
         boolean flag= false;

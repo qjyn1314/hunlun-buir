@@ -31,15 +31,6 @@ public class KaptchaFilter extends FormAuthenticationFilter {
 
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 
-//    @Autowired
-//    private CurrentUser user;
-//    private static CurrentUser CURRENT_USER;
-//
-//    @PostConstruct
-//    public void init() {
-//        CURRENT_USER = user;
-//    }
-
     //登录验证
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response)

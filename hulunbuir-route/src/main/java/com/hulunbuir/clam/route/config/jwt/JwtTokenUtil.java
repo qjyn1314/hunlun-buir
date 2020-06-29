@@ -32,7 +32,7 @@ public final class JwtTokenUtil {
 
     /**
      * 初始化jwt密钥和过期时间
-     * <p>
+     *
      * --主要用于在用户登录过后的信息存储，需要将生成的token返回给前端，并在每次请求的时候，在请求头添加此数据信息
      *
      * @author wangjunming
