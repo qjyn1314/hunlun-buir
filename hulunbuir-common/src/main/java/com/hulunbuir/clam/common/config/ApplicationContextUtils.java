@@ -9,6 +9,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * <p>
@@ -56,8 +57,20 @@ public class ApplicationContextUtils implements ApplicationContextAware {
      * @since 2020/6/21 12:37
      */
     public static HttpServletRequest getHttpServletRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }
+
+    /**
+     * 获取request中的sessionId
+     *
+     * @author wangjunming
+     * @since 2020/7/8 10:27
+     */
+    public static String getRequestSessionId() {
+        final HttpServletRequest httpServletRequest = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        return httpServletRequest.getSession().getId();
+    }
+
 
 
 }

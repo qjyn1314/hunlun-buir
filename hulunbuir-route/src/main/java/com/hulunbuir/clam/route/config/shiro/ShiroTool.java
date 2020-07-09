@@ -282,7 +282,10 @@ public class ShiroTool {
         return getSubject().isRemembered();
     }
 
-
+    /**
+     * 手动生成登录账号和密码
+     * @param args
+     */
     public static void main(String[] args) {
         String username = "qjyn1314@163.com";
         String password = "123456";

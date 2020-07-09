@@ -95,4 +95,21 @@ public class RedisConfig {
         Object strValue = getStrValue(key);
         return null == strValue;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

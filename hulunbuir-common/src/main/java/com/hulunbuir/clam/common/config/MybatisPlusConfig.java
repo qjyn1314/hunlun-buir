@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.hulunbuir.clam.*.persistence.mapper")
+@MapperScan(basePackages = {
+        "com.hulunbuir.clam.*.*.mapper",
+})
 public class MybatisPlusConfig {
 
     /**

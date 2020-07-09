@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hulunbuir.clam.afternoon.generationcode.mapper.CodeGenerationMapper">
+
+    <select id="generationDatabases" resultType="java.lang.String">
+        SELECT
+        DISTINCT TABLE_SCHEMA schemaName
+        FROM
+        information_schema.TABLES
+        where
+        TABLE_SCHEMA != 'information_schema' AND TABLE_SCHEMA != 'performance_schema' AND TABLE_SCHEMA != 'sys' AND TABLE_SCHEMA != 'mysql'
+    </select>
+
+    <select id="generationTables" resultType="com.hulunbuir.clam.afternoon.generationcode.entity.CodeGeneration">
+        SELECT
+            TABLE_SCHEMA schemaName,
+            TABLE_NAME tableName,
+            CREATE_TIME createTime,
+            UPDATE_TIME updateTime,
+            TABLE_ROWS dataRows,
+            TABLE_COMMENT remark,
+            TABLE_COLLATION coding
+        FROM
+        information_schema.TABLES
+        <where>
+            TABLE_SCHEMA != 'information_schema' AND TABLE_SCHEMA != 'performance_schema' AND TABLE_SCHEMA != 'sys' AND TABLE_SCHEMA != 'mysql'
+            <if test="generation.schemaName != null and generation.schemaName != ''">
+                AND TABLE_SCHEMA = #{generation.schemaName}
+            </if>
+            <if test="generation.tableName != null and generation.tableName != ''">
+                AND TABLE_NAME = #{generation.tableName}
+            </if>
+        </where>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+</mapper>

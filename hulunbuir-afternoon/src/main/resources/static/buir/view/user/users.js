@@ -9,7 +9,6 @@ layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], func
     //列表
     let dataTable =  asucUtils.tableInit({
         elem: '#userTable',
-        id: 'userTable',
         url: asucUtils.backendURL + "/buirUser/userPage",
         cols: [[
             {type: "checkbox", fixed: "left"},
@@ -25,7 +24,7 @@ layui.use(["element", "jquery", "table", "form", "laydate", "asucUtils", ], func
 
     //搜索
     $('#query').on('click',function (data) {
-        dataTable.reload('userTable', {page: {curr: 1}, where: getQueryParams() });
+        dataTable.reload({where: getQueryParams(), page: {curr: 1}});
     });
 
     //搜索条件
