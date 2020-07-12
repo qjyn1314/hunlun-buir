@@ -163,6 +163,11 @@
             <artifactId>poi</artifactId>
             <version>3.17</version>
         </dependency>
+        <!--<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>2.2.6</version>
+        </dependency>-->
         <!--excel相关-end-->
         <!--解析xml-start-->
         <dependency>

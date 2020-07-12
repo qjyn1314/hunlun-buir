@@ -23,12 +23,12 @@ public final class JwtTokenUtil {
     /**
      * jwt密钥
      */
-    private final String secret;
+    private String secret;
 
     /**
      * jwt过期时间-默认是24小时
      */
-    private final int expireTime;
+    private int expireTime;
 
     /**
      * 初始化jwt密钥和过期时间
@@ -47,15 +47,15 @@ public final class JwtTokenUtil {
      * Map转实体类
      *
      * @param map    需要初始化的数据，key字段必须与实体类的成员名字一样，否则赋值为空
-     * @param entity 需要转化成的实体类
+     * @param entityClass 需要转化成的实体类
      * @author wangjunming
      * @since 2020/3/23 14:18
      */
-    private static <T> T mapToEntity(Map<String, Object> map, Class<T> entity) {
+    private static <T> T mapToEntity(Map<String, Object> map, Class<T> entityClass) {
         T t = null;
         try {
-            t = entity.newInstance();
-            for (Field field : entity.getDeclaredFields()) {
+            t = entityClass.newInstance();
+            for (Field field : entityClass.getDeclaredFields()) {
                 if (map.containsKey(field.getName())) {
                     boolean flag = field.isAccessible();
                     field.setAccessible(true);
@@ -75,6 +75,22 @@ public final class JwtTokenUtil {
             log.error("解析map  到  entity  失败-Exception", e);
         }
         return t;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public int getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(int expireTime) {
+        this.expireTime = expireTime;
     }
 
     /**

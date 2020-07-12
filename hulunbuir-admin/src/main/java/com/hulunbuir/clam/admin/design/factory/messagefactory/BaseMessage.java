@@ -2,6 +2,8 @@ package com.hulunbuir.clam.admin.design.factory.messagefactory;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Comparator;
+
 /**
  * <p>
  * explain: 使用适配器模式，即这个抽象类实现了接口，将一些方法做具体的实现、或不做实现，将真正使用的类继承这个抽象类，将具体用到的方法进行重写，写出来具体的实现。
@@ -21,6 +23,7 @@ public abstract class BaseMessage implements Message {
      * @since 2020/5/12 18:14
      */
     private static String nestedStr(String smsContent,String smsDate) {
+        final Comparator<String> caseInsensitiveOrder = String.CASE_INSENSITIVE_ORDER;
         String dataK = "\\{\\$var}";
         String[] smsContentSplit = smsContent.split(dataK);
         String[] smsDateSplit = smsDate.split(",");

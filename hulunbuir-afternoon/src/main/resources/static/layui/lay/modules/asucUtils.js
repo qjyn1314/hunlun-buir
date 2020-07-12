@@ -11,9 +11,9 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
         isFrontendBackendSeparate: true,
         /**
          * 服务器地址
-         * //后台服务地址
          */
-        backendURL: "http://127.0.0.1:8026"
+        backendURL: "http://www.hulunbuir.vip"
+        // backendURL: "http://127.0.0.1:8026"
         ,
         /**
          * 获取body的总宽度
