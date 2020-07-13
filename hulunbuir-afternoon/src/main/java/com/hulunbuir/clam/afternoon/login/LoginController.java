@@ -76,10 +76,10 @@ public class LoginController {
     @GetMapping("/console.html")
     public String consoleHtml() {
         if (ShiroTool.isAuthenticated()) {
-            return "/buir/console";
+            return "buir/console";
         }
         if(ShiroTool.isRemembered()){
-            return "/buir/console";
+            return "buir/console";
         }
         return "buir/login";
     }
@@ -100,7 +100,7 @@ public class LoginController {
                 pages = viewPage.substring(0, viewPage.lastIndexOf("."));
             } catch (Exception e) {
                 log.error("跳转页面异常！",e);
-                return "/error/404";
+                return "error/404";
             }
             final String index = "index";
             if (index.equals(pages)) {
@@ -171,7 +171,7 @@ public class LoginController {
             } else {
                 HulunBuirException.build("发生未知错误，请联系管理员");
             }
-            return "/buir/login";
+            return "buir/login";
         }
         return "redirect:/console.html";
     }
