@@ -90,6 +90,22 @@ public class BuirUser extends Model<BuirUser> {
         this.userName = userName;
     }
 
+    public BuirUser(Integer id) {
+        this.id = id;
+    }
+
+    public BuirUser(BuirUser buirUser) {
+        String randomSalt = ShiroTool.getRandomSalt(15);
+        String userPassword = buirUser.getPassword();
+        this.nickName = buirUser.getNickName();
+        this.userName = buirUser.getUserName();
+        this.password = ShiroTool.encryptPassword(userPassword, randomSalt);
+        this.salt = randomSalt;
+        this.status = buirUser.getStatus();
+        this.createTime = LocalDateTime.now();
+        this.updateTime = LocalDateTime.now();
+    }
+
     public static BuirUser buildByMail(String userName){
         return new BuirUser(userName);
     }

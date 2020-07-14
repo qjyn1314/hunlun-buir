@@ -22,13 +22,15 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">昵称</label>
                                         <div class="layui-input-inline">
-                                            <input autocomplete="off" class="layui-input" name="username" placeholder="昵称" type="text">
+                                            <input autocomplete="off" class="layui-input" name="username"
+                                                   placeholder="昵称" type="text">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">邮箱</label>
                                         <div class="layui-input-inline">
-                                            <input autocomplete="off" class="layui-input" name="usermail" placeholder="邮箱" type="text">
+                                            <input autocomplete="off" class="layui-input" name="usermail"
+                                                   placeholder="邮箱" type="text">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
@@ -44,8 +46,13 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">注册时间</label>
                                         <div class="layui-input-inline">
-                                            <input autocomplete="off" class="layui-input" id="startTime" lay-verify="date"
-                                                   name="startTime" placeholder="注册时间" type="text">
+                                            <input autocomplete="off" class="layui-input" id="startTime"
+                                                   lay-verify="date"
+                                                   name="startTime" placeholder="开始" type="text">
+                                        </div>
+                                        <div class="layui-input-inline">
+                                            <input autocomplete="off" class="layui-input" id="endTime" lay-verify="date"
+                                                   name="endTime" placeholder="截至" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -63,20 +70,14 @@
                             </div>
                         </div>
                     </form>
-                    <!--操作-->
+                    <!--操作>添加-->
                     <div class="layui-btn-group">
-                        <button class="layui-btn layui-btn-lg layui-btn-normal" type="button">
+                        <button class="layui-btn layui-btn-lg layui-btn-normal" id="addData" type="button">
                             <i class="layui-icon">&#xe654;</i>
-                        </button>
-                        <button class="layui-btn layui-btn-lg" type="button">
-                            <i class="layui-icon">&#xe642;</i>
-                        </button>
-                        <button class="layui-btn layui-btn-lg layui-btn-danger" type="button">
-                            <i class="layui-icon">&#xe640;</i>
                         </button>
                     </div>
                     <!--表格-->
-                    <table id="userTable"></table>
+                    <table id="userTable" lay-filter="tableFilter"></table>
                 </div>
             </div>
         </div>
@@ -84,6 +85,21 @@
 </div>
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
-<script src="/buir/view/user/users.js"></script>
+<!--操作列中的按钮-->
+<script id="operations" type="text/html">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script id="status" type="text/html">
+    {{#  if(d.status == 0){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-xs">待审核</span>
+    {{#  } else if(d.status == 1) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">已审核</span>
+    {{#  } else if(d.status == 2) { }}
+    <span class="layui-btn layui-btn-warm layui-btn-xs">已冻结</span>
+    {{#  } }}
+</script>
+<script src="/buir/view/user/user-crud.js"></script>
 </body>
 </html>

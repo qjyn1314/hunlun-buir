@@ -3,6 +3,7 @@ package com.hulunbuir.clam.route.config.jwt;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -23,12 +24,12 @@ public final class JwtTokenUtil {
     /**
      * jwt密钥
      */
-    private String secret;
+    private final String secret = "HuLun_Buir_20200323124748";;
 
     /**
      * jwt过期时间-默认是24小时
      */
-    private int expireTime;
+    private final int expireTime =  24;
 
     /**
      * 初始化jwt密钥和过期时间
@@ -39,8 +40,6 @@ public final class JwtTokenUtil {
      * @since 2020/3/23 13:11
      */
     public JwtTokenUtil() {
-        this.secret = "HuLun_Buir_20200323124748";
-        this.expireTime = 24;
     }
 
     /**
@@ -75,22 +74,6 @@ public final class JwtTokenUtil {
             log.error("解析map  到  entity  失败-Exception", e);
         }
         return t;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public int getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(int expireTime) {
-        this.expireTime = expireTime;
     }
 
     /**
@@ -195,7 +178,7 @@ public final class JwtTokenUtil {
      * @since 2020/3/23 12:54
      */
     public UserManager getUserInfoByToken(String userToken) {
-        return mapToEntity(getClaimFromToken(userToken).get("loginUser", LinkedHashMap.class), UserManager.class);
+        return StringUtils.isNotBlank(userToken) ? mapToEntity(getClaimFromToken(userToken).get("loginUser", LinkedHashMap.class), UserManager.class) : null;
     }
 
 

@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.afternoon.persistence.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
-import com.hulunbuir.clam.common.base.Pages;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
@@ -31,7 +31,7 @@ public interface IBuirUserService{
      * @author wangjunming
      * @since 2020/5/25 14:19
      */
-    void validate(BuirUser buirUser) throws HulunBuirException;
+    void validate(BuirUser buirUser,Integer type) throws HulunBuirException;
 
 
     /**
@@ -49,7 +49,22 @@ public interface IBuirUserService{
      * @author wangjunming
      * @since 2020/6/21 22:01
      */
-    Pages<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser);
+    IPage<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser);
 
+    /**
+     * 编辑用户信息
+     *
+     * @author wangjunming
+     * @since 2020/7/14 12:18
+     */
+    boolean userEdit(BuirUser buirUser);
+
+    /**
+     * 通过用户ID删除用户
+     *
+     * @author wangjunming
+     * @since 2020/7/14 12:30
+     */
+    boolean userDel(BuirUser buirUser);
 
 }

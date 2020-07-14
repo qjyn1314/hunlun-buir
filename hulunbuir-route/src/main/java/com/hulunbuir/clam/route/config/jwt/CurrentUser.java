@@ -57,9 +57,8 @@ public class CurrentUser {
      * @author wangjunming
      * @since 2020/6/18 17:23
      */
-    public static UserManager getUserMessageByCookie(HttpServletRequest request) {
+    private static UserManager getUserMessageByCookie(HttpServletRequest request) {
         final Cookie userCookie = getCookieByName(request, USER_COOKIE);
-        assert userCookie != null;
         final String userTokenCookie = userCookie.getValue();
         return JWT_TOKEN_UTIL.getUserInfoByToken(userTokenCookie);
     }
@@ -71,7 +70,21 @@ public class CurrentUser {
      * @since 2020/6/18 17:23
      */
     public static UserManager getUserMessage() {
+        UserManager userManager = JWT_TOKEN_UTIL.getUserInfoByToken(getTokenByHeader(ApplicationContextUtils.getHttpServletRequest()));
+        if(null != userManager){
+            return userManager;
+        }
         return JWT_TOKEN_UTIL.getUserInfoByToken(getCookieByName(ApplicationContextUtils.getHttpServletRequest(), USER_COOKIE).getValue());
+    }
+
+    /**
+     * 从请求头中获取token信息
+     *
+     * @author wangjunming
+     * @since 2020/7/13 12:57
+     */
+    private static String getTokenByHeader(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getHeader("user_token");
     }
 
     /**
@@ -80,9 +93,8 @@ public class CurrentUser {
      * @author wangjunming
      * @since 2020/6/18 17:23
      */
-    public static HttpServletResponse deleteUserMessageCookie(HttpServletRequest request, HttpServletResponse response) {
+    public static void deleteUserMessageCookie(HttpServletRequest request, HttpServletResponse response) {
         deleteCookieByName(request, response, USER_COOKIE);
-        return response;
     }
 
     /**
@@ -91,7 +103,7 @@ public class CurrentUser {
      * @author wangjunming
      * @since 2020/6/18 17:23
      */
-    public static HttpServletResponse setCookie(HttpServletResponse response, String name, String value, int time) {
+    private static HttpServletResponse setCookie(HttpServletResponse response, String name, String value, int time) {
         // new一个Cookie对象,键值对为参数
         Cookie cookie = new Cookie(name, value);
         // tomcat下多应用共享
@@ -110,12 +122,12 @@ public class CurrentUser {
     }
 
     /**
-     * 根据名字获取cookie
+     * 根据名字获取cookie中的token
      *
      * @author wangjunming
      * @since 2020/6/18 17:44
      */
-    public static Cookie getCookieByName(HttpServletRequest request, String name) {
+    private static Cookie getCookieByName(HttpServletRequest request, String name) {
         Map<String, Cookie> cookieMap = ReadCookieMap(request);
         return cookieMap.getOrDefault(name, null);
     }

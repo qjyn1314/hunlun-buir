@@ -2,7 +2,7 @@
 layui.define(["layer",'jquery', 'table'], function (exprots) {
     //封装了ajax
     var $ = layui.jquery;
-    var buirLayer = layui.layer;
+    var layer = layui.layer;
     var table = layui.table;
     var asucUtils = {
         /**
@@ -12,8 +12,8 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
         /**
          * 服务器地址
          */
-        backendURL: "http://www.hulunbuir.vip"
-        // backendURL: "http://127.0.0.1:8026"
+        // backendURL: "http://www.hulunbuir.vip"
+        backendURL: "http://127.0.0.1:8026"
         ,
         /**
          * 获取body的总宽度
@@ -33,7 +33,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 }
             });
         },
-
         /**
          * 封装初始化表格
          *
@@ -62,50 +61,15 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
             };
             return table.render($.extend(defaultSetting, params));
         },
-
         /**
-         * ajax()函数二次封装
-         * @param url
-         * @param type
-         * @param params
-         * @param load
-         * @returns {*|never|{always, promise, state, then}}
+         * 在表格页面操作成功后弹窗提示
+         * @param content
          */
-        ajax: function (url, type, params, load) {
-            var deferred = $.Deferred();
-            var loadIndex;
-            $.ajax({
-                url: asucUtils.isFrontendBackendSeparate ? asucUtils.backendURL + url : url,
-                type: type || "get",
-                data: params || {},
-                dataType: "json",
-                beforeSend: function () {
-                    if (load) {
-                        loadIndex = layer.load(0, {shade: 0.3});
-                    }
-                },
-                success: function (data) {
-                    if (data.code == 0) {
-                        // 业务正常
-                        deferred.resolve(data)
-                    } else {
-                        // 业务异常
-                        layer.msg(data.msg, {icon: 7, time: 2000});
-                        deferred.reject("asucUtils.ajax warn: " + data.msg);
-                    }
-                },
-                complete: function () {
-                    if (load) {
-                        layer.close(loadIndex);
-                    }
-                },
-                error: function () {
-                    layer.close(loadIndex);
-                    layer.msg("服务器错误", {icon: 2, time: 2000});
-                    deferred.reject("asucUtils.ajax error: 服务器错误");
-                }
+        tableSuccessMsg: function (content) {
+            layer.msg(content, {icon: 1, time: 1000}, function () {
+                // 刷新当前页table数据
+                $(".layui-laypage-btn")[0].click();
             });
-            return deferred.promise();
         },
         /**
          * 主要用于针对表格批量操作操作之前的检查
@@ -124,16 +88,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
             } else {
                 layer.msg("未选择有效数据", {offset: "t", anim: 6});
             }
-        },
-        /**
-         * 在表格页面操作成功后弹窗提示
-         * @param content
-         */
-        tableSuccessMsg: function (content) {
-            layer.msg(content, {icon: 1, time: 1000}, function () {
-                // 刷新当前页table数据
-                $(".layui-laypage-btn")[0].click();
-            });
         },
         /**
          * 简单封装ajax，post请求
@@ -169,7 +123,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 data: data,
                 url: url,
                 dataType: "json",
-                // contentType: 'application/json;charset=UTF-8',
                 success: function (d) {
                     successfn(d);
                 },
@@ -197,7 +150,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 }
             });
         },
-
         /**
          * ajax封装,get请求
          * url 发送请求的地址
@@ -222,34 +174,10 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 }
             });
         },
-
-        /**
-         * sessionStorage 二次封装
-         */
-        session: function (name, value) {
-            if (value) { /**设置*/
-                if (typeof value == "object") {
-                    sessionStorage.setItem(name, JSON.stringify(value));
-                } else {
-                    sessionStorage.setItem(name, value);
-                }
-            } else if (null !== value) {
-                /**获取*/
-                let val = sessionStorage.getItem(name);
-                try {
-                    val = JSON.parse(val);
-                    return val;
-                } catch (err) {
-                    return val;
-                }
-            } else { /**清除*/
-                return sessionStorage.removeItem(name);
-            }
-        },
         /**
          * localStorage 二次封装
          */
-        local: function (name, value) {
+        localStorage: function (name, value) {
             if (value) { /**设置*/
                 if (typeof value == "object") {
                     localStorage.setItem(name, JSON.stringify(value));
@@ -268,13 +196,6 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
             } else { /**清除*/
                 return localStorage.removeItem(name);
             }
-        },
-        /**
-         * 获取父窗体的okTab
-         * @returns {string}
-         */
-        getOkTab: function () {
-            return parent.objOkTab;
         },
         /**
          * 格式化当前日期
@@ -327,6 +248,118 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                 }
             },
         },
+//-----------------------弹框封装------------------------------------------------
+        /**
+         * confirm()函数二次封装
+         * @param content
+         * @param yesFunction
+         */
+        confirm: function (content, yesFunction) {
+            let options = {skin: asucUtils.skinChoose(), icon: 3, title: "提示", anim: asucUtils.animChoose()};
+            layer.confirm(content, options, yesFunction);
+        },
+        /**
+         * open()函数二次封装,支持在table页面和普通页面打开
+         * @param title
+         * @param content
+         * @param width
+         * @param height
+         * @param successFunction
+         * @param endFunction
+         */
+        open: function (title, content, width, height, successFunction, endFunction) {
+            layer.open({
+                title: title,
+                type: 2,
+                maxmin: true,
+                shade: 0.5,
+                anim: asucUtils.animChoose(),
+                area: [width, height],
+                content: content,
+                zIndex: layer.zIndex,
+                skin: asucUtils.skinChoose(),
+                success: successFunction,
+                end: endFunction
+            });
+        },
+        /**
+         * msg()函数二次封装
+         */
+        // msg弹窗默认消失时间
+        time: 1000,
+        // 绿色勾
+        greenTickMsg: function (content, callbackFunction) {
+            let options = {icon: 1, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 红色叉
+        redCrossMsg: function (content, callbackFunction) {
+            let options = {icon: 2, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 黄色问号
+        yellowQuestionMsg: function (content, callbackFunction) {
+            let options = {icon: 3, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 灰色锁
+        grayLockMsg: function (content, callbackFunction) {
+            let options = {icon: 4, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 红色哭脸
+        redCryMsg: function (content, callbackFunction) {
+            let options = {icon: 5, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 绿色笑脸
+        greenLaughMsg: function (content, callbackFunction) {
+            let options = {icon: 6, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        // 黄色感叹号
+        yellowSighMsg: function (content, callbackFunction) {
+            let options = {icon: 7, time: asucUtils.time, anim: asucUtils.animChoose()};
+            layer.msg(content, options, callbackFunction);
+        },
+        /**
+         * 皮肤选择
+         * @returns {string}
+         */
+        skinChoose: function () {
+            let storage = window.localStorage;
+            let skin = storage.getItem("skin");
+            if (skin === 1) {
+                // 灰白色
+                return "";
+            } else if (skin === 2) {
+                // 墨绿色
+                return "layui-layer-molv";
+            } else if (skin === 3) {
+                // 蓝色
+                return "layui-layer-lan";
+            } else if (!skin || skin === 4) {
+                // 随机颜色
+                var skinArray = ["", "layui-layer-molv", "layui-layer-lan"];
+                return skinArray[Math.floor(Math.random() * skinArray.length)];
+            }
+        },
+        /**
+         * 动画选择
+         * @returns {number}
+         */
+        animChoose: function () {
+            let storage = window.localStorage;
+            let anim = storage.getItem("anim");
+            let animArray = ["0", "1", "2", "3", "4", "5", "6"];
+            if (animArray.indexOf(anim) > -1) {
+                // 用户选择的动画
+                return anim;
+            } else if (!anim || anim === 7) {
+                // 随机动画
+                return Math.floor(Math.random() * animArray.length);
+            }
+        }
 
     };
     exprots("asucUtils", asucUtils);

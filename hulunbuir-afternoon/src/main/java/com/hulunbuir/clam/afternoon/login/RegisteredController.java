@@ -60,7 +60,7 @@ public class RegisteredController {
         }
         String userMail = email.getUserMail();
         try {
-            buirUserService.validate(BuirUser.buildByMail(userMail));
+            buirUserService.validate(BuirUser.buildByMail(userMail),0);
         } catch (HulunBuirException e) {
             return JsonResult.error(e.getMessage());
         }
@@ -101,7 +101,7 @@ public class RegisteredController {
         }
         try {
             BuirUser buirUser = new BuirUser(regUser);
-            buirUserService.validate(buirUser);
+            buirUserService.validate(buirUser,1);
             regUserFlag = buirUserService.regUser(buirUser);
         } catch (HulunBuirException e) {
             log.error("业务异常!!", e);

@@ -1,19 +1,19 @@
 package com.hulunbuir.clam.afternoon.persistence.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirUserMapper;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
-import com.hulunbuir.clam.common.base.Pages;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -52,10 +52,40 @@ public class BuirUserServiceImpl implements IBuirUserService {
      * @since 2020/5/25 14:19
      */
     @Override
-    public void validate(BuirUser buirUser) throws HulunBuirException {
-        HashMap<String, Object> queryNickNameMap = new HashMap<>();
-        queryNickNameMap.put("nickName", buirUser.getNickName());
+    public void validate(BuirUser buirUser,Integer type) throws HulunBuirException {
+        if(Integer.valueOf("2").equals(type) || Integer.valueOf("3").equals(type)){
+            if(null == buirUser.getId()){
+                throw HulunBuirException.build("请传入用户ID！");
+            }
+            final BuirUser selectByIdUser = userMapper.selectById(buirUser.getId());
+            if(null == selectByIdUser){
+                throw HulunBuirException.build("未查询到该用户信息！");
+            }
+        }
+        if(Integer.valueOf("3").equals(type)){
+            Integer[] userIds = {8,9};
+            final boolean contains = Arrays.asList(userIds).contains(buirUser.getId());
+            if(contains){
+                throw HulunBuirException.build("此用户为超级管理员，不能删除！");
+            }
+        }
+        if(Integer.valueOf("1").equals(type) || Integer.valueOf("2").equals(type)){
+            if(StringUtils.isBlank(buirUser.getNickName())){
+                throw HulunBuirException.build("请填写用户昵称！");
+            }
+            if(StringUtils.isBlank(buirUser.getUserName())){
+                throw HulunBuirException.build("请填写登录邮箱！");
+            }
+            if(StringUtils.isBlank(buirUser.getPassword())){
+                throw HulunBuirException.build("请填写登录密码！");
+            }
+            if(null == buirUser.getStatus()){
+                throw HulunBuirException.build("请选择用户的状态！");
+            }
+        }
         if (StringUtils.isNotBlank(buirUser.getNickName())) {
+            HashMap<String, Object> queryNickNameMap = new HashMap<>();
+            queryNickNameMap.put("nickName", buirUser.getNickName());
             final BuirUser userNickName = userMapper.selectBuirUser(queryNickNameMap);
             if (null != userNickName) {
                 throw HulunBuirException.build("昵称已注册！");
@@ -92,17 +122,58 @@ public class BuirUserServiceImpl implements IBuirUserService {
      * @since 2020/6/21 22:01
      */
     @Override
-    public Pages<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser) {
-        LambdaQueryWrapper<BuirUser> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotBlank(buirUser.getUserName())) {
-            queryWrapper.eq(BuirUser::getUserName, buirUser.getUserName());
-        }
+    public IPage<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser) {
+        LambdaQueryWrapper<BuirUser> queryWrapper = initQueryWrapper(queryRequest,buirUser);
         Page<BuirUser> page = new Page<>(queryRequest.getCurrent(), queryRequest.getPageSize());
-        final Page<BuirUser> buirUserPage = userMapper.selectPage(page, queryWrapper);
-        Pages<BuirUser> pages = new Pages<BuirUser>();
-        BeanUtils.copyProperties(buirUserPage,pages);
-        return pages;
+        return userMapper.selectPage(page, queryWrapper);
     }
+
+    private LambdaQueryWrapper<BuirUser> initQueryWrapper(QueryRequest queryRequest, BuirUser buirUser) {
+        LambdaQueryWrapper<BuirUser> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotBlank(buirUser.getNickName())) {
+            queryWrapper.like(BuirUser::getNickName, buirUser.getNickName());
+        }
+        if (StringUtils.isNotBlank(buirUser.getUserName())) {
+            queryWrapper.like(BuirUser::getUserName, buirUser.getUserName());
+        }
+        if (null != buirUser.getStatus()) {
+            queryWrapper.eq(BuirUser::getStatus, buirUser.getStatus());
+        }
+        if (null != queryRequest.getStartTime()) {
+            queryWrapper.ge(BuirUser::getCreateTime, queryRequest.getStartTime());
+        }
+        if (null != queryRequest.getEndTime()) {
+            queryWrapper.le(BuirUser::getCreateTime, queryRequest.getEndTime());
+        }
+        queryWrapper.orderByDesc(BuirUser::getCreateTime);
+        return queryWrapper;
+    }
+
+    /**
+     * 编辑用户信息
+     *
+     * @param buirUser
+     * @author wangjunming
+     * @since 2020/7/14 12:18
+     */
+    @Override
+    @Transactional
+    public boolean userEdit(BuirUser buirUser) {
+        return userMapper.updateById(buirUser)>0;
+    }
+
+    /**
+     * 通过用户ID删除用户
+     *
+     * @param buirUser
+     * @author wangjunming
+     * @since 2020/7/14 12:30
+     */
+    @Override
+    public boolean userDel(BuirUser buirUser) {
+        return userMapper.deleteById(buirUser.getId())>0;
+    }
+
 
 
 }
