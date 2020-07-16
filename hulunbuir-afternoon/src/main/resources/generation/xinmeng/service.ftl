@@ -14,7 +14,8 @@ import java.util.List;
  * @author ${author}
  * @date ${date}
  */
-public interface I${className}Service extends IService<${className}> {
+public interface I${className}Service {
+
     /**
      * 查询（分页）
      *
@@ -46,10 +47,4 @@ public interface I${className}Service extends IService<${className}> {
      */
     void update${className}(${className} ${className?uncap_first});
 
-    /**
-     * 删除
-     *
-     * @param ${className?uncap_first} ${className?uncap_first}
-     */
-    void delete${className}(${className} ${className?uncap_first});
 }

@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.common.config;
 
-import com.hulunbuir.clam.common.utils.CommonUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +38,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${server.port}")
     private Integer port;
+    @Value("${server.address}")
+    private String address;
 
     @Autowired
     private HttpServletRequest request;
@@ -78,7 +79,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("称，个个棒棒哒~--RESTful APIS")
                 .description("称，个个棒棒哒~~搭建springboot2.2.2+mybatis-plus3.3.0")
-                .licenseUrl(String.format(CommonUtils.getIpAddr(request), licenseUrl, port))
+                .licenseUrl(String.format(licenseUrl, address, port))
                 .version("1.0")
                 .build();
     }

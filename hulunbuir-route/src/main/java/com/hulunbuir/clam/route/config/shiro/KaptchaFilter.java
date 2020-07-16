@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 /**
  * 验证码过滤器此过滤器已经在shiro中配置，这里不需要再次配置拦截路径
@@ -48,7 +49,12 @@ public class KaptchaFilter extends FormAuthenticationFilter {
             //到这里就算验证成功了,把用户信息放到session中
             UserManager user = (UserManager) ShiroTool.getUser();
             log.info("登录成功的用户信息是：{}", user);
-            //将用户信息转换成为JWT形式的token，放到redis缓存中，放置cookie中，并返回给页面这个token
+            Integer[] statues = {0,2};
+            final int status = null == user ? 0 : null == user.getStatus() ? 0 : user.getStatus();
+            if(Arrays.asList(statues).contains(status)){
+                throw new NotApprovedException(status);
+            }
+            //将用户信息转换成为JWT形式的token，放到redis、cookie中，并返回给页面这个token
             httpServletResponse = CurrentUser.handleUserMessage(user, httpServletResponse);
             return onLoginSuccess(token, subject, request, httpServletResponse);
         } catch (AuthenticationException e) {

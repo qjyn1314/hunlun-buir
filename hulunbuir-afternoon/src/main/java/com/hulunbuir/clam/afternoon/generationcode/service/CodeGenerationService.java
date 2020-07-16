@@ -3,6 +3,7 @@ package com.hulunbuir.clam.afternoon.generationcode.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.afternoon.generationcode.CodeGenerationConfig;
 import com.hulunbuir.clam.afternoon.generationcode.entity.CodeGeneration;
+import com.hulunbuir.clam.afternoon.generationcode.entity.Column;
 import com.hulunbuir.clam.common.base.QueryRequest;
 
 import java.util.List;
@@ -49,5 +50,21 @@ public interface CodeGenerationService {
      */
     CodeGenerationConfig getGeneration(CodeGenerationConfig codeGenerationConfig);
 
+
+    /**
+     * 根据数据库名称和表名获取数据表的详细信息
+     *
+     * @author wangjunming
+     * @since 2020/7/14 17:18
+     */
+    CodeGeneration tablesOne(CodeGeneration generation);
+
+    /**
+     * 获取所选表的所有列
+     *
+     * @author wangjunming
+     * @since 2020/7/14 17:30
+     */
+    List<Column> getColumns(CodeGeneration generation);
 
 }

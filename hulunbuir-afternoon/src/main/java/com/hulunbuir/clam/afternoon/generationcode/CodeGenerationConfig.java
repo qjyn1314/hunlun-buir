@@ -2,7 +2,6 @@ package com.hulunbuir.clam.afternoon.generationcode;
 
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
  * @since 2020/7/1 14:45
  */
 @Data
-@Component
 public class CodeGenerationConfig implements Serializable {
 
     /**
@@ -25,25 +23,34 @@ public class CodeGenerationConfig implements Serializable {
      */
     private String sessionId;
     /**
-     * 作者
+     * 生成的压缩文件后缀名
      */
-    @Size(min = 3, max = 20, message = "请输入作者名称，作者名称不能超过20个字符")
-    private String author;
+    public static final String SUFFIX = "_code.zip";
+    /**
+     * 生成代码的临时目录
+     */
+    public static final String TEMP_PATH = "hulun_buir_temp/";
     /**
      * 基础包名
      */
     @Size(min = 3, max = 50, message = "请输入基础包名，包名不得超过50个字符")
     private String basePackage;
     /**
-     * entity文件存放路径
+     * java类型文件后缀
      */
-    @Size(min = 3, max = 20, message = "请输入entity文件存放路径，包名不得超过20个字符")
-    private String entityPackage;
+    public static final String JAVA_FILE_SUFFIX = ".java";
     /**
-     * mapper文件存放路径
+     * mapper文件类型后缀
      */
-    @Size(min = 3, max = 20, message = "请输入mapper文件存放路径，包名不得超过20个字符")
-    private String mapperPackage;
+    public static final String MAPPER_FILE_SUFFIX = "Mapper.java";
+    /**
+     * service文件类型后缀
+     */
+    public static final String SERVICE_FILE_SUFFIX = "Service.java";
+    /**
+     * service impl文件类型后缀
+     */
+    public static final String SERVICEIMPL_FILE_SUFFIX = "ServiceImpl.java";
     /**
      * mapper xml文件存放路径
      */
@@ -73,9 +80,9 @@ public class CodeGenerationConfig implements Serializable {
      */
     private String resourcesPath = "src/main/resources";
     /**
-     * 文件生成日期
+     * controller文件类型后缀
      */
-    private String fileCreatedDate = DateUtils.formatFullTime(LocalDateTime.now(), DateUtils.FULL_TIME_SPLIT_PATTERN);
+    public static final String CONTROLLER_FILE_SUFFIX = "Controller.java";
     /**
      * 表名
      */
@@ -88,8 +95,79 @@ public class CodeGenerationConfig implements Serializable {
      * 数据表对应的类名
      */
     private String className;
+    /**
+     * mapper xml文件类型后缀
+     */
+    public static final String MAPPERXML_FILE_SUFFIX = "Mapper.xml";
+    /**
+     * entity模板
+     */
+    public static final String ENTITY_TEMPLATE = "entity.ftl";
+    /**
+     * mapper模板
+     */
+    public static final String MAPPER_TEMPLATE = "mapper.ftl";
+    /**
+     * service接口模板
+     */
+    public static final String SERVICE_TEMPLATE = "service.ftl";
+    /**
+     * service impl接口模板
+     */
+    public static final String SERVICEIMPL_TEMPLATE = "serviceImpl.ftl";
+    /**
+     * controller接口模板
+     */
+    public static final String CONTROLLER_TEMPLATE = "controller.ftl";
+    /**
+     * mapper xml接口模板
+     */
+    public static final String MAPPERXML_TEMPLATE = "mapperXml.ftl";
+    /**
+     * 模板文件夹
+     */
+    @Size(min = 3, max = 20, message = "请输入模板文件夹，作者名称不能超过20个字符")
+    private String templateFolder;
+    /**
+     * 作者
+     */
+    @Size(min = 3, max = 20, message = "请输入作者名称，作者名称不能超过20个字符")
+    private String author;
+    /**
+     * entity文件存放路径-即数据库对应的实体类
+     */
+    @Size(min = 3, max = 20, message = "请输入entity文件存放路径，包名不得超过20个字符")
+    private String entityPackage;
+    /**
+     * entityPo文件存放路径-即提交传参使用
+     */
+    @Size(min = 3, max = 20, message = "请输入entityPo文件存放路径，包名不得超过20个字符")
+    private String entityPoPackage;
+    /**
+     * entityVo文件存放路径-即回显传参使用
+     */
+    @Size(min = 3, max = 20, message = "请输入entityVo文件存放路径，包名不得超过20个字符")
+    private String entityVoPackage;
+    /**
+     * mapper文件存放路径
+     */
+    @Size(min = 3, max = 20, message = "请输入mapper文件存放路径，包名不得超过20个字符")
+    private String mapperPackage;
+    /**
+     * 文件生成日期
+     */
+    private String date = DateUtils.formatFullTime(LocalDateTime.now(), DateUtils.FULL_TIME_SPLIT_PATTERN);
 
     public CodeGenerationConfig() {
+        this.templateFolder = "default";
+        this.author = "Mr.Wang";
+        this.basePackage = "com.hulunbuir.clam.afternoon.persistence";
+        this.entityPackage = "entity";
+        this.mapperPackage = "mapper";
+        this.mapperXmlPackage = "mapper.xml";
+        this.servicePackage = "service";
+        this.serviceImplPackage = "service.impl";
+        this.controllerPackage = "controller";
     }
 
     public CodeGenerationConfig(String sessionId) {

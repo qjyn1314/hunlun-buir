@@ -22,6 +22,11 @@
             TABLE_COLLATION coding
         FROM
         information_schema.TABLES
+        <include refid="generation_query"/>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <sql id="generation_query">
         <where>
             TABLE_SCHEMA != 'information_schema' AND TABLE_SCHEMA != 'performance_schema' AND TABLE_SCHEMA != 'sys' AND TABLE_SCHEMA != 'mysql'
             <if test="generation.schemaName != null and generation.schemaName != ''">
@@ -31,7 +36,35 @@
                 AND TABLE_NAME = #{generation.tableName}
             </if>
         </where>
+    </sql>
+
+    <select id="tablesOne" resultType="com.hulunbuir.clam.afternoon.generationcode.entity.CodeGeneration">
+        SELECT
+        TABLE_SCHEMA schemaName,
+        TABLE_NAME tableName,
+        CREATE_TIME createTime,
+        UPDATE_TIME updateTime,
+        TABLE_ROWS dataRows,
+        TABLE_COMMENT remark,
+        TABLE_COLLATION coding
+        FROM
+        information_schema.TABLES
+        <include refid="generation_query"/>
         ORDER BY CREATE_TIME DESC
+    </select>
+
+    <select id="getColumns" resultType="com.hulunbuir.clam.afternoon.generationcode.entity.Column">
+        SELECT
+            COLUMN_NAME name,
+            CASE
+                COLUMN_key
+            WHEN 'PRI' THEN
+                1 ELSE 0
+            END isKey,
+            DATA_TYPE type,
+            COLUMN_COMMENT remark
+        FROM information_schema.COLUMNS
+        <include refid="generation_query"/>
     </select>
 
 </mapper>

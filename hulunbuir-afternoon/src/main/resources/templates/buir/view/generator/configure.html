@@ -12,114 +12,124 @@
 <div class="layui-content">
     <div class="layui-row layui-fluid">
         <div class="form-box">
-                <form id="generator-configure-form">
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">作者名称：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="author"
-                                       type="text">
-                            </div>
+            <form id="generator-configure-form">
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">作者名称：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="author"
+                                   type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">基础包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="50"
-                                       name="basePackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">模板所存在的文件夹：</label>
+                        <div class="layui-input-inline">
+                            <select class="layui-select layui-form-select  layui-col-md12" id="templateFolder" name="templateFolder">
+
+                            </select>
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">entity包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="entityPackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">基础包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="50"
+                                   name="basePackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">service包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="servicePackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">entity包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="entityPackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">serviceImpl包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="serviceImplPackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">service包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="servicePackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">mapper包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="mapperPackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">serviceImpl包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="serviceImplPackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">mapperXml包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="mapperXmlPackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">mapper包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="mapperPackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">controller包名：</label>
-                            <div class="layui-input-block">
-                                <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
-                                       name="controllerPackage" type="text">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">mapperXml包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="mapperXmlPackage" type="text">
                         </div>
                     </div>
-                    <!--<div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">是否去除表前缀：</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="isTrim" value="1" lay-filter="isTrim" title="是"
-                                       checked="">
-                                <input type="radio" name="isTrim" value="0" lay-filter="isTrim" title="否">
-                            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">controller包名：</label>
+                        <div class="layui-input-block">
+                            <input autocomplete="off" class="layui-input" lay-verify="required" maxlength="20"
+                                   name="controllerPackage" type="text">
                         </div>
                     </div>
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">表前缀：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="trimValue" autocomplete="off" maxlength="20"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                    </div>-->
-                    <div class="layui-col-md7">
-                        <div class="layui-form-item">
-                            <div class="layui-input-block">
-                                <button class="layui-btn layui-btn-warm" id="save_config">
-                                    保存配置
-                                </button>
-                            </div>
+                </div>
+                <!--<div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否去除表前缀：</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="isTrim" value="1" lay-filter="isTrim" title="是"
+                                   checked="">
+                            <input type="radio" name="isTrim" value="0" lay-filter="isTrim" title="否">
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">表前缀：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="trimValue" autocomplete="off" maxlength="20"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                </div>-->
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-warm" id="save_config">
+                                保存配置
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
-<script src="/buir/view/generator/configure.js"></script>
+<script src="/buir/view/generator/generator.js"></script>
 </body>
 </html>

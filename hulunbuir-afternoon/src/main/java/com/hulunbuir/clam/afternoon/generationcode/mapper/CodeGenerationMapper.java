@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.generationcode.entity.CodeGeneration;
+import com.hulunbuir.clam.afternoon.generationcode.entity.Column;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,21 @@ public interface CodeGenerationMapper extends BaseMapper<T> {
      */
     IPage<CodeGeneration> generationTables(Page<CodeGeneration> page, @Param("generation") CodeGeneration generation);
 
+    /**
+     * 根据数据库名称和表名获取数据表的详细信息
+     *
+     * @author wangjunming
+     * @since 2020/7/14 17:19
+     */
+    CodeGeneration tablesOne(@Param("generation")CodeGeneration generation);
+
+
+    /**
+     * 获取所选表的所有列
+     *
+     * @author wangjunming
+     * @since 2020/7/14 17:30
+     */
+    List<Column> getColumns(@Param("generation")CodeGeneration generation);
 
 }

@@ -3,10 +3,7 @@ package com.hulunbuir.clam.afternoon.login;
 import com.hulunbuir.clam.common.config.submit.NoRepeatSubmit;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
-import com.hulunbuir.clam.route.config.shiro.ForbiddenUserException;
-import com.hulunbuir.clam.route.config.shiro.IncorrectCaptchaException;
-import com.hulunbuir.clam.route.config.shiro.NoUserException;
-import com.hulunbuir.clam.route.config.shiro.ShiroTool;
+import com.hulunbuir.clam.route.config.shiro.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -168,6 +165,8 @@ public class LoginController {
                 HulunBuirException.build("该用户已被禁用，如有疑问请联系系统管理员");
             } else if(exception instanceof NoUserException){
                 HulunBuirException.build("请您注册该账号");
+            } else if(exception instanceof NotApprovedException){
+                HulunBuirException.build(((NotApprovedException) exception).getMessage());
             } else {
                 HulunBuirException.build("发生未知错误，请联系管理员");
             }

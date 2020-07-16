@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.hulunbuir.clam.study</groupId>
+        <groupId>com.hulunbuir.clam</groupId>
         <artifactId>hulun-buir</artifactId>
         <version>1.0.0</version>
     </parent>
     <groupId>com.hulunbuir.clam.parent</groupId>
     <artifactId>hulunbuir-parent</artifactId>
-    <version>${hulunbuir.version}</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>hulunbuir-parent</name>
     <description>Clam project for Spring Boot</description>
@@ -139,6 +139,15 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
             <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>

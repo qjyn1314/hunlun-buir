@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.common.base;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,13 @@ import java.util.Map;
  *
  * @author wangjunming
  * @since 2020-01-16 14:25
+ * 60*60 分
+ * 60*60*60 时
+ * 60*60*60*24 天
+ * 60*60*60*24*7 周
+ * 60*60*60*24*30 月
  */
+@CrossOrigin(origins = "*",maxAge = -1)
 public abstract class BaseController {
 
     /**

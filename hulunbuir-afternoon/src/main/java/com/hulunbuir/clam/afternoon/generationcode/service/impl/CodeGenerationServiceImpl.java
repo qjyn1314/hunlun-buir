@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.generationcode.CodeGenerationConfig;
 import com.hulunbuir.clam.afternoon.generationcode.entity.CodeGeneration;
+import com.hulunbuir.clam.afternoon.generationcode.entity.Column;
 import com.hulunbuir.clam.afternoon.generationcode.mapper.CodeGenerationMapper;
 import com.hulunbuir.clam.afternoon.generationcode.service.CodeGenerationService;
 import com.hulunbuir.clam.common.base.QueryRequest;
@@ -80,6 +81,30 @@ public class CodeGenerationServiceImpl implements CodeGenerationService {
     @Override
     public CodeGenerationConfig getGeneration(CodeGenerationConfig codeGenerationConfig) {
         final Object configStrValue = redisConfig.getStrValue(codeGenerationConfig.getSessionId());
-        return null == configStrValue ? codeGenerationConfig : JSONObject.parseObject(JSON.toJSON(configStrValue).toString(), CodeGenerationConfig.class);
+        return null == configStrValue ? new CodeGenerationConfig() : JSONObject.parseObject(JSON.toJSON(configStrValue).toString(), CodeGenerationConfig.class);
+    }
+
+    /**
+     * 根据数据库名称和表名获取数据表的详细信息
+     *
+     * @param generation 数据表名+数据库名
+     * @author wangjunming
+     * @since 2020/7/14 17:18
+     */
+    @Override
+    public CodeGeneration tablesOne(CodeGeneration generation) {
+        return codeGenerationMapper.tablesOne(generation);
+    }
+
+    /**
+     * 获取所选表的所有列
+     *
+     * @param generation
+     * @author wangjunming
+     * @since 2020/7/14 17:30
+     */
+    @Override
+    public List<Column> getColumns(CodeGeneration generation) {
+        return codeGenerationMapper.getColumns(generation);
     }
 }

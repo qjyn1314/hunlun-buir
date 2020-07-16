@@ -1,5 +1,19 @@
 "use strict";
-layui.define(["layer",'jquery', 'table'], function (exprots) {
+layui.define(["layer", 'jquery', 'table'], function (exprots) {
+    /**
+     * 获取浏览器地址栏中的请求路径
+     * @author wangjunming
+     * @since 2020/7/15 14:22
+     */
+    function baseUrlHandle() {
+        let url = window.location.href;
+        let doubleSlash = url.indexOf("/") + 2;
+        let doubleSlashUrl = url.substring(doubleSlash);
+        let singleSlash = doubleSlashUrl.indexOf("/");
+        return url.substring(0, singleSlash + doubleSlash);
+    }
+
+    var baseUrl = baseUrlHandle();
     //封装了ajax
     var $ = layui.jquery;
     var layer = layui.layer;
@@ -12,9 +26,7 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
         /**
          * 服务器地址
          */
-        // backendURL: "http://www.hulunbuir.vip"
-        backendURL: "http://127.0.0.1:8026"
-        ,
+        backendURL: baseUrl,
         /**
          * 获取body的总宽度
          */
@@ -173,6 +185,61 @@ layui.define(["layer",'jquery', 'table'], function (exprots) {
                     errorfn(e);
                 }
             });
+        },
+        download: function (url, params, fileName) {
+            url += '?' + asucUtils.parseParams(params);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = "blob";
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    var fileType = this.response.type;
+                    var blob = this.response;
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onload = function (e) {
+                        if ('msSaveOrOpenBlob' in navigator) { // IE，Edge
+                            var base64file = e.target.result + '';
+                            window.navigator.msSaveOrOpenBlob(asucUtils.createFile(base64file.replace('data:' + fileType + ';base64,', ''), fileType), fileName);
+                        } else { // chrome，firefox
+                            var link = document.createElement('a');
+                            link.style.display = 'none';
+                            link.href = e.target.result;
+                            link.setAttribute('download', fileName);
+                            document.body.appendChild(link);
+                            link.click();
+                            $(link).remove();
+                        }
+                    }
+                } else {
+                    asucUtils.redCryMsg("下载失败!!")
+                }
+            };
+            xhr.send();
+        },
+        parseParams: function (param, key, encode) {
+            if (param == null) return '';
+            var arr = [];
+            var t = typeof (param);
+            if (t === 'string' || t === 'number' || t === 'boolean') {
+                arr.push(key + '=' + ((encode == null || encode) ? encodeURIComponent(param) : param));
+            } else {
+                for (var i in param) {
+                    var k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i);
+                    arr.push(asucUtils.parseParams(param[i], k, encode));
+                }
+            }
+            return arr.join("&");
+        },
+        // 解析 BASE64文件内容 for IE，Edge
+        createFile: function (urlData, fileType) {
+            var bytes = window.atob(urlData),
+                n = bytes.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bytes.charCodeAt(n);
+            }
+            return new Blob([u8arr], {type: fileType});
         },
         /**
          * localStorage 二次封装

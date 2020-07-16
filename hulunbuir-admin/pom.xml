@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.hulunbuir.clam.study</groupId>
+        <groupId>com.hulunbuir.clam</groupId>
         <artifactId>hulun-buir</artifactId>
         <version>1.0.0</version>
     </parent>
     <groupId>com.hulunbuir.clam.admin</groupId>
     <artifactId>hulunbuir-admin</artifactId>
-    <version>${hulunbuir.version}</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>hulunbuir-admin</name>
     <description>Clam project for Spring Boot</description>
