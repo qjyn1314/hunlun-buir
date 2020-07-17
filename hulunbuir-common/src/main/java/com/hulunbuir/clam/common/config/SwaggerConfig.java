@@ -38,8 +38,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${server.port}")
     private Integer port;
-    @Value("${server.address}")
-    private String address;
 
     @Autowired
     private HttpServletRequest request;
@@ -76,6 +74,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         String licenseUrl = "http://%s:%s/swagger-ui.html";
+        String address = "127.0.0.1";
         return new ApiInfoBuilder()
                 .title("称，个个棒棒哒~--RESTful APIS")
                 .description("称，个个棒棒哒~~搭建springboot2.2.2+mybatis-plus3.3.0")
