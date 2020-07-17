@@ -1,50 +1,98 @@
 package ${basePackage}.${servicePackage};
 
+import com.wisea.cloud.common.pojo.ResultPoJo;
+import com.wisea.cloud.common.service.BaseService;
+import com.wisea.cloud.model.Page;
+import ${basePackage}.${mapperPackage}.${className}Dao;
 import ${basePackage}.${entityPackage}.${className};
-
-import cc.mrbird.febs.common.domain.QueryRequest;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import ${basePackage}.${entityPoPackage}.*;
+import ${basePackage}.${entityVoPackage}.${className}Vo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * ${tableComment} Service接口
  *
  * @author ${author}
- * @date ${date}
+ * @since ${date}
  */
-public interface I${className}Service {
+@Service
+public class ${className}Service extends BaseService {
 
-    /**
-     * 查询（分页）
-     *
-     * @param request QueryRequest
-     * @param ${className?uncap_first} ${className?uncap_first}
-     * @return IPage<${className}>
-     */
-    IPage<${className}> find${className}s(QueryRequest request, ${className} ${className?uncap_first});
+    @Autowired
+    private ${className}Dao ${className?uncap_first}Dao;
 
-    /**
-     * 查询（所有）
-     *
-     * @param ${className?uncap_first} ${className?uncap_first}
-     * @return List<${className}>
-     */
-    List<${className}> find${className}s(${className} ${className?uncap_first});
+   /**
+    * 封装返回参数
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    public static <T> ResultPoJo<T> getResult(T t) {
+        ResultPoJo<T> result = new ResultPoJo<T>();
+        result.setResult(t);
+        result.setMsg("success");
+        return result;
+    }
 
-    /**
-     * 新增
-     *
-     * @param ${className?uncap_first} ${className?uncap_first}
-     */
-    void create${className}(${className} ${className?uncap_first});
+   /**
+    * 获得分页列表
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    public ResultPoJo<Page<${className}>> ${className?uncap_first}Page(${className}PagePo page${className}Po) {
+        Page<${className}> ${className?uncap_first}PoPage = page${className}Po.getPage();
+        ${className?uncap_first}PoPage.setList(${className?uncap_first}Dao.findPage(page${className}Po));
+        return getResult(${className?uncap_first}PoPage);
+    }
 
-    /**
-     * 修改
-     *
-     * @param ${className?uncap_first} ${className?uncap_first}
-     */
-    void update${className}(${className} ${className?uncap_first});
+   /**
+    * 添加
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    @Transactional
+    public ResultPoJo<Boolean> save${className}(${className}InsertPo ${className?uncap_first}InsertPo) {
+        ${className} ${className?uncap_first} = new ${className}();
+        BeanUtils.copyProperties(${className?uncap_first}InsertPo,${className?uncap_first});
+        return getResult(${className?uncap_first}Dao.insert(${className?uncap_first})==1);
+    }
+
+   /**
+    * 修改
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    @Transactional
+    public ResultPoJo<Boolean> update${className}(${className}UpdatePo ${className?uncap_first}UpdatePo) {
+        ${className} ${className?uncap_first} = new ${className}();
+        BeanUtils.copyProperties(${className?uncap_first}UpdatePo, ${className?uncap_first});
+        return getResult(${className?uncap_first}Dao.update(${className?uncap_first})==1);
+    }
+
+   /**
+    * 获取单个
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    public ResultPoJo<${className}Vo> getOne${className}(${className}Po ${className?uncap_first}Po) {
+        return getResult(${className?uncap_first}Dao.getOne${className}(${className?uncap_first}Po));
+    }
+
+   /**
+    * 通过ID获取单个
+    *
+    * @author ${author}
+    * @since ${date}
+    */
+    public ResultPoJo<${className}Vo> getOne${className}ById(${className}IdPo ${className?uncap_first}IdPo) {
+        return getResult(${className?uncap_first}Dao.selectByPrimaryKey(${className?uncap_first}IdPo));
+    }
 
 }

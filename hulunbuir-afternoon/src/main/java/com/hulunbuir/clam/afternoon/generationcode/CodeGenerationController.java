@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,18 +40,6 @@ public class CodeGenerationController extends BaseController {
     private CodeGenerationService codeGenerationService;
     @Autowired
     private CodeGeneratorHelper generatorHelper;
-
-    public static void main(String[] args) throws FileNotFoundException {
-        String resourcesFolder = "/generation/";
-        String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
-        System.out.println(templatePath);
-        File file =  new  File(templatePath);
-        final String[] list = file.list();
-
-        System.out.println(Arrays.toString(list));
-
-
-    }
 
     @ApiOperation("保存配置")
     @PostMapping("/saveGeneration")
@@ -113,9 +100,9 @@ public class CodeGenerationController extends BaseController {
     @GetMapping("/generationCodeDownload")
     public void generationCodeDownload(@RequestParam String schemaName, @RequestParam String tableName, HttpServletRequest request, HttpServletResponse response) throws HulunBuirException {
         log.info("生成代码的当前de 数据库是：{}，表名是：{}", schemaName, tableName);
-        CodeGenerationConfig codeGenerationConfig = new CodeGenerationConfig(getSessionId());
-        codeGenerationConfig = codeGenerationService.getGeneration(codeGenerationConfig);
-        if (StringUtils.isBlank(codeGenerationConfig.getAuthor())) {
+        CodeGenerationConfig config = new CodeGenerationConfig(getSessionId());
+        config = codeGenerationService.getGeneration(config);
+        if (StringUtils.isBlank(config.getAuthor())) {
             throw HulunBuirException.build("请配置生成代码的设置！！");
         }
         CodeGeneration generation = new CodeGeneration(schemaName, tableName);
@@ -123,17 +110,34 @@ public class CodeGenerationController extends BaseController {
         final String className = CommonUtils.underscoreToCamel(tableName);
         log.info("生成的表名是：{}", className);
         final String remark = generation.getRemark();
-        codeGenerationConfig.setTableName(tableName);
-        codeGenerationConfig.setClassName(className);
-        codeGenerationConfig.setTableComment(remark);
+        config.setTableName(tableName);
+        config.setClassName(className);
+        config.setTableComment(remark);
         List<Column> columns = codeGenerationService.getColumns(generation);
         try {
-            generatorHelper.generateEntityFile(columns, codeGenerationConfig);
-            generatorHelper.generateMapperFile(columns, codeGenerationConfig);
-            generatorHelper.generateMapperXmlFile(columns, codeGenerationConfig);
-            generatorHelper.generateServiceFile(columns, codeGenerationConfig);
-            generatorHelper.generateServiceImplFile(columns, codeGenerationConfig);
-            generatorHelper.generateControllerFile(columns, codeGenerationConfig);
+            if(CodeGenerationConfig.defaultFolder.equals(config.getTemplateFolder())){
+                generatorHelper.generateEntityFile(columns, config);
+                generatorHelper.generateMapperFile(CodeGenerationConfig.MAPPER_FILE_SUFFIX, config);
+                generatorHelper.generateMapperXmlFile(columns, config,CodeGenerationConfig.MAPPERXML_FILE_SUFFIX);
+                generatorHelper.generateServiceFile(columns, config,true);
+                generatorHelper.generateServiceImplFile(columns, config);
+                generatorHelper.generateControllerFile(columns, config);
+            } else {
+                String entity = CodeGenerationConfig.ENTITY_TEMPLATE,vo = "vo.ftl",pagePo = "pagePo.ftl",po = "po.ftl",idPo = "idPo.ftl",insertPo = "insertPo.ftl",updatePo = "updatePo.ftl";
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPackage(),entity);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),vo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pagePo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),po);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),idPo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),insertPo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),updatePo);
+                generatorHelper.generateControllerFile(columns, config);
+                generatorHelper.generateServiceFile(columns, config,false);
+                String daoSuffix = "Dao.java",daoXmlSuffix = "Dao.xml";
+                generatorHelper.generateMapperFile(daoSuffix, config);
+                generatorHelper.generateMapperXmlFile(columns, config,daoXmlSuffix);
+            }
+
         } catch (Exception e) {
             log.error("生成代码失败", e);
         }

@@ -30,4 +30,10 @@ public class Column {
      * 属性名称
      */
     private String field;
+
+    /**
+     * 属性名称-首字母小写
+     */
+    private String fieldes;
+
 }

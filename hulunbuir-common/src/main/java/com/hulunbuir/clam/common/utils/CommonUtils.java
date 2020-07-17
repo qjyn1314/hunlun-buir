@@ -28,4 +28,26 @@ public class CommonUtils {
         return result.toString();
     }
 
+    /**
+     * 将单词的首字母大写
+     *
+     * @author wangjunming
+     * @since 2020/7/17 13:59
+     */
+    public static String upperFirstLatter(String letter){
+        return letter.substring(0, 1).toUpperCase()+letter.substring(1);
+    }
+
+    /**
+     * 将单词的首字母大写
+     *
+     * @author wangjunming
+     * @since 2020/7/17 13:59
+     */
+    public static String lowerFirstLatter(String letter){
+        return letter.substring(0, 1).toLowerCase()+letter.substring(1);
+    }
+
+
+
 }

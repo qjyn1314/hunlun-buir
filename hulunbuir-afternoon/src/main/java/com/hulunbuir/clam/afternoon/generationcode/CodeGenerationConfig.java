@@ -158,17 +158,33 @@ public class CodeGenerationConfig implements Serializable {
      */
     private String date = DateUtils.formatFullTime(LocalDateTime.now(), DateUtils.FULL_TIME_SPLIT_PATTERN);
 
+    public static final String defaultFolder = "default";
+    public static final String xinMengFolder = "default";
+
     public CodeGenerationConfig() {
-        this.templateFolder = "default";
-        this.author = "Mr.Wang";
-        this.basePackage = "com.hulunbuir.clam.afternoon.persistence";
+        this.templateFolder = "xinmeng";
+        this.author = "wangjunming";
+        this.basePackage = "com.wisea.qdcy.tp.product";
         this.entityPackage = "entity";
-        this.mapperPackage = "mapper";
-        this.mapperXmlPackage = "mapper.xml";
+        this.mapperPackage = "dao";
+        this.mapperXmlPackage = "mappings";
         this.servicePackage = "service";
-        this.serviceImplPackage = "service.impl";
+        this.entityPoPackage = "po";
+        this.entityVoPackage = "vo";
         this.controllerPackage = "controller";
     }
+//    ${servicePackage}
+//    public CodeGenerationConfig() {
+//        this.templateFolder = "default";
+//        this.author = "Mr.Wang";
+//        this.basePackage = "com.hulunbuir.clam.afternoon.persistence";
+//        this.entityPackage = "entity";
+//        this.mapperPackage = "mapper";
+//        this.mapperXmlPackage = "mapper.xml";
+//        this.servicePackage = "service";
+//        this.serviceImplPackage = "service.impl";
+//        this.controllerPackage = "controller";
+//    }
 
     public CodeGenerationConfig(String sessionId) {
         this.sessionId = sessionId;
