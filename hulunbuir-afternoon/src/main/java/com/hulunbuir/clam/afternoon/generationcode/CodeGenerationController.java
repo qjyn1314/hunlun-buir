@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,9 @@ public class CodeGenerationController extends BaseController {
     private CodeGenerationService codeGenerationService;
     @Autowired
     private CodeGeneratorHelper generatorHelper;
+
+    @Value("${service.template.generation.tmp}")
+    private String templateGenerationTmpFolder;
 
     @ApiOperation("保存配置")
     @PostMapping("/saveGeneration")
@@ -132,14 +136,14 @@ public class CodeGenerationController extends BaseController {
         // 打包
         String zipFile = System.currentTimeMillis() + CodeGenerationConfig.SUFFIX;
         try {
-            FileUtil.compress(CodeGenerationConfig.TEMP_PATH + "src", zipFile);
+            FileUtil.compress(templateGenerationTmpFolder + "src", zipFile);
             // 下载
             FileUtil.download(zipFile, tableName + CodeGenerationConfig.SUFFIX, true, response);
         } catch (Exception e) {
             log.error("下载文件失败：", e);
         }
         // 删除临时目录
-        FileUtil.delete(CodeGenerationConfig.TEMP_PATH);
+        FileUtil.delete(templateGenerationTmpFolder);
 
     }
 

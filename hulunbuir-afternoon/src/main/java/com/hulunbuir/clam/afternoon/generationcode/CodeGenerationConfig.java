@@ -29,7 +29,7 @@ public class CodeGenerationConfig implements Serializable {
     /**
      * 生成代码的临时目录
      */
-    public static final String TEMP_PATH = "hulun_buir_temp/";
+//    public static final String TEMP_PATH = "hulun_buir_temp/";
     /**
      * 基础包名
      */

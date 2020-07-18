@@ -9,10 +9,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +28,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class CodeGeneratorHelper {
+
+    @Value("${service.template.generation}")
+    private String templateGenerationFolder;
+    @Value("${service.template.generation.tmp}")
+    private String templateGenerationTmpFolder;
 
     private static JSONObject toJSONObject(Object o) {
         return JSONObject.parseObject(JSONObject.toJSON(o).toString());
@@ -50,7 +53,7 @@ public class CodeGeneratorHelper {
     }
 
     private String getFilePath(CodeGenerationConfig configure, String packagePath, String suffix, boolean serviceInterface) {
-        String filePath = CodeGenerationConfig.TEMP_PATH + configure.getJavaPath() +
+        String filePath = templateGenerationTmpFolder + configure.getJavaPath() +
                 packageConvertPath(configure.getBasePackage() + "." + packagePath);
         if (serviceInterface) {
             filePath += "I";
@@ -60,7 +63,7 @@ public class CodeGeneratorHelper {
     }
 
     private String getFilePath(CodeGenerationConfig configure, String packagePath, String suffix, String entityVoPoClassName) {
-        String filePath = CodeGenerationConfig.TEMP_PATH + configure.getJavaPath() +
+        String filePath = templateGenerationTmpFolder + configure.getJavaPath() +
                 packageConvertPath(configure.getBasePackage() + "." + packagePath);
         filePath += configure.getClassName() + entityVoPoClassName + suffix;
         return filePath;
@@ -74,31 +77,9 @@ public class CodeGeneratorHelper {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         String resourcesFolder = "/generation/" + templateFolder + "/";
         String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
-        log.info("templatePath:{}",templatePath);
         File file = new File(templatePath);
         if (!file.exists()) {
-//            templatePath = System.getProperties().getProperty("java.io.tmpdir");
-//            log.info("templatePath:{}",templatePath);
-//            file = new File(templatePath + "/" + templateName);
-//            resourcesFolder = "generation/" + templateFolder + "/";
-//            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
-//            log.info("resourcesStreamPath:{}",resourcesStreamPath);
-//            FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
-            resourcesFolder = "generation/" + templateFolder + "/";
-            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder ;
-            log.info("resourcesStreamPath:{}",resourcesStreamPath);
-            File files = null;
-            try {
-                files = ResourceUtils.getFile(resourcesStreamPath);
-            } catch (Exception e) {
-                log.error("使用 ResourceUtils.getFile获取文件失败",e);
-                Resource resource = new ClassPathResource(resourcesStreamPath);
-                files = resource.getFile();
-                log.info("通过- ClassPathResource - 获取到的file是：{}",files);
-//                final InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcesStreamPath);
-            }
-            templatePath  = files.getPath();
-            log.info("templatePath-->:{}",templatePath);
+            templatePath = templateGenerationFolder + templateFolder + "/";
         }
         configuration.setDirectoryForTemplateLoading(new File(templatePath));
         configuration.setDefaultEncoding("UTF-8");
