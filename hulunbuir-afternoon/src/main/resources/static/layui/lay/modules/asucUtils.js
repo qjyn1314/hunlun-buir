@@ -26,8 +26,8 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         /**
          * 服务器地址
          */
-        // backendURL: baseUrl,
-        backendURL: "http://www.hulunbuir.com",
+        backendURL: baseUrl,
+        // backendURL: "http://www.hulunbuir.com",
         /**
          * 获取body的总宽度
          */
