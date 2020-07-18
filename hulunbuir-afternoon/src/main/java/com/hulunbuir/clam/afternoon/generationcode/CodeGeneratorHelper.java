@@ -9,6 +9,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -83,9 +85,18 @@ public class CodeGeneratorHelper {
 //            log.info("resourcesStreamPath:{}",resourcesStreamPath);
 //            FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
             resourcesFolder = "generation/" + templateFolder + "/";
-            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
+            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder ;
             log.info("resourcesStreamPath:{}",resourcesStreamPath);
-            File files = ResourceUtils.getFile(resourcesStreamPath);
+            File files = null;
+            try {
+                files = ResourceUtils.getFile(resourcesStreamPath);
+            } catch (Exception e) {
+                log.error("使用 ResourceUtils.getFile获取文件失败",e);
+                Resource resource = new ClassPathResource(resourcesStreamPath);
+                files = resource.getFile();
+                log.info("通过- ClassPathResource - 获取到的file是：{}",files);
+//                final InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcesStreamPath);
+            }
             templatePath  = files.getPath();
             log.info("templatePath-->:{}",templatePath);
         }
