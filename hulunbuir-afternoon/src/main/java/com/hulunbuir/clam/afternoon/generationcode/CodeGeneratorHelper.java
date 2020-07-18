@@ -8,7 +8,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -17,7 +16,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -77,13 +75,19 @@ public class CodeGeneratorHelper {
         log.info("templatePath:{}",templatePath);
         File file = new File(templatePath);
         if (!file.exists()) {
-            templatePath = System.getProperties().getProperty("java.io.tmpdir");
-            log.info("templatePath:{}",templatePath);
-            file = new File(templatePath + "/" + templateName);
+//            templatePath = System.getProperties().getProperty("java.io.tmpdir");
+//            log.info("templatePath:{}",templatePath);
+//            file = new File(templatePath + "/" + templateName);
+//            resourcesFolder = "generation/" + templateFolder + "/";
+//            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
+//            log.info("resourcesStreamPath:{}",resourcesStreamPath);
+//            FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
             resourcesFolder = "generation/" + templateFolder + "/";
             String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
             log.info("resourcesStreamPath:{}",resourcesStreamPath);
-            FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
+            File files = ResourceUtils.getFile(resourcesStreamPath);
+            templatePath  = files.getPath();
+            log.info("templatePath-->:{}",templatePath);
         }
         configuration.setDirectoryForTemplateLoading(new File(templatePath));
         configuration.setDefaultEncoding("UTF-8");
