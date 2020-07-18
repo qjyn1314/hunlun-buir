@@ -78,7 +78,9 @@ public class CodeGeneratorHelper {
         File file = new File(templatePath);
         if (!file.exists()) {
             templatePath = System.getProperties().getProperty("java.io.tmpdir");
+            log.info("templatePath:{}",templatePath);
             file = new File(templatePath + "/" + templateName);
+            resourcesFolder = "generation/" + templateFolder + "/";
             String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
             log.info("resourcesStreamPath:{}",resourcesStreamPath);
             FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
