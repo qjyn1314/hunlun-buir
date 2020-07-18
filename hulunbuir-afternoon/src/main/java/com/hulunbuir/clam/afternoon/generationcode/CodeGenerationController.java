@@ -43,12 +43,16 @@ public class CodeGenerationController extends BaseController {
 
     @Value("${service.template.generation.tmp}")
     private String templateGenerationTmpFolder;
+    private static String[] actives = {"test","pro"};
+    @Value("${spring.profiles.active}")
+    private String active;
 
     @ApiOperation("保存配置")
     @PostMapping("/saveGeneration")
     public JsonResult saveGeneration(CodeGenerationConfig generationConfig) {
         generationConfig.setSessionId(getSessionId());
         log.info("生成代码配置是：{}", generationConfig);
+
         return JsonResult.success(codeGenerationService.saveGeneration(generationConfig));
     }
 
@@ -142,8 +146,10 @@ public class CodeGenerationController extends BaseController {
         } catch (Exception e) {
             log.error("下载文件失败：", e);
         }
-        // 删除临时目录
-        FileUtil.delete(templateGenerationTmpFolder);
+        if(!Arrays.asList(actives).contains(active)){
+            // 删除临时目录
+            FileUtil.delete(templateGenerationTmpFolder);
+        }
 
     }
 
