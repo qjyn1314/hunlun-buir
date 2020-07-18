@@ -83,7 +83,7 @@ public class CodeGeneratorHelper {
     private Template getTemplate(String templateFolder, String templateName) throws IOException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         String resourcesFolder = "/generation/" + templateFolder + "/";
-        String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
+        String templatePath = CodeGeneratorHelper.class.getClassLoader().getResource(resourcesFolder).getPath();
         File file = new File(templatePath);
         configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
