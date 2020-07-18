@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -110,6 +111,15 @@ public class CodeGenerationController extends BaseController {
         config.setClassName(className);
         config.setTableComment(remark);
         List<Column> columns = codeGenerationService.getColumns(generation);
+
+        try {
+            final File file = new File(templateGenerationTmpFolder + "src");
+            final boolean mkdirs = file.mkdirs();
+            log.info("创建临时文件夹是否成功：{}",mkdirs);
+        } catch (Exception e) {
+            log.error("创建临时文件夹失败！",e);
+        }
+
         try {
             if(CodeGenerationConfig.defaultFolder.equals(config.getTemplateFolder())){
                 generatorHelper.generateEntityFile(columns, config);
@@ -146,10 +156,8 @@ public class CodeGenerationController extends BaseController {
         } catch (Exception e) {
             log.error("下载文件失败：", e);
         }
-        if(!Arrays.asList(actives).contains(active)){
-            // 删除临时目录
-            FileUtil.delete(templateGenerationTmpFolder);
-        }
+        // 删除临时目录
+        FileUtil.delete(templateGenerationTmpFolder);
 
     }
 
