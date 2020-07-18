@@ -35,19 +35,6 @@ public class CodeGeneratorHelper {
         return JSONObject.parseObject(JSONObject.toJSON(o).toString());
     }
 
-    public static void main(String[] args) {
-        final String lowerCase = "pagePo.ftl";
-        System.out.println(lowerCase);
-        final String underscoreToCamel = CommonUtils.upperFirstLatter(lowerCase.substring(0,lowerCase.indexOf(".")));
-        System.out.println(underscoreToCamel);
-
-        String str = "#{avatar}, #{createDate}, #{description}, #{email}, NULL,#{isTab}, #{lastLoginTime}, #{password}, #{phone}, #{sex}, #{status}, #{updateDate}, #{userName},";
-        final String substring = str.substring(0, str.length() - 1);
-        System.out.println(str);
-        System.out.println(substring);
-
-    }
-
     @SuppressWarnings("UnstableApiUsage")
     private void generateFileByTemplate(String templateFolder, String templateName, File file, Object data) throws Exception {
         Template template = getTemplate(templateFolder, templateName);
@@ -92,9 +79,11 @@ public class CodeGeneratorHelper {
         if (!file.exists()) {
             templatePath = System.getProperties().getProperty("java.io.tmpdir");
             file = new File(templatePath + "/" + templateName);
-            FileUtils.copyInputStreamToFile(Objects.requireNonNull(ResourceUtils.class.getClassLoader().getResourceAsStream(ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName)), file);
+            String resourcesStreamPath = ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName;
+            log.info("resourcesStreamPath:{}",resourcesStreamPath);
+            FileUtils.copyInputStreamToFile(Objects.requireNonNull(CommonUtils.class.getClassLoader().getResourceAsStream(resourcesStreamPath)), file);
         }
-        configuration.setDirectoryForTemplateLoading(file);
+        configuration.setDirectoryForTemplateLoading(new File(templatePath));
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
         return configuration.getTemplate(templateName);
