@@ -8,13 +8,16 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -83,8 +86,14 @@ public class CodeGeneratorHelper {
     private Template getTemplate(String templateFolder, String templateName) throws IOException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         String resourcesFolder = "/generation/" + templateFolder + "/";
-        String templatePath = CodeGeneratorHelper.class.getClassLoader().getResource(resourcesFolder).getPath();
+        String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
+        log.info("templatePath:{}",templatePath);
         File file = new File(templatePath);
+        if (!file.exists()) {
+            templatePath = System.getProperties().getProperty("java.io.tmpdir");
+            file = new File(templatePath + "/" + templateName);
+            FileUtils.copyInputStreamToFile(Objects.requireNonNull(ResourceUtils.class.getClassLoader().getResourceAsStream(ResourceUtils.CLASSPATH_URL_PREFIX + resourcesFolder + templateName)), file);
+        }
         configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
