@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,18 +51,7 @@ public class CodeGenerationController extends BaseController {
     @ApiOperation("获取已配置的模板文件夹列表")
     @GetMapping("/getFolderList")
     public JsonResult getFolderList() {
-        File fileDir = null;
-        String[] folderList = null;
-        try {
-            String resourcesFolder = "/generation/";
-            String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
-            fileDir = new File(templatePath);
-            folderList = fileDir.list();
-        } catch (Exception e) {
-            log.error("获取已配置模板的问价列表失败！！", e);
-            folderList = new String[]{};
-        }
-        assert folderList != null;
+        String[] folderList = new String[]{"default","xinmeng"};
         return JsonResult.success(Arrays.asList(folderList));
     }
 
