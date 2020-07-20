@@ -23,6 +23,10 @@ public class Column {
      */
     private String type;
     /**
+     * 类型
+     */
+    private String typeCapital;
+    /**
      * 注释
      */
     private String remark;
@@ -36,4 +40,16 @@ public class Column {
      */
     private String fieldes;
 
+    public String getTypeCapital() {
+        return typeCapital;
+    }
+
+
+    public void setTypeCapital(String typeCapital) {
+        if(this.type == "type"){
+
+        }
+
+        this.typeCapital = typeCapital;
+    }
 }

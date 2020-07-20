@@ -44,16 +44,11 @@ public class CodeGenerationController extends BaseController {
 
     @Value("${service.template.generation.tmp}")
     private String templateGenerationTmpFolder;
-    private static String[] actives = {"test","pro"};
-    @Value("${spring.profiles.active}")
-    private String active;
 
     @ApiOperation("保存配置")
     @PostMapping("/saveGeneration")
     public JsonResult saveGeneration(CodeGenerationConfig generationConfig) {
         generationConfig.setSessionId(getSessionId());
-        log.info("生成代码配置是：{}", generationConfig);
-
         return JsonResult.success(codeGenerationService.saveGeneration(generationConfig));
     }
 
@@ -124,24 +119,22 @@ public class CodeGenerationController extends BaseController {
             if(CodeGenerationConfig.defaultFolder.equals(config.getTemplateFolder())){
                 generatorHelper.generateEntityFile(columns, config);
                 generatorHelper.generateMapperFile(CodeGenerationConfig.MAPPER_FILE_SUFFIX, config);
-                generatorHelper.generateMapperXmlFile(columns, config,CodeGenerationConfig.MAPPERXML_FILE_SUFFIX);
+                generatorHelper.generateMapperXmlFile(columns, config,CodeGenerationConfig.MAPPERXML_FILE_SUFFIX,config.getJavaPath());
                 generatorHelper.generateServiceFile(columns, config,true);
                 generatorHelper.generateServiceImplFile(columns, config);
                 generatorHelper.generateControllerFile(columns, config);
             } else {
-                String entity = CodeGenerationConfig.ENTITY_TEMPLATE,vo = "vo.ftl",pagePo = "pagePo.ftl",po = "po.ftl",idPo = "idPo.ftl",insertPo = "insertPo.ftl",updatePo = "updatePo.ftl";
+                String entity = CodeGenerationConfig.ENTITY_TEMPLATE,vo = "infoVo.ftl",pageListPo = "pageListPo.ftl",po = "po.ftl",pageListVo = "pageListVo.ftl";
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPackage(),entity);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),vo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pagePo);
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),po);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),idPo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),insertPo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),updatePo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),vo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),pageListVo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pageListPo);
                 generatorHelper.generateControllerFile(columns, config);
                 generatorHelper.generateServiceFile(columns, config,false);
-                String daoSuffix = "Dao.java",daoXmlSuffix = "Dao.xml";
+                String daoSuffix = "Mapper.java",daoXmlSuffix = "Mapper.xml";
                 generatorHelper.generateMapperFile(daoSuffix, config);
-                generatorHelper.generateMapperXmlFile(columns, config,daoXmlSuffix);
+                generatorHelper.generateMapperXmlFile(columns, config,daoXmlSuffix,config.getResourcesPath());
             }
 
         } catch (Exception e) {

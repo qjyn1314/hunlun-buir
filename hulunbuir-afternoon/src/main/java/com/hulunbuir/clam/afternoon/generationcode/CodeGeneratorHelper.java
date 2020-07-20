@@ -69,6 +69,13 @@ public class CodeGeneratorHelper {
         return filePath;
     }
 
+    private String getXmlFilePath(CodeGenerationConfig configure, String packagePath, String suffix, String xmlPath) {
+        String filePath = templateGenerationTmpFolder + xmlPath +
+                packageConvertPath(configure.getBasePackage() + "." + packagePath);
+        filePath += configure.getClassName() + suffix;
+        return filePath;
+    }
+
     private String packageConvertPath(String packageName) {
         return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
     }
@@ -146,7 +153,7 @@ public class CodeGeneratorHelper {
         generateFileByTemplate(configure.getTemplateFolder(), templateName, controllerFile, toJSONObject(configure));
     }
 
-    public void generateMapperXmlFile(List<Column> columns, CodeGenerationConfig configure,String suffix) throws Exception {
+    public void generateMapperXmlFile(List<Column> columns, CodeGenerationConfig configure,String suffix,String xmlPath) throws Exception {
         String path = getFilePath(configure, configure.getMapperXmlPackage(), suffix, false);
         String templateName = CodeGenerationConfig.MAPPERXML_TEMPLATE;
         File mapperXmlFile = new File(path);
@@ -210,18 +217,14 @@ public class CodeGeneratorHelper {
         }
         File entityFile = new File(path);
         JSONObject data = toJSONObject(configure);
-        data.put("hasDate", false);
         data.put("hasBigDecimal", false);
         data.put("hasOffsetDateTime", false);
         columns.forEach(c -> {
             c.setField(CommonUtils.underscoreToCamel(StringUtils.lowerCase(c.getName())));
-            if (StringUtils.containsAny(c.getType(), "date", "datetime", "timestamp")) {
-                data.put("hasDate", true);
-            }
             if (StringUtils.containsAny(c.getType(), "decimal", "numeric")) {
                 data.put("hasBigDecimal", true);
             }
-            if (StringUtils.containsAny(c.getField(), "CreateDate", "UpdateDate")) {
+            if (StringUtils.containsAny(c.getType(), "date", "datetime", "timestamp")) {
                 data.put("hasOffsetDateTime", true);
             }
         });

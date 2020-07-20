@@ -1,64 +1,45 @@
 package ${basePackage}.${mapperPackage};
 
 import com.wisea.cloud.common.mybatis.persistence.CrudDao;
-import com.wisea.cloud.model.po.PagePo;
+import com.wisea.cloud.model.po.LongIdPo;
 import ${basePackage}.${entityPackage}.${className};
-import ${basePackage}.${entityPoPackage}.${className}IdPo;
+import ${basePackage}.${entityPoPackage}.${className}PageListPo;
 import ${basePackage}.${entityPoPackage}.${className}Po;
-import ${basePackage}.${entityVoPackage}.${className}Vo;
+import ${basePackage}.${entityVoPackage}.${className}InfoVo;
+import ${basePackage}.${entityVoPackage}.${className}PageListVo;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
- * ${tableComment} Dao
- *
- * @author ${author}
+ * ${tableComment} Mapper
  * @since ${date}
  */
+@Mapper
 @Repository
-public interface ${className}Dao extends CrudDao<${className}>{
+public interface ${className}Mapper extends CrudDao<${className}>{
 
    /**
-    * 分页列表
-    *
-    * @author ${author}
-    * @since ${date}
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 分页查询${className}-${tableComment}
     */
-    List<${className}> findPage(@Param("${className?uncap_first}") PagePo<${className}> ${className?uncap_first}Po);
+    List<${className}PageListVo> findPageList(${className}PageListPo po);
 
-   /**
-    * 保存
-    *
-    * @author ${author}
-    * @since ${date}
-    */
-    int insert(${className} ${className?uncap_first});
-
-   /**
-    * 修改
-    *
-    * @author ${author}
-    * @since ${date}
-    */
-    int update(${className} ${className?uncap_first});
-
-   /**
-    * 获取单个
-    *
-    * @author ${author}
-    * @since ${date}
-    */
-    ${className}Vo getOne${className}(@Param("${className?uncap_first}") ${className}Po ${className?uncap_first}Po);
+  /**
+   * @author wbf-coder-generator
+   * @date ${date}
+   * @Description 查询详细信息${className}-${tableComment}
+   */
+    ${className}InfoVo findInfo(LongIdPo po);
 
 
    /**
-    * 通过ID获取单个
-    *
-    * @author ${author}
-    * @since ${date}
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 查询详细信息${className}-${tableComment}
     */
-    ${className}Vo selectByPrimaryKey(${className}IdPo ${className?uncap_first}IdPo);
+    ${className}InfoVo findInfoes(${className}Po po);
 
 }

@@ -1,62 +1,94 @@
 package ${basePackage}.${controllerPackage};
 
+import com.wisea.cloud.common.annotation.DataCheck;
 import com.wisea.cloud.common.pojo.ResultPoJo;
 import com.wisea.cloud.model.Page;
-import ${basePackage}.${entityPackage}.${className};
-import ${basePackage}.${entityPoPackage}.*;
+import com.wisea.cloud.model.po.LongIdPo;
+import ${basePackage}.${entityPoPackage}.${className}PageListPo;
+import ${basePackage}.${entityPoPackage}.${className}Po;
 import ${basePackage}.${servicePackage}.${className}Service;
-import ${basePackage}.${entityVoPackage}.${className}Vo;
+import ${basePackage}.${entityVoPackage}.${className}InfoVo;
+import ${basePackage}.${entityVoPackage}.${className}PageListVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * explain: ${tableComment} Controller
- * </p>
- *
- * @author ${author}
- * @since ${date}
+ * @author wbf-coder-generator
+ * @version 1.0
+ * @className ${className}Controller
+ * @date ${date}
+ * @Description ${tableComment} 控制层
  */
-@Api(tags = "${tableComment}web调用接口")
+@Api(tags = "${tableComment}web调用接口-${className}Controller")
 @RestController
-@RequestMapping(value = "/w")
+@RequestMapping(value = "/w/${className}")
 public class ${className}Controller  {
 
     @Autowired
-    private ${className}Service ${className?uncap_first}Service;
+    private ${className}Service service;
 
-    @ApiOperation(value = "分页列表-${tableComment}", notes = "获取分页列表")
-    @GetMapping("/${className?uncap_first}Page")
-    public ResultPoJo<Page<${className}>> ${className?uncap_first}Page(${className}PagePo page${className}Po) {
-        return ${className?uncap_first}Service.${className?uncap_first}Page(page${className}Po);
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 分页查询${className}-${tableComment}
+     */
+    @DataCheck
+    @RequestMapping(value = "/findPageList", method = RequestMethod.POST)
+    @ApiOperation(nickname = "分页查询列表-${tableComment}", value = "分页查询列表", notes = "分页查询列表", httpMethod = "POST")
+    public ResultPoJo<Page<${className}PageListVo>> findPageList(@RequestBody ${className}PageListPo po) {
+        return service.findPageList(po);
     }
 
-    @ApiOperation(value = "添加-${tableComment}", notes = "添加")
-    @GetMapping("/save${className}")
-    public ResultPoJo<Boolean> save${className}(${className}InsertPo ${className?uncap_first}InsertPo) {
-        return ${className?uncap_first}Service.save${className}(${className?uncap_first}InsertPo);
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 逻辑删除${className}-${tableComment}
+     */
+    @DataCheck
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @ApiOperation(nickname = "逻辑删除-${tableComment}", value = "逻辑删除", notes = "逻辑删除", httpMethod = "POST")
+    public ResultPoJo<Boolean> logicDel(@RequestBody LongIdPo po) {
+        return service.logicDel(po);
     }
 
-    @ApiOperation(value = "修改-${tableComment}", notes = "修改")
-    @GetMapping("/update${className}")
-    public ResultPoJo<Boolean> update${className}(${className}UpdatePo ${className?uncap_first}UpdatePo) {
-        return ${className?uncap_first}Service.update${className}(${className?uncap_first}UpdatePo);
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 新增或修改${className}-${tableComment}
+     */
+    @DataCheck
+    @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
+    @ApiOperation(nickname = "新增或修改-${tableComment}", value = "新增或修改", notes = "新增或修改", httpMethod = "POST")
+    public ResultPoJo saveOrUpdate(@RequestBody ${className}Po po) {
+        return service.saveOrUpdate(po);
     }
 
-    @ApiOperation(value = "单个查询-${tableComment}", notes = "单个查询")
-    @GetMapping("/getOne${className}")
-    public ResultPoJo<${className}Vo> getOne${className}(${className}Po ${className?uncap_first}Po) {
-        return ${className?uncap_first}Service.getOne${className}(${className?uncap_first}Po);
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 查询详细信息${className}-${tableComment}
+     */
+    @DataCheck
+    @RequestMapping(value = "/findInfo", method = RequestMethod.POST)
+    @ApiOperation(nickname = "查询详细信息ById-${tableComment}", value = "查询详细信息", notes = "查询详细信息", httpMethod = "POST")
+    public ResultPoJo<${className}InfoVo> findInfo(@RequestBody LongIdPo po) {
+        return service.findInfo(po);
     }
 
-    @ApiOperation(value = "单个查询ById-${tableComment}", notes = "单个查询ById")
-    @GetMapping("/getOne${className}ById")
-    public ResultPoJo<${className}Vo> getOne${className}ById(${className}IdPo ${className?uncap_first}IdPo) {
-        return ${className?uncap_first}Service.getOne${className}ById(${className?uncap_first}IdPo);
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 查询详细信息${className}-${tableComment}
+     */
+    @RequestMapping(value = "/findInfoes", method = RequestMethod.POST)
+    @ApiOperation(nickname = "查询详细信息多个条件-${tableComment}", value = "查询详细信息", notes = "查询详细信息", httpMethod = "POST")
+    public ResultPoJo<${className}InfoVo> findInfoes(@RequestBody ${className}Po po) {
+        return service.findInfoes(po);
     }
 
 }
