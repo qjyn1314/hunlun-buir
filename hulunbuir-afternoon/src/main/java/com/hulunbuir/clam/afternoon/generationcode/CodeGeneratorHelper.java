@@ -14,9 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -69,13 +68,6 @@ public class CodeGeneratorHelper {
         return filePath;
     }
 
-    private String getXmlFilePath(CodeGenerationConfig configure, String packagePath, String suffix, String xmlPath) {
-        String filePath = templateGenerationTmpFolder + xmlPath +
-                packageConvertPath(configure.getBasePackage() + "." + packagePath);
-        filePath += configure.getClassName() + suffix;
-        return filePath;
-    }
-
     private String packageConvertPath(String packageName) {
         return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
     }
@@ -104,7 +96,6 @@ public class CodeGeneratorHelper {
         data.put("hasDate", false);
         data.put("hasBigDecimal", false);
         columns.forEach(c -> {
-            c.setField(CommonUtils.underscoreToCamel(StringUtils.lowerCase(c.getName())));
             if (StringUtils.containsAny(c.getType(), "date", "datetime", "timestamp")) {
                 data.put("hasDate", true);
             }
@@ -116,12 +107,6 @@ public class CodeGeneratorHelper {
         generateFileByTemplate(configure.getTemplateFolder(), templateName, entityFile, data);
     }
 
-    /**
-     *
-     * suffix 文件名的后缀
-     * @author wangjunming
-     * @since 2020/7/17 15:15
-     */
     public void generateMapperFile(String suffix, CodeGenerationConfig configure) throws Exception {
         String path = getFilePath(configure, configure.getMapperPackage(), suffix, false);
         String templateName = CodeGenerationConfig.MAPPER_TEMPLATE;
@@ -153,55 +138,12 @@ public class CodeGeneratorHelper {
         generateFileByTemplate(configure.getTemplateFolder(), templateName, controllerFile, toJSONObject(configure));
     }
 
-    public void generateMapperXmlFile(List<Column> columns, CodeGenerationConfig configure,String suffix,String xmlPath) throws Exception {
+    public void generateMapperXmlFile(CodeGenerationConfig configure) throws Exception {
+        String suffix = CodeGenerationConfig.MAPPERXML_FILE_SUFFIX;
         String path = getFilePath(configure, configure.getMapperXmlPackage(), suffix, false);
         String templateName = CodeGenerationConfig.MAPPERXML_TEMPLATE;
         File mapperXmlFile = new File(path);
-        JSONObject data = toJSONObject(configure);
-        columns.forEach(c -> c.setField(CommonUtils.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
-        columns.forEach(c -> c.setFieldes(CommonUtils.lowerFirstLatter(CommonUtils.underscoreToCamel(StringUtils.lowerCase(c.getName())))));
-        data.put("columns", columns);
-        data.put("columnsCommaSeparated", getColumnsCommaSeparated(columns));
-        String insertSetValue = getColumnsSetValuesSeparatedByInsert(columns);
-        insertSetValue = insertSetValue.substring(0,insertSetValue.length()-1);
-        data.put("insertSetValue", insertSetValue);
-        String updateSetValue = getColumnsSetValuesSeparatedByUpdate(columns);
-        updateSetValue = updateSetValue.substring(0,updateSetValue.length()-1);
-        data.put("updateSetValue", updateSetValue);
-        data.put("wellNo", "#{");
-
-        generateFileByTemplate(configure.getTemplateFolder(), templateName, mapperXmlFile, data);
-    }
-
-    private String getColumnsSetValuesSeparatedByInsert(List<Column> columns) {
-        StringBuilder columnNameSetValue = new StringBuilder();
-        columns.forEach(column -> {
-            if("id".equals(column.getName())){
-                columnNameSetValue.append("NULL,");
-            }else{
-                columnNameSetValue.append("#{").append(column.getFieldes()).append("}, ");
-            }
-        });
-        String columnNameSetValueStr = columnNameSetValue.toString();
-        return columnNameSetValueStr.substring(0,columnNameSetValueStr.length()-1);
-    }
-
-    private String getColumnsSetValuesSeparatedByUpdate(List<Column> columns) {
-        final Map<String, String> nameFieldMaps = columns.stream().collect(Collectors.toMap(Column::getName, Column::getFieldes));
-        StringBuilder columnNameSetValue = new StringBuilder();
-        Set<Map.Entry<String, String>> entries = nameFieldMaps.entrySet();
-        for (Map.Entry<String, String> nameFieldMap : entries) {
-            if("id".equals(nameFieldMap.getKey())){
-                continue;
-            }
-            columnNameSetValue.append(nameFieldMap.getKey()).append(" = ").append("#{").append(nameFieldMap.getValue()).append("}, ");
-        }
-        String columnNameSetValueStr = columnNameSetValue.toString();
-        return columnNameSetValueStr.substring(0,columnNameSetValueStr.length()-1);
-    }
-
-    private String getColumnsCommaSeparated(List<Column> columns){
-        return columns.stream().map(Column::getName).collect(Collectors.joining(","));
+        generateFileByTemplate(configure.getTemplateFolder(), templateName, mapperXmlFile, toJSONObject(configure));
     }
 
 //------------------------------------------新盟风控
@@ -212,7 +154,7 @@ public class CodeGeneratorHelper {
         if(CodeGenerationConfig.ENTITY_TEMPLATE.equals(templateName)){
             path =  getFilePath(configure, entityVoPoPackage, suffix, false);
         }else{
-            final String entityVoPoClassName = CommonUtils.upperFirstLatter(templateName.substring(0, templateName.indexOf(".")));
+            String entityVoPoClassName = CommonUtils.upperFirstLatter(templateName.substring(0, templateName.indexOf(".")));
             path =  getFilePath(configure, entityVoPoPackage, suffix, entityVoPoClassName);
         }
         File entityFile = new File(path);
@@ -220,7 +162,6 @@ public class CodeGeneratorHelper {
         data.put("hasBigDecimal", false);
         data.put("hasOffsetDateTime", false);
         columns.forEach(c -> {
-            c.setField(CommonUtils.underscoreToCamel(StringUtils.lowerCase(c.getName())));
             if (StringUtils.containsAny(c.getType(), "decimal", "numeric")) {
                 data.put("hasBigDecimal", true);
             }
@@ -230,6 +171,76 @@ public class CodeGeneratorHelper {
         });
         data.put("columns", columns);
         generateFileByTemplate(configure.getTemplateFolder(), templateName, entityFile, data);
+    }
+
+    public void generateMapperCrudXmlFile(List<Column> columns, CodeGenerationConfig configure) throws Exception {
+        String suffix = CodeGenerationConfig.MAPPERXML_FILE_SUFFIX;
+        String path = getXmlCrudFilePath(configure, configure.getMapperXmlPackage(), suffix);
+        String templateName = CodeGenerationConfig.MAPPERXML_TEMPLATE;
+        File mapperXmlFile = new File(path);
+        JSONObject data = toJSONObject(configure);
+        data.put("columns", columns);
+        data.put("columnsCommaSeparated", getColumnsCommaSeparated(columns));
+        data.put("insertSetValue", getColumnsSetValuesSeparatedByInsert(columns));
+        data.put("idStr",getIdStrs(columns));
+        data.put("wellNo", "#{");
+        data.put("updateByPrimaryKey", getUpdateByPrimaryKey(columns));
+        data.put("infos", findInfos(columns));
+        generateFileByTemplate(configure.getTemplateFolder(), templateName, mapperXmlFile, data);
+    }
+
+    //where条件中的ID
+    private String getIdStrs(List<Column> columns) {
+        String idStr = "id";
+        StringBuilder builder = new StringBuilder();
+        columns.forEach(column -> {
+            if(idStr.equals(column.getName())){
+                builder.append("#{").append(column.getFields()).append(",jdbcType=").append(column.getTypeCapital()).append("}");
+            }
+        });
+        return builder.toString();
+    }
+
+    //获取crud的xmlPath，放在sources目录下
+    private String getXmlCrudFilePath(CodeGenerationConfig configure, String packagePath, String suffix ) {
+        String filePath = templateGenerationTmpFolder + packageConvertPath(configure.getResourcesPath() + "." + packagePath);
+        filePath += configure.getClassName() + suffix;
+        return filePath;
+    }
+
+    //全量插入数据时使用到的values值
+    private String getColumnsSetValuesSeparatedByInsert(List<Column> columns) {
+        StringBuilder columnNameSetValue = new StringBuilder();
+        columns.forEach(column -> {
+           columnNameSetValue.append("#{").append(column.getFields()).append(",jdbcType=").append(column.getTypeCapital()).append("}, ");
+        });
+        return columnNameSetValue.toString().substring(0,columnNameSetValue.length()-2);
+    }
+
+    //更新时以ID作为条件更新时的setValue值
+    private String getUpdateByPrimaryKey(List<Column> columns) {
+        StringBuilder columnNameSetValue = new StringBuilder();
+        columns.forEach(column -> {
+            columnNameSetValue.append(column.getName()).append(" = #{").append(column.getFields()).append(",jdbcType=").append(column.getTypeCapital()).append("},");
+        });
+        return columnNameSetValue.toString().substring(0,columnNameSetValue.length()-1);
+    }
+
+    //更新时以ID作为条件更新时的setValue值
+    private String findInfos(List<Column> columns) {
+        StringBuilder columnNameSetValue = new StringBuilder();
+        String[] exColumns = {"create_by","create_date","update_by","update_date","remarks","del_flag"};
+        columns.forEach(column -> {
+            if(!Arrays.asList(exColumns).contains(column.getName())){
+                columnNameSetValue.append(column.getName()).append(" ").append(column.getFields()).append(", ");
+            }
+        });
+        return columnNameSetValue.toString().substring(0,columnNameSetValue.length()-2);
+    }
+
+    //列名以逗号分隔的字符串
+    private String getColumnsCommaSeparated(List<Column> columns){
+        return columns.stream().map(Column::getName).collect(Collectors.joining(","));
     }
 
 }

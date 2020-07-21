@@ -106,7 +106,6 @@ public class CodeGenerationController extends BaseController {
         config.setClassName(className);
         config.setTableComment(remark);
         List<Column> columns = codeGenerationService.getColumns(generation);
-
         try {
             final File file = new File(templateGenerationTmpFolder + "src");
             final boolean mkdirs = file.mkdirs();
@@ -114,12 +113,11 @@ public class CodeGenerationController extends BaseController {
         } catch (Exception e) {
             log.error("创建临时文件夹失败！",e);
         }
-
         try {
             if(CodeGenerationConfig.defaultFolder.equals(config.getTemplateFolder())){
                 generatorHelper.generateEntityFile(columns, config);
                 generatorHelper.generateMapperFile(CodeGenerationConfig.MAPPER_FILE_SUFFIX, config);
-                generatorHelper.generateMapperXmlFile(columns, config,CodeGenerationConfig.MAPPERXML_FILE_SUFFIX,config.getJavaPath());
+                generatorHelper.generateMapperXmlFile(config);
                 generatorHelper.generateServiceFile(columns, config,true);
                 generatorHelper.generateServiceImplFile(columns, config);
                 generatorHelper.generateControllerFile(columns, config);
@@ -132,11 +130,9 @@ public class CodeGenerationController extends BaseController {
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pageListPo);
                 generatorHelper.generateControllerFile(columns, config);
                 generatorHelper.generateServiceFile(columns, config,false);
-                String daoSuffix = "Mapper.java",daoXmlSuffix = "Mapper.xml";
-                generatorHelper.generateMapperFile(daoSuffix, config);
-                generatorHelper.generateMapperXmlFile(columns, config,daoXmlSuffix,config.getResourcesPath());
+                generatorHelper.generateMapperFile(CodeGenerationConfig.MAPPER_FILE_SUFFIX, config);
+                generatorHelper.generateMapperCrudXmlFile(columns, config);
             }
-
         } catch (Exception e) {
             log.error("生成代码失败", e);
         }
@@ -151,9 +147,6 @@ public class CodeGenerationController extends BaseController {
         }
         // 删除临时目录
         FileUtil.delete(templateGenerationTmpFolder);
-
     }
-
-
 
 }

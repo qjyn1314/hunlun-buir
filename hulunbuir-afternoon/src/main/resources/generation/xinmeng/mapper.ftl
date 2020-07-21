@@ -27,19 +27,18 @@ public interface ${className}Mapper extends CrudDao<${className}>{
     */
     List<${className}PageListVo> findPageList(${className}PageListPo po);
 
-  /**
-   * @author wbf-coder-generator
-   * @date ${date}
-   * @Description 查询详细信息${className}-${tableComment}
-   */
+   /**
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 查询详细信息${className}-${tableComment}
+    */
     ${className}InfoVo findInfo(LongIdPo po);
-
 
    /**
     * @author wbf-coder-generator
     * @date ${date}
     * @Description 查询详细信息${className}-${tableComment}
     */
-    ${className}InfoVo findInfoes(${className}Po po);
+    ${className}InfoVo findInfoes(@Param("po")${className}Po po);
 
 }

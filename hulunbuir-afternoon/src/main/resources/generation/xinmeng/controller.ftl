@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "${tableComment}web调用接口-${className}Controller")
 @RestController
-@RequestMapping(value = "/w/${className}")
+@RequestMapping(value = "/u/${className}")
 public class ${className}Controller  {
 
     @Autowired
@@ -86,7 +86,7 @@ public class ${className}Controller  {
      * @Description 查询详细信息${className}-${tableComment}
      */
     @RequestMapping(value = "/findInfoes", method = RequestMethod.POST)
-    @ApiOperation(nickname = "查询详细信息多个条件-${tableComment}", value = "查询详细信息", notes = "查询详细信息", httpMethod = "POST")
+    @ApiOperation(nickname = "查询详细信息多个条件-${tableComment}", value = "查询详细信息多个条件-${tableComment}", notes = "查询详细信息多个条件-${tableComment}", httpMethod = "POST")
     public ResultPoJo<${className}InfoVo> findInfoes(@RequestBody ${className}Po po) {
         return service.findInfoes(po);
     }

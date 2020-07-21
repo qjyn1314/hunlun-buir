@@ -67,7 +67,7 @@ public class CodeGenerationServiceImpl implements CodeGenerationService {
      */
     @Override
     public Boolean saveGeneration(CodeGenerationConfig generationConfig) {
-        redisConfig.setStrKey(generationConfig.getSessionId(),generationConfig,1200);
+        redisConfig.setStrKey(generationConfig.getSessionId(),generationConfig,3600);
         return redisConfig.getStrValue(generationConfig.getSessionId()) != null;
     }
 
