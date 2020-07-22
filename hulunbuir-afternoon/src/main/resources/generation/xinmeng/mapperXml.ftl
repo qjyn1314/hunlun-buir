@@ -108,12 +108,27 @@
         <include refid="query_where"/>
     </select>
 
+    <select id="findInfoList" resultType="${basePackage}.${entityVoPackage}.${className}InfoVo">
+        select
+        ${infos}
+        from ${tableName}
+        <include refid="query_where"/>
+    </select>
+
+
+    <select id="findExportList" resultType="${basePackage}.${entityVoPackage}.${className}ExportVo">
+        select
+        ${infos}
+        from ${tableName}
+        <include refid="query_where"/>
+    </select>
+
+
     <sql id="query_where">
         <where>
             <#if columns??>
                 <#list columns as column>
-                    <#if column.name = 'id' || column.name = 'create_by' || column.name = 'create_date' || column.name = 'update_by' || column.name = 'update_date' || column.name = 'remarks' || column.name = 'del_flag'>
-
+                    <#if column.name = 'create_by' || column.name = 'create_date' || column.name = 'update_by' || column.name = 'update_date' || column.name = 'remarks' || column.name = 'del_flag'>
                     <#else>
             <if test="po.${column.fields} != null ">
                 and  ${column.name} = ${wellNo}po.${column.fields}}

@@ -4,9 +4,11 @@ import com.wisea.cloud.common.annotation.DataCheck;
 import com.wisea.cloud.common.pojo.ResultPoJo;
 import com.wisea.cloud.model.Page;
 import com.wisea.cloud.model.po.LongIdPo;
+import com.wisea.cloud.common.util.excel.ExportExcel;
 import ${basePackage}.${entityPoPackage}.${className}PageListPo;
 import ${basePackage}.${entityPoPackage}.${className}Po;
 import ${basePackage}.${servicePackage}.${className}Service;
+import ${basePackage}.${entityVoPackage}.${className}ExportVo;
 import ${basePackage}.${entityVoPackage}.${className}InfoVo;
 import ${basePackage}.${entityVoPackage}.${className}PageListVo;
 import io.swagger.annotations.Api;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 /**
  * @author wbf-coder-generator
  * @version 1.0
@@ -52,7 +57,7 @@ public class ${className}Controller  {
     @DataCheck
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ApiOperation(nickname = "逻辑删除-${tableComment}", value = "逻辑删除", notes = "逻辑删除", httpMethod = "POST")
-    public ResultPoJo<Boolean> logicDel(@RequestBody LongIdPo po) {
+    public ResultPoJo logicDel(@RequestBody LongIdPo po) {
         return service.logicDel(po);
     }
 
@@ -89,6 +94,29 @@ public class ${className}Controller  {
     @ApiOperation(nickname = "查询详细信息多个条件-${tableComment}", value = "查询详细信息多个条件-${tableComment}", notes = "查询详细信息多个条件-${tableComment}", httpMethod = "POST")
     public ResultPoJo<${className}InfoVo> findInfoes(@RequestBody ${className}Po po) {
         return service.findInfoes(po);
+    }
+
+    /**
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 查询详细信息列表${className}-${tableComment}
+    */
+    @RequestMapping(value = "/findInfoList", method = RequestMethod.POST)
+    @ApiOperation(nickname = "查询详细信息列表-${tableComment}", value = "查询详细信息列表-${tableComment}", notes = "查询详细信息列表-${tableComment}", httpMethod = "POST")
+    public ResultPoJo<List<${className}InfoVo>> findInfoList(@RequestBody ${className}Po po) {
+        return service.findInfoList(po);
+    }
+
+    /**
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 导出详细信息列表${className}-${tableComment}
+    */
+    @RequestMapping(value = "/exportInfoList", method = RequestMethod.POST)
+    @ApiOperation(nickname = "导出详细信息列表", value = "导出详细信息列表", notes = "导出详细信息列表", httpMethod = "POST")
+    public void exportInfoList(@RequestBody ${className}Po po, HttpServletResponse response) throws IOException {
+    final ResultPoJo<List<${className}ExportVo>> exportList = service.findExportList(po);
+    new ExportExcel("导出${tableComment}详细信息列表", ${className}ExportVo.class).setDataList(exportList.getResult()).writeWithAjaxHeader(response, "${tableComment}.xlsx");
     }
 
 }

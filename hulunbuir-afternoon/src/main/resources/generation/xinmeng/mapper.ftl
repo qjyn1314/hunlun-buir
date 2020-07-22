@@ -6,6 +6,7 @@ import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${entityPoPackage}.${className}PageListPo;
 import ${basePackage}.${entityPoPackage}.${className}Po;
 import ${basePackage}.${entityVoPackage}.${className}InfoVo;
+import ${basePackage}.${entityVoPackage}.${className}ExportVo;
 import ${basePackage}.${entityVoPackage}.${className}PageListVo;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -40,5 +41,20 @@ public interface ${className}Mapper extends CrudDao<${className}>{
     * @Description 查询详细信息${className}-${tableComment}
     */
     ${className}InfoVo findInfoes(@Param("po")${className}Po po);
+
+   /**
+    * @author wbf-coder-generator
+    * @date ${date}
+    * @Description 查询详细信息列表${className}-${tableComment}
+    */
+   List<${className}InfoVo> findInfoList(@Param("po") ${className}Po po);
+
+
+    /**
+     * @author wbf-coder-generator
+     * @date ${date}
+     * @Description 查询导出详细信息列表${className}-${tableComment}
+     */
+    List<${className}ExportVo> findExportList(@Param("po") ${className}Po po);
 
 }

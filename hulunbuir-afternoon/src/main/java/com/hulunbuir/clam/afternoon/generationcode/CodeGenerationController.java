@@ -122,10 +122,11 @@ public class CodeGenerationController extends BaseController {
                 generatorHelper.generateServiceImplFile(columns, config);
                 generatorHelper.generateControllerFile(columns, config);
             } else {
-                String entity = CodeGenerationConfig.ENTITY_TEMPLATE,vo = "infoVo.ftl",pageListPo = "pageListPo.ftl",po = "po.ftl",pageListVo = "pageListVo.ftl";
+                String entity = CodeGenerationConfig.ENTITY_TEMPLATE,vo = "infoVo.ftl",exportVo = "exportVo.ftl",pageListPo = "pageListPo.ftl",po = "po.ftl",pageListVo = "pageListVo.ftl";
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPackage(),entity);
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),po);
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),vo);
+                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),exportVo);
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),pageListVo);
                 generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pageListPo);
                 generatorHelper.generateControllerFile(columns, config);

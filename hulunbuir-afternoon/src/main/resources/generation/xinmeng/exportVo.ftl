@@ -1,21 +1,15 @@
 package ${basePackage}.${entityVoPackage};
 
+import com.wisea.cloud.common.util.excel.annotation.ExcelField;
 <#if hasBigDecimal = true>
 import java.math.BigDecimal;
 </#if>
 <#if hasOffsetDateTime = true>
 import java.time.OffsetDateTime;
 </#if>
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-/**
-* ${className}分页查询PageListVo-${tableComment} ：${className}PageListVo
-*/
-@ApiModel("${className}分页查询PageListVo")
-public class ${className}PageListVo implements Serializable{
+
+public class ${className}ExportVo implements Serializable{
 
 <#if columns??>
     <#list columns as column>
@@ -28,7 +22,7 @@ public class ${className}PageListVo implements Serializable{
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private String ${column.field?uncap_first};
 
     public String get${column.field}() {
@@ -45,7 +39,7 @@ public class ${className}PageListVo implements Serializable{
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private OffsetDateTime ${column.field?uncap_first};
 
     public OffsetDateTime get${column.field}() {
@@ -60,7 +54,7 @@ public class ${className}PageListVo implements Serializable{
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private Integer ${column.field?uncap_first};
 
     public Integer get${column.field}() {
@@ -71,12 +65,12 @@ public class ${className}PageListVo implements Serializable{
     }
         </#if>
         <#if column.type = 'bigint'>
-<#--            <#if column.name = 'id' || column.name = 'id'>-->
-<#--            <#else>-->
+            <#if column.name = 'id' || column.name = 'id'>
+            <#else>
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private Long ${column.field?uncap_first};
 
     public Long get${column.field}() {
@@ -85,13 +79,13 @@ public class ${className}PageListVo implements Serializable{
     public void set${column.field}(Long ${column.field?uncap_first}) {
         this.${column.field?uncap_first} = ${column.field?uncap_first};
     }
-<#--            </#if>-->
+            </#if>
         </#if>
         <#if column.type = 'double'>
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private Double ${column.field?uncap_first};
 
     public Double get${column.field}() {
@@ -105,7 +99,7 @@ public class ${className}PageListVo implements Serializable{
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private Byte ${column.field?uncap_first};
 
     public Byte get${column.field}() {
@@ -119,7 +113,7 @@ public class ${className}PageListVo implements Serializable{
     /**
     * ${column.remark}
     */
-    @ApiModelProperty(value = "${column.remark}")
+    @ExcelField(title = "${column.remark}")
     private BigDecimal ${column.field?uncap_first};
 
     public BigDecimal get${column.field}() {

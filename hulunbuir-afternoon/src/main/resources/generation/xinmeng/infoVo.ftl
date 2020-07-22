@@ -71,8 +71,8 @@ public class ${className}InfoVo implements Serializable{
     }
         </#if>
         <#if column.type = 'bigint'>
-            <#if column.name = 'id' || column.name = 'id'>
-            <#else>
+<#--            <#if column.name = 'id' || column.name = 'id'>-->
+<#--            <#else>-->
     /**
     * ${column.remark}
     */
@@ -85,7 +85,7 @@ public class ${className}InfoVo implements Serializable{
     public void set${column.field}(Long ${column.field?uncap_first}) {
         this.${column.field?uncap_first} = ${column.field?uncap_first};
     }
-            </#if>
+<#--            </#if>-->
         </#if>
         <#if column.type = 'double'>
     /**

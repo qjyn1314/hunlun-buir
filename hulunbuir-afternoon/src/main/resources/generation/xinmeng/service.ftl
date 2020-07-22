@@ -12,6 +12,7 @@ import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${entityPoPackage}.${className}PageListPo;
 import ${basePackage}.${entityPoPackage}.${className}Po;
 import ${basePackage}.${entityVoPackage}.${className}InfoVo;
+import ${basePackage}.${entityVoPackage}.${className}ExportVo;
 import ${basePackage}.${entityVoPackage}.${className}PageListVo;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
@@ -124,6 +125,42 @@ public class ${className}Service extends BaseService {
         LoggerUtil.infoWithContext("【findInfo】查询详细信息：", po);
         ResultPoJo<${className}InfoVo> resultPoJo = new ResultPoJo<>(ConstantError.NOMAL);
         ${className}InfoVo vo = mapper.findInfoes(po);
+        if(ConverterUtil.isNotEmpty(vo)){
+            resultPoJo.setResult(vo);
+        }else{
+            resultPoJo.setCode(ConstantError.ERR_004);
+            resultPoJo.setMsg(ConstantError.MSG_004);
+        }
+        return resultPoJo;
+    }
+
+    /**
+     * @author wbf-code-generator
+     * @date ${date}
+     * @Description 查询详细信息列表${className}
+     */
+    public ResultPoJo<List<${className}InfoVo>> findInfoList(${className}Po po) {
+        LoggerUtil.infoWithContext("【findInfoList】查询详细信息：", po);
+        ResultPoJo<List<${className}InfoVo>> resultPoJo = new ResultPoJo<>(ConstantError.NOMAL);
+        List<${className}InfoVo> vo = mapper.findInfoList(po);
+        if(ConverterUtil.isNotEmpty(vo)){
+            resultPoJo.setResult(vo);
+        }else{
+            resultPoJo.setCode(ConstantError.ERR_004);
+            resultPoJo.setMsg(ConstantError.MSG_004);
+        }
+        return resultPoJo;
+    }
+
+    /**
+    * @author wbf-code-generator
+    * @date 2020-07-21 17:27:22
+    * @Description 查询导出详细信息列表SysUser
+    */
+    public ResultPoJo<List<${className}ExportVo>> findExportList(${className}Po po) {
+        LoggerUtil.infoWithContext("【findExportList】查询详细信息：", po);
+        ResultPoJo<List<${className}ExportVo>> resultPoJo = new ResultPoJo<>(ConstantError.NOMAL);
+        List<${className}ExportVo> vo = mapper.findExportList(po);
         if(ConverterUtil.isNotEmpty(vo)){
             resultPoJo.setResult(vo);
         }else{
