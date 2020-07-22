@@ -2,19 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hulunbuir.clam.afternoon.persistence.mapper.BuirPermissionMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission">
-        <id column="id" property="id" />
-        <result column="permission" property="permission" />
-        <result column="permission_url" property="permissionUrl" />
-        <result column="description" property="description" />
-        <result column="created_time" property="createdTime" />
-        <result column="updated_time" property="updatedTime" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, permission, permission_url, description, created_time, updated_time
-    </sql>
-
 </mapper>

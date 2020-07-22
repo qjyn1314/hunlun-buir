@@ -69,6 +69,8 @@ public class BuirUserServiceImpl implements IBuirUserService {
                 throw HulunBuirException.build("此用户为超级管理员，不能删除！");
             }
         }
+
+
         if(Integer.valueOf("1").equals(type) || Integer.valueOf("2").equals(type)){
             if(StringUtils.isBlank(buirUser.getNickName())){
                 throw HulunBuirException.build("请填写用户昵称！");
@@ -76,27 +78,41 @@ public class BuirUserServiceImpl implements IBuirUserService {
             if(StringUtils.isBlank(buirUser.getUserName())){
                 throw HulunBuirException.build("请填写登录邮箱！");
             }
-            if(StringUtils.isBlank(buirUser.getPassword())){
-                throw HulunBuirException.build("请填写登录密码！");
-            }
             if(null == buirUser.getStatus()){
                 throw HulunBuirException.build("请选择用户的状态！");
             }
         }
-        if (StringUtils.isNotBlank(buirUser.getNickName())) {
-            HashMap<String, Object> queryNickNameMap = new HashMap<>();
-            queryNickNameMap.put("nickName", buirUser.getNickName());
-            final BuirUser userNickName = userMapper.selectBuirUser(queryNickNameMap);
-            if (null != userNickName) {
-                throw HulunBuirException.build("昵称已注册！");
+        if(Integer.valueOf("2").equals(type)){
+            if (StringUtils.isNotBlank(buirUser.getNickName())) {
+                HashMap<String, Object> queryNickNameMap = new HashMap<>();
+                queryNickNameMap.put("nickName", buirUser.getNickName());
+                queryNickNameMap.put("id",buirUser.getId());
+                queryNickNameMap.put("check",true);
+                final BuirUser userNickName = userMapper.selectBuirUser(queryNickNameMap);
+                if (null != userNickName) {
+                    throw HulunBuirException.build("昵称已注册！");
+                }
             }
         }
-        if (StringUtils.isNotBlank(buirUser.getUserName())) {
-            HashMap<String, Object> queryUserNameMap = new HashMap<>();
-            queryUserNameMap.put("userName", buirUser.getUserName());
-            final BuirUser userMail = userMapper.selectBuirUser(queryUserNameMap);
-            if (null != userMail) {
-                throw HulunBuirException.build("邮箱已注册！");
+        if(Integer.valueOf("1").equals(type)){
+            if(StringUtils.isBlank(buirUser.getPassword())){
+                throw HulunBuirException.build("请填写登录密码！");
+            }
+            if (StringUtils.isNotBlank(buirUser.getUserName())) {
+                HashMap<String, Object> queryUserNameMap = new HashMap<>();
+                queryUserNameMap.put("userName", buirUser.getUserName());
+                final BuirUser userMail = userMapper.selectBuirUser(queryUserNameMap);
+                if (null != userMail) {
+                    throw HulunBuirException.build("邮箱已注册！");
+                }
+            }
+            if (StringUtils.isNotBlank(buirUser.getNickName())) {
+                HashMap<String, Object> queryNickNameMap = new HashMap<>();
+                queryNickNameMap.put("nickName", buirUser.getNickName());
+                final BuirUser userNickName = userMapper.selectBuirUser(queryNickNameMap);
+                if (null != userNickName) {
+                    throw HulunBuirException.build("昵称已注册！");
+                }
             }
         }
     }

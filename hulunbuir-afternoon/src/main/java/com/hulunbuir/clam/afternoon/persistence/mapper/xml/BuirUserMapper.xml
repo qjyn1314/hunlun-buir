@@ -22,10 +22,15 @@
     <sql id="query_Where">
         <where>
             <if test="queryQo.nickName != null and queryQo.nickName != '' ">
-                bu.nick_name = #{queryQo.nickName}
+               and bu.nick_name = #{queryQo.nickName}
             </if>
             <if test="queryQo.userName != null and queryQo.userName != '' ">
-                bu.user_name = #{queryQo.userName}
+                and bu.user_name = #{queryQo.userName}
+            </if>
+            <if test="queryQo.check == true ">
+                <if test="queryQo.id != null and queryQo.id != ''">
+                    and bu.id !=  #{queryQo.id}
+                </if>
             </if>
         </where>
     </sql>

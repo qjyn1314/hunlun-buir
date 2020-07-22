@@ -27,10 +27,6 @@ public class CodeGenerationConfig implements Serializable {
      */
     public static final String SUFFIX = "_code.zip";
     /**
-     * 生成代码的临时目录
-     */
-//    public static final String TEMP_PATH = "hulun_buir_temp/";
-    /**
      * 基础包名
      */
     @Size(min = 3, max = 50, message = "请输入基础包名，包名不得超过50个字符")

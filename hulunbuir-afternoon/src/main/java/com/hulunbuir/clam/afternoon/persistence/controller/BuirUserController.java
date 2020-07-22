@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.afternoon.controller;
+package com.hulunbuir.clam.afternoon.persistence.controller;
 
 
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
@@ -31,29 +31,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/buirUser")
 public class BuirUserController extends BaseController {
 
-
     @Autowired
     private IBuirUserService buirUserService;
 
     @ApiOperation("用户分页列表")
     @GetMapping("/userPage")
-    public JsonResult userPage(QueryRequest queryRequest,BuirUser buirUser){
+    public JsonResult userPage(QueryRequest queryRequest, BuirUser buirUser) {
         final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}",userMessage);
-        return JsonResult.success(getDataTable(buirUserService.userPage(queryRequest,buirUser)));
+        log.info("当前登录用户信息是：{}", userMessage);
+        return JsonResult.success(getDataTable(buirUserService.userPage(queryRequest, buirUser)));
     }
-
 
     @ApiOperation("添加用户")
     @PostMapping("/userAdd")
-    public JsonResult userAdd(BuirUser buirUser){
+    public JsonResult userAdd(BuirUser buirUser) {
         final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}",userMessage);
+        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
             buirUser = new BuirUser(buirUser);
-            buirUserService.validate(buirUser,1);
-            flag =  buirUserService.regUser(buirUser);
+            buirUserService.validate(buirUser, 1);
+            flag = buirUserService.regUser(buirUser);
+            log.info("添加用户是否成功！！：{}",flag);
             return JsonResult.success(flag);
         } catch (HulunBuirException e) {
             log.error("业务异常!!", e);
@@ -66,13 +65,13 @@ public class BuirUserController extends BaseController {
 
     @ApiOperation("编辑用户")
     @PostMapping("/userEdit")
-    public JsonResult userEdit(BuirUser buirUser){
+    public JsonResult userEdit(BuirUser buirUser) {
         final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}",userMessage);
+        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
-            buirUserService.validate(buirUser,2);
-            flag =  buirUserService.userEdit(buirUser);
+            buirUserService.validate(buirUser, 2);
+            flag = buirUserService.userEdit(buirUser);
             return JsonResult.success(flag);
         } catch (HulunBuirException e) {
             log.error("业务异常!!", e);
@@ -85,14 +84,14 @@ public class BuirUserController extends BaseController {
 
     @ApiOperation("删除用户")
     @PostMapping("/userDel")
-    public JsonResult userDel(@RequestParam Integer id){
+    public JsonResult userDel(@RequestParam Integer id) {
         final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}",userMessage);
+        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
             BuirUser buirUser = new BuirUser(id);
-            buirUserService.validate(buirUser,3);
-            flag =  buirUserService.userDel(buirUser);
+            buirUserService.validate(buirUser, 3);
+            flag = buirUserService.userDel(buirUser);
             return JsonResult.success(flag);
         } catch (HulunBuirException e) {
             log.error("业务异常!!", e);
@@ -102,8 +101,6 @@ public class BuirUserController extends BaseController {
             return JsonResult.error("系统异常!");
         }
     }
-
-
 
 }
 

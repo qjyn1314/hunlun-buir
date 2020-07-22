@@ -11,7 +11,10 @@
 <body class="layui-view-body">
 <div class="layui-content">
     <!--form表单-->
-    <form class="layui-form layui-form-pane" id="addUserForm">
+    <form class="layui-form layui-form-pane" id="dataEditForm">
+        <div>
+            <input hidden="hidden" name="id" type="text">
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户昵称</label>
             <div class="layui-input-block">
@@ -21,13 +24,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">登录邮箱</label>
             <div class="layui-input-block">
-                <input autocomplete="off" class="layui-input" name="userName" placeholder="请输入登录邮箱" type="text" >
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input autocomplete="new-password" class="layui-input" name="password" placeholder="请输入密码" type="password" >
+                <input autocomplete="off" class="layui-input" name="userName" placeholder="请输入登录邮箱" readonly type="text" >
             </div>
         </div>
         <div class="layui-form-item">
@@ -42,7 +39,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-				<input checked name="status" title="待审核" type="radio" value="0">
+				<input name="status" title="待审核" type="radio" value="0">
 				<input name="status" title="已审核" type="radio" value="1">
 				<input name="status" title="已冻结" type="radio" value="2">
             </div>
@@ -54,13 +51,13 @@
                 <input name="sex" title="男" type="radio" value="0">
             </div>
         </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" id="addDataForm">立即提交</button>
-                <button class="layui-btn layui-btn-primary" id="addReset" type="reset">重置</button>
-            </div>
-        </div>
     </form>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" id="editDataForm">立即提交</button>
+            <button class="layui-btn layui-btn-primary" id="editClose" type="reset">关闭</button>
+        </div>
+    </div>
 </div>
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>

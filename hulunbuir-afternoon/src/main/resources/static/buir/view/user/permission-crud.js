@@ -11,22 +11,23 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
 
     //列表
     let dataTable = asucUtils.tableInit({
-        elem: '#userTable',
-        url: asucUtils.backendURL + "/buirUser/userPage",
+        elem: '#tableList',
+        url: asucUtils.backendURL + "/buirPermission/buirPermissionPage",
         cols: [[
             {type: "checkbox", fixed: "left"},
             {field: "id", title: "ID", width: 80},
-            {field: "nickName", title: "用户昵称"},
-            {field: "userName", title: "用户登录邮箱"},
-            {field: "status", title: "状态", width: 80, toolbar: '#status'},
-            {field: "createTime", title: "创建时间"},
-            {field: "updateTime", title: "更新时间"},
+            {field: "perName", title: "权限名称", width: 90},
+            {field: "perUrl", title: "权限路径", width: 250},
+            {field: "perCode", title: "权限编码", width: 100},
+            {field: "perIcon", title: "图表展示", width: 90},
+            {field: "description", title: "权限说明", width: 200},
+            {field: "createdTime", title: "创建时间"},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
     });
 
     //搜索
-    $('#query').on('click', function (data) {
+    $('#searchForm').on('click', function (data) {
         dataTable.reload({where: getQueryParams(), page: {curr: 1}});
     });
 

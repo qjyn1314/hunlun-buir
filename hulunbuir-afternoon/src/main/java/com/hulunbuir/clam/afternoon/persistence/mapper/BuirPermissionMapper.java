@@ -1,16 +1,14 @@
 package com.hulunbuir.clam.afternoon.persistence.mapper;
 
-import com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission;
 import org.springframework.stereotype.Repository;
 
 /**
- * <p>
- * 权限表 Mapper 接口
- * </p>
+ * 权限表 Mapper
  *
  * @author wangjunming
- * @since 2020-05-25
+ * @since 2020-07-22 14:23:29
  */
 @Repository
 public interface BuirPermissionMapper extends BaseMapper<BuirPermission> {

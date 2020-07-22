@@ -12,7 +12,7 @@ public class MessageDemo {
 
     public static void main(String[] args) {
         AliMessage message = new AliMessage();
-        Integer time = message.getTime();
+        Integer time = MessageTime.getTime();
         System.out.println(time);
 
 

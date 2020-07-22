@@ -11,35 +11,35 @@
 <body class="layui-view-body">
 <div class="layui-content">
     <!--form表单-->
-    <form class="layui-form layui-form-pane" id="infoUserForm">
+    <form class="layui-form layui-form-pane" id="dataInfoForm">
         <div class="layui-form-item">
             <label class="layui-form-label">用户昵称</label>
             <div class="layui-input-block">
-                <input class="layui-input" name="nickName" type="text"  >
+                <input class="layui-input" name="nickName" readonly type="text"  >
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">登录邮箱</label>
             <div class="layui-input-block">
-                <input class="layui-input" name="userName" type="text"  >
+                <input class="layui-input" name="userName" readonly type="text"  >
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">角色</label>
             <div class="layui-input-block">
-                <input class="layui-input" name="role" readonly type="text">
+                <input class="layui-input" name="role" readonly type="text" value="普通用户">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <input class="layui-input" name="status" readonly type="text">
+                <input class="layui-input" name="status" readonly type="text" value="待审核">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <input class="layui-input" name="sex" readonly type="text">
+                <input class="layui-input" name="sex" readonly type="text" value="女">
             </div>
         </div>
     </form>

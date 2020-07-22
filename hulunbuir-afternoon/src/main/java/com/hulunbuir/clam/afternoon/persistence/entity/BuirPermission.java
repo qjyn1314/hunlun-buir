@@ -4,114 +4,88 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
- * <p>
- * 权限表
- * </p>
+ * 权限表 Entity
  *
  * @author wangjunming
- * @since 2020-05-25
+ * @date 2020-07-22 14:23:29
  */
+@Data
 @TableName("buir_permission")
 @ApiModel(value="BuirPermission对象", description="权限表")
-public class BuirPermission extends Model<BuirPermission> {
+public class BuirPermission implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    @TableField("created_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdTime;
 
-    @ApiModelProperty(value = "主键ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    @ApiModelProperty(value = "权限名称")
-    @TableField("permission")
-    private String permission;
-
-    @ApiModelProperty(value = "权限路径")
-    @TableField("permission_url")
-    private String permissionUrl;
-
+    /**
+     * 权限说明
+     */
     @ApiModelProperty(value = "权限说明")
     @TableField("description")
     private String description;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField("created_time")
-    private LocalDateTime createdTime;
+    /**
+     * 主键ID
+     */
+    @ApiModelProperty(value = "主键ID")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
+    /**
+     * 父级ID
+     */
+    @ApiModelProperty(value = "父级ID")
+    @TableField("parent_id")
+    private Integer parentId;
+
+    /**
+     * 权限编码
+     */
+    @ApiModelProperty(value = "权限编码")
+    @TableField("per_code")
+    private String perCode;
+
+    /**
+     * 图表展示
+     */
+    @ApiModelProperty(value = "图表展示")
+    @TableField("per_icon")
+    private String perIcon;
+
+    /**
+     * 权限名称
+     */
+    @ApiModelProperty(value = "权限名称")
+    @TableField("per_name")
+    private String perName;
+
+    /**
+     * 权限路径
+     */
+    @ApiModelProperty(value = "权限路径")
+    @TableField("per_url")
+    private String perUrl;
+
+    /**
+     * 更新时间
+     */
     @ApiModelProperty(value = "更新时间")
     @TableField("updated_time")
-    private LocalDateTime updatedTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatedTime;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
-    public String getPermissionUrl() {
-        return permissionUrl;
-    }
-
-    public void setPermissionUrl(String permissionUrl) {
-        this.permissionUrl = permissionUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return "BuirPermission{" +
-        "id=" + id +
-        ", permission=" + permission +
-        ", permissionUrl=" + permissionUrl +
-        ", description=" + description +
-        ", createdTime=" + createdTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }
