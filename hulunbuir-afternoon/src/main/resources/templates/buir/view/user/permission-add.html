@@ -32,16 +32,19 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">角色</label>
-            <div class="layui-input-block" >
-                <select id="roles" name="roleId"></select>
+            <div class="layui-input-block">
+                <select name="role">
+                    <option value="0">管理员</option>
+                    <option value="1">普通用户</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-				<input checked name="status" title="待审核" type="radio" value="0">
-				<input name="status" title="已审核" type="radio" value="1">
-				<input name="status" title="已冻结" type="radio" value="2">
+                <input checked name="status" title="待审核" type="radio" value="0">
+                <input name="status" title="已审核" type="radio" value="1">
+                <input name="status" title="已冻结" type="radio" value="2">
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,7 +57,7 @@
     </form>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="addDataBtn">立即提交</button>
+            <button class="layui-btn" id="addDataForm">立即提交</button>
             <button class="layui-btn layui-btn-primary" id="addReset" type="reset">重置</button>
         </div>
     </div>

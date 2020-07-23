@@ -1,13 +1,17 @@
 package com.hulunbuir.clam.afternoon.persistence.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
+import com.hulunbuir.clam.afternoon.persistence.entity.BuirUserRole;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirUserMapper;
+import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserRoleService;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +28,14 @@ import java.util.HashMap;
  * @author wangjunming
  * @since 2020-05-25
  */
+@Slf4j
 @Service
 public class BuirUserServiceImpl implements IBuirUserService {
 
     @Autowired
     private BuirUserMapper userMapper;
+    @Autowired
+    private IBuirUserRoleService userRoleService;
 
 
     /**
@@ -41,7 +48,11 @@ public class BuirUserServiceImpl implements IBuirUserService {
     @Override
     @Transactional
     public boolean regUser(BuirUser buirUser) {
-        return userMapper.insert(buirUser) > 0;
+        final boolean userInsert = userMapper.insert(buirUser) > 0;
+        BuirUserRole userRole = new BuirUserRole(buirUser);
+        log.info("添加的用户和权限中间表的数据是：{}", JSON.toJSONString(userRole));
+        final boolean userRoleInsert = userRoleService.saveBuirUserRole(userRole);
+        return userInsert & userRoleInsert;
     }
 
     /**
@@ -83,6 +94,9 @@ public class BuirUserServiceImpl implements IBuirUserService {
             }
         }
         if(Integer.valueOf("2").equals(type)){
+            if(null == buirUser.getRoleId()){
+                throw HulunBuirException.build("请选择用户的角色！");
+            }
             if (StringUtils.isNotBlank(buirUser.getNickName())) {
                 HashMap<String, Object> queryNickNameMap = new HashMap<>();
                 queryNickNameMap.put("nickName", buirUser.getNickName());
@@ -141,7 +155,9 @@ public class BuirUserServiceImpl implements IBuirUserService {
     public IPage<BuirUser> userPage(QueryRequest queryRequest, BuirUser buirUser) {
         LambdaQueryWrapper<BuirUser> queryWrapper = initQueryWrapper(queryRequest,buirUser);
         Page<BuirUser> page = new Page<>(queryRequest.getCurrent(), queryRequest.getPageSize());
-        return userMapper.selectPage(page, queryWrapper);
+        final Page<BuirUser> userPage = userMapper.selectPage(page, queryWrapper);
+        userPage.getRecords().forEach(user -> {user.setRoleId(userRoleService.getOneBuirUserRole(new BuirUserRole(user.getId())).getRoleId());});
+        return userPage;
     }
 
     private LambdaQueryWrapper<BuirUser> initQueryWrapper(QueryRequest queryRequest, BuirUser buirUser) {
@@ -175,7 +191,13 @@ public class BuirUserServiceImpl implements IBuirUserService {
     @Override
     @Transactional
     public boolean userEdit(BuirUser buirUser) {
-        return userMapper.updateById(buirUser)>0;
+        boolean updateUser = userMapper.updateById(buirUser) > 0;
+        if(null != buirUser.getId() & null != buirUser.getRoleId()){
+            boolean delUserRole = userRoleService.delUserRole(buirUser.getId());
+            boolean saveUserRole = userRoleService.saveBuirUserRole(new BuirUserRole(buirUser));
+            return updateUser & delUserRole & saveUserRole;
+        }
+        return updateUser;
     }
 
     /**
@@ -186,8 +208,11 @@ public class BuirUserServiceImpl implements IBuirUserService {
      * @since 2020/7/14 12:30
      */
     @Override
+    @Transactional
     public boolean userDel(BuirUser buirUser) {
-        return userMapper.deleteById(buirUser.getId())>0;
+        boolean delUser = userMapper.deleteById(buirUser.getId()) > 0;
+        boolean delUserRole = userRoleService.delUserRole(buirUser.getId());
+        return delUser & delUserRole;
     }
 
 

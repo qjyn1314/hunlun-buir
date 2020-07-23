@@ -84,12 +84,11 @@ public class BuirUserController extends BaseController {
 
     @ApiOperation("删除用户")
     @PostMapping("/userDel")
-    public JsonResult userDel(@RequestParam Integer id) {
+    public JsonResult userDel(BuirUser buirUser) {
         final UserManager userMessage = CurrentUser.getUserMessage();
         log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
-            BuirUser buirUser = new BuirUser(id);
             buirUserService.validate(buirUser, 3);
             flag = buirUserService.userDel(buirUser);
             return JsonResult.success(flag);

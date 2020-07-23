@@ -71,6 +71,10 @@ public class BuirUser extends Model<BuirUser> {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
+    @ApiModelProperty(value = "角色ID")
+    @TableField(exist = false)
+    private Integer roleId;
+
     public BuirUser() {
     }
 
@@ -82,6 +86,7 @@ public class BuirUser extends Model<BuirUser> {
         this.password = ShiroTool.encryptPassword(userPassword, randomSalt);
         this.salt = randomSalt;
         this.status = UserStatus.TO_AUDIT;
+        this.roleId = UserRoles.ORDINAY;
         this.createTime = LocalDateTime.now();
         this.updateTime = LocalDateTime.now();
     }
@@ -97,6 +102,7 @@ public class BuirUser extends Model<BuirUser> {
     public BuirUser(BuirUser buirUser) {
         String randomSalt = ShiroTool.getRandomSalt(15);
         String userPassword = buirUser.getPassword();
+        this.roleId = buirUser.getRoleId();
         this.nickName = buirUser.getNickName();
         this.userName = buirUser.getUserName();
         this.password = ShiroTool.encryptPassword(userPassword, randomSalt);
@@ -200,5 +206,20 @@ public class BuirUser extends Model<BuirUser> {
         public static final Integer THE_APPROVED = 1;
         //已冻结
         public static final Integer FREEZE = 2;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public static class UserRoles {
+        //超级管理员
+        public static final Integer ADMIN = 0;
+        //普通用户
+        public static final Integer ORDINAY = 1;
     }
 }

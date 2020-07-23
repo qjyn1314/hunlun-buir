@@ -39,6 +39,8 @@ public class RegUser implements Serializable {
     @Size(max = 12, min = 6, message = "请输入长度在6~12之间的字符串")
     private String verification;
 
+    @ApiModelProperty(value = "角色ID")
+    private String roleId;
 
     public String getUserName() {
         return userName;
@@ -70,5 +72,13 @@ public class RegUser implements Serializable {
 
     public void setVerification(String verification) {
         this.verification = verification;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }

@@ -461,16 +461,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
          * @returns {number}
          */
         animChoose: function () {
-            let storage = window.localStorage;
-            let anim = storage.getItem("anim");
-            let animArray = ["0", "1", "2", "3", "4", "5", "6"];
-            if (animArray.indexOf(anim) > -1) {
-                // 用户选择的动画
-                return anim;
-            } else if (!anim || anim === 7) {
-                // 随机动画
-                return Math.floor(Math.random() * animArray.length);
-            }
+            return 2;
         }
 
     };

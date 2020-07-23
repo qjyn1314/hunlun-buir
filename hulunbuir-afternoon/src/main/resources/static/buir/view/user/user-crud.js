@@ -5,6 +5,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     let searchForm = $('#searchForm');
     let table = layui.table;
     let layer = layui.layer;
+    let form = layui.form;
     let laydate = layui.laydate;
     laydate.render({elem: "#startTime", type: "datetime"});
     laydate.render({elem: "#endTime", type: "datetime"});
@@ -50,10 +51,33 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     //添加
     $('#addData').on('click', function () {
         //首先是请求了后台接口，之后跳转到相应的页面
-        asucUtils.open("添加用户", "/view/user/user-add.html.do", "90%", "90%", null, function () {
+        asucUtils.open("添加用户", "/view/user/user-add.html.do", "90%", "90%", function(layero){
+            setOptionValues(layero.find('iframe').contents().find('#roles'))
+            setTimeout(function () {
+                let addUserForm = layero.find('iframe').contents().find('#addUserForm');
+                addUserForm[0].reset();
+            }, 2.5);
+        }, function () {
             dataTable.reload();
         })
     });
+
+    function setOptionValues(roles) {
+        //查询权限并赋值
+        asucUtils.axGet("/buirRole/findInfoList", null,function (result) {
+            if(result.flag){
+                let option = "";
+                roles.append("");
+                option = "<option value=''>请选择用户角色</option>";
+                for(const key in result.data){
+                    option += '<option value="'+result.data[key].id+'">'+result.data[key].id+" -- "+result.data[key].roleName+'</option>';
+                }
+                roles.append(option);
+            } else {
+                asucUtils.redCryMsg(result.message);
+            }
+        });
+    }
 
     //操作列的监听事件
     //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -79,10 +103,15 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
             //给弹框赋值方法，参考与：https://blog.csdn.net/lm9521/article/details/84789691
             // 其实就是获取的 子页面的 form表单
             let dataInfoForm = layero.find('iframe').contents().find('#dataInfoForm');
+            //初始化角色列表
             for(const key in data){
                 if('status' === key){
                     let statusValue = data[key] === 0 ? "待审核" : data[key] === 1 ? "已审核" : "已冻结";
                     dataInfoForm.find('input[name='+key+']').val(statusValue);
+                }else if('roleId' === key){
+                    asucUtils.axGet("/buirRole/getOneBuirRole", {id:data[key]},function (result) {
+                        dataInfoForm.find('input[name='+key+']').val(result.data.id + " -- " + result.data.roleName);
+                    });
                 }else{
                     dataInfoForm.find('input[name='+key+']').val(data[key]);
                 }
@@ -92,17 +121,35 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
         })
     }
 
+    //关闭查看弹窗
+    $('#infoClose').on('click', function () {
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+    });
+
     //编辑
     function edit(data) {
         asucUtils.open("编辑用户", "/view/user/user-edit.html.do", "90%", "90%", function (layero) {
             let dataInfoForm = layero.find('iframe').contents().find('#dataEditForm');
-            for(const key in data){
-                if('status' === key){
-                    dataInfoForm.find('input[name='+key+'][value='+data[key]+']').prop("checked","checked");
-                }else{
-                    dataInfoForm.find('input[name='+key+']').val(data[key]);
+            let rolesOption = layero.find('iframe').contents().find('#roles');
+            setOptionValues(rolesOption);
+            setTimeout(function () { dataInfoForm[0].reset(); },2);
+            setTimeout(function () {
+                for(const key in data){
+                    if('status' === key){
+                        dataInfoForm.find('input[name='+key+'][value='+data[key]+']').prop("checked","checked");
+                    } else if('roleId' === key){
+                        console.log(key);
+                        console.log(data[key]);
+                        dataInfoForm.find('select option[name='+key+'][value='+data[key]+']').attr("selected", "selected");
+                        // dataInfoForm.find('option[value='+data[key]+']').attr("selected", "selected");
+                        // $('#roles select[name='+key+'][value='+data[key]+']').prop("selected", "selected");
+                        // $(rolesOption+' option[value='+data[key]+']').attr("selected", "selected");
+                    } else {
+                        dataInfoForm.find('input[name='+key+']').val(data[key]);
+                    }
                 }
-            }
+            },3.5);
+
         }, function () {
             dataTable.reload();
         })
@@ -125,8 +172,9 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
 
     //------------------------------------------添加页面
     let addUserForm = $('#addUserForm');
+
     //添加
-    $(addUserForm).on('click', function () {
+    $('#addDataBtn').on('click', function () {
         asucUtils.axPost("/buirUser/userAdd", getAddParams(),function (result) {
             if(result.flag){
                 asucUtils.tableSuccessMsg(result.message);
@@ -143,6 +191,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
             userName: addUserForm.find('input[name="userName"]').val().trim(),
             password: addUserForm.find('input[name="password"]').val().trim(),
             status: addUserForm.find("input[name='status']:checked").val(),
+            roleId: addUserForm.find("select[name='roleId']").val(),
             sex: addUserForm.find("input[name='sex']:checked").val(),
         };
     }
@@ -158,7 +207,6 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
         let editParams = getEditParams();
         console.log(editParams)
         asucUtils.axPost("/buirUser/userEdit", editParams,function (result) {
-            console.log(result);
             if(result.flag){
                 asucUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
@@ -173,11 +221,12 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
             id:dataEditForm.find('input[name="id"]').val(),
             nickName: dataEditForm.find('input[name="nickName"]').val().trim(),
             userName: dataEditForm.find('input[name="userName"]').val().trim(),
+            roleId: dataEditForm.find("select[name='roleId']").val(),
             status: dataEditForm.find("input[name='status']:checked").val(),
             sex: dataEditForm.find("input[name='sex']:checked").val()
         };
     }
-    //重置
+    //关闭
     $('#editClose').on('click', function () {
         parent.layer.close(parent.layer.getFrameIndex(window.name));
     });

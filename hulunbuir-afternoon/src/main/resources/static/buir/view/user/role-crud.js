@@ -12,16 +12,15 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     //列表
     let dataTable = asucUtils.tableInit({
         elem: '#tableList',
-        url: asucUtils.backendURL + "/buirPermission/buirPermissionPage",
+        url: asucUtils.backendURL + "/buirRole/buirRolePage",
         cols: [[
             {type: "checkbox", fixed: "left"},
             {field: "id", title: "ID", width: 80},
-            {field: "perName", title: "权限名称", width: 90},
-            {field: "perUrl", title: "权限路径", width: 250},
-            {field: "perCode", title: "权限编码", width: 100},
-            {field: "perIcon", title: "图表展示", width: 90},
-            {field: "description", title: "权限说明", width: 200},
+            {field: "roleName", title: "角色名称", width: 120},
+            {field: "roleCode", title: "角色编码", width: 110},
+            {field: "description", title: "角色说明"},
             {field: "createdTime", title: "创建时间"},
+            {field: "updatedTime", title: "更新时间"},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
     });
@@ -34,8 +33,8 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     //搜索条件
     function getQueryParams() {
         return {
-            perName: searchForm.find('input[name="perName"]').val(),
-            perUrl: searchForm.find('input[name="perUrl"]').val()
+            roleName: searchForm.find('input[name="roleName"]').val().trim(),
+            roleCode: searchForm.find("input[name='roleCode']").val().trim(),
         };
     }
 
@@ -48,7 +47,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     //添加
     $('#addData').on('click', function () {
         //首先是请求了后台接口，之后跳转到相应的页面
-        asucUtils.open("添加权限", "/view/user/permission-add.html.do", "90%", "90%", null, function () {
+        asucUtils.open("添加角色", "/view/user/role-add.html.do", "90%", "90%", null, function () {
             dataTable.reload();
         })
     });
