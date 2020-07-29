@@ -2,7 +2,10 @@ package com.hulunbuir.clam.afternoon.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission;
+import com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree;
 import com.hulunbuir.clam.common.base.QueryRequest;
+
+import java.util.List;
 
 /**
  * 权限表 Service接口
@@ -45,5 +48,13 @@ public interface IBuirPermissionService {
      */
     BuirPermission getOneBuirPermission(BuirPermission buirPermission);
 
+
+    /**
+     * 获取权限的树形结构
+     *
+     * @author wangjunming
+     * @since 2020/7/28 17:06
+     */
+    List<BuirPermissionTree> getPermissionTree(BuirPermissionTree permissionTree);
 
 }

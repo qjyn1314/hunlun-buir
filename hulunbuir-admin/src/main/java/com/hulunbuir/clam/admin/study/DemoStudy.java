@@ -1,12 +1,16 @@
 package com.hulunbuir.clam.admin.study;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -18,7 +22,43 @@ import java.util.Date;
  */
 public class DemoStudy {
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
+        String regx = "^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?";
+        String tel = "654.3215,1984.321";
+        System.out.println(Pattern.compile(regx).matcher(tel).matches());
+
+        String regx1 = "^\\d+";
+        String tel2 = "15321355715";
+        System.out.println(Pattern.compile(regx1).matcher(tel2).matches());
+
+
+        String title = "123";
+        final String[] split = StringUtils.split(title, "**", 2);
+        System.out.println(Arrays.asList(split));
+
+
+        String urlStr = "%E6%9C%BA%E6%9E%84%E4%BF%A1%E6%81%AF%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx";
+        String fileName = URLDecoder.decode(urlStr, "UTF-8");
+        System.out.println(fileName);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public static void main20200728(String[] args) {
         int[] arr = {14, 2, 36, 10, 1, 14, 2, 36, 10, 1};
         final long start = System.currentTimeMillis();
         final int max = getMax(arr, 0);

@@ -34,19 +34,19 @@ public class BuirRoleController extends BaseController {
 
     @ApiOperation("角色表分页列表")
     @GetMapping("/buirRolePage")
-    public JsonResult BuirRolePage(QueryRequest queryRequest, BuirRole buirRole){
+    public JsonResult buirRolePage(QueryRequest queryRequest, BuirRole buirRole){
         return JsonResult.success(getDataTable(buirRoleService.buirRolePage(queryRequest,buirRole)));
     }
 
     @ApiOperation("角色表添加")
     @PostMapping("/saveBuirRole")
-    public JsonResult saveBuirUserThird(BuirRole buirRole){
+    public JsonResult saveBuirRole(BuirRole buirRole){
         return JsonResult.success(buirRoleService.saveBuirRole(buirRole));
     }
 
     @ApiOperation("角色表修改")
     @PostMapping("/updateBuirRole")
-    public JsonResult updateBuirUserThird(BuirRole buirRole){
+    public JsonResult updateBuirRole(BuirRole buirRole){
         final boolean updateBuirRole;
         try {
             updateBuirRole = buirRoleService.updateBuirRole(buirRole);

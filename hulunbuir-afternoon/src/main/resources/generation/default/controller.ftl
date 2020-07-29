@@ -37,19 +37,19 @@ public class ${className}Controller extends BaseController {
 
     @ApiOperation("${tableComment}分页列表")
     @GetMapping("/${className?uncap_first}Page")
-    public JsonResult ${className}Page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
+    public JsonResult ${className?uncap_first}Page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
         return JsonResult.success(getDataTable(${className?uncap_first}Service.${className?uncap_first}Page(queryRequest,${className?uncap_first})));
     }
 
     @ApiOperation("${tableComment}添加")
     @PostMapping("/save${className}")
-    public JsonResult saveBuirUserThird(${className} ${className?uncap_first}){
+    public JsonResult /save${className}(${className} ${className?uncap_first}){
         return JsonResult.success(${className?uncap_first}Service.save${className}(${className?uncap_first}));
     }
 
     @ApiOperation("${tableComment}修改")
     @PostMapping("/update${className}")
-    public JsonResult updateBuirUserThird(${className} ${className?uncap_first}){
+    public JsonResult /save${className}(${className} ${className?uncap_first}){
         return JsonResult.success(${className?uncap_first}Service.update${className}(${className?uncap_first}));
     }
 

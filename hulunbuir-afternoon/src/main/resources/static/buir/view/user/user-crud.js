@@ -15,7 +15,6 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
         elem: '#userTable',
         url: asucUtils.backendURL + "/buirUser/userPage",
         cols: [[
-            {type: "checkbox", fixed: "left"},
             {field: "id", title: "ID", width: 80},
             {field: "nickName", title: "用户昵称"},
             {field: "userName", title: "用户登录邮箱"},

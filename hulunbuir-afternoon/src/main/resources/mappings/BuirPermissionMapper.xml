@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisea.qdcy.tp.product.dao.BuirPermissionMapper">
+
+    <sql id="Base_Column_List">
+        created_time,description,id,parent_id,per_code,per_icon,per_name,per_url,updated_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultType="com.wisea.qdcy.tp.product.entity.BuirPermission" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from buir_permission
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from buir_permission
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.wisea.qdcy.tp.product.entity.BuirPermission" >
+        insert into buir_permission (
+        created_time,description,id,parent_id,per_code,per_icon,per_name,per_url,updated_time
+        ) values (
+        #{createdTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{perCode,jdbcType=VARCHAR}, #{perIcon,jdbcType=VARCHAR}, #{perName,jdbcType=VARCHAR}, #{perUrl,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.wisea.qdcy.tp.product.entity.BuirPermission" >
+        insert into buir_permission
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="createdTime != null" >
+                created_time,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="perCode != null" >
+                per_code,
+            </if>
+            <if test="perIcon != null" >
+                per_icon,
+            </if>
+            <if test="perName != null" >
+                per_name,
+            </if>
+            <if test="perUrl != null" >
+                per_url,
+            </if>
+            <if test="updatedTime != null" >
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="createdTime != null" >
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="perCode != null" >
+                #{perCode,jdbcType=VARCHAR},
+            </if>
+            <if test="perIcon != null" >
+                #{perIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="perName != null" >
+                #{perName,jdbcType=VARCHAR},
+            </if>
+            <if test="perUrl != null" >
+                #{perUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null" >
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisea.qdcy.tp.product.entity.BuirPermission" >
+        update buir_permission
+        <set >
+            <if test="createdTime != null" >
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null" >
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="perCode != null" >
+                per_code = #{perCode,jdbcType=VARCHAR},
+            </if>
+            <if test="perIcon != null" >
+                per_icon = #{perIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="perName != null" >
+                per_name = #{perName,jdbcType=VARCHAR},
+            </if>
+            <if test="perUrl != null" >
+                per_url = #{perUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null" >
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.wisea.qdcy.tp.product.entity.BuirPermission" >
+        update buir_permission  set
+        created_time = #{createdTime,jdbcType=TIMESTAMP},description = #{description,jdbcType=VARCHAR},id = #{id,jdbcType=INTEGER},parent_id = #{parentId,jdbcType=INTEGER},per_code = #{perCode,jdbcType=VARCHAR},per_icon = #{perIcon,jdbcType=VARCHAR},per_name = #{perName,jdbcType=VARCHAR},per_url = #{perUrl,jdbcType=VARCHAR},updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findPageList" resultType="com.wisea.qdcy.tp.product.vo.BuirPermissionPageListVo" parameterType="com.wisea.qdcy.tp.product.po.BuirPermissionPageListPo" >
+        select
+        created_time createdTime, description description, id id, parent_id parentId, per_code perCode, per_icon perIcon, per_name perName, per_url perUrl, updated_time updatedTime
+        from
+        buir_permission
+        where
+        del_flag = '0'
+    </select>
+
+    <select id="findInfo" resultType="com.wisea.qdcy.tp.product.vo.BuirPermissionInfoVo" parameterType="java.lang.Long" >
+        select
+        created_time createdTime, description description, id id, parent_id parentId, per_code perCode, per_icon perIcon, per_name perName, per_url perUrl, updated_time updatedTime
+        from
+        buir_permission
+        where
+        del_flag = '0'
+        and id = #{id}
+    </select>
+
+    <select id="findInfoes" resultType="com.wisea.qdcy.tp.product.vo.BuirPermissionInfoVo">
+        select
+        created_time createdTime, description description, id id, parent_id parentId, per_code perCode, per_icon perIcon, per_name perName, per_url perUrl, updated_time updatedTime
+        from buir_permission
+        <include refid="query_where"/>
+    </select>
+
+    <select id="findInfoList" resultType="com.wisea.qdcy.tp.product.vo.BuirPermissionInfoVo">
+        select
+        created_time createdTime, description description, id id, parent_id parentId, per_code perCode, per_icon perIcon, per_name perName, per_url perUrl, updated_time updatedTime
+        from buir_permission
+        <include refid="query_where"/>
+    </select>
+
+
+    <select id="findExportList" resultType="com.wisea.qdcy.tp.product.vo.BuirPermissionExportVo">
+        select
+        created_time createdTime, description description, id id, parent_id parentId, per_code perCode, per_icon perIcon, per_name perName, per_url perUrl, updated_time updatedTime
+        from buir_permission
+        <include refid="query_where"/>
+    </select>
+
+
+    <sql id="query_where">
+        <where>
+            <if test="po.createdTime != null ">
+                and  created_time = #{po.createdTime}
+            </if>
+            <if test="po.description != null ">
+                and  description = #{po.description}
+            </if>
+            <if test="po.id != null ">
+                and  id = #{po.id}
+            </if>
+            <if test="po.parentId != null ">
+                and  parent_id = #{po.parentId}
+            </if>
+            <if test="po.perCode != null ">
+                and  per_code = #{po.perCode}
+            </if>
+            <if test="po.perIcon != null ">
+                and  per_icon = #{po.perIcon}
+            </if>
+            <if test="po.perName != null ">
+                and  per_name = #{po.perName}
+            </if>
+            <if test="po.perUrl != null ">
+                and  per_url = #{po.perUrl}
+            </if>
+            <if test="po.updatedTime != null ">
+                and  updated_time = #{po.updatedTime}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

@@ -9,48 +9,39 @@
     <title>管理后台</title>
 </head>
 <body class="layui-view-body">
-<div  class="layui-content">
-    <div class="layui-content" style="float: left;width: 200px">
-        <!--权限树-->
-        <div class="layui-form-item">
-            权限树：
-        </div>
-        <div class="layui-form-item">
-            <div id="perTree"></div>
-        </div>
-    </div>
-    <div class="layui-content" style="float: right;width: 750px">
+<div class="layui-content">
+    <div class="layui-content" >
         <!--form表单-->
-        <form class="layui-form layui-form-pane" id="dataAddForm">
+        <form class="layui-form layui-form-pane" id="dataEditForm">
             <div class="layui-form-item">
-                <label class="layui-form-label">上级权限</label>
+                <label class="layui-form-label">上级权限ID</label>
                 <div class="layui-input-block">
-                    <input autocomplete="off" hidden="hidden" name="parentId" type="text" value="0">
-                    <input autocomplete="off" class="layui-input" disabled="disabled" name="parentName" placeholder="请选择左侧上级权限" type="text" value="顶级菜单">
+                    <input autocomplete="off" hidden="hidden" name="id" type="text">
+                    <input autocomplete="off" class="layui-input" disabled="disabled" name="parentId" type="text">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">权限名称</label>
                 <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perName" placeholder="请输入权限名称" type="text" >
+                    <input autocomplete="off" class="layui-input" name="perName" placeholder="请输入权限名称" type="text">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">权限路径</label>
                 <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perUrl" placeholder="请输入权限路径" type="text" >
+                    <input autocomplete="off" class="layui-input" name="perUrl" placeholder="请输入权限路径" type="text">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">权限编码</label>
                 <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perCode" placeholder="请输入权限编码" type="text" >
+                    <input autocomplete="off" class="layui-input" name="perCode" placeholder="请输入权限编码" type="text">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图表展示</label>
                 <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perIcon" placeholder="请输入图表展示" type="text" >
+                    <input autocomplete="off" class="layui-input" name="perIcon" placeholder="请输入图表展示" type="text">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -62,7 +53,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">是否启用</label>
                 <div class="layui-input-block">
-                    <select name="perStatus" >
+                    <select id="perStatus" name="perStatus">
                         <option value="">选择是否启用</option>
                         <option value="1">启用</option>
                         <option value="2">不启用</option>
@@ -72,12 +63,13 @@
         </form>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" id="addDataBtn">立即提交</button>
-                <button class="layui-btn layui-btn-primary" id="addReset" type="reset">重置</button>
+                <button class="layui-btn" id="editDataBtn">立即提交</button>
+                <button class="layui-btn layui-btn-primary" id="editClose">关闭</button>
             </div>
         </div>
     </div>
 </div>
+
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
 <script src="/buir/view/user/permission-crud.js"></script>

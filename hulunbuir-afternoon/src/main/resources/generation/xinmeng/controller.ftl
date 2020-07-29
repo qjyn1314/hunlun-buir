@@ -115,8 +115,8 @@ public class ${className}Controller  {
     @RequestMapping(value = "/exportInfoList", method = RequestMethod.POST)
     @ApiOperation(nickname = "导出详细信息列表", value = "导出详细信息列表", notes = "导出详细信息列表", httpMethod = "POST")
     public void exportInfoList(@RequestBody ${className}Po po, HttpServletResponse response) throws IOException {
-    final ResultPoJo<List<${className}ExportVo>> exportList = service.findExportList(po);
-    new ExportExcel("导出${tableComment}详细信息列表", ${className}ExportVo.class).setDataList(exportList.getResult()).writeWithAjaxHeader(response, "${tableComment}.xlsx");
+        final ResultPoJo<List<${className}ExportVo>> exportList = service.findExportList(po);
+        new ExportExcel("导出${tableComment}详细信息列表", ${className}ExportVo.class).setDataList(exportList.getResult()).writeWithAjaxHeader(response, "${tableComment}.xlsx").dispose();
     }
 
 }

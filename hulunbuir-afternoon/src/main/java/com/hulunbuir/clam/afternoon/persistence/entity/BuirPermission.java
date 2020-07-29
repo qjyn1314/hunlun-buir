@@ -88,4 +88,12 @@ public class BuirPermission implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedTime;
 
+    /**
+     * 是否启用：1-启用；2-不启用
+     */
+    @ApiModelProperty(value = "是否启用：1-启用；2-不启用")
+    @TableField("per_status")
+    private Integer perStatus;
+
+
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <!--form表单-->
+    <form class="layui-form layui-form-pane" id="dataInfoForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限名称</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="perName" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限路径</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="perUrl" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限编码</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="perCode" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图表展示</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="perIcon" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限说明</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="description" type="text"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="perStatus" type="text"/>
+            </div>
+        </div>
+    </form>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-primary" id="infoClose" >关闭</button>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.all.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/buir/view/user/permission-crud.js"></script>
+</body>
+</html>

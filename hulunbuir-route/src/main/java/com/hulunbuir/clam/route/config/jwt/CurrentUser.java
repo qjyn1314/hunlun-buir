@@ -167,6 +167,16 @@ public class CurrentUser {
         }
     }
 
+    public static void deleteUserMessageCookieAll(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Cookie> cookieMap = ReadCookieMap(request);
+        for (String key : cookieMap.keySet()) {
+            Cookie cookie = cookieMap.get(key);
+            cookie.setMaxAge(0);//设置cookie有效时间为0
+            cookie.setPath("/");//不设置存储路径
+            response.addCookie(cookie);
+        }
+    }
+
     @PostConstruct
     public void init() {
         JWT_TOKEN_UTIL = jwtTokenUtil;

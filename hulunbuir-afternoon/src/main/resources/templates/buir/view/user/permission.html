@@ -67,7 +67,14 @@
 <script id="operations" type="text/html">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<!--是否启用-->
+<script id="perStatus" type="text/html">
+{{#  if(d.perStatus == 1){ }}
+<span class="layui-btn layui-btn-normal layui-btn-xs">启用</span>
+{{#  } else if(d.perStatus == 2) { }}
+<span class="layui-btn layui-btn-warm layui-btn-xs">不启用</span>
+{{#  } }}
 </script>
 <script src="/buir/view/user/permission-crud.js"></script>
 </body>

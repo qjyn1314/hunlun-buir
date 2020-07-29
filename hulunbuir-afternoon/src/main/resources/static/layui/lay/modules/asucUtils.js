@@ -461,7 +461,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
          * @returns {number}
          */
         animChoose: function () {
-            return 2;
+            return 3;
         }
 
     };

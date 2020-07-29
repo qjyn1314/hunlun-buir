@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirPermissionMapper;
+import com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirPermissionService;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 权限表 Service实现
@@ -97,6 +100,24 @@ public class BuirPermissionServiceImpl implements IBuirPermissionService {
         //--TODO 初始化查询条件
         return buirPermissionMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public List<BuirPermissionTree> getPermissionTree(BuirPermissionTree permissionTree) {
+        return handlePermissionTree(permissionTree);
+    }
+
+    List<BuirPermissionTree> handlePermissionTree(BuirPermissionTree permissionTree){
+        List<BuirPermissionTree> permissionTreeList = buirPermissionMapper.getPermissionTree(permissionTree);
+        for (BuirPermissionTree buirPermissionTree : permissionTreeList) {
+            final List<BuirPermissionTree> permissionChild = buirPermissionMapper.getPermissionTree(new BuirPermissionTree(buirPermissionTree.getId()));
+            if(null != permissionChild && permissionChild.size() > 0){
+                buirPermissionTree.setChildren(permissionChild);
+                handlePermissionTree(new BuirPermissionTree(buirPermissionTree.getId()));
+            }
+        }
+        return permissionTreeList;
+    }
+
 
 
 }

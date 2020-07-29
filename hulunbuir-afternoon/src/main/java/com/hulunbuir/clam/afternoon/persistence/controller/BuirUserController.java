@@ -45,8 +45,6 @@ public class BuirUserController extends BaseController {
     @ApiOperation("添加用户")
     @PostMapping("/userAdd")
     public JsonResult userAdd(BuirUser buirUser) {
-        final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
             buirUser = new BuirUser(buirUser);
@@ -66,8 +64,6 @@ public class BuirUserController extends BaseController {
     @ApiOperation("编辑用户")
     @PostMapping("/userEdit")
     public JsonResult userEdit(BuirUser buirUser) {
-        final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
             buirUserService.validate(buirUser, 2);
@@ -85,8 +81,6 @@ public class BuirUserController extends BaseController {
     @ApiOperation("删除用户")
     @PostMapping("/userDel")
     public JsonResult userDel(BuirUser buirUser) {
-        final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}", userMessage);
         boolean flag = false;
         try {
             buirUserService.validate(buirUser, 3);

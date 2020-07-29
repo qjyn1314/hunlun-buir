@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.afternoon.persistence.controller;
 
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirPermission;
+import com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirPermissionService;
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
@@ -33,19 +34,19 @@ public class BuirPermissionController extends BaseController {
 
     @ApiOperation("权限表分页列表")
     @GetMapping("/buirPermissionPage")
-    public JsonResult BuirPermissionPage(QueryRequest queryRequest, BuirPermission buirPermission){
+    public JsonResult buirPermissionPage(QueryRequest queryRequest, BuirPermission buirPermission){
         return JsonResult.success(getDataTable(buirPermissionService.buirPermissionPage(queryRequest,buirPermission)));
     }
 
     @ApiOperation("权限表添加")
     @PostMapping("/saveBuirPermission")
-    public JsonResult saveBuirUserThird(BuirPermission buirPermission){
+    public JsonResult saveBuirPermission(BuirPermission buirPermission){
         return JsonResult.success(buirPermissionService.saveBuirPermission(buirPermission));
     }
 
     @ApiOperation("权限表修改")
     @PostMapping("/updateBuirPermission")
-    public JsonResult updateBuirUserThird(BuirPermission buirPermission){
+    public JsonResult updateBuirPermission(BuirPermission buirPermission){
         return JsonResult.success(buirPermissionService.updateBuirPermission(buirPermission));
     }
 
@@ -53,6 +54,13 @@ public class BuirPermissionController extends BaseController {
     @GetMapping("/getOneBuirPermission")
     public JsonResult getOneBuirPermission(BuirPermission buirPermission){
         return JsonResult.success(buirPermissionService.getOneBuirPermission(buirPermission));
+    }
+
+    @ApiOperation("权限表获取")
+    @GetMapping("/getPermissionTree")
+    public JsonResult getPermissionTree(){
+        BuirPermissionTree permissionTree = new BuirPermissionTree(Integer.valueOf("0"));
+        return JsonResult.success(buirPermissionService.getPermissionTree(permissionTree));
     }
 
 }
