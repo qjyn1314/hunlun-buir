@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hulunbuir.clam.afternoon.persistence.mapper.BuirRoleMapper">
 
+    <select id="getOneBuirRole" parameterType="com.hulunbuir.clam.afternoon.persistence.entity.BuirRole" resultType="com.hulunbuir.clam.afternoon.persistence.entity.BuirRole">
+        SELECT
+            br.id,
+            any_value(br.role_code)              roleCode,
+            any_value(br.role_name)              roleName,
+            any_value(br.description)            description,
+            any_value(br.created_time)           createdTime,
+            any_value(br.updated_time)           updatedTime,
+            any_value(GROUP_CONCAT(bp.id))       permission,
+            any_value(GROUP_CONCAT(bp.per_name)) permissionName
+        FROM
+            buir_role br
+                LEFT JOIN buir_role_permission brp ON br.id = brp.role_id
+                LEFT JOIN buir_permission bp ON brp.permission_id = bp.id
+        WHERE
+            br.id = #{id}
+    </select>
+
 </mapper>

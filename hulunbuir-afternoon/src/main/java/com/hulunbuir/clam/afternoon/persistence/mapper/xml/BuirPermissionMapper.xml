@@ -3,7 +3,7 @@
 <mapper namespace="com.hulunbuir.clam.afternoon.persistence.mapper.BuirPermissionMapper">
 
     <select id="getPermissionTree" parameterType="com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree" resultType="com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree">
-        SELECT id,parent_id AS parentId,per_name AS title FROM buir_permission  WHERE parent_id = #{parentId};
+        SELECT id,parent_id AS parentId,per_name AS title FROM buir_permission  WHERE parent_id = #{parentId}
     </select>
 
 </mapper>

@@ -2,10 +2,12 @@ package com.hulunbuir.clam.afternoon.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
+import com.hulunbuir.clam.afternoon.vo.PermissionVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -19,5 +21,8 @@ import java.util.HashMap;
 public interface BuirUserMapper extends BaseMapper<BuirUser> {
 
     BuirUser selectBuirUser(@Param("queryQo") HashMap<String, Object> queryMap);
+
+
+    List<PermissionVo> getPermissionTreeList(@Param("userName")String userName, @Param("parentId")Integer parentId);
 
 }

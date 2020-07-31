@@ -69,16 +69,42 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
 
     //回显树结构数据
     function treeRender(treeDivId,treeData,dataAddForm){
+        let perIds = [];
+        let perNames = [];
         tree.render({
+            id: 'permissionTree',
             elem: treeDivId,  //绑定元素
             data: treeData,  //数据源
-            // showCheckbox: true,
-            showCheckbox: true,
+            onlyIconControl: true,
             click: function (obj) {
-                console.log(obj.data)
-                dataAddForm.find('input[name=perId]').val(obj.data.id);
-                dataAddForm.find('input[name=perName]').val(obj.data.title);
-
+                let data = obj.data;
+                if (perIds.length === 0) {
+                    perIds.push(data.id)
+                    perNames.push(data.title)
+                }else if(!(perIds.indexOf(data.id) > -1) || !(perNames.indexOf(data.title) > -1)){
+                    perIds.push(data.id)
+                    perNames.push(data.title)
+                }else if((perIds.indexOf(data.id) > -1) || (perNames.indexOf(data.title) > -1)){
+                    perIds.splice(perIds.indexOf(data.id),1);
+                    perNames.splice(perNames.indexOf(data.title),1);
+                }
+                if (undefined !== data.children) {
+                    let children = data.children;
+                    for (let i = 0; i < children.length; i++) {
+                        if (perIds.length === 0) {
+                            perIds.push(children[i].id)
+                            perNames.push(children[i].title)
+                        } else if (!(perIds.indexOf(children[i].id) > -1) || !(perNames.indexOf(children[i].title) > -1)) {
+                            perIds.push(children[i].id)
+                            perNames.push(children[i].title)
+                        } else if ((perIds.indexOf(children[i].id) > -1) || (perNames.indexOf(children[i].title) > -1)) {
+                            perIds.splice(perIds.indexOf(children[i].id), 1);
+                            perNames.splice(perNames.indexOf(children[i].title),1);
+                        }
+                    }
+                }
+                dataAddForm.find('input[name=permission]').val(perIds.join(','));
+                dataAddForm.find('input[name=permissionName]').val(perNames.join(','));
             }
         });
     }
@@ -120,10 +146,19 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     //编辑
     function edit(data) {
         asucUtils.open("编辑角色", "/view/user/role-edit.html.do", "90%", "90%", function (layero) {
-            let dataInfoForm = layero.find('iframe').contents().find('#dataEditForm');
-            for(const key in data){
-                dataInfoForm.find('input[name='+key+']').val(data[key]);
-            }
+            let dataEditForm = layero.find('iframe').contents().find('#dataEditForm');
+            asucUtils.axGet("/buirRole/getOneBuirRole", {id:data.id},function (result) {
+                if(result.flag){
+                    let dataes = result.data;
+                    for(const key in dataes){
+                        dataEditForm.find('input[name='+key+']').val(dataes[key]);
+                    }
+                }else{
+                    asucUtils.redCryMsg(result.message);
+                }
+            });
+            let perTree = layero.find('iframe').contents().find('#perTree');
+            initPerTree(perTree,dataEditForm);
         }, function () {
             dataTable.reload();
         })
@@ -146,6 +181,7 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     //添加form表单
     function getAddParams() {
         return {
+            permission: dataAddForm.find('input[name="permission"]').val().trim(),
             roleName: dataAddForm.find('input[name="roleName"]').val().trim(),
             roleCode: dataAddForm.find('input[name="roleCode"]').val().trim(),
             description: dataAddForm.find('input[name="description"]').val().trim()
@@ -175,6 +211,7 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     function getEditParams() {
         return {
             id:dataEditForm.find('input[name="id"]').val(),
+            permission: dataEditForm.find('input[name="permission"]').val(),
             roleName: dataEditForm.find('input[name="roleName"]').val().trim(),
             roleCode: dataEditForm.find('input[name="roleCode"]').val().trim(),
             description: dataEditForm.find("input[name='description']").val().trim()

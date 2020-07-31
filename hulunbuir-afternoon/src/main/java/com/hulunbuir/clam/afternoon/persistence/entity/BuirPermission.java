@@ -95,5 +95,11 @@ public class BuirPermission implements Serializable {
     @TableField("per_status")
     private Integer perStatus;
 
+    /**
+     * 菜单排序
+     */
+    @ApiModelProperty(value = "菜单排序-正序排序")
+    @TableField("per_sort")
+    private Integer perSort;
 
 }

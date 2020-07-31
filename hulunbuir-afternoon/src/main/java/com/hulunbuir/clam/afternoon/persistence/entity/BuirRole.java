@@ -67,4 +67,20 @@ public class BuirRole implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedTime;
 
+    /**
+     * 权限逗号分隔字符串
+     */
+    @ApiModelProperty(value = "权限逗号分隔字符串")
+    @TableField(exist = false)
+    private String permission;
+
+    /**
+     * 权限名称逗号分隔字符串
+     */
+    @ApiModelProperty(value = "权限名称逗号分隔字符串")
+    @TableField(exist = false)
+    private String permissionName;
+
+
+
 }

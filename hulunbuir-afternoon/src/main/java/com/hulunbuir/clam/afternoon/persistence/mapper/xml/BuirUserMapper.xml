@@ -42,4 +42,16 @@
         <include refid="query_Where"/>
     </select>
 
+    <select id="getPermissionTreeList" resultType="com.hulunbuir.clam.afternoon.vo.PermissionVo">
+        SELECT bp.id,bp.parent_id parentId,bp.per_name perName,bp.per_url url,bp.per_icon perIcon
+        FROM buir_user AS bu
+        LEFT JOIN buir_user_role AS bur ON bu.id = bur.user_id
+        LEFT JOIN buir_role AS br ON bur.role_id = br.id
+        LEFT JOIN buir_role_permission AS brp ON br.id = brp.role_id
+        LEFT JOIN buir_permission AS bp ON brp.permission_id = bp.id
+        WHERE
+         bu.`status` = 1 AND bp.per_status = 1
+         AND bu.user_name = #{userName} AND  bp.parent_id = #{parentId} order by bp.per_sort
+     </select>
+
 </mapper>

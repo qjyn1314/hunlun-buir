@@ -13,4 +13,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuirRoleMapper extends BaseMapper<BuirRole> {
 
+    /**
+     * 查询单个角色接口
+     * @author wangjunming
+     * @since 2020/7/31 9:39
+     */
+    BuirRole getOneBuirRole(BuirRole buirRole);
+
+
 }

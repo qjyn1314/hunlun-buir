@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirRole;
+import com.hulunbuir.clam.afternoon.persistence.entity.BuirRolePermission;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirRoleMapper;
+import com.hulunbuir.clam.afternoon.persistence.service.IBuirRolePermissionService;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirRoleService;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
@@ -27,6 +29,8 @@ public class BuirRoleServiceImpl implements IBuirRoleService {
 
     @Autowired
     private BuirRoleMapper buirRoleMapper;
+    @Autowired
+    private IBuirRolePermissionService buirRolePermissionService;
 
    /**
     * 角色表分页列表
@@ -70,8 +74,14 @@ public class BuirRoleServiceImpl implements IBuirRoleService {
     @Override
     @Transactional
     public boolean saveBuirRole(BuirRole buirRole) {
-        //--TODO 做一些初始化动作
-        return buirRoleMapper.insert(buirRole)>0;
+        boolean insertRole = buirRoleMapper.insert(buirRole) > 0;
+        if(StringUtils.isNotBlank(buirRole.getPermission())){
+            final String[] permission = buirRole.getPermission().split(",");
+            for (String permissionId : permission) {
+                insertRole = buirRolePermissionService.saveBuirRolePermission(new BuirRolePermission(buirRole,permissionId));
+            }
+        }
+        return insertRole;
     }
 
    /**
@@ -88,8 +98,15 @@ public class BuirRoleServiceImpl implements IBuirRoleService {
         if(Arrays.asList(roleIds).contains(buirRole.getId())){
             throw HulunBuirException.build("请勿修改系统中默认角色！");
         }
-        //--TODO 做一些效验动作
-        return buirRoleMapper.updateById(buirRole)>0;
+        boolean updateRole = buirRoleMapper.updateById(buirRole) > 0;
+        if(StringUtils.isNotBlank(buirRole.getPermission())){
+            updateRole = buirRolePermissionService.deleteByRoleId(buirRole.getId());
+            final String[] permissionIds = buirRole.getPermission().split(",");
+            for (String permissionId : permissionIds) {
+                buirRolePermissionService.saveBuirRolePermission(new BuirRolePermission(buirRole,permissionId));
+            }
+        }
+        return updateRole;
     }
 
    /**
@@ -101,11 +118,7 @@ public class BuirRoleServiceImpl implements IBuirRoleService {
     */
     @Override
     public BuirRole getOneBuirRole(BuirRole buirRole) {
-    LambdaQueryWrapper<BuirRole> queryWrapper = new LambdaQueryWrapper<>();
-        if(null != buirRole.getId()){
-            queryWrapper.eq(BuirRole::getId,buirRole.getId());
-        }
-        return buirRoleMapper.selectOne(queryWrapper);
+        return buirRoleMapper.getOneBuirRole(buirRole);
     }
 
     /**

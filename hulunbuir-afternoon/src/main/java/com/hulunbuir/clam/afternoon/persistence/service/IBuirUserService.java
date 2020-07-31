@@ -2,10 +2,12 @@ package com.hulunbuir.clam.afternoon.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
+import com.hulunbuir.clam.afternoon.vo.PermissionVo;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -66,5 +68,14 @@ public interface IBuirUserService{
      * @since 2020/7/14 12:30
      */
     boolean userDel(BuirUser buirUser);
+
+
+    /**
+     * 登录用户的权限查询
+     *
+     * @author wangjunming
+     * @since 2020/7/30 17:33
+     */
+    List<PermissionVo> getPermissionTreeList(String userName);
 
 }

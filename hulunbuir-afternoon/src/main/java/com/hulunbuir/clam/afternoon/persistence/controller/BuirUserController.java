@@ -1,20 +1,20 @@
 package com.hulunbuir.clam.afternoon.persistence.controller;
 
-
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
-import com.hulunbuir.clam.route.config.jwt.CurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -37,8 +37,6 @@ public class BuirUserController extends BaseController {
     @ApiOperation("用户分页列表")
     @GetMapping("/userPage")
     public JsonResult userPage(QueryRequest queryRequest, BuirUser buirUser) {
-        final UserManager userMessage = CurrentUser.getUserMessage();
-        log.info("当前登录用户信息是：{}", userMessage);
         return JsonResult.success(getDataTable(buirUserService.userPage(queryRequest, buirUser)));
     }
 

@@ -9,6 +9,7 @@ import com.hulunbuir.clam.afternoon.persistence.entity.BuirUserRole;
 import com.hulunbuir.clam.afternoon.persistence.mapper.BuirUserMapper;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserRoleService;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
+import com.hulunbuir.clam.afternoon.vo.PermissionVo;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -215,6 +217,28 @@ public class BuirUserServiceImpl implements IBuirUserService {
         return delUser & delUserRole;
     }
 
+    /**
+     * 登录用户的权限查询
+     *
+     * @param userName
+     * @author wangjunming
+     * @since 2020/7/30 17:33
+     */
+    @Override
+    public List<PermissionVo> getPermissionTreeList(String userName) {
+        return permissionTreeList(userName,0);
+    }
 
+    private List<PermissionVo> permissionTreeList(String userName, Integer parentId) {
+        final List<PermissionVo> permissionTreeList = userMapper.getPermissionTreeList(userName, parentId);
+        for (PermissionVo permissionVo : permissionTreeList) {
+            final List<PermissionVo> childPermissionTreeList = userMapper.getPermissionTreeList(userName, permissionVo.getId());
+            if(null != childPermissionTreeList && childPermissionTreeList.size() > 0){
+                permissionVo.setChildren(childPermissionTreeList);
+            }
+            permissionTreeList(userName,permissionVo.getId());
+        }
+        return permissionTreeList;
+    }
 
 }

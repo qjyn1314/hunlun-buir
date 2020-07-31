@@ -46,4 +46,13 @@ public interface IBuirRolePermissionService {
     BuirRolePermission getOneBuirRolePermission(BuirRolePermission buirRolePermission);
 
 
+    /**
+     * 通过角色ID删除角色权限中间表
+     *
+     * @author wangjunming
+     * @since 2020/7/31 11:52
+     */
+    boolean deleteByRoleId(Integer roleId);
+
+
 }

@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuirRolePermissionMapper extends BaseMapper<BuirRolePermission> {
 
+    boolean deleteByRoleId(Integer roleId);
+
 }

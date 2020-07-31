@@ -92,5 +92,17 @@ public class BuirRolePermissionServiceImpl implements IBuirRolePermissionService
         return buirRolePermissionMapper.selectOne(queryWrapper);
     }
 
+    /**
+     * 通过角色ID删除角色权限中间表
+     *
+     * @param roleId 角色ID
+     * @author wangjunming
+     * @since 2020/7/31 11:52
+     */
+    @Override
+    public boolean deleteByRoleId(Integer roleId) {
+        return buirRolePermissionMapper.deleteByRoleId(roleId);
+    }
+
 
 }

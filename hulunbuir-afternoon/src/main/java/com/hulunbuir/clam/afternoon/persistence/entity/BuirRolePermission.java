@@ -57,4 +57,12 @@ public class BuirRolePermission implements Serializable {
     @TableField("updated_time")
     private Date updatedTime;
 
+    public BuirRolePermission(BuirRole buirRole, String permissionId) {
+        final Date date = new Date();
+        this.roleId = buirRole.getId();
+        this.permissionId = Integer.valueOf(permissionId);
+        this.createdTime = date;
+        this.updatedTime = date;
+    }
+
 }

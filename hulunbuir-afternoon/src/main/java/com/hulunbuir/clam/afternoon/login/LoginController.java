@@ -1,8 +1,11 @@
 package com.hulunbuir.clam.afternoon.login;
 
+import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.common.config.submit.NoRepeatSubmit;
+import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
+import com.hulunbuir.clam.route.config.jwt.CurrentUser;
 import com.hulunbuir.clam.route.config.shiro.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,8 @@ public class LoginController {
 
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private IBuirUserService buirUserService;
 
 
     /**
@@ -173,6 +178,15 @@ public class LoginController {
             return "buir/login";
         }
         return "redirect:/console.html";
+    }
+
+    @ApiOperation("权限菜单获取")
+    @ResponseBody
+    @GetMapping("/getPermissionTreeList")
+    public JsonResult getPermissionTreeList(){
+        final UserManager userMessage = CurrentUser.getUserMessage();
+        log.info("当前登录用户信息是：{}", userMessage);
+        return JsonResult.success(buirUserService.getPermissionTreeList(userMessage.getUserName()));
     }
 
 }

@@ -17,11 +17,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
         cols: [[
             {field: "id", title: "ID", width: 50},
             {field: "parentId", title: "父级ID", width: 90},
-            {field: "perName", title: "权限名称", width: 90},
+            {field: "perName", title: "权限名称"},
             {field: "perUrl", title: "权限路径" },
             {field: "perCode", title: "权限编码", width: 100},
             {field: "perIcon", title: "图表展示", width: 90},
             {field: "description", title: "权限说明", width: 170},
+            {field: "perSort", title: "菜单排序", width: 90},
             {field: "perStatus", title: "是否启用",toolbar: '#perStatus', width: 90},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
@@ -151,6 +152,7 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     function getAddParams() {
         return {
             parentId: dataAddForm.find('input[name="parentId"]').val().trim(),
+            perSort: dataAddForm.find('input[name="perSort"]').val().trim(),
             perName: dataAddForm.find('input[name="perName"]').val().trim(),
             perUrl: dataAddForm.find('input[name="perUrl"]').val().trim(),
             perCode: dataAddForm.find('input[name="perCode"]').val().trim(),
@@ -184,6 +186,7 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
         return {
             id: dataEditForm.find('input[name="id"]').val().trim(),
             perName: dataEditForm.find('input[name="perName"]').val().trim(),
+            perSort: dataEditForm.find('input[name="perSort"]').val().trim(),
             perUrl: dataEditForm.find('input[name="perUrl"]').val().trim(),
             perCode: dataEditForm.find('input[name="perCode"]').val().trim(),
             perIcon: dataEditForm.find('input[name="perIcon"]').val().trim(),
