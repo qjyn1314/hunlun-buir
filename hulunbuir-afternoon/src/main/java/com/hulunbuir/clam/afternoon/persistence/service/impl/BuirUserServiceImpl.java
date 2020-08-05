@@ -11,6 +11,7 @@ import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserRoleService;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.afternoon.vo.PermissionVo;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,7 @@ public class BuirUserServiceImpl implements IBuirUserService {
     @Transactional
     public boolean regUser(BuirUser buirUser) {
         final boolean userInsert = userMapper.insert(buirUser) > 0;
+        buirUser.setRoleId(BuirUser.UserRoles.ORDINAY);
         BuirUserRole userRole = new BuirUserRole(buirUser);
         log.info("添加的用户和权限中间表的数据是：{}", JSON.toJSONString(userRole));
         final boolean userRoleInsert = userRoleService.saveBuirUserRole(userRole);
@@ -239,6 +241,19 @@ public class BuirUserServiceImpl implements IBuirUserService {
             permissionTreeList(userName,permissionVo.getId());
         }
         return permissionTreeList;
+    }
+
+
+    /**
+     * 查询当前登录用户信息
+     *
+     * @param queryMap 查询条件
+     * @author wangjunming
+     * @since 2020/8/4 10:13
+     */
+    @Override
+    public UserManager queryUserManager(HashMap<String, Object> queryMap) {
+        return userMapper.queryUserManager(queryMap);
     }
 
 }

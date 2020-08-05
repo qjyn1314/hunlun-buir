@@ -58,12 +58,8 @@ public class FileUtil {
      */
     public static void download(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
         File file = new File(filePath);
-        if (!file.exists())
+        if (!file.exists()){
             throw new Exception("文件未找到");
-
-        String fileType = getFileType(file);
-        if (!fileTypeIsValid(fileType)) {
-            throw new Exception("暂不支持该类型文件下载");
         }
         response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "utf-8"));
         response.setContentType("multipart/form-data");

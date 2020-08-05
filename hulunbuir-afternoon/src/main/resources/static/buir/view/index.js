@@ -3,12 +3,23 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
     let asucUtils = layui.asucUtils;
     let $ = layui.jquery;
     console.log("访问首页-将获取权限");
-    asucUtils.axGet("/getPermissionTreeList", {},function (result) {
+
+    asucUtils.axGet("/getCurrentUser", {},function (result) {
+        if(result.flag) {
+            let data = result.data;
+            console.log(data)
+            $('#user_name').html(data.userName)
+            if(data.status === 1 && data.roleCode === 'admin'){
+                $('#userCrud').removeAttr("style")
+            }
+        }
+    })
+
+   /* asucUtils.axGet("/getPermissionTreeList", {},function (result) {
         if(result.flag){
             console.log(result.data)
             let permissionTree = result.data;
             let navHtml = "";
-            navHtml += '<ul class="layui-nav layui-nav-tree" id="Nav">';
             for(const key in permissionTree){
                 let permission = permissionTree[key];
                 console.log(permission)
@@ -35,21 +46,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "asucUtils"
         } else {
             asucUtils.redCryMsg(result.message);
         }
-    });
-
-
-/*<li class="layui-nav-item">
-        <a href="javascript:;">
-        <i class="layui-icon">&#xe68e;</i>
-    <em>主页</em>
-    </a>
-    <dl class="layui-nav-child">
-        <dd><a href="/view/index.html.do">控制台</a></dd>
-    </dl>
-    </li>
-    */
-
-
+    });*/
 
 })
 

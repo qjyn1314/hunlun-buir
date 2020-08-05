@@ -5,6 +5,8 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DecimalFormat;
+
 /**
  * <p>
  * explain:
@@ -27,7 +29,15 @@ public class AdminController {
 //    }
 
 
+    public static void main(String[] args) {
 
+        final DecimalFormat decimalFormat = new DecimalFormat("##");
+
+        final String format = decimalFormat.format(15321355715L);
+
+        System.out.println(format);
+
+    }
 
 
 

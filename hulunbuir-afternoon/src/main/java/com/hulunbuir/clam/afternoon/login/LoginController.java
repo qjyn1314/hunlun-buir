@@ -189,4 +189,13 @@ public class LoginController {
         return JsonResult.success(buirUserService.getPermissionTreeList(userMessage.getUserName()));
     }
 
+    @ApiOperation("获取当前登录用户")
+    @ResponseBody
+    @GetMapping("/getCurrentUser")
+    public JsonResult getCurrentUser(){
+        final UserManager userMessage = CurrentUser.getUserMessage();
+        userMessage.setNull();
+        return JsonResult.success(userMessage);
+    }
+
 }

@@ -54,4 +54,17 @@
          AND bu.user_name = #{userName} AND  bp.parent_id = #{parentId} order by bp.per_sort
      </select>
 
+    <select id="queryUserManager" resultType="com.hulunbuir.clam.distributed.model.UserManager">
+        SELECT bu.id userId,bu.nick_name nickName,bu.user_name userName,bu.`status`,bu.create_time createTime,bu.`password`,bu.salt,
+        br.id roleId,br.role_name roleName,br.role_code roleCode,br.description
+        FROM buir_user bu
+        LEFT JOIN buir_user_role AS bur ON bu.id = bur.user_id
+        LEFT JOIN buir_role AS br ON bur.role_id = br.id
+        <where>
+            <if test="userName != null and userName != ''">
+                and bu.user_name = #{userName}
+            </if>
+        </where>
+    </select>
+
 </mapper>

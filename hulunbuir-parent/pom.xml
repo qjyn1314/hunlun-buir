@@ -295,6 +295,13 @@
             </exclusions>
         </dependency>
         <!--使用jwt-end-->
+        <!--整合分布式锁-start-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+        <!--整合分布式锁-end-->
 
     </dependencies>
 

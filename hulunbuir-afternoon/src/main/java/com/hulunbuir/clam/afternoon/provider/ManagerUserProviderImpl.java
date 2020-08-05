@@ -1,13 +1,12 @@
 package com.hulunbuir.clam.afternoon.provider;
 
-import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
+import com.hulunbuir.clam.afternoon.persistence.service.IBuirRolePermissionService;
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
 import com.hulunbuir.clam.distributed.afternoon.ManagerUserProvider;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +28,9 @@ public class ManagerUserProviderImpl implements ManagerUserProvider {
     @Autowired
     private IBuirUserService buirUserService;
 
+    @Autowired
+    private IBuirRolePermissionService rolePermissionService;
+
     /**
      * 通过用户用户名称查询用户信息
      *
@@ -38,12 +40,10 @@ public class ManagerUserProviderImpl implements ManagerUserProvider {
      */
     @Override
     public UserManager queryBuirUser(HashMap<String, Object> queryMap) throws HulunBuirException {
-        BuirUser buirUser = buirUserService.queryBuirUser(queryMap);
-        if(null == buirUser){
+        final UserManager userManager = buirUserService.queryUserManager(queryMap);
+        if(null == userManager){
             HulunBuirException.build("该用户未注册！");
         }
-        final UserManager userManager = new UserManager();
-        BeanUtils.copyProperties(buirUser,userManager);
         return userManager;
     }
 

@@ -73,7 +73,7 @@ public class RegisteredController {
         redisHelper.setStrKey(MailConstants.VERIFICATION.name() + userMail, randomNumbers, 3000);
         try {
 //            mailProvider.sendSimpleMail(userMail, MailConstants.VERIFICATION.getSubject(), String.format(MailConstants.VERIFICATION.getContent(), randomNumbers));
-            return JsonResult.successMsg("发送成功邮箱验证码！！");
+            return JsonResult.successMsg("已发送邮箱验证码！！验证码是："+randomNumbers);
         } catch (Exception e) {
             log.error("发送邮箱验证码失败-系统异常，", e);
             return JsonResult.error("发送邮箱验证码失败，系统异常!");

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.afternoon.persistence.entity.BuirUser;
 import com.hulunbuir.clam.afternoon.vo.PermissionVo;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 import java.util.HashMap;
@@ -77,5 +78,13 @@ public interface IBuirUserService{
      * @since 2020/7/30 17:33
      */
     List<PermissionVo> getPermissionTreeList(String userName);
+
+    /**
+     * 查询当前登录用户信息
+     *
+     * @author wangjunming
+     * @since 2020/8/4 10:13
+     */
+    UserManager queryUserManager(HashMap<String, Object> queryMap);
 
 }

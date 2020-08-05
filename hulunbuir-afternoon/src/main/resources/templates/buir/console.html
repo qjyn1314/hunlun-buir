@@ -19,9 +19,9 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">BieJun</a>
+                <a href="javascript:;" id="user_name"></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">帮助中心</a></dd>
+                    <dd><a href="">修改密码</a></dd>
                     <dd><a href="/userLogout">退出</a></dd>
                 </dl>
             </li>
@@ -45,6 +45,16 @@
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">
+                        <i class="layui-icon">&#xe64e;</i>
+                        <em>代码生成</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/view/generator/configure.html.do">生成配置</a></dd>
+                        <dd><a href="/view/generator/generator.html.do">生成代码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" id="userCrud" style="display:none">
+                    <a href="javascript:;">
                         <i class="layui-icon">&#xe612;</i>
                         <em>用户</em>
                     </a>
@@ -52,16 +62,6 @@
                         <dd><a href="/view/user/users.html.do">用户账号</a></dd>
                         <dd><a href="/view/user/permission.html.do">权限配置</a></dd>
                         <dd><a href="/view/user/role.html.do">角色配置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">
-                        <i class="layui-icon">&#xe64e;</i>
-                        <em>代码生成</em>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/view/generator/configure.html.do">生成配置</a></dd>
-                        <dd><a href="/view/generator/generator.html.do">生成代码</a></dd>
                     </dl>
                 </li>
             </ul>
