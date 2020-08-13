@@ -33,7 +33,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     * @since ${date}
     */
     @Override
-    public IPage<${className}> ${className?uncap_first}Page(QueryRequest queryRequest, ${className} ${className?uncap_first}) {
+    public IPage<${className}> page(QueryRequest queryRequest, ${className} ${className?uncap_first}) {
         LambdaQueryWrapper<${className}> queryWrapper = initQueryWrapper(queryRequest,${className?uncap_first});
         Page<${className}> page = new Page<>(queryRequest.getCurrent(), queryRequest.getPageSize());
         return ${className?uncap_first}Mapper.selectPage(page, queryWrapper);
@@ -60,7 +60,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     */
     @Override
     @Transactional
-    public boolean save${className}(${className} ${className?uncap_first}) {
+    public boolean save(${className} ${className?uncap_first}) {
         //--TODO 做一些初始化动作
         return ${className?uncap_first}Mapper.insert(${className?uncap_first})>0;
     }
@@ -74,7 +74,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     */
     @Override
     @Transactional
-    public boolean update${className}(${className} ${className?uncap_first}) {
+    public boolean update(${className} ${className?uncap_first}) {
         //--TODO 做一些效验动作
         return ${className?uncap_first}Mapper.updateById(${className?uncap_first})>0;
     }
@@ -87,7 +87,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     * @since ${date}
     */
     @Override
-    public ${className} getOne${className}(${className} ${className?uncap_first}) {
+    public ${className} selOne(${className} ${className?uncap_first}) {
     LambdaQueryWrapper<${className}> queryWrapper = new LambdaQueryWrapper<>();
         //--TODO 初始化查询条件
         return ${className?uncap_first}Mapper.selectOne(queryWrapper);

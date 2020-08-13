@@ -158,16 +158,17 @@ public class CodeGenerationConfig implements Serializable {
     public static final String xinMengFolder = "xinmeng";
 
     public CodeGenerationConfig() {
-            this.templateFolder = xinMengFolder;
-            this.author = "coder";
-            this.basePackage = "com.wisea.qdcy.tp.product";
-            this.entityPackage = "entity";
-            this.mapperPackage = "dao";
-            this.mapperXmlPackage = "mappings";
-            this.servicePackage = "service";
-            this.entityPoPackage = "po";
-            this.entityVoPackage = "vo";
-            this.controllerPackage = "controller";
+        this.templateFolder = defaultFolder;
+        this.author = "Mr.Wang";
+        this.basePackage = "com.hulunbuir.clam.afternoon.persistence";
+        this.entityPackage = "entity";
+        this.controllerPackage = "controller";
+        this.servicePackage = "service";
+        this.serviceImplPackage = "service.impl";
+        this.mapperPackage = "mapper";
+        this.mapperXmlPackage = "mapper.xml";
+        this.entityPoPackage = "po";
+        this.entityVoPackage = "vo";
     }
 
     public CodeGenerationConfig(String sessionId) {

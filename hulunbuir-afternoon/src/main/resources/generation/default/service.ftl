@@ -18,7 +18,7 @@ public interface I${className}Service {
      * @author ${author}
      * @since ${date}
      */
-    IPage<${className}> ${className?uncap_first}Page(QueryRequest queryRequest, ${className} ${className?uncap_first});
+    IPage<${className}> page(QueryRequest queryRequest, ${className} ${className?uncap_first});
 
     /**
      * 保存
@@ -26,7 +26,7 @@ public interface I${className}Service {
      * @author ${author}
      * @since ${date}
      */
-     boolean save${className}(${className} ${className?uncap_first});
+     boolean save(${className} ${className?uncap_first});
 
     /**
      * 修改
@@ -34,7 +34,7 @@ public interface I${className}Service {
      * @author ${author}
      * @since ${date}
      */
-     boolean update${className}(${className} ${className?uncap_first});
+     boolean update(${className} ${className?uncap_first});
 
 
     /**
@@ -43,7 +43,7 @@ public interface I${className}Service {
      * @author ${author}
      * @since ${date}
      */
-    ${className} getOne${className}(${className} ${className?uncap_first});
+    ${className} selOne(${className} ${className?uncap_first});
 
 
 }

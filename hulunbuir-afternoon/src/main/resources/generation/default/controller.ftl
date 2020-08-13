@@ -29,34 +29,34 @@ import java.util.Map;
 @Slf4j
 @Api(tags = "${tableComment} Controller")
 @RestController
-@RequestMapping("/${className?uncap_first}")
+@RequestMapping("/h/${className?uncap_first}")
 public class ${className}Controller extends BaseController {
 
     @Autowired
-    private I${className}Service ${className?uncap_first}Service;
+    private I${className}Service service;
 
     @ApiOperation("${tableComment}分页列表")
-    @GetMapping("/${className?uncap_first}Page")
-    public JsonResult ${className?uncap_first}Page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
-        return JsonResult.success(getDataTable(${className?uncap_first}Service.${className?uncap_first}Page(queryRequest,${className?uncap_first})));
+    @GetMapping("/page")
+    public JsonResult page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
+        return JsonResult.success(getDataTable(service.page(queryRequest,${className?uncap_first})));
     }
 
     @ApiOperation("${tableComment}添加")
-    @PostMapping("/save${className}")
-    public JsonResult /save${className}(${className} ${className?uncap_first}){
-        return JsonResult.success(${className?uncap_first}Service.save${className}(${className?uncap_first}));
+    @PostMapping("/save")
+    public JsonResult save(${className} ${className?uncap_first}){
+        return JsonResult.success(service.save(${className?uncap_first}));
     }
 
     @ApiOperation("${tableComment}修改")
-    @PostMapping("/update${className}")
-    public JsonResult /save${className}(${className} ${className?uncap_first}){
-        return JsonResult.success(${className?uncap_first}Service.update${className}(${className?uncap_first}));
+    @PostMapping("/update")
+    public JsonResult update(${className} ${className?uncap_first}){
+        return JsonResult.success(service.update(${className?uncap_first}));
     }
 
     @ApiOperation("${tableComment}获取")
-    @GetMapping("/getOne${className}")
-    public JsonResult getOne${className}(${className} ${className?uncap_first}){
-        return JsonResult.success(${className?uncap_first}Service.getOne${className}(${className?uncap_first}));
+    @GetMapping("/selOne")
+    public JsonResult selOne(${className} ${className?uncap_first}){
+        return JsonResult.success(service.selOne(${className?uncap_first}));
     }
 
 }
