@@ -4,10 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * 定时任务配置信息
@@ -24,14 +22,12 @@ public class ScheduleConfig implements SchedulingConfigurer {
     }
 
     @Bean(destroyMethod="shutdown")
-    public ExecutorService scheduleTaskExecutor() {
-
-//        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-//        threadPoolTaskScheduler.setPoolSize(20);
-//        threadPoolTaskScheduler.setThreadNamePrefix("taskExecutor-");
-//        threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(true);
-//        threadPoolTaskScheduler.setAwaitTerminationSeconds(60);
-
-        return Executors.newScheduledThreadPool(5);
+    public ThreadPoolTaskScheduler scheduleTaskExecutor() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(20);
+        threadPoolTaskScheduler.setThreadNamePrefix("taskExecutor-");
+        threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(true);
+        threadPoolTaskScheduler.setAwaitTerminationSeconds(60);
+        return threadPoolTaskScheduler;
     }
 }

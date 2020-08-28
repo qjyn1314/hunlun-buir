@@ -24,6 +24,7 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,10 +36,10 @@ import static org.apache.dubbo.common.constants.CommonConstants.TIMEOUT_KEY;
 public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZookeeperClient.CuratorWatcherImpl, CuratorZookeeperClient.CuratorWatcherImpl> {
 
     protected static final Logger logger = LoggerFactory.getLogger(CuratorZookeeperClient.class);
-    static final Charset CHARSET = Charset.forName("UTF-8");
+    static final Charset CHARSET = StandardCharsets.UTF_8;
     private static final String ZK_SESSION_EXPIRE_KEY = "zk.session.expire";
     private final CuratorFramework client;
-    private Map<String, TreeCache> treeCacheMap = new ConcurrentHashMap<>();
+    private final Map<String, TreeCache> treeCacheMap = new ConcurrentHashMap<>();
 
     public CuratorZookeeperClient(URL url) {
         super(url);
@@ -131,6 +132,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
         try {
             client.delete().deletingChildrenIfNeeded().forPath(path);
         } catch (NoNodeException e) {
+            // ignore NoNode Exception.
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
@@ -150,12 +152,10 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
     @Override
     public boolean checkExists(String path) {
         try {
-            if (client.checkExists().forPath(path) != null) {
-                return true;
-            }
+            return client.checkExists().forPath(path) != null;
         } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -239,11 +239,6 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
         listener.unwatch();
     }
 
-    /**
-     * just for unit test
-     *
-     * @return
-     */
     CuratorFramework getClient() {
         return client;
     }
@@ -274,8 +269,6 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
 
         @Override
         public void process(WatchedEvent event) throws Exception {
-            // if client connect or disconnect to server, zookeeper will queue
-            // watched event(Watcher.Event.EventType.None, .., path = null).
             if (event.getType() == Watcher.Event.EventType.None) {
                 return;
             }
@@ -322,7 +315,8 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
                     case CONNECTION_SUSPENDED:
                         eventType = EventType.CONNECTION_SUSPENDED;
                         break;
-
+                    default:
+                        eventType = null;
                 }
                 dataListener.dataChanged(path, content, eventType);
             }
@@ -330,20 +324,19 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
     }
 
     private class CuratorConnectionStateListener implements ConnectionStateListener {
-        private final long UNKNOWN_SESSION_ID = -1L;
 
         private long lastSessionId;
-        private URL url;
+        final static long UNKNOWN_SESSION_ID = -1L;
 
         public CuratorConnectionStateListener(URL url) {
             this.url = url;
         }
+        private final URL url;
 
         @Override
         public void stateChanged(CuratorFramework client, ConnectionState state) {
             int timeout = url.getParameter(TIMEOUT_KEY, DEFAULT_CONNECTION_TIMEOUT_MS);
             int sessionExpireMs = url.getParameter(ZK_SESSION_EXPIRE_KEY, DEFAULT_SESSION_TIMEOUT_MS);
-
             long sessionId = UNKNOWN_SESSION_ID;
             try {
                 sessionId = client.getZookeeperClient().getZooKeeper().getSessionId();

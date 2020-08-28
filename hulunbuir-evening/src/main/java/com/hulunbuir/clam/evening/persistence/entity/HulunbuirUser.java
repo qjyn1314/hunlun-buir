@@ -4,205 +4,134 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
- * <p>
- * 用户表
- * </p>
+ * 用户表 Entity
  *
- * @author wangjunming
- * @since 2020-06-11
+ * @author Mr.Wang
+ * @date 2020-08-13 13:40:19
  */
+@Data
 @TableName("hulunbuir_user")
 @ApiModel(value="HulunbuirUser对象", description="用户表")
-public class HulunbuirUser extends Model<HulunbuirUser> {
+public class HulunbuirUser implements Serializable {
 
-    private static final long serialVersionUID=1L;
-
-    @ApiModelProperty(value = "用户ID")
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Long userId;
-
-    @ApiModelProperty(value = "用户名")
-    @TableField("user_name")
-    private String userName;
-
-    @ApiModelProperty(value = "密码")
-    @TableField("password")
-    private String password;
-
-    @ApiModelProperty(value = "邮箱")
-    @TableField("email")
-    private String email;
-
-    @ApiModelProperty(value = "联系电话")
-    @TableField("phone")
-    private String phone;
-
-    @ApiModelProperty(value = "状态 0锁定 1有效")
-    @TableField("status")
-    private String status;
-
-    @ApiModelProperty(value = "创建时间")
-    @TableField("create_date")
-    private LocalDateTime createDate;
-
-    @ApiModelProperty(value = "修改时间")
-    @TableField("update_date")
-    private LocalDateTime updateDate;
-
-    @ApiModelProperty(value = "最近访问时间")
-    @TableField("last_login_time")
-    private LocalDateTime lastLoginTime;
-
-    @ApiModelProperty(value = "性别 0男 1女 2保密")
-    @TableField("sex")
-    private String sex;
-
-    @ApiModelProperty(value = "是否开启tab，0关闭 1开启")
-    @TableField("is_tab")
-    private String isTab;
-
+    /**
+     * 头像
+     */
     @ApiModelProperty(value = "头像")
     @TableField("avatar")
     private String avatar;
 
+    /**
+     * 创建者
+     */
+    @ApiModelProperty(value = "创建者")
+    @TableField("create_by")
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    @TableField("create_date")
+    private Date createDate;
+
+    /**
+     * 删除标志 0:未删除 1:删除
+     */
+    @ApiModelProperty(value = "删除标志 0:未删除 1:删除")
+    @TableField("del_flag")
+    private String delFlag;
+
+    /**
+     * 描述
+     */
     @ApiModelProperty(value = "描述")
     @TableField("description")
     private String description;
 
+    /**
+     * 邮箱
+     */
+    @ApiModelProperty(value = "邮箱")
+    @TableField("email")
+    private String email;
 
-    public Long getUserId() {
-        return userId;
-    }
+    /**
+     * 用户ID
+     */
+    @ApiModelProperty(value = "用户ID")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    /**
+     * 最近访问时间
+     */
+    @ApiModelProperty(value = "最近访问时间")
+    @TableField("last_login_time")
+    private Date lastLoginTime;
 
-    public String getUserName() {
-        return userName;
-    }
+    /**
+     * 密码
+     */
+    @ApiModelProperty(value = "密码")
+    @TableField("password")
+    private String password;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    /**
+     * 联系电话
+     */
+    @ApiModelProperty(value = "联系电话")
+    @TableField("phone")
+    private String phone;
 
-    public String getPassword() {
-        return password;
-    }
+    /**
+     * 备注
+     */
+    @ApiModelProperty(value = "备注")
+    @TableField("remarks")
+    private String remarks;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    /**
+     * 性别 0男 1女 2保密
+     */
+    @ApiModelProperty(value = "性别 0男 1女 2保密")
+    @TableField("sex")
+    private String sex;
 
-    public String getEmail() {
-        return email;
-    }
+    /**
+     * 状态 0锁定 1有效
+     */
+    @ApiModelProperty(value = "状态 0锁定 1有效")
+    @TableField("status")
+    private String status;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    /**
+     * 更新者
+     */
+    @ApiModelProperty(value = "更新者")
+    @TableField("update_by")
+    private String updateBy;
 
-    public String getPhone() {
-        return phone;
-    }
+    /**
+     * 更新时间
+     */
+    @ApiModelProperty(value = "更新时间")
+    @TableField("update_date")
+    private Date updateDate;
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    /**
+     * 用户名
+     */
+    @ApiModelProperty(value = "用户名")
+    @TableId(value = "user_name", type = IdType.AUTO)
+    private String userName;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getIsTab() {
-        return isTab;
-    }
-
-    public void setIsTab(String isTab) {
-        this.isTab = isTab;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return this.userId;
-    }
-
-    @Override
-    public String toString() {
-        return "HulunbuirUser{" +
-        "userId=" + userId +
-        ", userName=" + userName +
-        ", password=" + password +
-        ", email=" + email +
-        ", phone=" + phone +
-        ", status=" + status +
-        ", createDate=" + createDate +
-        ", updateDate=" + updateDate +
-        ", lastLoginTime=" + lastLoginTime +
-        ", sex=" + sex +
-        ", isTab=" + isTab +
-        ", avatar=" + avatar +
-        ", description=" + description +
-        "}";
-    }
 }

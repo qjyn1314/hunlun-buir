@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>layui后台管理模板 2.0</title>
+	<meta content="webkit" name="renderer">
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta content="*" http-equiv="Access-Control-Allow-Origin">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="telephone=no" name="format-detection">
+	<link href="favicon.ico" rel="icon">
+	<link href="layui/css/layui.css" media="all" rel="stylesheet" />
+	<link href="css/index.css" media="all" rel="stylesheet" />
+</head>
+<body class="main_body">
+	<div class="layui-layout layui-layout-admin">
+		<!-- 顶部 -->
+		<div class="layui-header header">
+			<div class="layui-main mag0">
+				<a class="logo" href="#">layuiCMS 2.0</a>
+				<!-- 显示/隐藏菜单 -->
+				<a class="seraph hideMenu icon-caidan" href="javascript:;"></a>
+				<!-- 顶级菜单 -->
+				<ul class="layui-nav mobileTopLevelMenus" mobile>
+					<li class="layui-nav-item" data-menu="contentManagement">
+						<a href="javascript:;"><i class="seraph icon-caidan"></i><cite>layuiCMS</cite></a>
+						<dl class="layui-nav-child">
+							<dd class="layui-this" data-menu="contentManagement"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a></dd>
+							<dd data-menu="memberCenter"><a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a></dd>
+							<dd data-menu="systemeSttings"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a></dd>
+							<dd data-menu="seraphApi"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe705;">&#xe705;</i><cite>使用文档</cite></a></dd>
+						</dl>
+					</li>
+				</ul>
+				<ul class="layui-nav topLevelMenus" pc>
+					<li class="layui-nav-item layui-this" data-menu="contentManagement">
+						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a>
+					</li>
+					<li class="layui-nav-item" data-menu="memberCenter" pc>
+						<a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a>
+					</li>
+					<li class="layui-nav-item" data-menu="systemeSttings" pc>
+						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a>
+					</li>
+					<li class="layui-nav-item" data-menu="seraphApi" pc>
+						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe705;">&#xe705;</i><cite>使用文档</cite></a>
+					</li>
+				</ul>
+			    <!-- 顶部右侧菜单 -->
+			    <ul class="layui-nav top_menu">
+					<li class="layui-nav-item" pc>
+						<a class="clearCache" href="javascript:;"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+					</li>
+					<li class="layui-nav-item lockcms" pc>
+						<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
+					</li>
+					<li class="layui-nav-item" id="userInfo">
+						<a href="javascript:;"><img class="layui-nav-img userAvatar" height="35" src="images/face.jpg" width="35"><cite class="adminName">驊驊龔頾</cite></a>
+						<dl class="layui-nav-child">
+							<dd><a data-url="page/user/userInfo.html" href="javascript:;"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
+							<dd><a data-url="page/user/changePwd.html" href="javascript:;"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
+							<dd><a class="showNotice" href="javascript:;"><i class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a></dd>
+							<dd pc><a class="functionSetting" href="javascript:;"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd>
+							<dd pc><a class="changeSkin" href="javascript:;"><i class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>
+							<dd><a class="signOut" href="page/login/login.html"><i class="seraph icon-tuichu"></i><cite>退出</cite></a></dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 左侧导航 -->
+		<div class="layui-side layui-bg-black">
+			<div class="user-photo">
+				<a class="img" title="我的头像" ><img class="userAvatar" src="images/face.jpg"></a>
+				<p>你好！<span class="userName">驊驊龔頾</span>, 欢迎登录</p>
+			</div>
+			<!-- 搜索 -->
+			<div class="layui-form component">
+				<select id="search" lay-filter="searchPage" lay-search name="search">
+					<option value="">搜索页面或功能</option>
+					<option value="1">layer</option>
+					<option value="2">form</option>
+				</select>
+				<i class="layui-icon">&#xe615;</i>
+			</div>
+			<div class="navBar layui-side-scroll" id="navBar">
+				<ul class="layui-nav layui-nav-tree">
+					<li class="layui-nav-item layui-this">
+						<a data-url="page/main.html" href="javascript:;"><i class="layui-icon" data-icon=""></i><cite>后台首页</cite></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 右侧内容 -->
+		<div class="layui-body layui-form">
+			<div class="layui-tab mag0" id="top_tabs_box" lay-filter="bodyTab">
+				<ul class="layui-tab-title top_tab" id="top_tabs">
+					<li class="layui-this" lay-id=""><i class="layui-icon">&#xe68e;</i> <cite>后台首页</cite></li>
+				</ul>
+				<ul class="layui-nav closeBox">
+				  <li class="layui-nav-item">
+				    <a href="javascript:;"><i class="layui-icon caozuo">&#xe643;</i> 页面操作</a>
+				    <dl class="layui-nav-child">
+					  <dd><a class="refresh refreshThis" href="javascript:;"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
+				      <dd><a class="closePageOther" href="javascript:;"><i class="seraph icon-prohibit"></i> 关闭其他</a></dd>
+				      <dd><a class="closePageAll" href="javascript:;"><i class="seraph icon-guanbi"></i> 关闭全部</a></dd>
+				    </dl>
+				  </li>
+				</ul>
+				<div class="layui-tab-content clildFrame">
+					<div class="layui-tab-item layui-show">
+						<iframe src="page/main.html"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 底部 -->
+		<div class="layui-footer footer">
+			<p><span>copyright @2018 驊驊龔頾</span>　　<a class="layui-btn layui-btn-danger layui-btn-sm" onclick="donation()">捐赠作者</a></p>
+		</div>
+	</div>
+
+	<!-- 移动导航 -->
+	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
+	<div class="site-mobile-shade"></div>
+
+	<script src="layui/layui.js" type="text/javascript"></script>
+	<script src="js/index.js" type="text/javascript"></script>
+	<script src="js/cache.js" type="text/javascript"></script>
+</body>
+</html>

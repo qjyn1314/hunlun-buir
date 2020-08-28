@@ -80,7 +80,7 @@ public class LoginController {
         if (ShiroTool.isAuthenticated()) {
             return "buir/console";
         }
-        if(ShiroTool.isRemembered()){
+        if (ShiroTool.isRemembered()) {
             return "buir/console";
         }
         return "buir/login";
@@ -92,16 +92,15 @@ public class LoginController {
      * @author wangjunming
      * @since 2020/2/12 11:54
      */
-    @GetMapping({"/{viewPage}.do","/**/{viewPage}.do"})
+    @GetMapping({"/{viewPage}.do", "/**/{viewPage}.do"})
     public String viewHandle(@PathVariable String viewPage) {
         if (ShiroTool.isAuthenticated() || ShiroTool.isRemembered()) {
             final String requestUri = request.getRequestURI();
-            log.info("请求的路径是-requestUri：{}，进入的页面是：{}", requestUri, viewPage);
             String pages = null;
             try {
                 pages = viewPage.substring(0, viewPage.lastIndexOf("."));
             } catch (Exception e) {
-                log.error("跳转页面异常！",e);
+                log.error("跳转页面异常！", e);
                 return "error/404";
             }
             final String index = "index";
@@ -113,7 +112,6 @@ public class LoginController {
         }
         return "buir/login";
     }
-
 
 
     /**
@@ -168,9 +166,9 @@ public class LoginController {
                 HulunBuirException.build("验证码已过期");
             } else if (exception instanceof ForbiddenUserException) {
                 HulunBuirException.build("该用户已被禁用，如有疑问请联系系统管理员");
-            } else if(exception instanceof NoUserException){
+            } else if (exception instanceof NoUserException) {
                 HulunBuirException.build("请您注册该账号");
-            } else if(exception instanceof NotApprovedException){
+            } else if (exception instanceof NotApprovedException) {
                 HulunBuirException.build(((NotApprovedException) exception).getMessage());
             } else {
                 HulunBuirException.build("发生未知错误，请联系管理员");
@@ -183,7 +181,7 @@ public class LoginController {
     @ApiOperation("权限菜单获取")
     @ResponseBody
     @GetMapping("/getPermissionTreeList")
-    public JsonResult getPermissionTreeList(){
+    public JsonResult getPermissionTreeList() {
         final UserManager userMessage = CurrentUser.getUserMessage();
         log.info("当前登录用户信息是：{}", userMessage);
         return JsonResult.success(buirUserService.getPermissionTreeList(userMessage.getUserName()));
@@ -192,7 +190,7 @@ public class LoginController {
     @ApiOperation("获取当前登录用户")
     @ResponseBody
     @GetMapping("/getCurrentUser")
-    public JsonResult getCurrentUser(){
+    public JsonResult getCurrentUser() {
         final UserManager userMessage = CurrentUser.getUserMessage();
         userMessage.setNull();
         return JsonResult.success(userMessage);

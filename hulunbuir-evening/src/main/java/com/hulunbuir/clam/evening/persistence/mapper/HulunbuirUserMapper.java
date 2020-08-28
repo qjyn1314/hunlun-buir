@@ -1,16 +1,16 @@
 package com.hulunbuir.clam.evening.persistence.mapper;
 
-import com.hulunbuir.clam.evening.persistence.entity.HulunbuirUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hulunbuir.clam.evening.persistence.entity.HulunbuirUser;
+import org.springframework.stereotype.Repository;
 
 /**
- * <p>
- * 用户表 Mapper 接口
- * </p>
+ * 用户表 Mapper
  *
- * @author wangjunming
- * @since 2020-06-11
+ * @author Mr.Wang
+ * @since 2020-08-13 13:40:19
  */
+@Repository
 public interface HulunbuirUserMapper extends BaseMapper<HulunbuirUser> {
 
 }

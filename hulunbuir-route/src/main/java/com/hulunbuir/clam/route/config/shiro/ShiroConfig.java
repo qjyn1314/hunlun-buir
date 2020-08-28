@@ -144,21 +144,22 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/doc.html", "anon");
 //        springbootAdmin的监控访问的url
 //        这段是配合 actuator框架使用的，配置相应的角色才能访问
-        filterChainDefinitionMap.put("/actuator/**/**", "anon");//服务器健康状况页面
+        filterChainDefinitionMap.put("/actuator", "anon");//服务器健康状况页面
         filterChainDefinitionMap.put("/health", "anon");//服务器健康状况页面
-        filterChainDefinitionMap.put("/instances/**/**", "anon");
+        filterChainDefinitionMap.put("/instances", "anon");
         filterChainDefinitionMap.put("/info", "anon");//服务器信息页面
         filterChainDefinitionMap.put("/env", "anon");//应用程序的环境变量
         filterChainDefinitionMap.put("/metrics", "anon");
         filterChainDefinitionMap.put("/configprops", "anon");
-        filterChainDefinitionMap.put("/logfile/**/**", "anon");
-        filterChainDefinitionMap.put("/liquibase/**/**", "anon");
-        filterChainDefinitionMap.put("/dump/**/**", "anon");
-        filterChainDefinitionMap.put("/trace/**/**", "anon");
-        filterChainDefinitionMap.put("/refresh/**/**", "anon");
-        filterChainDefinitionMap.put("/flyway/**/**", "anon");
-        filterChainDefinitionMap.put("/httptrace/**/**", "anon");
-        filterChainDefinitionMap.put("/auditevents/**/**", "anon");
+        filterChainDefinitionMap.put("/logfile", "anon");
+        filterChainDefinitionMap.put("/liquibase", "anon");
+        filterChainDefinitionMap.put("/dump", "anon");
+        filterChainDefinitionMap.put("/trace", "anon");
+        filterChainDefinitionMap.put("/refresh", "anon");
+        filterChainDefinitionMap.put("/flyway", "anon");
+        filterChainDefinitionMap.put("/httptrace", "anon");
+        filterChainDefinitionMap.put("/auditevents", "anon");
+        filterChainDefinitionMap.put("/error", "anon");
 
         // 其他的进行认证
         filterChainDefinitionMap.put("/**", "user");

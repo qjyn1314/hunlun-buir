@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -28,8 +29,11 @@ import java.util.List;
  */
 @Configuration
 public class CommonConfig {
-    /**增加资源访问的路径*/
-//    @EnableWebMvc
+
+    /**
+     * 增加资源访问的路径
+     */
+    @EnableWebMvc
     @Configuration
     public static class WebConfig implements WebMvcConfigurer {
         /**
@@ -37,12 +41,19 @@ public class CommonConfig {
          */
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            //swagger-ui的资源文件访问权限
+            registry.addResourceHandler("swagger-ui.html")
+                    .addResourceLocations("classpath:/META-INF/resources/");
+            registry.addResourceHandler("/webjars/**")
+                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            //项目中的静态资源
             registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/");
             registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
             registry.addResourceHandler("/**").addResourceLocations(
                     ResourceUtils.CLASSPATH_URL_PREFIX + "/resources/",
                     ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
         }
+
         /**
          * 跨域支持
          */
@@ -55,7 +66,10 @@ public class CommonConfig {
                     .maxAge(3600 * 24);
         }
     }
-    /**用于配置admin监控的信息*/
+
+    /**
+     * 用于配置admin监控的信息json转换
+     */
     @Configuration
     public static class JacksonMVCConfig implements WebMvcConfigurer {
         @Override

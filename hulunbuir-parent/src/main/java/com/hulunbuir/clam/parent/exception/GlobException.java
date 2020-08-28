@@ -3,7 +3,6 @@ package com.hulunbuir.clam.parent.exception;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -85,18 +84,6 @@ public class GlobException {
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return JsonResult.error(message.toString());
-    }
-
-    /**
-     * 统一处理请求的方法不正确异常
-     *
-     * @author wangjunming
-     * @since 2020/2/12 18:05
-     */
-    @ExceptionHandler(value = RequestRejectedException.class)
-    public String handleHttpRequestMethodNotSupportedException(RequestRejectedException e) {
-        log.error("统一处理请求的方法不正确异常-异常", e);
-        return "/error/404";
     }
 
     /**

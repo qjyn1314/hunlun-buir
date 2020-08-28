@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * explain:  配置Undertow的警告信息： io.undertow.websockets.jsr --> Bootstrap.java:68: UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+ * explain:  配置Undertow的警告信息： io.undertow.websockets.jsr -->
+ * Bootstrap.java:68: UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
  * </p>
  *
  * @author wangjunming

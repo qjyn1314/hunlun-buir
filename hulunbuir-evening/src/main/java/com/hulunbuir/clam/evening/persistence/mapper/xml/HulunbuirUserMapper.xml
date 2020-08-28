@@ -2,26 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hulunbuir.clam.evening.persistence.mapper.HulunbuirUserMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.hulunbuir.clam.evening.persistence.entity.HulunbuirUser">
-        <id column="user_id" property="userId" />
-        <result column="user_name" property="userName" />
-        <result column="password" property="password" />
-        <result column="email" property="email" />
-        <result column="phone" property="phone" />
-        <result column="status" property="status" />
-        <result column="create_date" property="createDate" />
-        <result column="update_date" property="updateDate" />
-        <result column="last_login_time" property="lastLoginTime" />
-        <result column="sex" property="sex" />
-        <result column="is_tab" property="isTab" />
-        <result column="avatar" property="avatar" />
-        <result column="description" property="description" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        user_id, user_name, password, email, phone, status, create_date, update_date, last_login_time, sex, is_tab, avatar, description
-    </sql>
-
 </mapper>
