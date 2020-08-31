@@ -36,7 +36,7 @@ public class RouteIntercept implements HandlerInterceptor {
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         response.setHeader("X-Frame-Options", "SAMEORIGIN");
         response.setContentType("text/json;charset=UTF-8");
@@ -44,6 +44,7 @@ public class RouteIntercept implements HandlerInterceptor {
         final String uri = request.getRequestURI();
         log.info("请求的路径是：{}", uri);
         final String interceptUrl = buirProperties.getInterceptUrl();
+        log.info("配置请求放过的路径是：{}", interceptUrl);
         String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(interceptUrl, StringPool.COMMA);
         return true;
         /*
@@ -53,7 +54,8 @@ public class RouteIntercept implements HandlerInterceptor {
                 flag = true;
             }
         }
-        return flag;*/
+        return flag;
+        */
     }
 
 }

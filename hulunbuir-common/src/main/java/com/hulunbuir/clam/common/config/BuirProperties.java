@@ -20,9 +20,9 @@ import javax.annotation.PostConstruct;
 public class BuirProperties {
 
     private static final String SERVER_PORT = "server.port";
-    private static Environment env;
     @Autowired
     private Environment environment;
+    private static Environment env;
     private String interceptUrl;
     private String validationUrl;
 

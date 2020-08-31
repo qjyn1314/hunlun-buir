@@ -15,8 +15,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +33,23 @@ import java.util.List;
  */
 @Configuration
 public class CommonConfig {
+
+    /**
+     * 配置默认错误页面
+     */
+    @Configuration
+    public static class ErrorPageInterceptor extends HandlerInterceptorAdapter {
+        private final List<Integer> errorCodeList = Arrays.asList(404, 403, 500, 501);
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
+                Exception {
+            if (errorCodeList.contains(response.getStatus())) {
+                response.sendRedirect("/error/404");
+                return false;
+            }
+            return super.preHandle(request, response, handler);
+        }
+    }
 
     /**
      * 增加资源访问的路径

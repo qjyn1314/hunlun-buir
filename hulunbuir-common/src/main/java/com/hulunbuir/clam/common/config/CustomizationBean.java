@@ -4,6 +4,7 @@ import io.undertow.server.DefaultByteBufferPool;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
  * @since 2020/4/3 12:31
  */
 @Component
+@Configuration
 public class CustomizationBean implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
     @Override

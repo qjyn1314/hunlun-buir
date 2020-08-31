@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class RoleFilter extends RolesAuthorizationFilter {
 
+    @Override
     public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws IOException {
 
@@ -24,8 +25,8 @@ public class RoleFilter extends RolesAuthorizationFilter {
         if (rolesArray == null || rolesArray.length == 0) {
             return true;
         }
-        for (int i = 0; i < rolesArray.length; i++) {
-            if (subject.hasRole(rolesArray[i])) {
+        for (String s : rolesArray) {
+            if (subject.hasRole(s)) {
                 return true;
             }
         }
