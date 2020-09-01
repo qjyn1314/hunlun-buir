@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.redisson;
+package com.hulunbuir.clam.parent.redisson;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;

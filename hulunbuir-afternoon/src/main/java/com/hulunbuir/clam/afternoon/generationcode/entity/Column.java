@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.afternoon.generationcode.entity;
 
-import com.hulunbuir.clam.common.utils.CommonUtils;
+import com.hulunbuir.clam.parent.tool.CommonUtils;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 

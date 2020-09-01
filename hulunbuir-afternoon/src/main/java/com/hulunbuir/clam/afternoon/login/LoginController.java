@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.afternoon.login;
 
 import com.hulunbuir.clam.afternoon.persistence.service.IBuirUserService;
-import com.hulunbuir.clam.common.config.submit.NoRepeatSubmit;
+import com.hulunbuir.clam.parent.submit.NoRepeatSubmit;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;

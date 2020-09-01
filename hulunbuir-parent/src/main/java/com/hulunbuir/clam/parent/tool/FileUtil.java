@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.utils;
+package com.hulunbuir.clam.parent.tool;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.route.config.jwt;
 
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
-import com.hulunbuir.clam.common.utils.RequestUtils;
+import com.hulunbuir.clam.parent.tool.RequestUtils;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

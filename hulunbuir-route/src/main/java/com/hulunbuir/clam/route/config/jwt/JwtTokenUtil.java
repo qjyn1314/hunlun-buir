@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.route.config.jwt;
 
-import com.hulunbuir.clam.common.utils.JwtUtils;
+import com.hulunbuir.clam.parent.tool.JwtUtils;
 import com.hulunbuir.clam.distributed.model.UserManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

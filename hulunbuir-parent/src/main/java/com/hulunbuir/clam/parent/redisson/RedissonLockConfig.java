@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.redisson;
+package com.hulunbuir.clam.parent.redisson;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;

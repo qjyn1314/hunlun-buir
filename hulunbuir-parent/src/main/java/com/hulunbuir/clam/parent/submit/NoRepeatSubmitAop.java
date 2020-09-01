@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.config.submit;
+package com.hulunbuir.clam.parent.submit;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 @Component
 public class NoRepeatSubmitAop {
-    private Logger logger = LoggerFactory.getLogger(NoRepeatSubmitAop.class);
+    private final Logger logger = LoggerFactory.getLogger(NoRepeatSubmitAop.class);
     @Autowired
     private Cache<String, Integer> cache;
     @Around("execution(* com.hulunbuir.clam.*..*(..)) && @annotation(nrs)")

@@ -3,7 +3,7 @@ package com.hulunbuir.clam.afternoon.generationcode;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.Files;
 import com.hulunbuir.clam.afternoon.generationcode.entity.Column;
-import com.hulunbuir.clam.common.utils.CommonUtils;
+import com.hulunbuir.clam.parent.tool.CommonUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;

@@ -17,8 +17,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +31,6 @@ import java.util.Map;
  * @author wangjunming
  * @since 2019-10-08
  */
-@Component
 public class HCSmsUtil {
 
     private static Logger logger = LoggerFactory.getLogger(HCSmsUtil.class);
@@ -195,7 +192,7 @@ public class HCSmsUtil {
         return flag;
     }
 
-    public static void main(String[] args) {
+    public  void mainas(String[] args) {
         String mobile = "15321355715";
         String content = "【磁云金服】融资申请（融资单号）已经提交成功，请等待资金方审核。";
         boolean b = postMessage(mobile, content, account_tz);

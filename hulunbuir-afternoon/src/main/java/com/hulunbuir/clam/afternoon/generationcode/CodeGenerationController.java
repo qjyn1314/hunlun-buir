@@ -6,8 +6,8 @@ import com.hulunbuir.clam.afternoon.generationcode.service.CodeGenerationService
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
-import com.hulunbuir.clam.common.utils.CommonUtils;
-import com.hulunbuir.clam.common.utils.FileUtil;
+import com.hulunbuir.clam.parent.tool.CommonUtils;
+import com.hulunbuir.clam.parent.tool.FileUtil;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.ApiOperation;

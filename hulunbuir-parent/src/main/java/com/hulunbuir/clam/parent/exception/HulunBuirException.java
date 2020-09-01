@@ -1,5 +1,7 @@
 package com.hulunbuir.clam.parent.exception;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * Explain:系统中的异常类，
@@ -8,7 +10,7 @@ package com.hulunbuir.clam.parent.exception;
  * @author wangjunming
  * @since 2020-01-16 11:41
  */
-public class HulunBuirException extends Exception{
+public class HulunBuirException extends Exception implements Serializable {
 
     private HulunBuirException() {
     }

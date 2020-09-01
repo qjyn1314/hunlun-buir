@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.utils;
+package com.hulunbuir.clam.parent.tool;
 
 import javax.crypto.Cipher;
 import java.math.BigInteger;
@@ -190,7 +190,7 @@ public class DateAsc {
     /**
      * 用法实例
      */
-    public static void main(String[] args) {
+    public void mainas(String[] args) {
         try {
 //            String APPID = "wxd664398c8d7e4f6b";
 //            String APPIDs = encryptStr(APPID);

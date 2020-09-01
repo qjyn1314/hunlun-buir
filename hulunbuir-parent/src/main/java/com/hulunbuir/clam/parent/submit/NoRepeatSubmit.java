@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.config.submit;
+package com.hulunbuir.clam.parent.submit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
