@@ -1,6 +1,8 @@
 package com.hulunbuir.clam.evening.auth;
 
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
+import com.hulunbuir.clam.common.config.AuthConstants;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.tool.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,18 +30,14 @@ public class AuthService {
     }
 
     public boolean isLogin(HttpServletRequest request) {
-        final String tokenByHeader = RequestUtils.getTokenByHeader(request);
+        final String tokenByHeader = RequestUtils.getTokenByHeader(request, AuthConstants.HEADER_TOKEN);
 
-        return false;
+        return true;
     }
 
 
+    public void login(String username, String password) throws HulunBuirException {
 
 
-
-
-
-
-
-
+    }
 }

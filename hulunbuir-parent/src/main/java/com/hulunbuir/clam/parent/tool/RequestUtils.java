@@ -27,8 +27,8 @@ public class RequestUtils {
      * @author wangjunming
      * @since 2020/7/13 12:57
      */
-    public static String getTokenByHeader(HttpServletRequest httpServletRequest) {
-        return httpServletRequest.getHeader("user_token");
+    public static String getTokenByHeader(HttpServletRequest httpServletRequest,String tokenName) {
+        return httpServletRequest.getHeader(tokenName);
     }
 
     /**

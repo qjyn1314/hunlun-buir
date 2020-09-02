@@ -2,14 +2,12 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-        laydate = layui.laydate,
-        laytpl = layui.laytpl,
         table = layui.table;
 
     //添加验证规则
     form.verify({
         oldPwd : function(value, item){
-            if(value != "123456"){
+            if(value !== "123456"){
                 return "密码错误，请重新输入！";
             }
         },
@@ -62,6 +60,7 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
             layer.close(index);
         });
     });
+
     //新增等级
     $(".addGrade").click(function(){
         var $tr = $(".layui-table-body.layui-table-main tbody tr:last");

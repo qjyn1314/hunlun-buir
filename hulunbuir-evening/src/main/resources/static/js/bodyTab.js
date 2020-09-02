@@ -1,15 +1,6 @@
-/*
-	@Author: 驊驊龔頾
-	@Time: 2017-10
-	@Tittle: bodyTab
-	@Description: 点击对应按钮添加新窗口
-*/
-var tabFilter,menu=[],liIndex,curNav,delMenu,
-    changeRefreshStr = window.sessionStorage.getItem("changeRefresh");
+var tabFilter,menu=[],liIndex,curNav,delMenu,changeRefreshStr = window.sessionStorage.getItem("changeRefresh");
 layui.define(["element","jquery"],function(exports){
-	var element = layui.element,
-		$ = layui.$,
-		layId,
+	var element = layui.element,$ = layui.$,layId,
 		Tab = function(){
 			this.tabConfig = {
 				openTabNum : undefined,  //最大可打开窗口数量
@@ -21,7 +12,7 @@ layui.define(["element","jquery"],function(exports){
     Tab.prototype.navBar = function(strData){
         var data;
         if(typeof(strData) == "string"){
-            var data = JSON.parse(strData); //部分用户解析出来的是字符串，转换一下
+            data = JSON.parse(strData); //部分用户解析出来的是字符串，转换一下
         }else{
             data = strData;
         }

@@ -44,8 +44,7 @@ public class CurrentUser {
      * @since 2020/6/18 17:23
      */
     public static HttpServletResponse handleUserMessage(UserManager user, HttpServletResponse response) {
-        final String userInfoToken = JWT_TOKEN_UTIL.doUserInfoToken(user);
-        return RequestUtils.setCookie(response, USER_COOKIE, userInfoToken, USER_COOKIE_TIME_OUT);
+        return RequestUtils.setCookie(response, USER_COOKIE, JWT_TOKEN_UTIL.doUserInfoToken(user), USER_COOKIE_TIME_OUT);
     }
 
     /**
@@ -67,7 +66,7 @@ public class CurrentUser {
      * @since 2020/6/18 17:23
      */
     public static UserManager getUserMessage() {
-        UserManager userManager = JWT_TOKEN_UTIL.getUserInfoByToken(RequestUtils.getTokenByHeader(ApplicationContextUtils.getHttpServletRequest()));
+        UserManager userManager = JWT_TOKEN_UTIL.getUserInfoByToken(RequestUtils.getTokenByHeader(ApplicationContextUtils.getHttpServletRequest(),USER_COOKIE));
         if(null != userManager){
             return userManager;
         }
