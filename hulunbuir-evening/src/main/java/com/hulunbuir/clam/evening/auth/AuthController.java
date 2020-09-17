@@ -4,7 +4,6 @@ import com.calm.security.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * <p>
@@ -26,12 +25,6 @@ public class AuthController extends AuthService {
      */
     @GetMapping("/login_success")
     public String loginSuccessGet() {
-        log.info("登陆成功之后将跳转到首页!");
-        return INDEX;
-    }
-
-    @PostMapping("/login_success")
-    public String loginSuccessPost() {
         log.info("登陆成功之后将跳转到首页!");
         return INDEX;
     }

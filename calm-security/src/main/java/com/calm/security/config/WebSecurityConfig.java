@@ -1,6 +1,5 @@
 package com.calm.security.config;
 
-import com.calm.security.Auth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("zhangsan").password(passwordEncoder().encode("123")).authorities("/").build());
-        manager.createUser(User.withUsername("lisi").password(passwordEncoder().encode("456")).authorities("/").build());
+        manager.createUser(User.withUsername("zhangsan").password(passwordEncoder().encode("123")).authorities("po").build());
+        manager.createUser(User.withUsername("lisi").password(passwordEncoder().encode("456")).authorities("po").build());
         return manager;
     }
 
@@ -44,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 密码加密
      */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -65,13 +64,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/auth/login")
                 //指定登录form表单的请求路径
                 .loginProcessingUrl("/login/form")
-                //认证成功成功后的跳转，为true是可以在任何时候都可以跳转
-                .defaultSuccessUrl(Auth.LOGIN_SUCCESS_URL,true)
+                //认证成功成功后的请求路径
+                .defaultSuccessUrl("/login_success")
                 //认证失败的跳转
                 .failureUrl("/auth/fail")
                 .and()
                 .authorizeRequests()
+                //不需要登录认证的路径
                 .antMatchers("/auth/login", "/login/form", "/auth/fail").permitAll()
+                //其余请求都需要登录认证通过
                 .anyRequest().authenticated()
                 //跨域
                 .and().cors()
@@ -83,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 添加 UserDetailsService， 实现自定义登录校验
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder builder) throws Exception{
+    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
     }
