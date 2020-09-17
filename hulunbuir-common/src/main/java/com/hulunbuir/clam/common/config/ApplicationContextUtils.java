@@ -4,7 +4,7 @@ import com.hulunbuir.clam.parent.exception.BuirException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author wangjunming
  * @since 2020/6/21 12:25
  */
-@Configuration
+@Component
 public class ApplicationContextUtils implements ApplicationContextAware {
 
     private static ApplicationContext context;

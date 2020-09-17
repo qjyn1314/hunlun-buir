@@ -22,6 +22,7 @@
         <module>hulunbuir-parent</module>
         <module>hulunbuir-common</module>
         <module>hulunbuir-route</module>
+        <module>calm-security</module>
         <module>hulunbuir-distributed</module>
         <module>hulunbuir-admin</module>
         <module>hulunbuir-afternoon</module>
@@ -86,6 +87,11 @@
             <dependency>
                 <groupId>com.hulunbuir.clam.route</groupId>
                 <artifactId>hulunbuir-route</artifactId>
+                <version>${hulunbuir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.calm.security</groupId>
+                <artifactId>calm-security</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>

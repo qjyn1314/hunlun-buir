@@ -70,8 +70,8 @@ public class SumTwoNumbers001 {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @author wangjunming
      * @since 2020/7/9 20:14
      */

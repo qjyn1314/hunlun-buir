@@ -47,5 +47,5 @@ public class SocketServer implements Runnable{
 		SocketServer server = new SocketServer(12345);
 		server.run();
 	}
-	
+
 }

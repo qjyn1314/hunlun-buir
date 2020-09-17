@@ -1,11 +1,9 @@
-package com.hulunbuir.clam.evening.auth;
+package com.calm.security;
 
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
-import com.hulunbuir.clam.common.config.AuthConstants;
-import com.hulunbuir.clam.parent.exception.HulunBuirException;
-import com.hulunbuir.clam.parent.tool.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -13,31 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
- * explain:获取用户信息
+ * explain:
  * </p>
  *
  * @author wangjunming
- * @since 2020/8/26 17:24
+ * @since 2020/9/15 17:57
  */
 @DependsOn("applicationContextUtils")
 @Component
-public class AuthService {
-
+public class AuthService implements Auth {
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+    @Autowired
+    private HttpServletRequest request;
 
     public static AuthService me() {
         return ApplicationContextUtils.getBean(AuthService.class);
     }
 
-    public boolean isLogin(HttpServletRequest request) {
-        final String tokenByHeader = RequestUtils.getTokenByHeader(request, AuthConstants.HEADER_TOKEN);
-
-        return true;
+    public String handleView(){
+        return request.getRequestURI().replace(HTML_SUFFIX, "");
     }
 
-
-    public void login(String username, String password) throws HulunBuirException {
-
-
-    }
 }

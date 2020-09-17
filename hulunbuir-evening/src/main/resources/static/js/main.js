@@ -42,6 +42,8 @@ layui.use(['form','element','layer','jquery'],function(){
         var systemParameter = JSON.parse(window.sessionStorage.getItem("systemParameter"));
         fillParameter(systemParameter);
     }else{
+        let loginurl = Action().LOGIN_URL;
+        console.log(loginurl)
         $.ajax({
             url : "../json/systemParameter.json",
             type : "get",

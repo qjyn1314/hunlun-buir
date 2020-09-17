@@ -29,6 +29,10 @@
             <groupId>com.hulunbuir.clam.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.calm.security</groupId>
+            <artifactId>calm-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

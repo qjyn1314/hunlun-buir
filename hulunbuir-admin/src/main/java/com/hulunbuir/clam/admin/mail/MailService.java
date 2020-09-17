@@ -1,12 +1,12 @@
 package com.hulunbuir.clam.admin.mail;
 
 import com.hulunbuir.clam.admin.test_demo.Person;
+import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -34,17 +34,6 @@ import java.util.Date;
 @Slf4j
 public class MailService {
 
-    /**
-     * 发送者
-     *
-     * @author wangjunming
-     * @param null:
-     * @return: null
-     * @since 2020/2/17 13:04
-     */
-    @Value("${hulun-buit.mail.sender}")
-    private String fromSender;
-
     @Autowired
     private JavaMailSender mailSender;
 
@@ -59,7 +48,7 @@ public class MailService {
     public void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception {
         log.info("收件人：{}，邮件主题：{}，邮件内容：{}，抄送地址：{}", to, subject, content, cc);
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromSender);
+        message.setFrom(BuirProperties.me().getMailSender());
         message.setTo(to);
         message.setSubject(subject);
         message.setText(content);
@@ -83,7 +72,7 @@ public class MailService {
         log.info("收件人：{}，邮件主题：{}，邮件内容：{}，抄送地址：{}", to, subject, content, cc);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-        messageHelper.setFrom(fromSender);//邮件发信人
+        messageHelper.setFrom(BuirProperties.me().getMailSender());//邮件发信人
         messageHelper.setTo(to);//邮件收信人
         messageHelper.setSubject(subject);//邮件主题
         messageHelper.setText(content);//邮件内容

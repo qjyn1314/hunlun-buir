@@ -3,6 +3,7 @@ package com.hulunbuir.clam.common.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
@@ -15,8 +16,9 @@ import javax.annotation.PostConstruct;
  * @author wangjunming
  * @since 2020/8/27 10:26
  */
+@DependsOn("applicationContextUtils")
 @Configuration
-@ConfigurationProperties(prefix = "buir.config")
+@ConfigurationProperties(prefix = "buir")
 public class BuirProperties {
 
     private static final String SERVER_PORT = "server.port";
@@ -25,14 +27,19 @@ public class BuirProperties {
     private static Environment env;
     private String interceptUrl;
     private String validationUrl;
+    private String mailSender;
 
-    public static String getPort() {
-        return env.getProperty(SERVER_PORT);
+    public static BuirProperties me() {
+        return ApplicationContextUtils.getBean(BuirProperties.class);
     }
 
     @PostConstruct
     public void init() {
         env = environment;
+    }
+
+    public static String getPort() {
+        return env.getProperty(SERVER_PORT);
     }
 
     public String getInterceptUrl() {
@@ -49,5 +56,13 @@ public class BuirProperties {
 
     public void setValidationUrl(String validationUrl) {
         this.validationUrl = validationUrl;
+    }
+
+    public String getMailSender() {
+        return mailSender;
+    }
+
+    public void setMailSender(String mailSender) {
+        this.mailSender = mailSender;
     }
 }

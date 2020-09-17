@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @Slf4j
 @EnableDubbo
-@ComponentScan(basePackages = {"com.hulunbuir.clam",})
+@ComponentScan(basePackages = {"com.hulunbuir.clam","com.calm.security"})
 @SpringBootApplication
 public class HulunBuirEveningApplication {
     public static void main(String[] args) {

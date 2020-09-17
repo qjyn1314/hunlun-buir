@@ -3,7 +3,6 @@ package com.hulunbuir.clam.common.config;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -29,10 +28,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Component
-public class RouteIntercept implements HandlerInterceptor {
+public class AuthIntercept implements HandlerInterceptor {
 
-    @Autowired
-    private BuirProperties buirProperties;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
@@ -43,7 +40,7 @@ public class RouteIntercept implements HandlerInterceptor {
         response.setCharacterEncoding("UTF-8");
         final String uri = request.getRequestURI();
         log.info("请求的路径是：{}", uri);
-        final String interceptUrl = buirProperties.getInterceptUrl();
+        final String interceptUrl = BuirProperties.me().getInterceptUrl();
         log.info("配置请求放过的路径是：{}", interceptUrl);
         String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(interceptUrl, StringPool.COMMA);
         return true;
