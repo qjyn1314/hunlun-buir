@@ -25,8 +25,8 @@ import java.util.Set;
  * @author wangjunming
  * @since 2020-02-12 17:54
  */
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class GlobException {
 
     /**

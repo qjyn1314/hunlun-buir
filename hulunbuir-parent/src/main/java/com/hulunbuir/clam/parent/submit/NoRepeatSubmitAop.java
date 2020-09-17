@@ -59,7 +59,8 @@ public class NoRepeatSubmitAop {
     }
     @Bean
     public Cache<String, Integer> getCache() {
-        return CacheBuilder.newBuilder().expireAfterWrite(20L, TimeUnit.SECONDS).build();// 缓存有效期为2秒
+        // 缓存有效期为20秒
+        return CacheBuilder.newBuilder().expireAfterWrite(20L, TimeUnit.SECONDS).build();
     }
 
 }

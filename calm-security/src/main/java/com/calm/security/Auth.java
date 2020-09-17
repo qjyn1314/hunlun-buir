@@ -10,9 +10,7 @@ package com.calm.security;
  */
 public interface Auth {
     String INDEX = "index";
-    String LOGIN_SUCCESS_URL = "/user/login_success";
+    String LOGIN_SUCCESS_URL = "/login_success";
     String HTML_SUFFIX = ".html";
-    String REGISTER_VIEW_URL = "register/register";
-    String REGISTER_URL = "/register/register";
 
 }

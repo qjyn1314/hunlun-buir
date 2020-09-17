@@ -4,6 +4,7 @@ import com.calm.security.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * <p>
@@ -23,10 +24,14 @@ public class AuthController extends AuthService {
      * @author wangjunming
      * @since 2020/9/16 10:47
      */
-    @GetMapping("/user/login_success")
-    public String loginSuccess() {
-//        ModelAndView modelAndView, @RequestParam(required = false) String error
-//        log.info("登陆成功之后将跳转到首页!：错误码：{}",error);
+    @GetMapping("/login_success")
+    public String loginSuccessGet() {
+        log.info("登陆成功之后将跳转到首页!");
+        return INDEX;
+    }
+
+    @PostMapping("/login_success")
+    public String loginSuccessPost() {
         log.info("登陆成功之后将跳转到首页!");
         return INDEX;
     }
@@ -39,7 +44,19 @@ public class AuthController extends AuthService {
      */
     @GetMapping("/auth/login")
     public String authLogin() {
-        log.info("将跳转至登录页面!");
+        log.info("将跳转至登录认证页面!");
+        return handleView();
+    }
+
+    /**
+     * 将跳转至登录页面，让用户登录
+     *
+     * @author wangjunming
+     * @since 2020/9/16 10:47
+     */
+    @GetMapping("/auth/fail")
+    public String failLogin() {
+        log.info("将跳转至认证失败页面!");
         return handleView();
     }
 

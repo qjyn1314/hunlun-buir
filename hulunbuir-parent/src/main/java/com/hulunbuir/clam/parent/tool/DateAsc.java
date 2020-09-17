@@ -17,9 +17,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DateAsc {
 
-    private static String defaultSecretKey = "iciyun12320200108"; //默认密钥
-    private Cipher encryptCipher = null; //加密器
-    private Cipher decryptCipher = null; //解密器
+    //自定义密钥-用于加密APPID和secrity使用的密钥
+    private static final DateAsc DATA_DES = new DateAsc("ICIYUN20200108");
+    //默认密钥
+    private static String defaultSecretKey = "iciyun12320200108";
+    //加密器
+    private Cipher encryptCipher = null;
 
     public DateAsc() throws Exception {
         this(defaultSecretKey);
@@ -115,8 +118,8 @@ public class DateAsc {
         Key key = new javax.crypto.spec.SecretKeySpec(arrB, "DES");
         return key;
     }
-    //自定义密钥-用于加密APPID和secrity使用的密钥
-    private static final DateAsc dataDes = new DateAsc("ICIYUN20200108");
+    //解密器
+    private Cipher decryptCipher = null;
 
     /**
      * 对字符串进行加密
@@ -128,7 +131,7 @@ public class DateAsc {
     public static String encryptStr(String str){
         try {
             System.out.println("加密前的字符：" + str);
-            String encrypt = dataDes.encrypt(str);
+            String encrypt = DATA_DES.encrypt(str);
             System.out.println("加密后的字符：" + encrypt);
             return encrypt;
         } catch (Exception e) {
@@ -147,7 +150,7 @@ public class DateAsc {
     public static String decryptStr(String str){
         try {
             System.out.println("解密前的字符：" + str);
-            String decrypt = dataDes.decrypt(str);
+            String decrypt = DATA_DES.decrypt(str);
             System.out.println("解密后的字符：" + decrypt);
             return decrypt;
         } catch (Exception e) {

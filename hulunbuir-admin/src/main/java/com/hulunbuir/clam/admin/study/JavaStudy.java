@@ -3,7 +3,9 @@ package com.hulunbuir.clam.admin.study;
 import com.alibaba.fastjson.JSONArray;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -192,6 +194,13 @@ public class JavaStudy {
         Integer i1 = i * j;
 
         System.out.println(i1);
+
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+
+        final String format1 = format.format(new Date());
+        System.out.println(format1);
+
 
     }
 

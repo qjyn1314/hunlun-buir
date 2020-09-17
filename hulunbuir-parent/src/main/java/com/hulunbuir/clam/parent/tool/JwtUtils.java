@@ -24,12 +24,12 @@ public final class JwtUtils {
     /**
      * jwt密钥
      */
-    public static final String secret = "HuLun_Buir_20200323124748";
+    public static final String SECRET = "HuLun_Buir_20200323124748";
 
     /**
      * jwt过期时间-默认是24小时
      */
-    public static final int expireTime = 24;
+    public static final int EXPIRE_TIME = 24;
 
     /**
      * 初始化jwt密钥和过期时间
@@ -92,7 +92,7 @@ public final class JwtUtils {
                 .setSubject(subject)
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS256, JwtUtils.secret)
+                .signWith(SignatureAlgorithm.HS256, JwtUtils.SECRET)
                 .compact();
     }
 
@@ -104,7 +104,7 @@ public final class JwtUtils {
      */
     public static Claims getClaimFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(JwtUtils.secret)
+                .setSigningKey(JwtUtils.SECRET)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -117,7 +117,7 @@ public final class JwtUtils {
      * @since 2020/3/23 12:54
      */
     public String doGenerateToken(Map<String, Object> claims) {
-        return generateToken(claims, JwtUtils.secret, JwtUtils.expireTime);
+        return generateToken(claims, JwtUtils.SECRET, JwtUtils.EXPIRE_TIME);
     }
 
     /**
@@ -140,7 +140,7 @@ public final class JwtUtils {
     private boolean parseToken(String token) {
         boolean flag = false;
         try {
-            Jwts.parser().setSigningKey(JwtUtils.secret).parseClaimsJws(token).getBody();
+            Jwts.parser().setSigningKey(JwtUtils.SECRET).parseClaimsJws(token).getBody();
             flag = true;
         } catch (ExpiredJwtException e) {
             log.error("JWT-解析token异常-ExpiredJwtException：", e);

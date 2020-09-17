@@ -32,7 +32,7 @@ public final class JwtTokenUtil {
     public String doUserInfoToken(UserManager userManager) {
         Map<String, Object> claims = new HashMap<>(1);
         claims.put("loginUser", userManager);
-        return JwtUtils.generateToken(claims, JwtUtils.secret, JwtUtils.expireTime);
+        return JwtUtils.generateToken(claims, JwtUtils.SECRET, JwtUtils.EXPIRE_TIME);
     }
 
     /**

@@ -94,8 +94,10 @@ public class RequestUtils {
         for (String key : cookieMap.keySet()) {
             if (key.equals(deleteKey)) {
                 Cookie cookie = cookieMap.get(key);
-                cookie.setMaxAge(0);//设置cookie有效时间为0
-                cookie.setPath("/");//不设置存储路径
+                //设置cookie有效时间为0
+                cookie.setMaxAge(0);
+                //不设置存储路径
+                cookie.setPath("/");
                 response.addCookie(cookie);
             }
         }
@@ -105,8 +107,10 @@ public class RequestUtils {
         Map<String, Cookie> cookieMap = readCookieMap(request);
         for (String key : cookieMap.keySet()) {
             Cookie cookie = cookieMap.get(key);
-            cookie.setMaxAge(0);//设置cookie有效时间为0
-            cookie.setPath("/");//不设置存储路径
+            //设置cookie有效时间为0
+            cookie.setMaxAge(0);
+            //不设置存储路径
+            cookie.setPath("/");
             response.addCookie(cookie);
         }
     }
