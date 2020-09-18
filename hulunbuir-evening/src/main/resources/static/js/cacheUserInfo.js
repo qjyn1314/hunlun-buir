@@ -6,7 +6,7 @@ layui.use(['form','jquery',"address","authUtils"],function() {
         $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
         $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
     }else{
-        $("#userFace").attr("src","../../images/face.jpg");
+        $("#userFace").attr("src","../../images/face.png");
     }
 
     //判断是否修改过用户信息，如果修改过则填充修改后的信息
