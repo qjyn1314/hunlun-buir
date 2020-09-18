@@ -39,9 +39,9 @@ public class AuthIntercept implements HandlerInterceptor {
         response.setContentType("text/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         final String uri = request.getRequestURI();
-        log.info("请求的路径是：{}", uri);
+//        log.info("请求的路径是：{}", uri);
         final String interceptUrl = BuirProperties.me().getInterceptUrl();
-        log.info("配置请求放过的路径是：{}", interceptUrl);
+//        log.info("配置请求放过的路径是：{}", interceptUrl);
         String[] anonUrl = StringUtils.splitByWholeSeparatorPreserveAllTokens(interceptUrl, StringPool.COMMA);
         return true;
         /*

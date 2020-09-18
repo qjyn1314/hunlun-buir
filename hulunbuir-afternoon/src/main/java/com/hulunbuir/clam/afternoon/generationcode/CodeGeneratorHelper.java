@@ -3,13 +3,13 @@ package com.hulunbuir.clam.afternoon.generationcode;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.Files;
 import com.hulunbuir.clam.afternoon.generationcode.entity.Column;
+import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.parent.tool.CommonUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -27,11 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class CodeGeneratorHelper {
-
-    @Value("${service.template.generation}")
-    private String templateGenerationFolder;
-    @Value("${service.template.generation.tmp}")
-    private String templateGenerationTmpFolder;
 
     private static JSONObject toJSONObject(Object o) {
         return JSONObject.parseObject(JSONObject.toJSON(o).toString());
@@ -52,7 +47,7 @@ public class CodeGeneratorHelper {
     }
 
     private String getFilePath(CodeGenerationConfig configure, String packagePath, String suffix, boolean serviceInterface) {
-        String filePath = templateGenerationTmpFolder + configure.getJavaPath() +
+        String filePath = BuirProperties.me().getTemplateGenerationTmp() + configure.getJavaPath() +
                 packageConvertPath(configure.getBasePackage() + "." + packagePath);
         if (serviceInterface) {
             filePath += "I";
@@ -62,7 +57,7 @@ public class CodeGeneratorHelper {
     }
 
     private String getFilePath(CodeGenerationConfig configure, String packagePath, String suffix, String entityVoPoClassName) {
-        String filePath = templateGenerationTmpFolder + configure.getJavaPath() +
+        String filePath = BuirProperties.me().getTemplateGenerationTmp() + configure.getJavaPath() +
                 packageConvertPath(configure.getBasePackage() + "." + packagePath);
         filePath += configure.getClassName() + entityVoPoClassName + suffix;
         return filePath;
@@ -78,7 +73,7 @@ public class CodeGeneratorHelper {
         String templatePath = CodeGeneratorHelper.class.getResource(resourcesFolder).getPath();
         File file = new File(templatePath);
         if (!file.exists()) {
-            templatePath = templateGenerationFolder + templateFolder + "/";
+            templatePath = BuirProperties.me().getTemplateGeneration() + templateFolder + "/";
         }
         configuration.setDirectoryForTemplateLoading(new File(templatePath));
         configuration.setDefaultEncoding("UTF-8");
@@ -203,7 +198,7 @@ public class CodeGeneratorHelper {
 
     //获取crud的xmlPath，放在sources目录下
     private String getXmlCrudFilePath(CodeGenerationConfig configure, String packagePath, String suffix ) {
-        String filePath = templateGenerationTmpFolder + packageConvertPath(configure.getResourcesPath() + "." + packagePath);
+        String filePath = BuirProperties.me().getTemplateGenerationTmp() + packageConvertPath(configure.getResourcesPath() + "." + packagePath);
         filePath += configure.getClassName() + suffix;
         return filePath;
     }

@@ -1,16 +1,9 @@
 var form, $,areaData;
-layui.config({
-    base : "../../js/"
-}).extend({
-    "address" : "address"
-})
-layui.use(['form','layer','upload','laydate',"address"],function(){
+layui.use(['address','authUtils','form','layer','upload','laydate',],function(){
     form = layui.form;
     $ = layui.jquery;
-    var layer = parent.layer === undefined ? layui.layer : top.layer,
-        upload = layui.upload,
-        laydate = layui.laydate,
-        address = layui.address;
+    const layer = parent.layer === undefined ? layui.layer : top.layer,
+          upload = layui.upload,laydate = layui.laydate,address = layui.address,authUtils = layui.authUtils;
 
     //上传头像
     upload.render({

@@ -1,81 +1,28 @@
-function baseUrlHandle() {
-    let url = window.location.href;
-    let doubleSlash = url.indexOf("/") + 2;
-    let doubleSlashUrl = url.substring(doubleSlash);
-    let singleSlash = doubleSlashUrl.indexOf("/");
-    return url.substring(0, singleSlash + doubleSlash);
-}
-var baseUrl = baseUrlHandle();
-function Action() {
-    return {
-        NAVS_URL: baseUrl + "/json/navs.json",
-        //登录
-        LOGIN_URL: baseUrl + "/login/login",
-    };
-}
 var $, tab, dataStr, layer;
-layui.config({base: "js/"}).extend({"bodyTab": "bodyTab"}).use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
-    var form = layui.form,
-        element = layui.element;
-    $ = layui.$;
-    layer = parent.layer === undefined ? layui.layer : top.layer;
-    tab = layui.bodyTab({openTabNum: "50"});
-
-    //通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
-    getData("contentManagement");
-
-    //通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
-    function getData(json) {
-        $.getJSON(Action().NAVS_URL, function (data) {
-            // dataStr = data.contentManagement;
-            // //重新渲染左侧菜单
-            // tab.render();
-            if (json == "contentManagement") {
-                dataStr = data.contentManagement;
-                //重新渲染左侧菜单
-                tab.render();
-            } else if (json == "memberCenter") {
-                dataStr = data.memberCenter;
-                //重新渲染左侧菜单
-                tab.render();
-            } else if (json == "systemeSttings") {
-                dataStr = data.systemeSttings;
-                //重新渲染左侧菜单
-                tab.render();
-            } else if (json == "seraphApi") {
-                dataStr = data.seraphApi;
-                //重新渲染左侧菜单
-                tab.render();
-            }
+layui.use(['authUtils', 'bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
+    const form = layui.form, authUtils = layui.authUtils,Action = layui.authUtils.Action, element = layui.element;
+    const $ = layui.$,layer = parent.layer === undefined ? layui.layer : top.layer;
+    tab = layui.bodyTab({openTabNum: "10"});
+    //获取左侧二三级菜单，获取登录用户的信息，封装一个登录公共方法
+    getData();
+    function getData() {
+        $.getJSON(Action.NAVS_URL, function (data) {
+            dataStr = data;
+            tab.render();
         })
     }
-
-    //页面加载时判断左侧菜单是否显示
-    //通过顶部菜单获取左侧菜单
-    $(".topLevelMenus li,.mobileTopLevelMenus dd").click(function () {
-        if ($(this).parents(".mobileTopLevelMenus").length != "0") {
-            $(".topLevelMenus li").eq($(this).index()).addClass("layui-this").siblings().removeClass("layui-this");
-        } else {
-            $(".mobileTopLevelMenus dd").eq($(this).index()).addClass("layui-this").siblings().removeClass("layui-this");
-        }
-        $(".layui-layout-admin").removeClass("showMenu");
-        $("body").addClass("site-mobile");
-        getData($(this).data("menu"));
-        //渲染顶部窗口
-        tab.tabMove();
-    })
 
     //隐藏左侧导航
     $(".hideMenu").click(function () {
         if ($(".topLevelMenus li.layui-this a").data("url")) {
-            layer.msg("此栏目状态下左侧菜单不可展开");  //主要为了避免左侧显示的内容与顶部菜单不匹配
+            //主要为了避免左侧显示的内容与顶部菜单不匹配
+            layer.msg("此栏目状态下左侧菜单不可展开");
             return false;
         }
         $(".layui-layout-admin").toggleClass("showMenu");
         //渲染顶部窗口
         tab.tabMove();
     })
-
 
     //手机设备的简单适配
     $('.site-tree-mobile').on('click', function () {
@@ -88,9 +35,10 @@ layui.config({base: "js/"}).extend({"bodyTab": "bodyTab"}).use(['bodyTab', 'form
     // 添加新窗口
     $("body").on("click", ".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')", function () {
         //如果不存在子级
-        if ($(this).siblings().length == 0) {
+        if ($(this).siblings().length === 0) {
             addTab($(this));
-            $('body').removeClass('site-mobile');  //移动端点击菜单关闭菜单层
+            //移动端点击菜单关闭菜单层
+            $('body').removeClass('site-mobile');
         }
         $(this).parent("li").siblings().removeClass("layui-nav-itemed");
     })

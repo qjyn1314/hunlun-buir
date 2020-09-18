@@ -6,15 +6,15 @@ import com.hulunbuir.clam.afternoon.generationcode.service.CodeGenerationService
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
-import com.hulunbuir.clam.parent.tool.CommonUtils;
-import com.hulunbuir.clam.parent.tool.FileUtil;
+import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
+import com.hulunbuir.clam.parent.tool.CommonUtils;
+import com.hulunbuir.clam.parent.tool.FileUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,9 +41,6 @@ public class CodeGenerationController extends BaseController {
     private CodeGenerationService codeGenerationService;
     @Autowired
     private CodeGeneratorHelper generatorHelper;
-
-    @Value("${service.template.generation.tmp}")
-    private String templateGenerationTmpFolder;
 
     @ApiOperation("保存配置")
     @PostMapping("/saveGeneration")
@@ -107,7 +104,7 @@ public class CodeGenerationController extends BaseController {
         config.setTableComment(remark);
         List<Column> columns = codeGenerationService.getColumns(generation);
         try {
-            final File file = new File(templateGenerationTmpFolder + "src");
+            final File file = new File(BuirProperties.me().getTemplateGenerationTmp() + "src");
             final boolean mkdirs = file.mkdirs();
             log.info("创建临时文件夹是否成功：{}",mkdirs);
         } catch (Exception e) {
@@ -140,14 +137,14 @@ public class CodeGenerationController extends BaseController {
         // 打包
         String zipFile = System.currentTimeMillis() + CodeGenerationConfig.SUFFIX;
         try {
-            FileUtil.compress(templateGenerationTmpFolder + "src", zipFile);
+            FileUtil.compress(BuirProperties.me().getTemplateGenerationTmp() + "src", zipFile);
             // 下载
             FileUtil.download(zipFile, tableName + CodeGenerationConfig.SUFFIX, true, response);
         } catch (Exception e) {
             log.error("下载文件失败：", e);
         }
         // 删除临时目录
-        FileUtil.delete(templateGenerationTmpFolder);
+        FileUtil.delete(BuirProperties.me().getTemplateGenerationTmp());
     }
 
 }

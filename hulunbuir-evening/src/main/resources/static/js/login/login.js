@@ -1,6 +1,5 @@
-layui.config({base: "../../js/"}).extend({"bodyTab": "bodyTab"}).use(['form', 'layer', 'laydate', 'table', 'laytpl', 'bodyTab'], function () {
-    var  $ = layui.jquery,tab = layui.bodyTab;
-
+layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'bodyTab','authUtils'], function () {
+    var  $ = layui.jquery,tab = layui.bodyTab,authUtils = layui.authUtils,Action = layui.authUtils.Action;
     $('.input-field').on('change',function(){
         var $this = $(this),
             value = $.trim($this.val()),
@@ -12,8 +11,29 @@ layui.config({base: "../../js/"}).extend({"bodyTab": "bodyTab"}).use(['form', 'l
         }
     })
 
-    $('#login_btn').on('click',function () {
-        console.log("点击了登录");
-
+    $('#register_button').on('click', function () {
+        authUtils.axsPost(
+            Action.REGISTER_URL,
+            {
+                username: $('#username').val(),
+                password: $('#password').val(),
+            },
+            function (result) {
+                if (result.flag) {
+                    authUtils.greenLaughMsg("注册成功！！请登录")
+                    setTimeout(index,2000);
+                } else {
+                    authUtils.redCryMsg("失败！！" + result.message + "请联系：qjyn1314@163.com");
+                }
+            },
+            function (error) {
+                authUtils.redCryMsg("失败！！请联系：qjyn1314@163.com");
+            }
+        )
     });
+
+    function index(){
+        window.location.href = "/";
+    }
+
 });

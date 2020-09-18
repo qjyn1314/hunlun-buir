@@ -19,13 +19,12 @@ function getLangDate(){
     var second = dateObj.getSeconds(); //当前系统时间的秒钟值
     var timeValue = "" +((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午" ); //当前时间属于上午、晚上还是下午
     newDate = dateFilter(year)+"年"+dateFilter(month)+"月"+dateFilter(date)+"日 "+" "+dateFilter(hour)+":"+dateFilter(minute)+":"+dateFilter(second);
-    document.getElementById("nowTime").innerHTML = "亲爱的驊驊龔頾，"+timeValue+"好！ 欢迎使用layuiCMS 2.0模版。当前时间为： "+newDate+"　"+week;
+    document.getElementById("nowTime").innerHTML = "亲爱的呼伦贝尔，"+timeValue+"好！ 欢迎使用呼伦贝尔大草原出品的生成代码工具。当前时间为： "+newDate+"　"+week;
     setTimeout("getLangDate()",1000);
 }
-
-layui.use(['form','element','layer','jquery'],function(){
-    var form = layui.form,layer = parent.layer === undefined ? layui.layer : top.layer,element = layui.element;
-        $ = layui.jquery;
+layui.use(['authUtils','form','element','layer','jquery'],function(){
+    const form = layui.form, layer = parent.layer === undefined ? layui.layer : top.layer, element = layui.element;
+    const $ = layui.jquery, authUtils = layui.authUtils;
     //上次登录时间【此处应该从接口获取，实际使用中请自行更换】
     $(".loginTime").html(newDate.split("日")[0]+"日</br>"+newDate.split("日")[1]);
     //icon动画
@@ -37,62 +36,6 @@ layui.use(['form','element','layer','jquery'],function(){
     $(".panel a").click(function(){
         parent.addTab($(this));
     })
-    //系统基本参数
-    if(window.sessionStorage.getItem("systemParameter")){
-        var systemParameter = JSON.parse(window.sessionStorage.getItem("systemParameter"));
-        fillParameter(systemParameter);
-    }else{
-        let loginurl = Action().LOGIN_URL;
-        console.log(loginurl)
-        $.ajax({
-            url : "../json/systemParameter.json",
-            type : "get",
-            dataType : "json",
-            success : function(data){
-                fillParameter(data);
-            }
-        })
-    }
-    //填充数据方法
-    function fillParameter(data){
-        //判断字段数据是否存在
-        function nullData(data){
-            if(data == '' || data == "undefined"){
-                return "未定义";
-            }else{
-                return data;
-            }
-        }
-        $(".version").text(nullData(data.version));      //当前版本
-        $(".author").text(nullData(data.author));        //开发作者
-        $(".homePage").text(nullData(data.homePage));    //网站首页
-        $(".server").text(nullData(data.server));        //服务器环境
-        $(".dataBase").text(nullData(data.dataBase));    //数据库版本
-        $(".maxUpload").text(nullData(data.maxUpload));    //最大上传限制
-        $(".userRights").text(nullData(data.userRights));//当前用户权限
-    }
-
-    //最新文章列表
-    $.get("../json/newsList.json",function(data){
-        var hotNewsHtml = '';
-        for(var i=0;i<5;i++){
-            hotNewsHtml += '<tr>'
-                +'<td align="left"><a href="javascript:;"> '+data.data[i].newsName+'</a></td>'
-                +'<td>'+data.data[i].newsTime.substring(0,10)+'</td>'
-                +'</tr>';
-        }
-        $(".hot_news").html(hotNewsHtml);
-        $(".userAll span").text(data.length);
-    })
-
-    //用户数量
-    $.get("../json/userList.json",function(data){
-        $(".userAll span").text(data.count);
-    })
-
-    //外部图标
-    $.get(iconUrl,function(data){
-        $(".outIcons span").text(data.split(".icon-").length-1);
-    })
+    console.log(authUtils.Action.NAVS_URL);
 
 })

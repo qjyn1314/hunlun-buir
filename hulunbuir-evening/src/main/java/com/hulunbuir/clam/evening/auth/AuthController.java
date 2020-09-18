@@ -53,4 +53,15 @@ public class AuthController extends AuthService {
         return handleView();
     }
 
+    /**
+     * 根据路径跳转到相应的界面
+     *
+     * @author wangjunming
+     * @since 2020/9/18 10:38
+     */
+    @GetMapping({"/page/**.html", "/page/*/**.html","/auth/register"})
+    public String initView() {
+        return handleView();
+    }
+
 }

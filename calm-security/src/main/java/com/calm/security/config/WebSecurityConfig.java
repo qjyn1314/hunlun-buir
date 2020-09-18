@@ -27,9 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 用户信息
-     *
-     * @author wangjunming
-     * @since 2020/9/16 10:33
      */
     @Bean
     @Override
@@ -46,10 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 安全拦截机制
-     *
-     * @author wangjunming
-     * @since 2020/9/16 10:34
+     * 安全拦截机制-核心配置
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -70,27 +64,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //不需要登录认证的路径-之后将配置到配置文件中
-                .antMatchers("/auth/login", "/login/form", "/auth/fail").permitAll()
+                .antMatchers("/actuator/health","/details","/instances/**/**",
+                        "/auth/login", "/login/form", "/auth/fail","/auth/register").permitAll()
                 //其余请求都需要登录认证通过
                 .anyRequest().authenticated()
+                .and() .httpBasic()
                 //跨域
                 .and().cors()
                 //解决跨站请求
                 .and().csrf().disable();
     }
 
-    /**
-     * 添加 UserDetailsService， 实现自定义登录校验
-     */
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * 放过静态资源的请求
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/error/**", "/static/**",
+        web.ignoring().antMatchers("/css/**", "/error/**", "/static/**", "/instances/**", "/actuator/**",
                 "/font/**", "/icon/**", "/images/**", "/js/**", "/json/**", "/layui/**");
     }
 

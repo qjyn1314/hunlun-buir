@@ -16,7 +16,7 @@ import java.util.Set;
  * @since 2020-02-24 10:20
  */
 @Component("messageFactory")
-@ConfigurationProperties(prefix = "message")
+@ConfigurationProperties(prefix = "buir.message")
 public class MessageFactory {
     private HashMap<String, Integer> map;
 

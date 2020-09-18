@@ -1,5 +1,5 @@
-layui.config({base : "../../js/"}).use(['form','jquery',"address"],function() {
-    var form = layui.form,$ = layui.jquery, address = layui.address;
+layui.use(['form','jquery',"address","authUtils"],function() {
+    var form = layui.form,$ = layui.jquery, address = layui.address,authUtils = layui.authUtils;
 
     //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
     if(window.sessionStorage.getItem('userFace')){
@@ -22,9 +22,9 @@ layui.config({base : "../../js/"}).use(['form','jquery',"address"],function() {
         $(".userPhone").val(userInfo.userPhone); //手机号
         $(".userBirthday").val(userInfo.userBirthday); //出生年月
         //填充省份信息，同时调取市级信息列表
-        $.get("../../json/address.json", function (addressData) {
+        $.get(authUtils.Action.ADDRESS_URL, function (addressData) {
             $(".userAddress select[name='province']").val(userInfo.province); //省
-            var value = userInfo.province;
+            let value = userInfo.province;
             if (value > 0) {
                 address.citys(addressData[$(".userAddress select[name='province'] option[value='"+userInfo.province+"']").index()-1].childs);
                 citys = addressData[$(".userAddress select[name='province'] option[value='"+userInfo.province+"']").index()-1].childs;
@@ -33,7 +33,7 @@ layui.config({base : "../../js/"}).use(['form','jquery',"address"],function() {
             }
             $(".userAddress select[name='city']").val(userInfo.city); //市
             //填充市级信息，同时调取区县信息列表
-            var value = userInfo.city;
+            value = userInfo.city;
             if (value > 0) {
                 address.areas(citys[$(".userAddress select[name=city] option[value='"+userInfo.city+"']").index()-1].childs);
             } else {
@@ -43,7 +43,7 @@ layui.config({base : "../../js/"}).use(['form','jquery',"address"],function() {
             form.render();
         })
         for(key in userInfo){
-            if(key.indexOf("like") != -1){
+            if(key.indexOf("like") !== -1){
                 $(".userHobby input[name='"+key+"']").attr("checked","checked");
             }
         }

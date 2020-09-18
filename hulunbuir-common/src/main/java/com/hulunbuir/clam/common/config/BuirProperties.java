@@ -28,6 +28,8 @@ public class BuirProperties {
     private String interceptUrl;
     private String validationUrl;
     private String mailSender;
+    private String templateGeneration;
+    private String templateGenerationTmp;
 
     public static BuirProperties me() {
         return ApplicationContextUtils.getBean(BuirProperties.class);
@@ -64,5 +66,21 @@ public class BuirProperties {
 
     public void setMailSender(String mailSender) {
         this.mailSender = mailSender;
+    }
+
+    public String getTemplateGeneration() {
+        return templateGeneration;
+    }
+
+    public void setTemplateGeneration(String templateGeneration) {
+        this.templateGeneration = templateGeneration;
+    }
+
+    public String getTemplateGenerationTmp() {
+        return templateGenerationTmp;
+    }
+
+    public void setTemplateGenerationTmp(String templateGenerationTmp) {
+        this.templateGenerationTmp = templateGenerationTmp;
     }
 }

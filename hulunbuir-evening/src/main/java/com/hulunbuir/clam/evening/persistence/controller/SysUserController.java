@@ -2,8 +2,8 @@ package com.hulunbuir.clam.evening.persistence.controller;
 
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.evening.persistence.entity.HulunbuirUser;
-import com.hulunbuir.clam.evening.persistence.service.IHulunbuirUserService;
+import com.hulunbuir.clam.evening.persistence.entity.SysUser;
+import com.hulunbuir.clam.evening.persistence.service.ISysUserService;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,39 +20,39 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author Mr.Wang
- * @since 2020-08-13 13:40:19
+ * @since 2020-09-18 10:33:50
  */
 @Slf4j
 @Api(tags = "用户表 Controller")
 @RestController
-@RequestMapping("/h/hulunbuirUser")
-public class HulunbuirUserController extends BaseController {
+@RequestMapping("/h/sysUser")
+public class SysUserController extends BaseController {
 
     @Autowired
-    private IHulunbuirUserService service;
+    private ISysUserService service;
 
     @ApiOperation("用户表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, HulunbuirUser hulunbuirUser){
-        return JsonResult.success(getDataTable(service.page(queryRequest,hulunbuirUser)));
+    public JsonResult page(QueryRequest queryRequest, SysUser sysUser){
+        return JsonResult.success(getDataTable(service.page(queryRequest,sysUser)));
     }
 
     @ApiOperation("用户表添加")
     @PostMapping("/save")
-    public JsonResult save(HulunbuirUser hulunbuirUser){
-        return JsonResult.success(service.save(hulunbuirUser));
+    public JsonResult save(SysUser sysUser){
+        return JsonResult.success(service.save(sysUser));
     }
 
     @ApiOperation("用户表修改")
     @PostMapping("/update")
-    public JsonResult update(HulunbuirUser hulunbuirUser){
-        return JsonResult.success(service.update(hulunbuirUser));
+    public JsonResult update(SysUser sysUser){
+        return JsonResult.success(service.update(sysUser));
     }
 
     @ApiOperation("用户表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(HulunbuirUser hulunbuirUser){
-        return JsonResult.success(service.selOne(hulunbuirUser));
+    public JsonResult selOne(SysUser sysUser){
+        return JsonResult.success(service.selOne(sysUser));
     }
 
 }

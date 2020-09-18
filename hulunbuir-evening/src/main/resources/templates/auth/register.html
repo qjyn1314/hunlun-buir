@@ -9,22 +9,22 @@
     <link href="../../static/icon/evening.png" rel="icon">
     <title>用户注册</title>
 </head>
-<body background="/static/images/backgroundimage.jpg" class="login-wrap">
+<body class="login-wrap" style="background-image: url('/static/images/backgroundimage.jpg')">
     <div class="login-container">
         <form class="login-form">
             <div class="input-group">
-                <input class="input-field" id="username" type="text">
+                <input class="input-field" id="username" name="username" type="text">
                 <label class="input-label" for="username">
                     <span class="label-title">用户名</span>
                 </label>
             </div>
             <div class="input-group">
-                <input class="input-field" id="password" type="password">
+                <input class="input-field" id="password" name="password" type="password">
                 <label class="input-label" for="password">
                     <span class="label-title">密码</span>
                 </label>
             </div>
-            <button class="login-button" type="button">注册<i class="ai ai-enter"></i></button>
+            <button class="login-button" id="register_button" type="button">注册<i class="ai ai-enter"></i></button>
             <div class="input-group">
                 <a href="/">登录</a>
             </div>
