@@ -24,9 +24,14 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         Action: {
             NAVS_URL: baseUrl + "/json/navs.json",
             ADDRESS_URL: baseUrl + "/json/address.json",
+            systemParameter_URL: baseUrl + "/json/systemParameter.json",
             //注册
             REGISTER_URL: baseUrl + "/auth/register",
-            systemParameter_URL: baseUrl + "/json/systemParameter.json",
+            //获取当前登录用户信息
+            USER_INFO_URL: baseUrl + "/userInfo",
+
+
+
         },
         /**
          * 获取body的总宽度

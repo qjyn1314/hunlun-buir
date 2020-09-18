@@ -3,6 +3,19 @@ layui.use(['authUtils', 'bodyTab', 'form', 'element', 'layer', 'jquery'], functi
     const form = layui.form, authUtils = layui.authUtils,Action = layui.authUtils.Action, element = layui.element;
     const $ = layui.$,layer = parent.layer === undefined ? layui.layer : top.layer;
     tab = layui.bodyTab({openTabNum: "10"});
+    //获取登录用户的信息
+    getUserInfo();
+    function getUserInfo() {
+        authUtils.axsGet(
+            Action.USER_INFO_URL,
+            {},function (result) {
+                console.log("当前的登录用户的信息！")
+                console.log(result)
+            },function (error) {
+                console.log(error)
+            }
+        )
+    }
     //获取左侧二三级菜单，获取登录用户的信息，封装一个登录公共方法
     getData();
     function getData() {

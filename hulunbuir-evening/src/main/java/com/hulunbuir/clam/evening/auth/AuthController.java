@@ -4,6 +4,7 @@ import com.calm.security.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <p>
@@ -62,6 +63,18 @@ public class AuthController extends AuthService {
     @GetMapping({"/page/**.html", "/page/*/**.html","/auth/register"})
     public String initView() {
         return handleView();
+    }
+
+    /**
+     * 根据路径跳转到相应的界面
+     *
+     * @author wangjunming
+     * @since 2020/9/18 10:38
+     */
+    @ResponseBody
+    @GetMapping("/userInfo")
+    public Object userInfo() {
+        return AuthUserUtil.authUser();
     }
 
 }

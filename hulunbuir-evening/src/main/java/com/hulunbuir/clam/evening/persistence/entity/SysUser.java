@@ -139,6 +139,13 @@ public class SysUser implements Serializable {
         this.password = password;
     }
 
+    public SysUser() {
+    }
+
+    public SysUser(String userName) {
+        this.userName = userName;
+    }
+
     public void preSave() {
         final Date date = new Date();
         this.createDate = date;

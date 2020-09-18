@@ -3,6 +3,9 @@ package com.hulunbuir.clam.evening.auth;
 import com.hulunbuir.clam.evening.persistence.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -39,5 +42,22 @@ public class AuthUserUtil {
     public void init(){
         passwordEncoder = encoderPassword;
     }
+
+    private static SecurityContext context(){
+        return SecurityContextHolder.getContext();
+    }
+
+    private static Authentication authentication(){
+        return context().getAuthentication();
+    }
+
+    private static Object principal(){
+        return authentication().getPrincipal();
+    }
+
+    public static Object authUser(){
+        return principal();
+    }
+
 
 }

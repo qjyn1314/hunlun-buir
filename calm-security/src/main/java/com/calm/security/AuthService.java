@@ -32,4 +32,8 @@ public class AuthService implements Auth {
         return request.getRequestURI().replace(HTML_SUFFIX, "");
     }
 
+
+
+
+
 }
