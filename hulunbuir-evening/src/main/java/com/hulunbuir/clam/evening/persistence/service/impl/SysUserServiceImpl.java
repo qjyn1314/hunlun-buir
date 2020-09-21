@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.evening.auth.AuthUserUtil;
 import com.hulunbuir.clam.evening.persistence.entity.SysUser;
 import com.hulunbuir.clam.evening.persistence.mapper.SysUserMapper;
 import com.hulunbuir.clam.evening.persistence.service.ISysUserService;
@@ -109,7 +108,6 @@ public class SysUserServiceImpl implements ISysUserService {
         if (selOne(user) != null) {
             HulunBuirException.build("该用户名已注册！");
         }
-        AuthUserUtil.handleUser(user);
         this.save(user);
     }
 

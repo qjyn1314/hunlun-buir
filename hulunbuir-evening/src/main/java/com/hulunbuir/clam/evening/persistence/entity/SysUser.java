@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.calm.security.AuthUserUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -136,7 +137,7 @@ public class SysUser implements Serializable {
 
     public SysUser(String userName, String password) {
         this.userName = userName;
-        this.password = password;
+        this.password = AuthUserUtil.handleUser(password);
     }
 
     public SysUser() {

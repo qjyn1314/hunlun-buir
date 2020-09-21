@@ -32,6 +32,11 @@ public final class JwtUtils {
     public static final int EXPIRE_TIME = 24;
 
     /**
+     * jwt签发者
+     */
+    public static final String ISSUSER = "Mr.Wang";
+
+    /**
      * 初始化jwt密钥和过期时间
      * 主要用于在用户登录过后的信息存储，需要将生成的token返回给前端，并在每次请求的时候，在请求头添加此数据信息
      *
@@ -78,6 +83,9 @@ public final class JwtUtils {
     /**
      * 封装生成token
      *
+     * @param claims 存储的信息
+     * @param subject 主题
+     * @param expireSecs 失效时间，单位：小时
      * @author wangjunming
      * @since 2020/3/23 12:53
      */
@@ -90,6 +98,7 @@ public final class JwtUtils {
                 .setHeaderParam("type", "JWT")
                 .setClaims(claims)
                 .setSubject(subject)
+                .setIssuer(JwtUtils.ISSUSER)
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, JwtUtils.SECRET)
@@ -116,7 +125,7 @@ public final class JwtUtils {
      * @author wangjunming
      * @since 2020/3/23 12:54
      */
-    public String doGenerateToken(Map<String, Object> claims) {
+    public static String doGenerateToken(Map<String, Object> claims) {
         return generateToken(claims, JwtUtils.SECRET, JwtUtils.EXPIRE_TIME);
     }
 

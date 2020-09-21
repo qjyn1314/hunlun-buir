@@ -1,10 +1,14 @@
 package com.hulunbuir.clam.evening.auth;
 
 import com.calm.security.AuthService;
+import com.calm.security.AuthUserUtil;
+import com.hulunbuir.clam.parent.result.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * <p>
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Slf4j
 @Controller
+@ControllerAdvice
 public class AuthController extends AuthService {
 
     /**
@@ -49,9 +54,11 @@ public class AuthController extends AuthService {
      * @since 2020/9/16 10:47
      */
     @GetMapping("/auth/fail")
-    public String failLogin() {
+    public ModelAndView failLogin(ModelAndView modelAndView) {
         log.info("将跳转至认证失败页面!");
-        return handleView();
+        modelAndView.setViewName(handleView());
+        modelAndView.addObject("error", "error");
+        return modelAndView;
     }
 
     /**
@@ -66,15 +73,15 @@ public class AuthController extends AuthService {
     }
 
     /**
-     * 根据路径跳转到相应的界面
+     * 获取当前登录用户的接口
      *
      * @author wangjunming
      * @since 2020/9/18 10:38
      */
     @ResponseBody
     @GetMapping("/userInfo")
-    public Object userInfo() {
-        return AuthUserUtil.authUser();
+    public JsonResult userInfo() {
+        return JsonResult.success(AuthUserUtil.currentUser());
     }
 
 }

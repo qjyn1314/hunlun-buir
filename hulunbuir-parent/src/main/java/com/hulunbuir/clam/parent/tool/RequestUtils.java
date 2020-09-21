@@ -27,8 +27,28 @@ public class RequestUtils {
      * @author wangjunming
      * @since 2020/7/13 12:57
      */
-    public static String getTokenByHeader(HttpServletRequest httpServletRequest,String tokenName) {
+    public static String getTokenByHeader(HttpServletRequest httpServletRequest, String tokenName) {
         return httpServletRequest.getHeader(tokenName);
+    }
+
+    /**
+     * 将信息设置到response请求头中
+     *
+     * @author wangjunming
+     * @since 2020/7/13 12:57
+     */
+    public static void setTokenByHeader(HttpServletResponse response, String tokenKey, String tokenName) {
+        response.setHeader(tokenKey, tokenName);
+    }
+
+    /**
+     * 将信息从response请求头中清除
+     *
+     * @author wangjunming
+     * @since 2020/7/13 12:57
+     */
+    public static void deleteHeader(HttpServletResponse response, String authTokenKey) {
+        response.setHeader(authTokenKey, null);
     }
 
     /**
@@ -46,7 +66,7 @@ public class RequestUtils {
         try {
             URLEncoder.encode(value, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            log.error("转换cookie值失败！",e);
+            log.error("转换cookie值失败！", e);
         }
         //单位：分钟
         cookie.setMaxAge(time);

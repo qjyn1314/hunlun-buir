@@ -31,8 +31,8 @@ public class RegisterController {
      * @since 2020/9/18 10:42
      */
     @PostMapping("/auth/register")
-    public JsonResult registerUser(@RequestParam String username,@RequestParam String password) throws HulunBuirException {
-        userService.registerUser(username,password);
+    public JsonResult registerUser(@RequestParam String username, @RequestParam String password) throws HulunBuirException {
+        userService.registerUser(username, password);
         return JsonResult.success();
     }
 

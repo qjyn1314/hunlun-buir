@@ -1,5 +1,6 @@
-package com.hulunbuir.clam.distributed.evening;
+package com.calm.security;
 
+import com.hulunbuir.clam.distributed.evening.AuthUser;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -7,79 +8,88 @@ import java.util.Date;
 
 /**
  * <p>
- * explain: 登录用户的信息
+ * explain:
  * </p>
  *
  * @author wangjunming
- * @since 2020/9/18 10:39
+ * @since 2020/9/21 10:08
  */
-public class AuthUser implements Serializable {
+public class CurrentUser implements Serializable {
 
     /**
      * 用户ID
      */
     @ApiModelProperty(value = "用户ID")
     private Long id;
-
     /**
      * 用户名
      */
     @ApiModelProperty(value = "用户名")
     private String userName;
-
-    /**
-     * 密码
-     */
-    @ApiModelProperty(value = "密码")
-    private String password;
-
     /**
      * 邮箱
      */
     @ApiModelProperty(value = "邮箱")
     private String email;
-
     /**
      * 联系电话
      */
     @ApiModelProperty(value = "联系电话")
     private String phone;
-
     /**
      * 状态 0锁定 1有效
      */
     @ApiModelProperty(value = "状态 0锁定 1有效")
     private String status;
-
     /**
      * 最近访问时间
      */
     @ApiModelProperty(value = "最近访问时间")
     private Date lastLoginTime;
-
     /**
      * 性别 0男 1女 2保密
      */
     @ApiModelProperty(value = "性别 0男 1女 2保密")
     private String sex;
-
     /**
      * 头像
      */
     @ApiModelProperty(value = "头像")
     private String avatar;
-
     /**
      * 描述
      */
     @ApiModelProperty(value = "描述")
     private String description;
-
     /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
+
+    public CurrentUser() {
+    }
+
+    public CurrentUser(AuthUser user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.status = user.getStatus();
+        this.lastLoginTime = user.getLastLoginTime();
+        this.sex = user.getSex();
+        this.avatar = user.getAvatar();
+        this.description = user.getDescription();
+        this.createDate = user.getCreateDate();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -151,30 +161,6 @@ public class AuthUser implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * 用户的激活状态
-     */
-    public static class UserStatus {
-        public static final String STATUS_0 = "0";
-        public static final String STATUS_1 = "1";
     }
 
 }
