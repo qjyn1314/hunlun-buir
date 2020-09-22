@@ -1,5 +1,25 @@
 [
 	{
+		"title": "代码工具",
+		"icon": "&#xe64e;",
+		"href": "",
+		"spread": false,
+		"children": [
+			{
+				"title": "生成配置",
+				"icon": "&#xe716;",
+				"href": "page/generator/configure.html",
+				"spread": false
+			},
+			{
+				"title": "代码生成",
+				"icon": "&#xe609;",
+				"href": "page/generator/generator.html",
+				"spread": false
+			}
+		]
+	},
+	{
 		"title": "用户中心",
 		"icon": "&#xe612;",
 		"href": "page/user/userList.html",

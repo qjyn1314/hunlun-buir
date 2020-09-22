@@ -1,17 +1,13 @@
-layui.use(["element", "jquery", "layer","table", "form", "laydate", "asucUtils", ], function () {
-    let asucUtils = layui.asucUtils;
-    let $ = layui.jquery;
-    let searchForm = $('#searchForm');
-    let laydate = layui.laydate;
-    let layer = layui.layer;
-    let table = layui.table;
+layui.use(["element", "jquery", "layer","table", "form", "laydate", "authUtils", ], function () {
+    let authUtils = layui.authUtils,Action = layui.authUtils.Action,$ = layui.jquery,searchForm = $('#searchForm'),laydate = layui.laydate;
+    let layer = layui.layer,table = layui.table
     laydate.render({elem: "#startTime", type: "datetime"});
     laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
-    var dataTable =  asucUtils.tableInit({
+    var dataTable =  authUtils.tableInit({
         elem: '#generatorTable',
-        url: asucUtils.backendURL + "/generation/tables",
+        url: Action.GENERATOR_TABLE_URL,
         cols: [[
             {type: "checkbox", fixed: "left"},
             {field: "schemaName", title: "数据库名称",width: 100},
@@ -45,16 +41,16 @@ layui.use(["element", "jquery", "layer","table", "form", "laydate", "asucUtils",
                 schemaName:data.schemaName,
                 tableName:data.tableName
             };
-            asucUtils.confirm(content, function () {
-                asucUtils.download('/generation/generationCodeDownload', dataes, data.tableName + '_code.zip');
-                asucUtils.greenTickMsg("下载成功！");
+            authUtils.confirm(content, function () {
+                authUtils.download('/generation/generationCodeDownload', dataes, data.tableName + '_code.zip');
+                authUtils.greenTickMsg("下载成功！");
             })
         }
     });
 
     let saveForm = $('#generator-configure-form');
     //回显生成代码模板所在的文件夹列表
-    asucUtils.axsGet("/generation/getFolderList", null,
+    authUtils.axsGet("/generation/getFolderList", null,
         function (result) {
             if (result.flag) {
                 let folders = result.data;
@@ -66,7 +62,7 @@ layui.use(["element", "jquery", "layer","table", "form", "laydate", "asucUtils",
             }
         });
     //回显生成代码的配置
-    asucUtils.axsGet("/generation/getGeneration", null,
+    authUtils.axsGet("/generation/getGeneration", null,
         function (result) {
             if (result.flag) {
                 setFormValue(result.data);
@@ -84,12 +80,12 @@ layui.use(["element", "jquery", "layer","table", "form", "laydate", "asucUtils",
     //保存接口
     $("#save_config").click(function () {
         let params = getRequestParams();
-        asucUtils.axsPost("/generation/saveGeneration", params,
+        authUtils.axsPost("/generation/saveGeneration", params,
             function (result) {
                 if (result.flag) {
-                    asucUtils.tableSuccessMsg(result.message);
+                    authUtils.tableSuccessMsg(result.message);
                 } else {
-                    asucUtils.redCryMsg(result.message);
+                    authUtils.redCryMsg(result.message);
                 }
         });
     });

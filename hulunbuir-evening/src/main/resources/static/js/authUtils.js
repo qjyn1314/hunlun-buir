@@ -29,8 +29,8 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             REGISTER_URL: baseUrl + "/auth/register",
             //获取当前登录用户信息
             USER_INFO_URL: baseUrl + "/userInfo",
-
-
+            //生成代码的表列表
+            GENERATOR_TABLE_URL: baseUrl + "/generation/tables",
 
         },
         /**

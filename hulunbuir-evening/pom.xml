@@ -40,10 +40,10 @@
         <resources>
             <resource>
                 <directory>src/main/java</directory>
-                <filtering>true</filtering>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
@@ -61,7 +61,6 @@
                 <version>3.1.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <!--为解决  OTS parsing error: incorrect file size in WOFF header  而添加的打包配置-->
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
                         <nonFilteredFileExtension>woff</nonFilteredFileExtension>
