@@ -1,9 +1,14 @@
-var form, $,areaData;
+let form, $, areaData;
 layui.use(['address','authUtils','form','layer','upload','laydate',],function(){
     form = layui.form;
     $ = layui.jquery;
     const layer = parent.layer === undefined ? layui.layer : top.layer,
           upload = layui.upload,laydate = layui.laydate,address = layui.address,authUtils = layui.authUtils;
+    //设置头像
+    $("#userFace").attr("src","../../images/face.png");
+
+    //获取用户的名称
+    $('.userName').val(authUtils.localStorage("user_",null).userName);
 
     //上传头像
     upload.render({
@@ -30,11 +35,11 @@ layui.use(['address','authUtils','form','layer','upload','laydate',],function(){
         elem: '.userBirthday',
         format: 'yyyy年MM月dd日',
         trigger: 'click',
-        max : 0,
-        mark : {"0-12-15":"生日"},
-        done: function(value, date){
-            if(date.month === 12 && date.date === 15){ //点击每年12月15日，弹出提示语
-                layer.msg('今天是马哥的生日，也是layuicms2.0的发布日，快来送上祝福吧！');
+        max: 0,
+        mark: {"0-12-15": "生日"},
+        done: function (value, date) {
+            if (date.month === 12 && date.date === 15) {
+
             }
         }
     });

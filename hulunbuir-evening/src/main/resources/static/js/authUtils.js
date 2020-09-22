@@ -279,13 +279,13 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
          * localStorage 二次封装
          */
         localStorage: function (name, value) {
-            if (value) { /**设置*/
+            if (null != name && null != value) { /**设置*/
                 if (typeof value == "object") {
                     localStorage.setItem(name, JSON.stringify(value));
                 } else {
                     localStorage.setItem(name, value);
                 }
-            } else if (null !== value) {
+            } else if (null != name && null == value) {
                 /**获取*/
                 let val = localStorage.getItem(name);
                 try {

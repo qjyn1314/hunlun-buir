@@ -14,6 +14,7 @@ public interface Auth {
     String LOGIN_SUCCESS_URL = "/login_success";
     String LOGIN_FORM_URL = "/login/form";
     String LOGIN_FAIL_URL = "/auth/fail";
+    String LOGOUT_URL = "/logout";
     String HTML_SUFFIX = ".html";
 
 }

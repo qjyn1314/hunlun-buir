@@ -1,9 +1,9 @@
-layui.use(['form','layer','laydate','table','laytpl'],function(){
+layui.use(['authUtils','form','layer','laydate','table','laytpl'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-        table = layui.table;
-
+        table = layui.table,authUtils = layui.authUtils;
+    $(".userName").val(authUtils.localStorage("user_",null).userName)
     //添加验证规则
     form.verify({
         oldPwd : function(value, item){

@@ -19,7 +19,7 @@ layui.use(['form', 'jquery', "layer"], function () {
             type : 1,
             content : '<div class="admin-header-lock" id="lock-box">'+
                             '<div class="admin-header-lock-img"><img src="images/face.png" class="userAvatar"/></div>'+
-                            '<div class="admin-header-lock-name" id="lockUserName">呼伦贝尔</div>'+
+                            '<div class="admin-header-lock-name" id="lockUserName"></div>'+
                             '<div class="input_btn">'+
                                 '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
                                 '<button class="layui-btn" id="unlock">解锁</button>'+
@@ -42,16 +42,16 @@ layui.use(['form', 'jquery', "layer"], function () {
         lockPage();
     })
     // 判断是否显示锁屏
-    if(window.sessionStorage.getItem("lockcms") == "true"){
+    if(window.sessionStorage.getItem("lockcms") === "true"){
         lockPage();
     }
     // 解锁
-    $("body").on("click","#unlock",function(){
-        if($(this).siblings(".admin-header-lock-input").val() == ''){
+    $('body').on("click","#unlock",function(){
+        if($(this).siblings(".admin-header-lock-input").val() === ''){
             layer.msg("请输入解锁密码！");
             $(this).siblings(".admin-header-lock-input").focus();
         }else{
-            if($(this).siblings(".admin-header-lock-input").val() == "123456"){
+            if($(this).siblings(".admin-header-lock-input").val() === "123456"){
                 window.sessionStorage.setItem("lockcms",false);
                 $(this).siblings(".admin-header-lock-input").val('');
                 layer.closeAll("page");
@@ -112,14 +112,14 @@ layui.use(['form', 'jquery', "layer"], function () {
                         '</div>',
             success : function(index, layero){
                 //如果之前设置过，则设置它的值
-                $(".functionSrtting_box input[name=cache]").prop("checked",cacheStr=="true" ? true : false);
-                $(".functionSrtting_box input[name=changeRefresh]").prop("checked",changeRefreshStr=="true" ? true : false);
-                $(".functionSrtting_box input[name=oneLogin]").prop("checked",oneLoginStr=="true" ? true : false);
+                $(".functionSrtting_box input[name=cache]").prop("checked",cacheStr === "true");
+                $(".functionSrtting_box input[name=changeRefresh]").prop("checked",changeRefreshStr === "true");
+                $(".functionSrtting_box input[name=oneLogin]").prop("checked",oneLoginStr === "true");
                 //设定
                 form.on("submit(settingSuccess)",function(data){
-                    window.sessionStorage.setItem("cache",data.field.cache=="on" ? "true" : "false");
-                    window.sessionStorage.setItem("changeRefresh",data.field.changeRefresh=="on" ? "true" : "false");
-                    window.sessionStorage.setItem("oneLogin",data.field.oneLogin=="on" ? "true" : "false");
+                    window.sessionStorage.setItem("cache",data.field.cache==="on" ? "true" : "false");
+                    window.sessionStorage.setItem("changeRefresh",data.field.changeRefresh==="on" ? "true" : "false");
+                    window.sessionStorage.setItem("oneLogin",data.field.oneLogin==="on" ? "true" : "false");
                     window.sessionStorage.removeItem("menu");
                     window.sessionStorage.removeItem("curmenu");
                     location.reload();
@@ -131,7 +131,7 @@ layui.use(['form', 'jquery', "layer"], function () {
                 });
                 //单一登陆提示
                 form.on('switch(multipleLogin)', function(data){
-                    layer.tips('温馨提示：此功能需要开发配合，所以没有功能演示，敬请谅解', data.othis,{tips: 1})
+                    layer.tips('温馨提示：此功能敬请期待！', data.othis,{tips: 1})
                 });
                 form.render();  //表单渲染
             }
@@ -148,7 +148,7 @@ layui.use(['form', 'jquery', "layer"], function () {
     function skins(){
         var skin = window.sessionStorage.getItem("skin");
         if(skin){  //如果更换过皮肤
-            if(window.sessionStorage.getItem("skinValue") != "自定义"){
+            if(window.sessionStorage.getItem("skinValue") !== "自定义"){
                 $("body").addClass(window.sessionStorage.getItem("skin"));
             }else{
                 $(".layui-layout-admin .layui-header").css("background-color",skin.split(',')[0]);
@@ -197,14 +197,14 @@ layui.use(['form', 'jquery', "layer"], function () {
                 $(".skins_box").removeClass("layui-hide");
                 $(".skins_box .layui-form-radio").on("click",function(){
                     var skinColor;
-                    if($(this).find("div").text() == "橙色"){
+                    if($(this).find("div").text() === "橙色"){
                         skinColor = "orange";
-                    }else if($(this).find("div").text() == "蓝色"){
+                    }else if($(this).find("div").text() === "蓝色"){
                         skinColor = "blue";
-                    }else if($(this).find("div").text() == "默认"){
+                    }else if($(this).find("div").text() === "默认"){
                         skinColor = "";
                     }
-                    if($(this).find("div").text() != "自定义"){
+                    if($(this).find("div").text() !== "自定义"){
                         $(".topColor,.leftColor,.menuColor").val('');
                         $("body").removeAttr("class").addClass("main_body "+skinColor+"");
                         $(".skinCustom").removeAttr("style");
@@ -214,23 +214,23 @@ layui.use(['form', 'jquery', "layer"], function () {
                     }
                 })
                 var skinStr,skinColor;
-                $(".topColor").blur(function(){
+                $('.topColor').blur(function(){
                     $(".layui-layout-admin .layui-header").css("background-color",$(this).val()+" !important");
                 })
-                $(".leftColor").blur(function(){
+                $('.leftColor').blur(function(){
                     $(".layui-bg-black").css("background-color",$(this).val()+" !important");
                 })
-                $(".menuColor").blur(function(){
+                $('.menuColor').blur(function(){
                     $(".hideMenu").css("background-color",$(this).val()+" !important");
                 })
 
                 form.on("submit(changeSkin)",function(data){
-                    if(data.field.skin != "自定义"){
-                        if(data.field.skin == "橙色"){
+                    if(data.field.skin !== "自定义"){
+                        if(data.field.skin === "橙色"){
                             skinColor = "orange";
-                        }else if(data.field.skin == "蓝色"){
+                        }else if(data.field.skin === "蓝色"){
                             skinColor = "blue";
-                        }else if(data.field.skin == "默认"){
+                        }else if(data.field.skin === "默认"){
                             skinColor = "";
                         }
                         window.sessionStorage.setItem("skin",skinColor);

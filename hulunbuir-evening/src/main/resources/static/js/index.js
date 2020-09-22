@@ -8,14 +8,21 @@ layui.use(['authUtils', 'bodyTab', 'form', 'element', 'layer', 'jquery'], functi
     function getUserInfo() {
         authUtils.axsGet(
             Action.USER_INFO_URL,
-            {},function (result) {
-                console.log("当前的登录用户的信息！")
-                console.log(result)
-            },function (error) {
+            {}, function (result) {
+                handleUser(result);
+            }, function (error) {
                 console.log(error)
             }
         )
     }
+    function handleUser(result) {
+        let data = result.data;
+        let storageKey = "user_";
+        authUtils.localStorage(storageKey, data);
+        let storageUser = authUtils.localStorage(storageKey,null);
+        $(".userName").html(storageUser.userName)
+    }
+
     //获取左侧二三级菜单，获取登录用户的信息，封装一个登录公共方法
     getData();
     function getData() {

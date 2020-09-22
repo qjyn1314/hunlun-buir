@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="form-box">
+                    <!--查询-->
+                    <form class="layui-form layui-table-form" id="searchForm">
+                        <div class="layui-row">
+                            <div class="layui-col-md10">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">权限名称</label>
+                                        <div class="layui-input-inline">
+                                            <input autocomplete="off" class="layui-input" name="perName"
+                                                   placeholder="权限名称" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">权限路径</label>
+                                        <div class="layui-input-inline">
+                                            <input autocomplete="off" class="layui-input" name="perUrl"
+                                                   placeholder="权限路径" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--搜索，刷新-->
+                            <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action" id="query"
+                                     type="button">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action " id="reset"
+                                     type="reset">
+                                    <i class="layui-icon">&#xe669;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--操作>添加-->
+                    <div class="layui-btn-group">
+                        <button class="layui-btn layui-btn-lg layui-btn-normal" id="addData" type="button">
+                            <i class="layui-icon">&#xe654;</i>
+                        </button>
+                    </div>
+                    <!--表格-->
+                    <table id="tableList" lay-filter="tableFilter"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.all.js"></script>
+<script src="/layui/layui.js"></script>
+<!--操作列中的按钮-->
+<script id="operations" type="text/html">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<!--是否启用-->
+<script id="perStatus" type="text/html">
+{{#  if(d.perStatus == 1){ }}
+<span class="layui-btn layui-btn-normal layui-btn-xs">启用</span>
+{{#  } else if(d.perStatus == 2) { }}
+<span class="layui-btn layui-btn-warm layui-btn-xs">不启用</span>
+{{#  } }}
+</script>
+<script src="/buir/view/user/permission-crud.js"></script>
+</body>
+</html>

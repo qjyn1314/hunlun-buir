@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <div class="layui-content" style="float: left;width: 200px">
+        <!--权限树-->
+        <div class="layui-form-item">
+            权限树：
+        </div>
+        <div class="layui-form-item">
+            <div id="perTree"></div>
+        </div>
+    </div>
+    <div class="layui-content" style="float: right;width: 720px">
+        <!--form表单-->
+        <form class="layui-form layui-form-pane" id="dataAddForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限列表</label>
+                <div class="layui-input-block">
+                    <input autocomplete="off" hidden="hidden" name="permission" type="text">
+                    <input autocomplete="off" class="layui-input" name="permissionName" placeholder="权限名称" type="text">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色名称</label>
+                <div class="layui-input-block">
+                    <input autocomplete="off" class="layui-input" name="roleName" placeholder="请输入角色名称" type="text">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色编码</label>
+                <div class="layui-input-block">
+                    <input autocomplete="off" class="layui-input" name="roleCode" placeholder="请输入角色编码" type="text">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色说明</label>
+                <div class="layui-input-block">
+                    <input autocomplete="off" class="layui-input" name="description" placeholder="请输入角色说明" type="text">
+                </div>
+            </div>
+        </form>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" id="addDataBtn">立即提交</button>
+                <button class="layui-btn layui-btn-primary" id="addReset" type="reset">重置</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.all.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/buir/view/user/role-crud.js"></script>
+</body>
+</html>

@@ -36,6 +36,5 @@ layui.use(['authUtils','form','element','layer','jquery'],function(){
     $(".panel a").click(function(){
         parent.addTab($(this));
     })
-    console.log(authUtils.Action.NAVS_URL);
 
 })
