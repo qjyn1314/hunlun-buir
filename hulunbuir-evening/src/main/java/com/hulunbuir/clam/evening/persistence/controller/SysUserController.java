@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "用户表 Controller")
 @RestController
-@RequestMapping("/h/sysUser")
+@RequestMapping("/sysUser")
 public class SysUserController extends BaseController {
 
     @Autowired

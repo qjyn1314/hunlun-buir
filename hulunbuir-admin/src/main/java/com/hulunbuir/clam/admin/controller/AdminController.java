@@ -1,11 +1,12 @@
 package com.hulunbuir.clam.admin.controller;
 
-import com.hulunbuir.clam.distributed.afternoon.ManagerUserProvider;
-import org.apache.dubbo.config.annotation.Reference;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.DecimalFormat;
 
 /**
  * <p>
@@ -15,31 +16,16 @@ import java.text.DecimalFormat;
  * @author wangjunming
  * @since 2020/6/17 17:45
  */
+@Slf4j
 @RestController
 @RequestMapping("/admin")
+@Api(tags = "测试控制层")
 public class AdminController {
 
-    @Reference
-    private ManagerUserProvider userProvider;
-
-
-//    public String queryUser(){
-//        Map<String,Object>
-//        return userProvider.queryBuirUser();
-//    }
-
-
-    public static void main(String[] args) {
-
-        final DecimalFormat decimalFormat = new DecimalFormat("##");
-
-        final String format = decimalFormat.format(15321355715L);
-
-        System.out.println(format);
-
+    @ApiOperation("测试ResuqstBody")
+    @PostMapping("/testContent")
+    public void testContent(@RequestBody ContentPo contentPo){
+        log.info("contentPo：{}",contentPo);
     }
-
-
-
 
 }

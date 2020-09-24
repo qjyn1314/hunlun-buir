@@ -29,7 +29,7 @@ import java.util.Map;
 @Slf4j
 @Api(tags = "${tableComment} Controller")
 @RestController
-@RequestMapping("/h/${className?uncap_first}")
+@RequestMapping("/${className?uncap_first}")
 public class ${className}Controller extends BaseController {
 
     @Autowired

@@ -43,4 +43,15 @@ public abstract class BaseController {
         return rspData;
     }
 
+    protected Map<String, Object> getLayTable(IPage<?> pageInfo) {
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("page", pageInfo.getCurrent());
+        rspData.put("pageSize", pageInfo.getSize());
+        rspData.put("totalPage", ((pageInfo.getTotal() + pageInfo.getSize() - 1) / pageInfo.getSize()));
+        rspData.put("count", pageInfo.getTotal());
+        rspData.put("data", pageInfo.getRecords());
+        rspData.put("code", 0);
+        return rspData;
+    }
+
 }

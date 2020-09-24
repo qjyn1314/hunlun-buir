@@ -7,43 +7,37 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         let singleSlash = doubleSlashUrl.indexOf("/");
         return url.substring(0, singleSlash + doubleSlash);
     }
-    const baseUrl = baseUrlHandle();
-    //封装了ajax
-    const $ = layui.jquery;
-    const layer = layui.layer;
-    const table = layui.table;
+    const baseUrl = baseUrlHandle(),$ = layui.jquery,layer = layui.layer,table = layui.table;
     const authUtils = {
-        /**
-         * 是否前后端分离
-         */
-        isFrontendBackendSeparate: true,
-        /**
-         * 服务器地址
-         */
         backendURL: baseUrl,
         Action: {
+            //菜单json数据，之后将从接口中获取数据
             NAVS_URL: baseUrl + "/json/navs.json",
+            //省市区地址json数据
             ADDRESS_URL: baseUrl + "/json/address.json",
-            systemParameter_URL: baseUrl + "/json/systemParameter.json",
             //注册
             REGISTER_URL: baseUrl + "/auth/register",
             //获取当前登录用户信息
             USER_INFO_URL: baseUrl + "/userInfo",
             //生成代码的表列表
             GENERATOR_TABLE_URL: baseUrl + "/generation/tables",
+            //下载生成代码压缩包
+            DOWNLOAD_GENERATOR_URL: baseUrl + '/generation/generationCodeDownload',
+            //生成代码的文件夹列表
+            GENERATION_FOLDER_URL: baseUrl + "/generation/getFolderList",
+            //获取生成代码的配置
+            GENERATION_SETTING_URL: baseUrl + "/generation/getGeneration",
+            //保存生成代码的配置
+            SAVE_GENERATION_SETTING_URL: baseUrl +  "/generation/saveGeneration",
+            //用户列表
+            USERS_URL: baseUrl + "/sysUser/page",
 
         },
-        /**
-         * 获取body的总宽度
-         */
         getBodyWidth: function () {
             return document.body.scrollWidth;
         },
         /**
          * 封装初始化表格
-         *
-         * @param params
-         * @returns {*}
          */
         tableInit: function (params) {
             var defaultSetting = {
@@ -57,19 +51,37 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
                     pageName: 'current',
                     limitName: 'pageSize'
                 },
+                response: {
+                    statusCode: true
+                },
                 parseData: function (res) {
                     return {
-                        "code": res.flag ? 0 : 500,
-                        "count": res.data.totalRows,
+                        "code": res.flag,
+                        "count": res.data.pageSize,
                         "data": res.data.rows
-                    }
+                    };
+                }
+            };
+            return table.render($.extend(defaultSetting, params));
+        },
+        generationTableInit: function (params) {
+            var defaultSetting = {
+                page: true,
+                toolbar: true,
+                skin: 'line',
+                limit: 10,
+                limits: [10, 20, 30, 40, 100],
+                autoSort: false,
+                size: "lg",
+                request: {
+                    pageName: 'current',
+                    limitName: 'pageSize'
                 }
             };
             return table.render($.extend(defaultSetting, params));
         },
         /**
          * 在表格页面操作成功后弹窗提示
-         * @param content
          */
         tableSuccessMsg: function (content) {
             layer.msg(content, {icon: 1, time: 1000}, function () {
@@ -79,8 +91,6 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         },
         /**
          * 主要用于针对表格批量操作操作之前的检查
-         * @param table
-         * @returns {string}
          */
         tableBatchCheck: function (table) {
             var checkStatus = table.checkStatus("tableId");

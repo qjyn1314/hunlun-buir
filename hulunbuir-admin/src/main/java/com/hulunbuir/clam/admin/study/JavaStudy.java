@@ -202,6 +202,14 @@ public class JavaStudy {
         System.out.println(format1);
 
 
+        String folder = "654654\\987987\\wer";
+
+
+
+
+
+
+
     }
 
     private static void ioStudy() throws Exception {

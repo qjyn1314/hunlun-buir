@@ -23,18 +23,18 @@ layui.use(['form','layer','table','laytpl'],function(){
             }},
             {field: 'userSex', title: '用户性别', align:'center'},
             {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
-                return d.userStatus == "0" ? "正常使用" : "限制使用";
+                return d.userStatus === "0" ? "正常使用" : "限制使用";
             }},
             {field: 'userGrade', title: '用户等级', align:'center',templet:function(d){
-                if(d.userGrade == "0"){
+                if(d.userGrade === "0"){
                     return "注册会员";
-                }else if(d.userGrade == "1"){
+                }else if(d.userGrade === "1"){
                     return "中级会员";
-                }else if(d.userGrade == "2"){
+                }else if(d.userGrade === "2"){
                     return "高级会员";
-                }else if(d.userGrade == "3"){
+                }else if(d.userGrade === "3"){
                     return "钻石会员";
-                }else if(d.userGrade == "4"){
+                }else if(d.userGrade === "4"){
                     return "超级会员";
                 }
             }},

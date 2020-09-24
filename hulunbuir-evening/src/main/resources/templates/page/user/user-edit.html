@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <!--form表单-->
+    <form class="layui-form layui-form-pane" id="dataEditForm">
+        <div>
+            <input hidden="hidden" name="id" type="text">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户昵称</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="nickName" placeholder="请输入用户昵称" type="text" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录邮箱</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="userName" placeholder="请输入登录邮箱" readonly type="text" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                <select id="roles" name="roleId"></select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+				<input name="status" title="待审核" type="radio" value="0">
+				<input name="status" title="已审核" type="radio" value="1">
+				<input name="status" title="已冻结" type="radio" value="2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input checked name="sex" title="女" type="radio" value="1">
+                <input name="sex" title="男" type="radio" value="0">
+            </div>
+        </div>
+    </form>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" id="editDataForm">立即提交</button>
+            <button class="layui-btn layui-btn-primary" id="editClose" type="reset">关闭</button>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.all.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/buir/view/user/user-crud.js"></script>
+</body>
+</html>

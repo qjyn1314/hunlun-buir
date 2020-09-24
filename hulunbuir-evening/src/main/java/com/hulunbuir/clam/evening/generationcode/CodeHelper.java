@@ -10,6 +10,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -69,13 +70,9 @@ public class CodeHelper {
 
     private Template getTemplate(String templateFolder, String templateName) throws IOException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
-        String resourcesFolder = "/generation/" + templateFolder + "/";
-        String templatePath = CodeHelper.class.getResource(resourcesFolder).getPath();
-        File file = new File(templatePath);
-        if (!file.exists()) {
-            templatePath = BuirProperties.me().getTemplateGeneration() + templateFolder + "/";
-        }
-        configuration.setDirectoryForTemplateLoading(new File(templatePath));
+        ClassPathResource resource = new ClassPathResource("generation" + File.separator + templateFolder );
+        final File file = resource.getFile();
+        configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
         return configuration.getTemplate(templateName);

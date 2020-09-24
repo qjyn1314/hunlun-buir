@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "权限表 Controller")
 @RestController
-@RequestMapping("/h/sysPermission")
+@RequestMapping("/sysPermission")
 public class SysPermissionController extends BaseController {
 
     @Autowired

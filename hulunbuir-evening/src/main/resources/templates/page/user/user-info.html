@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
+    <link href="/layui/css/layui.css" rel="stylesheet">
+    <link href="/layui/css/view.css" rel="stylesheet"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <!--form表单-->
+    <form class="layui-form layui-form-pane" id="dataInfoForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户昵称</label>
+            <div class="layui-input-block">
+                <input class="layui-input" name="nickName" readonly type="text"  >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录邮箱</label>
+            <div class="layui-input-block">
+                <input class="layui-input" name="userName" readonly type="text"  >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                <input class="layui-input" name="roleId" readonly type="text" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input class="layui-input" name="status" readonly type="text" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input class="layui-input" name="sex" readonly type="text" value="女">
+            </div>
+        </div>
+    </form>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-primary" id="infoClose" >关闭</button>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.all.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/buir/view/user/user-crud.js"></script>
+</body>
+</html>

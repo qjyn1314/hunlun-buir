@@ -1,12 +1,12 @@
 package com.hulunbuir.clam.evening.generationcode;
 
-import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
-import com.hulunbuir.clam.evening.generationcode.entity.Column;
-import com.hulunbuir.clam.evening.generationcode.service.GenerationService;
 import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
 import com.hulunbuir.clam.common.config.BuirProperties;
+import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
+import com.hulunbuir.clam.evening.generationcode.entity.Column;
+import com.hulunbuir.clam.evening.generationcode.service.GenerationService;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import com.hulunbuir.clam.parent.tool.CommonUtils;
@@ -15,13 +15,18 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -51,9 +56,12 @@ public class GenerationController extends BaseController {
 
     @ApiOperation("获取已配置的模板文件夹列表")
     @GetMapping("/getFolderList")
-    public JsonResult getFolderList() {
-        String[] folderList = new String[]{"default","xinmeng"};
-        return JsonResult.success(Arrays.asList(folderList));
+    public JsonResult getFolderList() throws IOException {
+        ClassPathResource resource = new ClassPathResource("generation" + File.separator);
+        final File file = resource.getFile();
+        return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
+            return floder.getPath().substring(floder.getPath().lastIndexOf("\\")+1);
+        }).collect(Collectors.toList()));
     }
 
     @ApiOperation("获取配置")
@@ -81,8 +89,8 @@ public class GenerationController extends BaseController {
 
     @ApiOperation("数据库中的表")
     @GetMapping("/tables")
-    public JsonResult tables(QueryRequest queryRequest, CodeTable generation) {
-        return JsonResult.success(getDataTable(generationService.tables(queryRequest, generation)));
+    public Map<String, Object> tables(QueryRequest queryRequest, CodeTable generation) {
+        return getLayTable(generationService.tables(queryRequest, generation));
     }
 
     @ApiOperation("生成代码并下载")

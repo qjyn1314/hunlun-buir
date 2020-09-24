@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "角色权限关联表 Controller")
 @RestController
-@RequestMapping("/h/sysRolePermission")
+@RequestMapping("/sysRolePermission")
 public class SysRolePermissionController extends BaseController {
 
     @Autowired
