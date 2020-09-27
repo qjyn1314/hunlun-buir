@@ -33,25 +33,25 @@ public class SysUserRoleController extends BaseController {
 
     @ApiOperation("用户角色关联表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, SysUserRole sysUserRole){
-        return JsonResult.success(getDataTable(service.page(queryRequest,sysUserRole)));
+    public JsonResult page(QueryRequest queryRequest, SysUserRole sysUserRole) {
+        return JsonResult.success(getDataTable(service.page(queryRequest, sysUserRole)));
     }
 
     @ApiOperation("用户角色关联表添加")
     @PostMapping("/save")
-    public JsonResult save(SysUserRole sysUserRole){
+    public JsonResult save(SysUserRole sysUserRole) {
         return JsonResult.success(service.save(sysUserRole));
     }
 
     @ApiOperation("用户角色关联表修改")
     @PostMapping("/update")
-    public JsonResult update(SysUserRole sysUserRole){
+    public JsonResult update(SysUserRole sysUserRole) {
         return JsonResult.success(service.update(sysUserRole));
     }
 
     @ApiOperation("用户角色关联表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(SysUserRole sysUserRole){
+    public JsonResult selOne(SysUserRole sysUserRole) {
         return JsonResult.success(service.selOne(sysUserRole));
     }
 

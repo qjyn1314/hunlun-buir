@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hulunbuir.clam.evening.persistence.mapper.SysPermissionMapper">
 
+    <select id="getPermissionTree" resultType="com.hulunbuir.clam.evening.persistence.vo.SysPermissionTree">
+        SELECT id,parent_id AS pid,per_name title,per_name name,per_icon AS icon,per_url AS href FROM sys_permission  WHERE per_status = '1' AND parent_id = #{pid} ORDER BY per_sort
+    </select>
+
+    <select id="getLayPermissionTree" resultType="com.hulunbuir.clam.evening.persistence.vo.LayPermissionTree">
+        SELECT id,parent_id AS pid,per_name title,per_name name,per_icon AS icon,per_url AS href FROM sys_permission  WHERE per_status = '1' AND parent_id = #{pid} ORDER BY per_sort
+    </select>
+
 </mapper>

@@ -1,29 +1,25 @@
-"use strict";
-layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "asucUtils",], function () {
-    let asucUtils = layui.asucUtils;
-    let $ = layui.jquery;
-    let searchForm = $('#searchForm');
-    let table = layui.table;
-    let layer = layui.layer;
-    let tree = layui.tree;
-    let laydate = layui.laydate;
+layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "authUtils",], function () {
+    let authUtils = layui.authUtils, Action = layui.authUtils.Action, $ = layui.jquery, table = layui.table;
+    let layer = layui.layer, tree = layui.tree, laydate = layui.laydate, searchForm = $('#searchForm');
     laydate.render({elem: "#startTime", type: "datetime"});
     laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
-    let dataTable = asucUtils.tableInit({
+    let dataTable = authUtils.TableInit({
         elem: '#tableList',
-        url: asucUtils.backendURL + "/buirPermission/buirPermissionPage",
+        url: Action.PERMISSION_LIST_URL,
         cols: [[
             {field: "id", title: "ID", width: 50},
             {field: "parentId", title: "父级ID", width: 90},
-            {field: "perName", title: "权限名称"},
-            {field: "perUrl", title: "权限路径" },
-            {field: "perCode", title: "权限编码", width: 100},
-            {field: "perIcon", title: "图表展示", width: 90},
+            {field: "perName", title: "权限名称", width: 100},
+            {field: "perUrl", title: "权限路径"},
+            {field: "perCode", title: "权限编码", width: 105},
+            {field: "perIcon", title: "图表展示", width: 90,templet:function (res) {
+                    return '<i class="layui-icon">'+res.perIcon+'</i>';
+            }},
             {field: "description", title: "权限说明", width: 170},
             {field: "perSort", title: "菜单排序", width: 90},
-            {field: "perStatus", title: "是否启用",toolbar: '#perStatus', width: 90},
+            {field: "perStatus", title: "是否启用", toolbar: '#perStatus', width: 90},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
     });
@@ -50,37 +46,35 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     //添加
     $('#addData').on('click', function () {
         //首先是请求了后台接口，之后跳转到相应的页面
-        asucUtils.open("添加权限", "/view/user/permission-add.html.do", "90%", "90%", function (layero) {
+        authUtils.open("添加权限", "/page/permission/permission-add.html", "90%", "90%", function (layero) {
             let dataAddForm = layero.find('iframe').contents().find('#dataAddForm');
             let perTree = layero.find('iframe').contents().find('#perTree');
-            initPerTree(perTree,dataAddForm);
+            initPerTree(perTree, dataAddForm);
         }, function () {
             dataTable.reload();
         })
     });
 
     //初始化树形权限
-    function initPerTree(treeDivId,dataAddForm){
-        asucUtils.axGet("/buirPermission/getPermissionTree", null,function (result) {
+    function initPerTree(treeDivId, dataAddForm) {
+        authUtils.axGet(Action.PERMISSIONTREE_URL, null, function (result) {
             if (result.flag) {
-                treeRender(treeDivId,result.data,dataAddForm);
+                treeRender(treeDivId, result.data, dataAddForm);
             } else {
-                asucUtils.redCryMsg(result.message);
+                authUtils.redCryMsg(result.message);
             }
         });
     }
 
     //回显树结构数据
     function treeRender(treeDivId,treeData,dataAddForm){
-        tree.render({
-            elem: treeDivId,  //绑定元素
-            data: treeData,  //数据源
-            onlyIconControl: true,
-            click: function (obj) {
-                // console.log(obj.data); //得到当前点击的节点数据
-                dataAddForm.find('input[name=parentId]').val(obj.data.id);
-                dataAddForm.find('input[name=parentName]').val(obj.data.title);
-            }
+        layui.tree({
+            elem: treeDivId, //指定元素，生成的树放到哪个元素上
+            nodes: treeData,
+            click: function(obj) { //点击节点回调
+                dataAddForm.find('input[name=parentId]').val(obj.id);
+                dataAddForm.find('input[name=parentName]').val(obj.name);
+            },
         });
     }
 
@@ -101,14 +95,14 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
 
     //查看
     function detail(data) {
-        asucUtils.open("查看权限", "/view/user/permission-info.html.do", "90%", "90%", function (layero) {
+        authUtils.open("查看权限", "/page/permission/permission-info.html", "90%", "90%", function (layero) {
             //给弹框赋值方法，参考与：https://blog.csdn.net/lm9521/article/details/84789691
             //其实就是获取的 子页面的 form表单
             let dataInfoForm = layero.find('iframe').contents().find('#dataInfoForm');
-            for(const key in data){
-                dataInfoForm.find('input[name='+key+']').val(data[key]);
-                if(key==='perStatus'){
-                    dataInfoForm.find('input[name='+key+']').val(data[key] === 1 ? "启用" : "不启用");
+            for (const key in data) {
+                dataInfoForm.find('input[name=' + key + ']').val(data[key]);
+                if (key === 'perStatus') {
+                    dataInfoForm.find('input[name=' + key + ']').val(data[key] === 1 ? "启用" : "不启用");
                 }
             }
         }, function () {
@@ -123,12 +117,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
 
     //编辑
     function edit(data) {
-        asucUtils.open("编辑权限", "/view/user/permission-edit.html.do", "90%", "90%", function (layero) {
+        authUtils.open("编辑权限", "/page/permission/permission-edit.html", "90%", "90%", function (layero) {
             let dataEditForm = layero.find('iframe').contents().find('#dataEditForm');
-            for(const key in data){
-                dataEditForm.find('input[name='+key+']').val(data[key]);
+            for (const key in data) {
+                dataEditForm.find('input[name=' + key + ']').val(data[key]);
             }
-            $("#perStatus option[value="+data.perStatus+"]").attr("selected", "selected");
+            $("#perStatus option[value=" + data.perStatus + "]").attr("selected", "selected");
         }, function () {
             dataTable.reload();
         })
@@ -138,12 +132,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     let dataAddForm = $('#dataAddForm');
     //添加
     $('#addDataBtn').on('click', function () {
-        asucUtils.axPost("/buirPermission/saveBuirPermission", getAddParams(),function (result) {
-            if(result.flag){
-                asucUtils.tableSuccessMsg(result.message);
+        authUtils.axPost(Action.PERMISSION_ADD_URL, getAddParams(), function (result) {
+            if (result.flag) {
+                authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
             } else {
-                asucUtils.redCryMsg(result.message);
+                authUtils.redCryMsg(result.message);
             }
         });
     });
@@ -171,12 +165,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     let dataEditForm = $('#dataEditForm');
     //编辑
     $('#editDataBtn').on('click', function () {
-        asucUtils.axPost("/buirPermission/updateBuirPermission", getEditParams(),function (result) {
-            if(result.flag){
-                asucUtils.tableSuccessMsg(result.message);
+        authUtils.axPost(Action.PERMISSION_UPDATE_URL, getEditParams(), function (result) {
+            if (result.flag) {
+                authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
             } else {
-                asucUtils.redCryMsg(result.message);
+                authUtils.redCryMsg(result.message);
             }
         });
     });

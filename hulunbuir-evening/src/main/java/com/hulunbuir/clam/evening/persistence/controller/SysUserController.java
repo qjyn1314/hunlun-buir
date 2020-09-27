@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * <p>
  * 用户表 Controller
@@ -33,25 +35,25 @@ public class SysUserController extends BaseController {
 
     @ApiOperation("用户表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, SysUser sysUser){
-        return JsonResult.success(getDataTable(service.page(queryRequest,sysUser)));
+    public Map<String, Object> page(QueryRequest queryRequest, SysUser sysUser) {
+        return getLayTable(service.page(queryRequest, sysUser));
     }
 
     @ApiOperation("用户表添加")
     @PostMapping("/save")
-    public JsonResult save(SysUser sysUser){
+    public JsonResult save(SysUser sysUser) {
         return JsonResult.success(service.save(sysUser));
     }
 
     @ApiOperation("用户表修改")
     @PostMapping("/update")
-    public JsonResult update(SysUser sysUser){
+    public JsonResult update(SysUser sysUser) {
         return JsonResult.success(service.update(sysUser));
     }
 
     @ApiOperation("用户表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(SysUser sysUser){
+    public JsonResult selOne(SysUser sysUser) {
         return JsonResult.success(service.selOne(sysUser));
     }
 

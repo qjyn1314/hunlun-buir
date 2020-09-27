@@ -29,11 +29,6 @@ public abstract class BaseController {
      * @since 2020/3/23 16:29
      */
     protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
-//        page: 1 页码
-//        pageSize: 10 每页条数
-//        totalPage: 0 总页数 (total + pageSize - 1)/pageSize
-//        totalRows: 0 总条数
-//        rows: []
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("page",pageInfo.getCurrent());
         rspData.put("pageSize", pageInfo.getSize());
@@ -43,11 +38,13 @@ public abstract class BaseController {
         return rspData;
     }
 
+    /**
+     * 适用于layui2.2.5版本的数据表格
+     * @param pageInfo mybatis-plus的分页信息
+     * @return Map<String, Object>
+     */
     protected Map<String, Object> getLayTable(IPage<?> pageInfo) {
         Map<String, Object> rspData = new HashMap<>();
-        rspData.put("page", pageInfo.getCurrent());
-        rspData.put("pageSize", pageInfo.getSize());
-        rspData.put("totalPage", ((pageInfo.getTotal() + pageInfo.getSize() - 1) / pageInfo.getSize()));
         rspData.put("count", pageInfo.getTotal());
         rspData.put("data", pageInfo.getRecords());
         rspData.put("code", 0);

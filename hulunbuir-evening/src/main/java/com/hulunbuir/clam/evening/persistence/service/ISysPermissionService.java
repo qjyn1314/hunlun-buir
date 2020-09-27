@@ -1,8 +1,12 @@
 package com.hulunbuir.clam.evening.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
+import com.hulunbuir.clam.evening.persistence.vo.LayPermissionTree;
+import com.hulunbuir.clam.evening.persistence.vo.SysPermissionTree;
+
+import java.util.List;
 
 /**
  * 权限表 Service接口
@@ -45,5 +49,21 @@ public interface ISysPermissionService {
      */
     SysPermission selOne(SysPermission sysPermission);
 
+
+    /**
+     * 树形权限列表
+     *
+     * @author wangjunming
+     * @since 2020/9/25 18:00
+     */
+    List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree);
+
+    /**
+     * 添加权限页面的权限树
+     *
+     * @author wangjunming
+     * @since 2020/9/27 15:54
+     */
+    List<LayPermissionTree> layPermissionTree(LayPermissionTree layPermissionTree);
 
 }

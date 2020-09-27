@@ -2,82 +2,84 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
-    <link href="/layui/css/layui.css" rel="stylesheet">
-    <link href="/layui/css/view.css" rel="stylesheet"/>
-    <title>管理后台</title>
+    <meta content="webkit" name="renderer">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="telephone=no" name="format-detection">
+    <link href="/layui/css/layui.css" media="all" rel="stylesheet"/>
+    <link href="/css/public.css" media="all" rel="stylesheet"/>
+    <title>权限管理</title>
 </head>
-<body class="layui-view-body">
+<body class="layui-view-body childrenBody">
 <div class="layui-content">
-    <div class="layui-content" >
-        <!--form表单-->
-        <form class="layui-form layui-form-pane" id="dataEditForm">
-            <div class="layui-form-item">
-                <label class="layui-form-label">上级权限ID</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" hidden="hidden" name="id" type="text">
-                    <input autocomplete="off" class="layui-input" disabled="disabled" name="parentId" type="text">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限名称</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perName" placeholder="请输入权限名称" type="text">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限路径</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perUrl" placeholder="请输入权限路径" type="text">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限编码</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perCode" placeholder="请输入权限编码" type="text">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">图表展示</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perIcon" placeholder="请输入图表展示" type="text">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">菜单排序</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="perSort" placeholder="请输入菜单排序，数字越小排序在前" type="text" >
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限说明</label>
-                <div class="layui-input-block">
-                    <input autocomplete="off" class="layui-input" name="description" placeholder="请输入权限说明" type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">是否启用</label>
-                <div class="layui-input-block">
-                    <select id="perStatus" name="perStatus">
-                        <option value="">选择是否启用</option>
-                        <option value="1">启用</option>
-                        <option value="2">不启用</option>
-                    </select>
-                </div>
-            </div>
-        </form>
+    <!--form表单-->
+    <form class="layui-form layui-form-pane" id="dataEditForm">
         <div class="layui-form-item">
+            <label class="layui-form-label">上级权限ID</label>
             <div class="layui-input-block">
-                <button class="layui-btn" id="editDataBtn">立即提交</button>
-                <button class="layui-btn layui-btn-primary" id="editClose">关闭</button>
+                <input autocomplete="off" hidden="hidden" name="id" type="text">
+                <input autocomplete="off" class="layui-input" disabled="disabled" name="parentId" type="text">
             </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限名称</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="perName" placeholder="请输入权限名称" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限路径</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="perUrl" placeholder="请输入权限路径" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限编码</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="perCode" placeholder="请输入权限编码" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图表展示</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="perIcon" placeholder="请输入图表展示" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单排序</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="perSort" placeholder="请输入菜单排序，数字越小排序在前"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限说明</label>
+            <div class="layui-input-block">
+                <input autocomplete="off" class="layui-input" name="description" placeholder="请输入权限说明" type="text"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-block">
+                <select id="perStatus" name="perStatus">
+                    <option value="">选择是否启用</option>
+                    <option value="1">启用</option>
+                    <option value="2">不启用</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" id="editDataBtn">立即提交</button>
+            <button class="layui-btn layui-btn-primary" id="editClose">关闭</button>
         </div>
     </div>
 </div>
 
-<script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
-<script src="/buir/view/user/permission-crud.js"></script>
+<script src="/js/permission/permission-crud.js"></script>
 </body>
 </html>

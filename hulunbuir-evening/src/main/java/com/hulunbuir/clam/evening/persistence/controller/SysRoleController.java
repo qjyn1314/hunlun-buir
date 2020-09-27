@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * <p>
  * 角色表 Controller
@@ -33,25 +35,25 @@ public class SysRoleController extends BaseController {
 
     @ApiOperation("角色表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, SysRole sysRole){
-        return JsonResult.success(getDataTable(service.page(queryRequest,sysRole)));
+    public Map<String, Object> page(QueryRequest queryRequest, SysRole sysRole) {
+        return getLayTable(service.page(queryRequest, sysRole));
     }
 
     @ApiOperation("角色表添加")
     @PostMapping("/save")
-    public JsonResult save(SysRole sysRole){
+    public JsonResult save(SysRole sysRole) {
         return JsonResult.success(service.save(sysRole));
     }
 
     @ApiOperation("角色表修改")
     @PostMapping("/update")
-    public JsonResult update(SysRole sysRole){
+    public JsonResult update(SysRole sysRole) {
         return JsonResult.success(service.update(sysRole));
     }
 
     @ApiOperation("角色表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(SysRole sysRole){
+    public JsonResult selOne(SysRole sysRole) {
         return JsonResult.success(service.selOne(sysRole));
     }
 

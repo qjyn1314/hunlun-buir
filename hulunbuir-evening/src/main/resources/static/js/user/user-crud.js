@@ -5,16 +5,19 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
-    let dataTable = authUtils.tableInit({
+    let dataTable = authUtils.TableInit({
         elem: '#userTable',
         url: Action.USERS_URL,
         cols: [[
-            {field: "id", title: "ID", width: 80},
-            {field: "nickName", title: "用户昵称"},
-            {field: "userName", title: "用户登录邮箱"},
+            {field: "id", title: "唯一ID", width: 80},
+            {field: "userName", title: "用户名"},
+            {field: "email", title: "邮箱"},
+            {field: "phone", title: "联系电话"},
+            {field: "sex", title: "性别"},
+            {field: "avatar", title: "头像"},
             {field: "status", title: "状态", width: 80, toolbar: '#status'},
-            {field: "createTime", title: "创建时间"},
-            {field: "updateTime", title: "更新时间"},
+            {field: "lastLoginTime", title: "最近访问时间"},
+            {field: "createTime", title: "注册时间"},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
     });
@@ -29,8 +32,8 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
         return {
             startTime: searchForm.find('input[name="startTime"]').val(),
             endTime: searchForm.find('input[name="endTime"]').val(),
-            nickName: searchForm.find('input[name="username"]').val().trim(),
-            userName: searchForm.find("input[name='usermail']").val().trim(),
+            nickName: searchForm.find('input[name="username"]').val(),
+            userName: searchForm.find("input[name='usermail']").val(),
             status: searchForm.find("select[name='status']").val(),
         };
     }

@@ -33,25 +33,25 @@ public class SysRolePermissionController extends BaseController {
 
     @ApiOperation("角色权限关联表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, SysRolePermission sysRolePermission){
-        return JsonResult.success(getDataTable(service.page(queryRequest,sysRolePermission)));
+    public JsonResult page(QueryRequest queryRequest, SysRolePermission sysRolePermission) {
+        return JsonResult.success(getDataTable(service.page(queryRequest, sysRolePermission)));
     }
 
     @ApiOperation("角色权限关联表添加")
     @PostMapping("/save")
-    public JsonResult save(SysRolePermission sysRolePermission){
+    public JsonResult save(SysRolePermission sysRolePermission) {
         return JsonResult.success(service.save(sysRolePermission));
     }
 
     @ApiOperation("角色权限关联表修改")
     @PostMapping("/update")
-    public JsonResult update(SysRolePermission sysRolePermission){
+    public JsonResult update(SysRolePermission sysRolePermission) {
         return JsonResult.success(service.update(sysRolePermission));
     }
 
     @ApiOperation("角色权限关联表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(SysRolePermission sysRolePermission){
+    public JsonResult selOne(SysRolePermission sysRolePermission) {
         return JsonResult.success(service.selOne(sysRolePermission));
     }
 

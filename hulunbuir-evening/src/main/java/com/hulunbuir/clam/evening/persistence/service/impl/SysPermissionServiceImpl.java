@@ -7,9 +7,13 @@ import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
 import com.hulunbuir.clam.evening.persistence.mapper.SysPermissionMapper;
 import com.hulunbuir.clam.evening.persistence.service.ISysPermissionService;
+import com.hulunbuir.clam.evening.persistence.vo.LayPermissionTree;
+import com.hulunbuir.clam.evening.persistence.vo.SysPermissionTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 权限表 Service实现
@@ -58,7 +62,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     * @since 2020-09-22 11:04:50
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean save(SysPermission sysPermission) {
         //--TODO 做一些初始化动作
         return sysPermissionMapper.insert(sysPermission)>0;
@@ -72,7 +76,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     * @since 2020-09-22 11:04:50
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(SysPermission sysPermission) {
         //--TODO 做一些效验动作
         return sysPermissionMapper.updateById(sysPermission)>0;
@@ -92,5 +96,50 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         return sysPermissionMapper.selectOne(queryWrapper);
     }
 
+    /**
+     * 树形权限列表
+     *
+     * @author wangjunming
+     * @since 2020/9/25 18:00
+     */
+    @Override
+    public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree) {
+        return handlePermissionTree(permissionTree);
+    }
+
+    /**
+     * 添加权限页面的权限树
+     *
+     * @author wangjunming
+     * @since 2020/9/27 15:54
+     */
+    @Override
+    public List<LayPermissionTree> layPermissionTree(LayPermissionTree layPermissionTree) {
+        return handleLayPermissionTree(layPermissionTree);
+    }
+
+    List<LayPermissionTree> handleLayPermissionTree(LayPermissionTree permissionTree){
+        List<LayPermissionTree> permissionTreeList = sysPermissionMapper.getLayPermissionTree(permissionTree);
+        for (LayPermissionTree layPermissionTree : permissionTreeList) {
+            final List<LayPermissionTree> permissionChild = sysPermissionMapper.getLayPermissionTree(new LayPermissionTree(layPermissionTree.getId()));
+            if(null != permissionChild && permissionChild.size() > 0){
+                layPermissionTree.setChildren(permissionChild);
+                handleLayPermissionTree(new LayPermissionTree(layPermissionTree.getId()));
+            }
+        }
+        return permissionTreeList;
+    }
+
+    List<SysPermissionTree> handlePermissionTree(SysPermissionTree permissionTree){
+        List<SysPermissionTree> permissionTreeList = sysPermissionMapper.getPermissionTree(permissionTree);
+        for (SysPermissionTree buirPermissionTree : permissionTreeList) {
+            final List<SysPermissionTree> permissionChild = sysPermissionMapper.getPermissionTree(new SysPermissionTree(buirPermissionTree.getId()));
+            if(null != permissionChild && permissionChild.size() > 0){
+                buirPermissionTree.setChildren(permissionChild);
+                handlePermissionTree(new SysPermissionTree(buirPermissionTree.getId()));
+            }
+        }
+        return permissionTreeList;
+    }
 
 }

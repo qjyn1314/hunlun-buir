@@ -6,7 +6,7 @@ layui.use(["element", "jquery", "layer", "table", "form", "laydate", "authUtils"
     laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
-    const dataTable = authUtils.generationTableInit({
+    const dataTable = authUtils.TableInit({
         elem: '#generatorTable',
         url: Action.GENERATOR_TABLE_URL,
         cols: [[

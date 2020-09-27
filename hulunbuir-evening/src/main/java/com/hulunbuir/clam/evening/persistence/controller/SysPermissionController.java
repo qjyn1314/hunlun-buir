@@ -4,6 +4,8 @@ import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
 import com.hulunbuir.clam.evening.persistence.service.ISysPermissionService;
+import com.hulunbuir.clam.evening.persistence.vo.LayPermissionTree;
+import com.hulunbuir.clam.evening.persistence.vo.SysPermissionTree;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -33,26 +37,38 @@ public class SysPermissionController extends BaseController {
 
     @ApiOperation("权限表分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, SysPermission sysPermission){
-        return JsonResult.success(getDataTable(service.page(queryRequest,sysPermission)));
+    public Map<String, Object> page(QueryRequest queryRequest, SysPermission sysPermission) {
+        return getLayTable(service.page(queryRequest, sysPermission));
     }
 
     @ApiOperation("权限表添加")
     @PostMapping("/save")
-    public JsonResult save(SysPermission sysPermission){
+    public JsonResult save(SysPermission sysPermission) {
         return JsonResult.success(service.save(sysPermission));
     }
 
     @ApiOperation("权限表修改")
     @PostMapping("/update")
-    public JsonResult update(SysPermission sysPermission){
+    public JsonResult update(SysPermission sysPermission) {
         return JsonResult.success(service.update(sysPermission));
     }
 
     @ApiOperation("权限表获取")
     @GetMapping("/selOne")
-    public JsonResult selOne(SysPermission sysPermission){
+    public JsonResult selOne(SysPermission sysPermission) {
         return JsonResult.success(service.selOne(sysPermission));
+    }
+
+    @ApiOperation("树形权限列表")
+    @GetMapping("/permissionTree")
+    public JsonResult permissionTree() {
+        return JsonResult.success(service.permissionTree(new SysPermissionTree(Integer.valueOf("0"))));
+    }
+
+    @ApiOperation("树形权限列表")
+    @GetMapping("/layPermissionTree")
+    public JsonResult layPermissionTree() {
+        return JsonResult.success(service.layPermissionTree(new LayPermissionTree(Integer.valueOf("0"))));
     }
 
 }

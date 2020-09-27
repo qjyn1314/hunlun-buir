@@ -20,15 +20,21 @@
 		]
 	},
 	{
-		"title": "用户",
-		"icon": "&#xe612;",
-		"href": "page/user/users.html",
+		"title": "权限管理",
+		"icon": "&#xe672;",
+		"href": "page/permission/permission.html",
+		"spread": false
+	},
+	{
+		"title": "角色管理",
+		"icon": "&#xe613;",
+		"href": "page/role/role.html",
 		"spread": false
 	},
 	{
 		"title": "用户中心",
 		"icon": "&#xe612;",
-		"href": "page/user/userList.html",
+		"href": "page/user/users.html",
 		"spread": false
 	},
 	{

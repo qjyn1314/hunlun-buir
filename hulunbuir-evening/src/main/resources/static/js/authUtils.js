@@ -28,7 +28,19 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             //获取生成代码的配置
             GENERATION_SETTING_URL: baseUrl + "/generation/getGeneration",
             //保存生成代码的配置
-            SAVE_GENERATION_SETTING_URL: baseUrl +  "/generation/saveGeneration",
+            SAVE_GENERATION_SETTING_URL: baseUrl + "/generation/saveGeneration",
+            //权限列表
+            PERMISSION_LIST_URL: baseUrl + "/sysPermission/page",
+            //添加页面中初始化树形权限
+            PERMISSIONTREE_URL:  baseUrl + "/sysPermission/layPermissionTree",
+            //权限添加
+            PERMISSION_ADD_URL: baseUrl + "/sysPermission/save",
+            //权限修改
+            PERMISSION_UPDATE_URL: baseUrl + "/sysPermission/update",
+            //权限获取
+            PERMISSION_SEL_URL: baseUrl + "/sysPermission/selOne",
+
+
             //用户列表
             USERS_URL: baseUrl + "/sysUser/page",
 
@@ -38,6 +50,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         },
         /**
          * 封装初始化表格
+         * 2.4.0版本之后所使用
          */
         tableInit: function (params) {
             var defaultSetting = {
@@ -64,15 +77,14 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             };
             return table.render($.extend(defaultSetting, params));
         },
-        generationTableInit: function (params) {
+        //layui2.2.5版本
+        TableInit: function (params) {
             var defaultSetting = {
                 page: true,
-                toolbar: true,
-                skin: 'line',
-                limit: 10,
-                limits: [10, 20, 30, 40, 100],
+                limit: 8,
+                limits: [8, 16, 40],
+                cellMinWidth: 90,
                 autoSort: false,
-                size: "lg",
                 request: {
                     pageName: 'current',
                     limitName: 'pageSize'
