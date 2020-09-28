@@ -58,4 +58,10 @@ public class SysRoleController extends BaseController {
         return JsonResult.success(service.selOne(sysRole));
     }
 
+    @ApiOperation("角色表获取")
+    @GetMapping("/list")
+    public JsonResult list(SysRole sysRole) {
+        return JsonResult.success(service.list(sysRole));
+    }
+
 }

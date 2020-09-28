@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 角色表 Service实现
  *
@@ -107,6 +109,19 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public SysRoleVo selOne(SysRole sysRole) {
         //--TODO 初始化查询条件
         return sysRoleMapper.selOne(sysRole);
+    }
+
+    /**
+     * 查询的角色列表
+     *
+     * @param sysRole
+     * @author wangjunming
+     * @since 2020/9/28 11:31
+     */
+    @Override
+    public List<SysRole> list(SysRole sysRole) {
+        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
+        return sysRoleMapper.selectList(queryWrapper);
     }
 
 

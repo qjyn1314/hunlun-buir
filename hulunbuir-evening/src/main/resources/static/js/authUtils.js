@@ -47,10 +47,18 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             ROLE_UPDATE_URL: baseUrl + "/sysRole/update",
             //角色查看
             ROLE_SEL_URL: baseUrl + "/sysRole/selOne",
-
+            //角色列表
+            ROLE_LISTS_URL: baseUrl + "/sysRole/list",
             //用户列表
-            USERS_URL: baseUrl + "/sysUser/page",
-
+            USERS_PAGE_URL: baseUrl + "/sysUser/page",
+            //用户添加
+            USERS_ADD_URL: baseUrl + "/sysUser/save",
+            //用户修改
+            USERS_UPDATE_URL: baseUrl + "/sysUser/update",
+            //用户删除
+            USERS_DEL_URL: baseUrl + "/sysUser/del",
+            //用户查询
+            USERS_SEL_URL: baseUrl + "/sysUser/selOne",
 
         },
         getBodyWidth: function () {

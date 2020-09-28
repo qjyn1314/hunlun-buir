@@ -7,7 +7,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     //列表
     let dataTable = authUtils.TableInit({
         elem: '#userTable',
-        url: Action.USERS_URL,
+        url: Action.USERS_PAGE_URL,
         cols: [[
             {field: "id", title: "唯一ID", width: 80},
             {field: "userName", title: "用户名"},
@@ -47,12 +47,8 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     //添加
     $('#addData').on('click', function () {
         //首先是请求了后台接口，之后跳转到相应的页面
-        authUtils.open("添加用户", "/page/user/user-add.html", "90%", "90%", function (layero) {
+        authUtils.open("添加用户", "/page/user/user-add.html", "90%", "90%", function (layero,index) {
             setOptionValues(layero.find('iframe').contents().find('#roles'))
-            setTimeout(function () {
-                let addUserForm = layero.find('iframe').contents().find('#addUserForm');
-                addUserForm[0].reset();
-            }, 2.5);
         }, function () {
             dataTable.reload();
         })
@@ -60,7 +56,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
 
     function setOptionValues(roles) {
         //查询权限并赋值
-        authUtils.axGet("/buirRole/findInfoList", null, function (result) {
+        authUtils.axGet(Action.ROLE_LISTS_URL, null, function (result) {
             if (result.flag) {
                 let option = "";
                 roles.append("");
@@ -105,7 +101,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
                     let statusValue = data[key] === 0 ? "待审核" : data[key] === 1 ? "已审核" : "已冻结";
                     dataInfoForm.find('input[name=' + key + ']').val(statusValue);
                 } else if ('roleId' === key) {
-                    authUtils.axGet("/buirRole/getOneBuirRole", {id: data[key]}, function (result) {
+                    authUtils.axGet(Action.ROLE_SEL_URL, {id: data[key]}, function (result) {
                         dataInfoForm.find('input[name=' + key + ']').val(result.data.id + " -- " + result.data.roleName);
                     });
                 } else {
@@ -154,7 +150,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     function del(data) {
         let content = "确定要删除昵称为：" + data.nickName + "吗？";
         authUtils.confirm(content, function () {
-            authUtils.axPost("/buirUser/userDel", {id: data.id}, function (result) {
+            authUtils.axPost(Action.USERS_DEL_URL, {id: data.id}, function (result) {
                 if (result.flag) {
                     authUtils.tableSuccessMsg(result.message);
                     dataTable.reload();
@@ -170,7 +166,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
 
     //添加
     $('#addDataBtn').on('click', function () {
-        authUtils.axPost("/buirUser/userAdd", getAddParams(), function (result) {
+        authUtils.axPost(Action.USERS_ADD_URL, getAddParams(), function (result) {
             if (result.flag) {
                 authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
@@ -203,7 +199,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     $('#editDataForm').on('click', function () {
         let editParams = getEditParams();
         console.log(editParams)
-        authUtils.axPost("/buirUser/userEdit", editParams, function (result) {
+        authUtils.axPost(Action.USERS_UPDATE_URL, editParams, function (result) {
             if (result.flag) {
                 authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));

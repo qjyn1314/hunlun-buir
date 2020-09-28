@@ -5,6 +5,8 @@ import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysRole;
 import com.hulunbuir.clam.evening.persistence.vo.SysRoleVo;
 
+import java.util.List;
+
 /**
  * 角色表 Service接口
  *
@@ -46,5 +48,12 @@ public interface ISysRoleService {
      */
     SysRoleVo selOne(SysRole sysRole);
 
+    /**
+     * 查询的角色列表
+     *
+     * @author wangjunming
+     * @since 2020/9/28 11:31
+     */
+    List<SysRole> list(SysRole sysRole);
 
 }
