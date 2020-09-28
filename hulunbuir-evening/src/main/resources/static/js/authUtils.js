@@ -39,10 +39,18 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             PERMISSION_UPDATE_URL: baseUrl + "/sysPermission/update",
             //权限获取
             PERMISSION_SEL_URL: baseUrl + "/sysPermission/selOne",
-
+            //角色列表
+            ROLE_LIST_URL: baseUrl + "/sysRole/page",
+            //角色添加
+            ROLE_ADD_URL: baseUrl + "/sysRole/save",
+            //角色修改
+            ROLE_UPDATE_URL: baseUrl + "/sysRole/update",
+            //角色查看
+            ROLE_SEL_URL: baseUrl + "/sysRole/selOne",
 
             //用户列表
             USERS_URL: baseUrl + "/sysUser/page",
+
 
         },
         getBodyWidth: function () {
@@ -481,9 +489,9 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
 
 //格式化日期
 var date_format = function (timestamp, format) {
-    format = format || 'yyyy年MM月dd';
+    format = format || 'yyyy-MM-dd hh:mm:ss';
     timestamp = timestamp + "";
-    if (timestamp * 1 > 0 && timestamp.length == 10) {
+    if (timestamp * 1 > 0 && timestamp.length === 10) {
         timestamp = timestamp * 1000;
     }
 

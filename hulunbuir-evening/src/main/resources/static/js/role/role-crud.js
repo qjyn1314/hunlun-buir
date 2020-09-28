@@ -1,26 +1,22 @@
-"use strict";
-layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "asucUtils",], function () {
-    let asucUtils = layui.asucUtils;
-    let $ = layui.jquery;
-    let searchForm = $('#searchForm');
-    let table = layui.table;
-    let layer = layui.layer;
-    let tree = layui.tree;
-    let laydate = layui.laydate;
+layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "authUtils",], function () {
+    let authUtils = layui.authUtils, Action = layui.authUtils.Action, $ = layui.jquery, searchForm = $('#searchForm'),
+        table = layui.table;
+    let layer = layui.layer, tree = layui.tree, laydate = layui.laydate;
     laydate.render({elem: "#startTime", type: "datetime"});
     laydate.render({elem: "#endTime", type: "datetime"});
 
     //列表
-    let dataTable = asucUtils.tableInit({
+    let dataTable = authUtils.TableInit({
         elem: '#tableList',
-        url: asucUtils.backendURL + "/buirRole/buirRolePage",
+        url: Action.ROLE_LIST_URL,
         cols: [[
             {field: "id", title: "ID", width: 80},
             {field: "roleName", title: "角色名称", width: 120},
             {field: "roleCode", title: "角色编码", width: 110},
             {field: "description", title: "角色说明"},
-            {field: "createdTime", title: "创建时间"},
-            {field: "updatedTime", title: "更新时间"},
+            {field: "createdTime", title: "创建时间",width: 200,templet:function (res) {
+                return date_format(new Date(res.createdTime));
+            }},
             {title: "操作", align: "center", fixed: "right", width: 165, toolbar: '#operations'}
         ]],
     });
@@ -47,59 +43,57 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     //添加
     $('#addData').on('click', function () {
         //首先是请求了后台接口，之后跳转到相应的页面
-        asucUtils.open("添加角色", "/view/user/role-add.html.do", "90%", "90%", function (layero) {
+        authUtils.open("添加角色", "/page/role/role-add.html", "90%", "90%", function (layero) {
             let dataAddForm = layero.find('iframe').contents().find('#dataAddForm');
             let perTree = layero.find('iframe').contents().find('#perTree');
-            initPerTree(perTree,dataAddForm);
+            initPerTree(perTree, dataAddForm);
         }, function () {
             dataTable.reload();
         })
     });
 
     //初始化树形权限
-    function initPerTree(treeDivId,dataAddForm){
-        asucUtils.axGet("/buirPermission/getPermissionTree", null,function (result) {
-            if(result.flag){
-                treeRender(treeDivId,result.data,dataAddForm);
-            }else{
-                asucUtils.redCryMsg(result.message);
+    function initPerTree(treeDivId, dataAddForm) {
+        authUtils.axGet(Action.PERMISSIONTREE_URL, null, function (result) {
+            if (result.flag) {
+                treeRender(treeDivId, result.data, dataAddForm);
+            } else {
+                authUtils.redCryMsg(result.message);
             }
         });
     }
 
     //回显树结构数据
-    function treeRender(treeDivId,treeData,dataAddForm){
+    function treeRender(treeDivId, treeData, dataAddForm) {
         let perIds = [];
         let perNames = [];
-        tree.render({
-            id: 'permissionTree',
+        layui.tree({
             elem: treeDivId,  //绑定元素
-            data: treeData,  //数据源
-            onlyIconControl: true,
+            nodes: treeData,  //数据源
             click: function (obj) {
-                let data = obj.data;
+                let data = obj;
                 if (perIds.length === 0) {
                     perIds.push(data.id)
-                    perNames.push(data.title)
-                }else if(!(perIds.indexOf(data.id) > -1) || !(perNames.indexOf(data.title) > -1)){
+                    perNames.push(data.name)
+                } else if (!(perIds.indexOf(data.id) > -1) || !(perNames.indexOf(data.name) > -1)) {
                     perIds.push(data.id)
-                    perNames.push(data.title)
-                }else if((perIds.indexOf(data.id) > -1) || (perNames.indexOf(data.title) > -1)){
-                    perIds.splice(perIds.indexOf(data.id),1);
-                    perNames.splice(perNames.indexOf(data.title),1);
+                    perNames.push(data.name)
+                } else if ((perIds.indexOf(data.id) > -1) || (perNames.indexOf(data.name) > -1)) {
+                    perIds.splice(perIds.indexOf(data.id), 1);
+                    perNames.splice(perNames.indexOf(data.name), 1);
                 }
                 if (undefined !== data.children) {
                     let children = data.children;
                     for (let i = 0; i < children.length; i++) {
                         if (perIds.length === 0) {
                             perIds.push(children[i].id)
-                            perNames.push(children[i].title)
-                        } else if (!(perIds.indexOf(children[i].id) > -1) || !(perNames.indexOf(children[i].title) > -1)) {
+                            perNames.push(children[i].name)
+                        } else if (!(perIds.indexOf(children[i].id) > -1) || !(perNames.indexOf(children[i].name) > -1)) {
                             perIds.push(children[i].id)
-                            perNames.push(children[i].title)
-                        } else if ((perIds.indexOf(children[i].id) > -1) || (perNames.indexOf(children[i].title) > -1)) {
+                            perNames.push(children[i].name)
+                        } else if ((perIds.indexOf(children[i].id) > -1) || (perNames.indexOf(children[i].name) > -1)) {
                             perIds.splice(perIds.indexOf(children[i].id), 1);
-                            perNames.splice(perNames.indexOf(children[i].title),1);
+                            perNames.splice(perNames.indexOf(children[i].name), 1);
                         }
                     }
                 }
@@ -126,12 +120,10 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
 
     //查看
     function detail(data) {
-        asucUtils.open("查看角色", "/view/user/role-info.html.do", "90%", "90%", function (layero) {
-            //给弹框赋值方法，参考与：https://blog.csdn.net/lm9521/article/details/84789691
-            //其实就是获取的子页面的 form表单
+        authUtils.open("查看角色", "/page/role/role-info.html", "90%", "90%", function (layero) {
             let dataInfoForm = layero.find('iframe').contents().find('#dataInfoForm');
-            for(const key in data){
-                dataInfoForm.find('input[name='+key+']').val(data[key]);
+            for (const key in data) {
+                dataInfoForm.find('input[name=' + key + ']').val(data[key]);
             }
         }, function () {
             dataTable.reload();
@@ -145,20 +137,20 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
 
     //编辑
     function edit(data) {
-        asucUtils.open("编辑角色", "/view/user/role-edit.html.do", "90%", "90%", function (layero) {
+        authUtils.open("编辑角色", "/page/role/role-edit.html", "90%", "90%", function (layero) {
             let dataEditForm = layero.find('iframe').contents().find('#dataEditForm');
-            asucUtils.axGet("/buirRole/getOneBuirRole", {id:data.id},function (result) {
-                if(result.flag){
+            authUtils.axGet(Action.ROLE_SEL_URL, {id: data.id}, function (result) {
+                if (result.flag) {
                     let dataes = result.data;
-                    for(const key in dataes){
-                        dataEditForm.find('input[name='+key+']').val(dataes[key]);
+                    for (const key in dataes) {
+                        dataEditForm.find('input[name=' + key + ']').val(dataes[key]);
                     }
-                }else{
-                    asucUtils.redCryMsg(result.message);
+                } else {
+                    authUtils.redCryMsg(result.message);
                 }
             });
             let perTree = layero.find('iframe').contents().find('#perTree');
-            initPerTree(perTree,dataEditForm);
+            initPerTree(perTree, dataEditForm);
         }, function () {
             dataTable.reload();
         })
@@ -168,12 +160,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     let dataAddForm = $('#dataAddForm');
     //添加
     $('#addDataBtn').on('click', function () {
-        asucUtils.axPost("/buirRole/saveBuirRole", getAddParams(),function (result) {
-            if(result.flag){
-                asucUtils.tableSuccessMsg(result.message);
+        authUtils.axPost(Action.ROLE_ADD_URL, getAddParams(), function (result) {
+            if (result.flag) {
+                authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
-            }else{
-                asucUtils.redCryMsg(result.message);
+            } else {
+                authUtils.redCryMsg(result.message);
             }
         });
     });
@@ -197,12 +189,12 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     let dataEditForm = $('#dataEditForm');
     //编辑
     $('#editDataBtn').on('click', function () {
-        asucUtils.axPost("/buirRole/updateBuirRole", getEditParams(),function (result) {
-            if(result.flag){
-                asucUtils.tableSuccessMsg(result.message);
+        authUtils.axPost(Action.ROLE_UPDATE_URL, getEditParams(), function (result) {
+            if (result.flag) {
+                authUtils.tableSuccessMsg(result.message);
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
-            }else{
-                asucUtils.redCryMsg(result.message);
+            } else {
+                authUtils.redCryMsg(result.message);
             }
         });
     });
@@ -210,7 +202,7 @@ layui.use(["element", "jquery", "tree", "table", "layer", "form", "laydate", "as
     //编辑form表单
     function getEditParams() {
         return {
-            id:dataEditForm.find('input[name="id"]').val(),
+            id: dataEditForm.find('input[name="id"]').val(),
             permission: dataEditForm.find('input[name="permission"]').val(),
             roleName: dataEditForm.find('input[name="roleName"]').val().trim(),
             roleCode: dataEditForm.find('input[name="roleCode"]').val().trim(),

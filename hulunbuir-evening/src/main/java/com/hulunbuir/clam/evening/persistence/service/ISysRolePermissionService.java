@@ -1,8 +1,10 @@
 package com.hulunbuir.clam.evening.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.clam.evening.persistence.entity.SysRolePermission;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.persistence.entity.SysRolePermission;
+
+import java.util.List;
 
 /**
  * 角色权限关联表 Service接口
@@ -45,5 +47,20 @@ public interface ISysRolePermissionService {
      */
     SysRolePermission selOne(SysRolePermission sysRolePermission);
 
+    /**
+     * 根据角色ID获取权限列表
+     *
+     * @author wangjunming
+     * @since 2020/9/27 17:49
+     */
+    List<SysRolePermission> selList(Integer roleId);
+
+    /**
+     * 根据角色ID删除权限中间表
+     *
+     * @author wangjunming
+     * @since 2020/9/27 18:06
+     */
+    boolean del(Integer id);
 
 }

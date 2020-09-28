@@ -4,6 +4,7 @@ import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysRole;
 import com.hulunbuir.clam.evening.persistence.service.ISysRoleService;
+import com.hulunbuir.clam.evening.persistence.vo.SysRoleVo;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,13 +42,13 @@ public class SysRoleController extends BaseController {
 
     @ApiOperation("角色表添加")
     @PostMapping("/save")
-    public JsonResult save(SysRole sysRole) {
+    public JsonResult save(SysRoleVo sysRole) {
         return JsonResult.success(service.save(sysRole));
     }
 
     @ApiOperation("角色表修改")
     @PostMapping("/update")
-    public JsonResult update(SysRole sysRole) {
+    public JsonResult update(SysRoleVo sysRole) {
         return JsonResult.success(service.update(sysRole));
     }
 

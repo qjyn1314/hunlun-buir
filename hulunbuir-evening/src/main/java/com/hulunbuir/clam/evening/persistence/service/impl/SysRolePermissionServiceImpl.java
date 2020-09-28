@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 角色权限关联表 Service实现
  *
@@ -90,6 +92,34 @@ public class SysRolePermissionServiceImpl implements ISysRolePermissionService {
     LambdaQueryWrapper<SysRolePermission> queryWrapper = new LambdaQueryWrapper<>();
         //--TODO 初始化查询条件
         return sysRolePermissionMapper.selectOne(queryWrapper);
+    }
+
+    /**
+     * 根据角色ID获取权限列表
+     *
+     * @param roleId
+     * @author wangjunming
+     * @since 2020/9/27 17:49
+     */
+    @Override
+    public List<SysRolePermission> selList(Integer roleId) {
+        LambdaQueryWrapper<SysRolePermission> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysRolePermission::getRoleId,roleId);
+        return sysRolePermissionMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 根据角色ID删除权限中间表
+     *
+     * @param id
+     * @author wangjunming
+     * @since 2020/9/27 18:06
+     */
+    @Override
+    public boolean del(Integer roleId) {
+        LambdaQueryWrapper<SysRolePermission> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysRolePermission::getRoleId,roleId);
+        return sysRolePermissionMapper.delete(queryWrapper)>0;
     }
 
 

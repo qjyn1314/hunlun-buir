@@ -1,16 +1,15 @@
 package com.hulunbuir.clam.evening.persistence.entity;
 
-import java.util.Date;
-
-import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 角色权限关联表 Entity
@@ -58,4 +57,11 @@ public class SysRolePermission implements Serializable {
     @TableField("updated_time")
     private Date updatedTime;
 
+    public SysRolePermission(Integer roleId, Integer permissionId) {
+        final Date nowDate = new Date();
+        this.roleId = roleId;
+        this.permissionId = permissionId;
+        this.createdTime = nowDate;
+        this.updatedTime = nowDate;
+    }
 }

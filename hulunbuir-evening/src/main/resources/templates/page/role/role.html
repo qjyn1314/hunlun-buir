@@ -2,75 +2,79 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link href="/icon/ali.gif" rel="shortcut icon" type="image/gif"/>
-    <link href="/layui/css/layui.css" rel="stylesheet">
-    <link href="/layui/css/view.css" rel="stylesheet"/>
-    <title>管理后台</title>
+    <meta content="webkit" name="renderer">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="telephone=no" name="format-detection">
+    <link href="/layui/css/layui.css" media="all" rel="stylesheet"/>
+    <link href="/css/public.css" media="all" rel="stylesheet"/>
+    <title>角色管理</title>
 </head>
-<body class="layui-view-body">
-<div class="layui-content">
-    <div class="layui-row">
-        <div class="layui-card">
-            <div class="layui-card-body">
-                <div class="form-box">
-                    <!--查询-->
-                    <form class="layui-form layui-table-form" id="searchForm">
-                        <div class="layui-row">
-                            <div class="layui-col-md10">
-                                <div class="layui-form-item">
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">角色名称</label>
-                                        <div class="layui-input-inline">
-                                            <label>
-                                                <input autocomplete="off" class="layui-input" name="roleName"
-                                                       placeholder="角色名称" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">角色编码</label>
-                                        <div class="layui-input-inline">
-                                            <label>
-                                                <input autocomplete="off" class="layui-input" name="roleCode"
-                                                       placeholder="角色编码" type="text">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--搜索，刷新-->
-                            <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action" id="query"
-                                     type="button">
-                                    <i class="layui-icon">&#xe615;</i>
-                                </div>
-                                <div class="layui-btn layui-btn-lg layui-btn-primary table-action " id="reset"
-                                     type="reset">
-                                    <i class="layui-icon">&#xe669;</i>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!--操作>添加-->
-                    <div class="layui-btn-group">
-                        <button class="layui-btn layui-btn-lg layui-btn-normal" id="addData" type="button">
-                            <i class="layui-icon">&#xe654;</i>
-                        </button>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote quoteBox">
+    <!--查询-->
+    <form class="layui-form layui-table-form" id="searchForm">
+        <div class="layui-row">
+            <div class="layui-col-md10">
+                <div class="layui-inline">
+                    <label class="layui-form-label layui-form-label-sm">角色名称</label>
+                    <div class="layui-input-inline">
+                        <label>
+                            <input autocomplete="off" class="layui-input" name="roleName"
+                                   placeholder="角色名称" type="text">
+                        </label>
                     </div>
-                    <!--表格-->
-                    <table id="tableList" lay-filter="tableFilter"></table>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label layui-form-label-sm">角色编码</label>
+                    <div class="layui-input-inline">
+                        <label>
+                            <input autocomplete="off" class="layui-input" name="roleCode"
+                                   placeholder="角色编码" type="text">
+                        </label>
+                    </div>
+                </div>
+                <!--搜索，刷新-->
+                <div class="layui-inline">
+                    <label class="layui-form-label layui-form-label-sm"></label>
+                    <div class="layui-btn layui-btn-lg layui-btn-primary " id="query"
+                         type="button">
+                        <div class="layui-input-inline">
+                            <i class="layui-icon">&#xe615;</i>
+                        </div>
+                    </div>
+                    <div class="layui-btn layui-btn-lg layui-btn-primary  " id="reset"
+                         type="reset">
+                        <div class="layui-input-inline">
+                            <i class="layui-icon">&#xe669;</i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </form>
+</blockquote>
+<!--操作>添加-->
+<div class="layui-row">
+    <div class="layui-inline">
+        <label class="layui-form-label layui-form-label-sm">
+            <button class="layui-btn layui-btn-lg layui-btn-normal" id="addData" type="button">
+                <i class="layui-icon">&#xe654;</i>
+            </button>
+        </label>
     </div>
 </div>
-<script src="/layui/layui.all.js"></script>
+<div class="layui-row">
+    <!--表格-->
+    <table id="tableList" lay-filter="tableFilter"></table>
+</div>
 <script src="/layui/layui.js"></script>
 <!--操作列中的按钮-->
 <script id="operations" type="text/html">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 </script>
-<script src="/buir/view/user/role-crud.js"></script>
+<script src="/js/role/role-crud.js"></script>
 </body>
 </html>
