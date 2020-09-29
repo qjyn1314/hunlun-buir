@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hulunbuir.clam.afternoon.persistence.mapper.BuirPermissionMapper">
-
-    <select id="getPermissionTree" parameterType="com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree" resultType="com.hulunbuir.clam.afternoon.persistence.qo.BuirPermissionTree">
-        SELECT id,parent_id AS parentId,per_name AS title FROM buir_permission  WHERE parent_id = #{parentId}
-    </select>
-
-</mapper>

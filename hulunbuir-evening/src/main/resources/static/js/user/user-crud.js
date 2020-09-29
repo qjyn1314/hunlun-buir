@@ -124,23 +124,17 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
             let dataInfoForm = layero.find('iframe').contents().find('#dataEditForm');
             let rolesOption = layero.find('iframe').contents().find('#roles');
             setOptionValues(rolesOption);
-            setTimeout(function () {
-                dataInfoForm[0].reset();
-            }, 2);
-            setTimeout(function () {
-                for (const key in data) {
-                    if ('status' === key) {
-                        dataInfoForm.find('input[name=' + key + '][value=' + data[key] + ']').prop("checked", "checked");
-                    } else if ('roleId' === key) {
-                        console.log(key);
-                        console.log(data[key]);
-                        dataInfoForm.find('select option[name=' + key + '][value=' + data[key] + ']').attr("selected", "selected");
-                    } else {
-                        dataInfoForm.find('input[name=' + key + ']').val(data[key]);
-                    }
+            for (const key in data) {
+                if ('status' === key) {
+                    dataInfoForm.find('input[name=' + key + '][value=' + data[key] + ']').prop("checked", "checked");
+                } else if ('roleId' === key) {
+                    console.log(key);
+                    console.log(data[key]);
+                    dataInfoForm.find('select option[name=' + key + '][value=' + data[key] + ']').attr("selected", "selected");
+                } else {
+                    dataInfoForm.find('input[name=' + key + ']').val(data[key]);
                 }
-            }, 3.5);
-
+            }
         }, function () {
             dataTable.reload();
         })
@@ -148,7 +142,7 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
 
     //删除
     function del(data) {
-        let content = "确定要删除昵称为：" + data.nickName + "吗？";
+        let content = "确定要删除昵称为：" + data.userName + "吗？";
         authUtils.confirm(content, function () {
             authUtils.axPost(Action.USERS_DEL_URL, {id: data.id}, function (result) {
                 if (result.flag) {
@@ -213,7 +207,6 @@ layui.use(["element", "jquery", "table", "layer", "form", "laydate", "authUtils"
     function getEditParams() {
         return {
             id: dataEditForm.find('input[name="id"]').val(),
-            nickName: dataEditForm.find('input[name="nickName"]').val().trim(),
             userName: dataEditForm.find('input[name="userName"]').val().trim(),
             roleId: dataEditForm.find("select[name='roleId']").val(),
             status: dataEditForm.find("input[name='status']:checked").val(),
