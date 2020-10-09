@@ -4,6 +4,7 @@ import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysUser;
 import com.hulunbuir.clam.evening.persistence.service.ISysUserService;
+import com.hulunbuir.clam.evening.persistence.vo.SysUserVo;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +56,18 @@ public class SysUserController extends BaseController {
     @GetMapping("/selOne")
     public JsonResult selOne(SysUser sysUser) {
         return JsonResult.success(service.selOne(sysUser));
+    }
+
+    @ApiOperation("用户表获取")
+    @GetMapping("/queryOne")
+    public JsonResult queryOne(SysUserVo sysUser) {
+        return JsonResult.success(service.queryOne(sysUser));
+    }
+
+    @ApiOperation("用户表删除")
+    @PostMapping("/del")
+    public JsonResult del(SysUser sysUser) {
+        return JsonResult.success(service.del(sysUser.getId()));
     }
 
 }

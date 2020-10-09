@@ -12,7 +12,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         backendURL: baseUrl,
         Action: {
             //菜单json数据，之后将从接口中获取数据
-            NAVS_URL: baseUrl + "/json/navs.json",
+            NAVS_URL: baseUrl + "/sysPermission/permissionTree",
             //省市区地址json数据
             ADDRESS_URL: baseUrl + "/json/address.json",
             //注册
@@ -58,7 +58,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             //用户删除
             USERS_DEL_URL: baseUrl + "/sysUser/del",
             //用户查询
-            USERS_SEL_URL: baseUrl + "/sysUser/selOne",
+            USERS_SEL_URL: baseUrl + "/sysUser/queryOne",
 
         },
         getBodyWidth: function () {

@@ -1,16 +1,15 @@
 package com.hulunbuir.clam.evening.persistence.entity;
 
-import java.util.Date;
-
-import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户角色关联表 Entity
@@ -57,5 +56,14 @@ public class SysUserRole implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField("updated_time")
     private Date updatedTime;
+
+    public SysUserRole() {
+    }
+
+    public SysUserRole(Integer userId, Integer roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
+
 
 }

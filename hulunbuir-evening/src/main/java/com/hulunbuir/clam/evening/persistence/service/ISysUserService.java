@@ -1,8 +1,9 @@
 package com.hulunbuir.clam.evening.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.clam.evening.persistence.entity.SysUser;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.persistence.entity.SysUser;
+import com.hulunbuir.clam.evening.persistence.vo.SysUserVo;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
 /**
@@ -48,6 +49,15 @@ public interface ISysUserService {
 
 
     /**
+     * 获取单个
+     *
+     * @author wangjunming
+     * @since 2020/9/30 17:12
+     */
+    SysUserVo queryOne(SysUserVo sysUser);
+
+
+    /**
      * 注册用户信息
      *
      * @author wangjunming
@@ -55,5 +65,13 @@ public interface ISysUserService {
      */
     void registerUser(String username, String password) throws HulunBuirException;
 
+
+    /**
+     * 删除用户
+     *
+     * @author wangjunming
+     * @since 2020/9/29 16:46
+     */
+    boolean del(Long userId);
 
 }

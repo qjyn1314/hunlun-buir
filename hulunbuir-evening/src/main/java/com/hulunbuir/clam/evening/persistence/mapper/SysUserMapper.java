@@ -2,6 +2,7 @@ package com.hulunbuir.clam.evening.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hulunbuir.clam.evening.persistence.entity.SysUser;
+import com.hulunbuir.clam.evening.persistence.vo.SysUserVo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    SysUserVo queryOne(SysUserVo sysUser);
 }

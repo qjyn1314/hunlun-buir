@@ -46,4 +46,12 @@ public interface ISysUserRoleService {
     SysUserRole selOne(SysUserRole sysUserRole);
 
 
+    /**
+     * 通过用户ID删除角色中间表
+     *
+     * @author wangjunming
+     * @since 2020/9/29 16:57
+     */
+    boolean del(Long userId);
+
 }

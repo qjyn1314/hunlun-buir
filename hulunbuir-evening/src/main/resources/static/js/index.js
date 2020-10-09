@@ -26,10 +26,14 @@ layui.use(['authUtils', 'bodyTab', 'form', 'element', 'layer', 'jquery'], functi
     //获取左侧二三级菜单，获取登录用户的信息，封装一个登录公共方法
     getData();
     function getData() {
-        $.getJSON(Action.NAVS_URL, function (data) {
-            dataStr = data;
-            tab.render();
-        })
+        authUtils.axsGet(
+            Action.NAVS_URL,
+            {}, function (result) {
+                dataStr = result.data;
+                tab.render();
+            }, function (error) {
+            }
+        )
     }
 
     //隐藏左侧导航

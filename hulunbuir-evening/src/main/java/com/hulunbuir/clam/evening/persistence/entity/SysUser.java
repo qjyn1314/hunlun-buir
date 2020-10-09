@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.calm.security.AuthUserUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class SysUser implements Serializable {
      */
     @ApiModelProperty(value = "密码")
     @TableField("password")
+    @JsonIgnore
     private String password;
 
     /**
@@ -135,6 +137,13 @@ public class SysUser implements Serializable {
     @TableField("del_flag")
     private String delFlag;
 
+    /**
+     * 角色ID
+     */
+    @ApiModelProperty(value = "角色ID")
+    @TableField(exist = false)
+    private Long roleId;
+
     public SysUser(String userName, String password) {
         this.userName = userName;
         this.password = AuthUserUtil.handleUser(password);
@@ -152,6 +161,5 @@ public class SysUser implements Serializable {
         this.createDate = date;
         this.updateDate = date;
         this.delFlag = "0";
-        this.status = "0";
     }
 }
