@@ -71,7 +71,13 @@ public class CodeHelper {
     private Template getTemplate(String templateFolder, String templateName) throws IOException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         ClassPathResource resource = new ClassPathResource("generation" + File.separator + templateFolder );
-        final File file = resource.getFile();
+        File file = null;
+        try {
+            file = resource.getFile();
+        } catch (Exception e) {
+            log.error("读取classpath下的模板失败，将读取服务器路径下的模板文件");
+            file =  new File(BuirProperties.me().getTemplateGeneration());
+        }
         configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);

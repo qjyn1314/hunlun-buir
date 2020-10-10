@@ -15,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -57,11 +55,12 @@ public class GenerationController extends BaseController {
     @ApiOperation("获取已配置的模板文件夹列表")
     @GetMapping("/getFolderList")
     public JsonResult getFolderList() throws IOException {
-        ClassPathResource resource = new ClassPathResource("generation" + File.separator);
-        final File file = resource.getFile();
-        return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
-            return floder.getPath().substring(floder.getPath().lastIndexOf("\\")+1);
-        }).collect(Collectors.toList()));
+//        ClassPathResource resource = new ClassPathResource("generation" + File.separator);
+//        final File file = resource.getFile();
+//        return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
+//            return floder.getPath().substring(floder.getPath().lastIndexOf("\\")+1);
+//        }).collect(Collectors.toList()));
+      return JsonResult.success(Arrays.stream(new java.lang.String[]{"default", "xinmeng"}).collect(Collectors.toList()));
     }
 
     @ApiOperation("获取配置")
