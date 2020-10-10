@@ -29,7 +29,7 @@ public class AuthService implements Auth {
     }
 
     public String handleView(){
-        return request.getRequestURI().replace(HTML_SUFFIX, "");
+        return request.getRequestURI().substring(1).replace(HTML_SUFFIX, "");
     }
 
 
