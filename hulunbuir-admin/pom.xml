@@ -46,18 +46,18 @@
         <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
-                <filtering>true</filtering>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
             <resource>
-                <filtering>true</filtering>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>
