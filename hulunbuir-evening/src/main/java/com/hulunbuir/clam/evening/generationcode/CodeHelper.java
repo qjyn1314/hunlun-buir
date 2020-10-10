@@ -76,7 +76,7 @@ public class CodeHelper {
             file = resource.getFile();
         } catch (Exception e) {
             log.error("读取classpath下的模板失败，将读取服务器路径下的模板文件");
-            file =  new File(BuirProperties.me().getTemplateGeneration());
+            file =  new File(BuirProperties.me().getTemplateGeneration()  + File.separator + templateFolder);
         }
         configuration.setDirectoryForTemplateLoading(file);
         configuration.setDefaultEncoding("UTF-8");
