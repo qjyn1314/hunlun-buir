@@ -1,5 +1,8 @@
+
+echo "请使用  touch  命令在linux中进行创建执行文件，并使用chmod 777 文件名  赋予执行权限"
+
 export LANG=zh_CN.UTF-8
-cd /home/hunlun-buir/hulunbuir-evening
+cd /home/hunlun-buir/hulunbuir-evening/
 pwd
 
 echo "进入到evening项目的根目录，执行mvn package docker:build"
@@ -10,6 +13,14 @@ echo "查看构建好的docker镜像"
 
 docker images
 
+echo "首先查看是否已启动springboot-evening项目"
+docker ps -a
+
+echo "如果有则需要手动的根据镜像ID停止并删除之前所启动的镜像"
+#docker stop evening8046
+#docker rm evening8046
+
+
 echo "使用命令行，启动springboot-evening的docker镜像"
 
 docker run -p 8046:8036 --name evening8046 -d springboot/hulunbuir-evening
@@ -17,3 +28,8 @@ docker run -p 8046:8036 --name evening8046 -d springboot/hulunbuir-evening
 echo "开始实时查看启动成功的镜像日志，按下 ctrl+c  可以结束查看"
 
 docker logs -f evening8046
+
+exit
+eeooff
+echo 'done!'
+~
