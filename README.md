@@ -35,6 +35,8 @@ zkclient:0.11
 
 数据库：mysql5.7
 
+账号：admin
+密码：admin
 
  
 
