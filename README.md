@@ -17,7 +17,7 @@ swagger2:2.9.2
 mybatis-plus-boot-starter:3.3.0
 
 ### 数据库连接池使用durid
-druid:1.1.21
+druid:1.1.21  
 
 ### 分布式中使用的rpc框架dubbo
 org.apache.dubbo:dubbo-spring-boot-starter:2.7.5
@@ -25,7 +25,9 @@ org.apache.dubbo:dubbo-spring-boot-starter:2.7.5
 ### 分布式中的注册中心使用zookeeper
 zookeeper:3.5.6
 zkclient:0.11
- 
+
+### 分布式中的验证框架使用springsecurity
+spring-boot-starter-security 2.2.2 
 
 ## 项目环境：
 
@@ -38,8 +40,7 @@ zkclient:0.11
 账号：admin
 密码：admin
 
- 
 
+java -jar 部署的环境地址：evening.hulunbuir.vip
+docker中部署的环境地址：docker.hulunbuir.vip
 
-
- 
