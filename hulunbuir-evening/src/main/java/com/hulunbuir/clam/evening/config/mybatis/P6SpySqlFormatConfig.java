@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.config;
+package com.hulunbuir.clam.evening.config.mybatis;
 
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 import org.apache.commons.lang3.StringUtils;

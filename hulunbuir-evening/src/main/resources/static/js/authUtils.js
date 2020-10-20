@@ -60,6 +60,20 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             //用户查询
             USERS_SEL_URL: baseUrl + "/sysUser/queryOne",
 
+            //数据源列表
+            DATASOURCE_PAGE_URL: baseUrl + "/datasourceConf/page",
+            //数据源保存
+            DATASOURCE_SAVE_URL: baseUrl + "/datasourceConf/save",
+            //数据源更新
+            DATASOURCE_UPDATE_URL: baseUrl + "/datasourceConf/update",
+            //数据源查询
+            DATASOURCE_SEL_URL: baseUrl + "/datasourceConf/selOne",
+
+
+
+
+
+
         },
         getBodyWidth: function () {
             return document.body.scrollWidth;

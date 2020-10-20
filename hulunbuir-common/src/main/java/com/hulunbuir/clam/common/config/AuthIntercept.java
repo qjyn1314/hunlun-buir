@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.common.config;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import jodd.util.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

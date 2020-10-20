@@ -22,6 +22,7 @@
     <modules>
         <module>hulunbuir-parent</module>
         <module>hulunbuir-common</module>
+        <module>calm-datasource</module>
         <module>calm-security</module>
         <module>hulunbuir-distributed</module>
         <module>hulunbuir-admin</module>
@@ -41,11 +42,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.2.1</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -88,18 +89,13 @@
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hulunbuir.clam.route</groupId>
-                <artifactId>hulunbuir-route</artifactId>
+                <groupId>com.calm.datasource</groupId>
+                <artifactId>calm-datasource</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.calm.security</groupId>
                 <artifactId>calm-security</artifactId>
-                <version>${hulunbuir.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hulunbuir.clam.afternoon</groupId>
-                <artifactId>hulunbuir-afternoon</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>

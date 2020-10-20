@@ -193,43 +193,6 @@
         </dependency>
         <!--        swagger-end-->
         <!--mybatis-plus-start-->
-        <!--动态数据源-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <!--mybatis-plus-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!--动态生成代码-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <!--mybatis-plus-end-->
-        <!--mysql-start-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- sql 打印 -->
-        <dependency>
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-            <version>3.8.5</version>
-        </dependency>
-        <!--mysql-end-->
         <!--spring-boot-admin-start-->
         <dependency>
             <groupId>de.codecentric</groupId>
@@ -264,17 +227,6 @@
             <artifactId>spring-security-jwt</artifactId>
             <version>1.0.9.RELEASE</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.10.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -288,7 +240,6 @@
             <version>3.8.2</version>
         </dependency>
         <!--整合分布式锁-end-->
-
     </dependencies>
 
 </project>

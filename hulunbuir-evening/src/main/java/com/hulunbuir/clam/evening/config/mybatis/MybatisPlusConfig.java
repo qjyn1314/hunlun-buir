@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.config;
+package com.hulunbuir.clam.evening.config.mybatis;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @Configuration
 @MapperScan(basePackages = {
-        "com.hulunbuir.clam.*.*.mapper",
+        "com.hulunbuir.clam.evening.*.mapper",
 })
 @ConditionalOnClass(value = {PaginationInterceptor.class})
 public class MybatisPlusConfig {

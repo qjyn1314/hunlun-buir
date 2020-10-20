@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.base;
+package com.hulunbuir.clam.evening.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.web.bind.annotation.CrossOrigin;

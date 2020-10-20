@@ -5,10 +5,7 @@
     <select id="generationDatabases" resultType="java.lang.String">
         SELECT DISTINCT TABLE_SCHEMA schemaName
         FROM information_schema.TABLES
-        where TABLE_SCHEMA != 'information_schema'
-          AND TABLE_SCHEMA != 'performance_schema'
-          AND TABLE_SCHEMA != 'sys'
-          AND TABLE_SCHEMA != 'mysql'
+        <include refid="generation_query"/>
     </select>
 
     <select id="generationTables" resultType="com.hulunbuir.clam.evening.generationcode.entity.CodeTable">

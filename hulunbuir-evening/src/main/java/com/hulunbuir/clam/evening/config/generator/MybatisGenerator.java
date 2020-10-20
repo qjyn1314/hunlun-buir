@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.common.generator;
+package com.hulunbuir.clam.evening.config.generator;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;

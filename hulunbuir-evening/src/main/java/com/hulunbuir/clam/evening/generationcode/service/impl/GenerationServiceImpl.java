@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hulunbuir.clam.evening.generationcode.GenerationConfig;
+import com.hulunbuir.clam.evening.generationcode.util.GenerationConfig;
 import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
 import com.hulunbuir.clam.evening.generationcode.entity.Column;
 import com.hulunbuir.clam.evening.generationcode.mapper.GenerationMapper;

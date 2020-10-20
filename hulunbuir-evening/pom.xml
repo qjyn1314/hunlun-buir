@@ -22,8 +22,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.hulunbuir.clam.common</groupId>
-            <artifactId>hulunbuir-common</artifactId>
+            <groupId>com.calm.datasource</groupId>
+            <artifactId>calm-datasource</artifactId>
         </dependency>
         <dependency>
             <groupId>com.hulunbuir.clam.distributed</groupId>

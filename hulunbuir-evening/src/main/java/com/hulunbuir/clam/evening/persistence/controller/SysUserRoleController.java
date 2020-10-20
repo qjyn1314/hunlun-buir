@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.persistence.controller;
 
-import com.hulunbuir.clam.common.base.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.persistence.entity.SysUserRole;
 import com.hulunbuir.clam.evening.persistence.service.ISysUserRoleService;
 import com.hulunbuir.clam.parent.result.JsonResult;

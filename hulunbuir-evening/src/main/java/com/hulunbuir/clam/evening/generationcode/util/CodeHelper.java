@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.evening.generationcode;
+package com.hulunbuir.clam.evening.generationcode.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.Files;

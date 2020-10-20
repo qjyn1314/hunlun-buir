@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.evening.generationcode;
+package com.hulunbuir.clam.evening.generationcode.util;
 
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.Data;

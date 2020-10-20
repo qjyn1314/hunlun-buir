@@ -2,7 +2,7 @@ package ${basePackage}.${controllerPackage};
 
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
-import com.hulunbuir.clam.common.base.BaseController;
+import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +37,8 @@ public class ${className}Controller extends BaseController {
 
     @ApiOperation("${tableComment}分页列表")
     @GetMapping("/page")
-    public JsonResult page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
-        return JsonResult.success(getDataTable(service.page(queryRequest,${className?uncap_first})));
+    public Map<String , Object> page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
+        return getLayTable(getDataTable(service.page(queryRequest,${className?uncap_first}));
     }
 
     @ApiOperation("${tableComment}添加")
