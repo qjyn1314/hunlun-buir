@@ -331,6 +331,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
         public CuratorConnectionStateListener(URL url) {
             this.url = url;
         }
+
         private final URL url;
 
         @Override

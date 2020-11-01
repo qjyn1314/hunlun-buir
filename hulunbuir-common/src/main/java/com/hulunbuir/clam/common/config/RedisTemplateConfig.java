@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2020-02-10 21:49
  */
 @Configuration
-public class RedisConfig {
+public class RedisTemplateConfig {
     @Autowired
     private RedisTemplate<String, Object> redisStrKeyTemplate;
 

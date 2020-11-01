@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.NestedServletException;
-import org.thymeleaf.exceptions.TemplateInputException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -84,18 +83,6 @@ public class GlobException {
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return JsonResult.error(message.toString());
-    }
-
-    /**
-     * 统一处理请求的方法不正确异常
-     *
-     * @author wangjunming
-     * @since 2020/2/12 18:05
-     */
-    @ExceptionHandler(value = TemplateInputException.class)
-    public String handleTemplateInputException(TemplateInputException e) {
-        log.error("统一处理请求的方法不正确异常-异常", e);
-        return "/error/404";
     }
 
     /**

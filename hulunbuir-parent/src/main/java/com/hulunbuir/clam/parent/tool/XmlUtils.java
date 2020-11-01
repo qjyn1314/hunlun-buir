@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.parent.tool;
 
-import com.hulunbuir.clam.parent.result.JsonResult;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -78,16 +77,6 @@ public class XmlUtils {
     }
 
     /**
-     * 将对象转换成xml
-     */
-    public static <T> String strToXml(T t) {
-        xstream.alias("xml", t.getClass());
-        String result = xstream.toXML(t);
-        logger.info("解析后的xml："+result);
-        return result;
-    }
-
-    /**
      * 扩展xstream使其支持CDATA
      */
     private static XStream xstream = new XStream(new XppDriver() {
@@ -95,10 +84,12 @@ public class XmlUtils {
         public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
                 boolean cdata = true;
+
                 @Override
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
                 }
+
                 @Override
                 protected void writeText(QuickWriter writer, String text) {
                     if (cdata) {
@@ -112,6 +103,16 @@ public class XmlUtils {
             };
         }
     });
+
+    /**
+     * 将对象转换成xml
+     */
+    public static <T> String strToXml(T t) {
+        xstream.alias("xml", t.getClass());
+        String result = xstream.toXML(t);
+        logger.info("解析后的xml：" + result);
+        return result;
+    }
 
 
 //    public static void main(String[] args) {

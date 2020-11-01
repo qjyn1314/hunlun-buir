@@ -1,12 +1,11 @@
-package com.hulunbuir.clam.evening.config.mybatis;
+package com.hulunbuir.clam.evening.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -16,14 +15,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author wangjunming
  * @since 2020-01-17 11:50
  */
-@EnableTransactionManagement
 @Configuration
 @MapperScan(basePackages = {
-        "com.hulunbuir.clam.evening.*.mapper",
-})
-@ConditionalOnClass(value = {PaginationInterceptor.class})
-public class MybatisPlusConfig {
-
+        "com.hulunbuir.clam.evening.persistence.mapper",
+        "com.hulunbuir.clam.evening.generationcode.mapper",
+},annotationClass = Repository.class)
+public class MybatisPlusAutoConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor page = new PaginationInterceptor();

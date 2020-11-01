@@ -10,15 +10,19 @@ package com.hulunbuir.clam.common.mail;
  */
 public enum MailConstants {
 
-    ZHU_CE("注册","欢迎<%s>注册《呼伦贝尔大草原》___>www.hulunbuir.vip。"),
+    ZHU_CE("注册", "欢迎<%s>注册《呼伦贝尔大草原》___>www.hulunbuir.vip。"),
 
-    VERIFICATION("注册验证码","欢迎注册《呼伦贝尔大草原》,您的注册验证码是：%s，有效期是5分钟"),
+    VERIFICATION("注册验证码", "欢迎注册《呼伦贝尔大草原》,您的注册验证码是：%s，有效期是5分钟"),
 
     ;
 
-    /**邮件主题*/
+    /**
+     * 邮件主题
+     */
     private String subject;
-    /**文件内容*/
+    /**
+     * 文件内容
+     */
     private String content;
 
     MailConstants(String subject, String content) {

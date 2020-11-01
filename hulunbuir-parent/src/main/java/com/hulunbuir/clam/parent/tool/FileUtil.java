@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.parent.tool;
 
-import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
@@ -58,7 +58,7 @@ public class FileUtil {
      */
     public static void download(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
         File file = new File(filePath);
-        if (!file.exists()){
+        if (!file.exists()) {
             throw new Exception("文件未找到");
         }
         response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "utf-8"));
@@ -71,8 +71,9 @@ public class FileUtil {
                 os.write(b, 0, length);
             }
         } finally {
-            if (delete)
+            if (delete) {
                 delete(filePath);
+            }
         }
     }
 
@@ -85,7 +86,9 @@ public class FileUtil {
         File file = new File(filePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files != null) Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            if (files != null) {
+                Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            }
         }
         final boolean delete = file.delete();
     }
@@ -98,7 +101,7 @@ public class FileUtil {
      * @throws Exception Exception
      */
     private static String getFileType(File file) throws Exception {
-        Preconditions.checkNotNull(file);
+        Objects.requireNonNull(file);
         if (file.isDirectory()) {
             throw new Exception("file不是文件");
         }
@@ -115,7 +118,7 @@ public class FileUtil {
      * @return Boolean
      */
     private static Boolean fileTypeIsValid(String fileType) {
-        Preconditions.checkNotNull(fileType);
+        StringUtils.isNotBlank(fileType);
         fileType = StringUtils.lowerCase(fileType);
         return ArrayUtils.contains(VALID_FILE_TYPE, fileType);
     }

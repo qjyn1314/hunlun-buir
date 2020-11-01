@@ -75,42 +75,42 @@ public class HCSmsUtil {
      */
     public static String password_tz = "zljf-tz";
 
-//    @Value("${hcSmsUtf8Url}")
+    //    @Value("${hcSmsUtf8Url}")
     public void setHcSmsUtf8Url(String hcSmsUtf8Url) {
         HCSmsUtil.hcSmsUtf8Url = hcSmsUtf8Url;
     }
 
-//    @Value("${hcSmsGBKUrl}")
+    //    @Value("${hcSmsGBKUrl}")
     public void setHcSmsGBKUrl(String hcSmsGBKUrl) {
         HCSmsUtil.hcSmsGBKUrl = hcSmsGBKUrl;
     }
 
-//    @Value("${userId_hy}")
+    //    @Value("${userId_hy}")
     public void setUserId_hy(String userId_hy) {
         HCSmsUtil.userId_hy = userId_hy;
     }
 
-//    @Value("${userId_tz}")
+    //    @Value("${userId_tz}")
     public void setUserId_tz(String userId_tz) {
         HCSmsUtil.userId_tz = userId_tz;
     }
 
-//    @Value("${account_hy}")
+    //    @Value("${account_hy}")
     public void setAccount_hy(String account_hy) {
         HCSmsUtil.account_hy = account_hy;
     }
 
-//    @Value("${password_hy}")
+    //    @Value("${password_hy}")
     public void setPassword_hy(String password_hy) {
         HCSmsUtil.password_hy = password_hy;
     }
 
-//    @Value("${account_tz}")
+    //    @Value("${account_tz}")
     public void setAccount_tz(String account_tz) {
         HCSmsUtil.account_tz = account_tz;
     }
 
-//    @Value("${password_tz}")
+    //    @Value("${password_tz}")
     public void setPassword_tz(String password_tz) {
         HCSmsUtil.password_tz = password_tz;
     }
@@ -192,7 +192,7 @@ public class HCSmsUtil {
         return flag;
     }
 
-    public  void mainas(String[] args) {
+    public void mainas(String[] args) {
         String mobile = "15321355715";
         String content = "【磁云金服】融资申请（融资单号）已经提交成功，请等待资金方审核。";
         boolean b = postMessage(mobile, content, account_tz);

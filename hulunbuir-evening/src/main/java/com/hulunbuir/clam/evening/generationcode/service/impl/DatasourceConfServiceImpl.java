@@ -72,8 +72,10 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
     * @since 2020-10-20 14:32:13
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(DatasourceConf datasourceConf) {
+//        DynamicDataSourceHolder.setDataSource("contentDataSource");
+//        DynamicDataSourceContextHolder.peek();
         //--TODO 做一些效验动作
         return datasourceConfMapper.updateById(datasourceConf)>0;
     }

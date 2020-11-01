@@ -1,7 +1,6 @@
 package com.hulunbuir.clam.evening.generationcode.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.io.Files;
 import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.evening.generationcode.entity.Column;
 import com.hulunbuir.clam.parent.tool.CommonUtils;
@@ -10,6 +9,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.curator.shaded.com.google.common.io.Files;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 

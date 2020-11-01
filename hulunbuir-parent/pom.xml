@@ -34,10 +34,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -46,60 +42,34 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-        <!--用于解决thymeleaf的html页面读取问题-->
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <!--用于生成代码需要使用到freemarker-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
+        <!--用于解决thymeleaf的html页面读取问题-->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>3.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-pool2</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
+        <!--整合配置文件中加密工具-->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>2.1.0</version>
+            <version>${jasypt.version}</version>
         </dependency>
         <!--springboot+dubbo-start-->
-        <!--整合dubbo，参考：https://blog.csdn.net/weixin_42315600/article/details/88609622-->
-        <!--引入2.7.0会出现问题，解决方案：https://github.com/apache/dubbo-spring-boot-project/issues/476-->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -114,12 +84,6 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>2.13.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--springboot+dubbo-end-->
         <!--springboot-end-->
@@ -180,47 +144,6 @@
         </dependency>
         <!--解析xml-end-->
         <!--apache工具包-end-->
-        <!--        swagger-start-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <!--        swagger-end-->
-        <!--mybatis-plus-start-->
-        <!--spring-boot-admin-start-->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
-        </dependency>
-        <!--spring-boot-admin-end-->
         <!--使用jwt-start-->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -233,13 +156,6 @@
             <version>0.9.1</version>
         </dependency>
         <!--使用jwt-end-->
-        <!--整合分布式锁-start-->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.8.2</version>
-        </dependency>
-        <!--整合分布式锁-end-->
     </dependencies>
 
 </project>

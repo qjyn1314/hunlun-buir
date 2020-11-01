@@ -10,7 +10,7 @@ import com.hulunbuir.clam.evening.generationcode.entity.Column;
 import com.hulunbuir.clam.evening.generationcode.mapper.GenerationMapper;
 import com.hulunbuir.clam.evening.generationcode.service.GenerationService;
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.common.config.RedisConfig;
+import com.hulunbuir.clam.common.config.RedisTemplateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class GenerationServiceImpl implements GenerationService {
     @Autowired
     private GenerationMapper generationMapper;
     @Autowired
-    private RedisConfig redisConfig;
+    private RedisTemplateConfig redisTemplateConfig;
     /**
      * 获取数据库列表
      *
@@ -67,8 +67,8 @@ public class GenerationServiceImpl implements GenerationService {
      */
     @Override
     public Boolean saveGeneration(GenerationConfig generationConfig) {
-        redisConfig.setStrKey(generationConfig.getSessionId(),generationConfig,3600);
-        return redisConfig.getStrValue(generationConfig.getSessionId()) != null;
+        redisTemplateConfig.setStrKey(generationConfig.getSessionId(),generationConfig,3600);
+        return redisTemplateConfig.getStrValue(generationConfig.getSessionId()) != null;
     }
 
     /**
@@ -80,7 +80,7 @@ public class GenerationServiceImpl implements GenerationService {
      */
     @Override
     public GenerationConfig getGeneration(GenerationConfig generationConfig) {
-        final Object configStrValue = redisConfig.getStrValue(generationConfig.getSessionId());
+        final Object configStrValue = redisTemplateConfig.getStrValue(generationConfig.getSessionId());
         return null == configStrValue ? new GenerationConfig() : JSONObject.parseObject(JSON.toJSON(configStrValue).toString(), GenerationConfig.class);
     }
 

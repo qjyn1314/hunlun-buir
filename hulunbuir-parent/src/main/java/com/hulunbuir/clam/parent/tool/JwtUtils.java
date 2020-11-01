@@ -83,8 +83,8 @@ public final class JwtUtils {
     /**
      * 封装生成token
      *
-     * @param claims 存储的信息
-     * @param subject 主题
+     * @param claims     存储的信息
+     * @param subject    主题
      * @param expireSecs 失效时间，单位：小时
      * @author wangjunming
      * @since 2020/3/23 12:53

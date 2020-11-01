@@ -12,7 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ import java.util.List;
  * @since 2020/9/16 10:57
  */
 @Configuration
-public class WebMvcConfig  implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private AuthIntercept authIntercept;
@@ -36,6 +39,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
         // 可添加多个拦截器
         registry.addInterceptor(authIntercept).addPathPatterns("/**");
     }
+
     /**
      * 静态资源的加载问题
      */

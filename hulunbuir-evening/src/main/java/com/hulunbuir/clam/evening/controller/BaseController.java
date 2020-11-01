@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * <p>
- * Explain:
+ * Explain: 注解：@CrossOrigin : 跨域支持
  * </p >
  *
  * @author wangjunming
@@ -19,7 +19,7 @@ import java.util.Map;
  * 60*60*60*24*7 周
  * 60*60*60*24*30 月
  */
-@CrossOrigin(origins = "*",maxAge = -1)
+@CrossOrigin(origins = "*", maxAge = -1)
 public abstract class BaseController {
 
     /**
@@ -30,9 +30,9 @@ public abstract class BaseController {
      */
     protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
         Map<String, Object> rspData = new HashMap<>();
-        rspData.put("page",pageInfo.getCurrent());
+        rspData.put("page", pageInfo.getCurrent());
         rspData.put("pageSize", pageInfo.getSize());
-        rspData.put("totalPage", ((pageInfo.getTotal() +pageInfo.getSize() -1) / pageInfo.getSize()));
+        rspData.put("totalPage", ((pageInfo.getTotal() + pageInfo.getSize() - 1) / pageInfo.getSize()));
         rspData.put("totalRows", pageInfo.getTotal());
         rspData.put("rows", pageInfo.getRecords());
         return rspData;
@@ -40,6 +40,7 @@ public abstract class BaseController {
 
     /**
      * 适用于layui2.2.5版本的数据表格
+     *
      * @param pageInfo mybatis-plus的分页信息
      * @return Map<String, Object>
      */

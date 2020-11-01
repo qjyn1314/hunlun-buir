@@ -21,10 +21,12 @@
     </properties>
 
     <dependencies>
+        <!--数据源-->
         <dependency>
-            <groupId>com.hulunbuir.clam.common</groupId>
-            <artifactId>hulunbuir-common</artifactId>
+            <groupId>com.calm.datasource</groupId>
+            <artifactId>calm-datasource</artifactId>
         </dependency>
+        <!--dubbo调用其他服务的接口-->
         <dependency>
             <groupId>com.hulunbuir.clam.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
@@ -40,7 +42,6 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
-
 
     <build>
         <finalName>${project.artifactId}</finalName>

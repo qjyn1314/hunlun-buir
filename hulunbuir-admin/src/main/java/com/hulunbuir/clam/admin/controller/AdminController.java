@@ -1,8 +1,11 @@
 package com.hulunbuir.clam.admin.controller;
 
+import com.hulunbuir.clam.distributed.evening.AuthProvider;
+import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "测试控制层")
 public class AdminController {
 
+    @Reference
+    private AuthProvider authProvider;
+
     @ApiOperation("测试ResuqstBody")
     @PostMapping("/testContent")
-    public void testContent(@RequestBody ContentPo contentPo){
-        log.info("contentPo：{}",contentPo);
+    public JsonResult testContent(@RequestBody ContentPo contentPo) {
+        log.info("contentPo：{}", contentPo);
+        try {
+            return JsonResult.success(authProvider.queryUser("zhangsan"));
+        } catch (Exception e) {
+            log.error("调用dubbo接口异常，", e);
+            return JsonResult.error();
+        }
     }
 
 }
