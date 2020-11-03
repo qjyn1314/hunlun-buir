@@ -40,7 +40,22 @@ spring-boot-starter-security 2.2.2
 账号：admin
 密码：admin
 
-
+## 生产线上环境
 java -jar 部署的环境地址：evening.hulunbuir.vip
 docker中部署的环境地址：docker.hulunbuir.vip
 
+##本地部署步骤：
+
+1、执行evening.sql文件
+
+以及此目录下的 hunlun-buir\calm-datasource\src\main\resources\datasource_conf.sql 文件。
+
+2、更改application-dev.properties 配置
+mysql用户名和密码
+密码可参考： com.hulunbuir.clam.parent.tool.JasyptUtil 类
+
+3、启动项目。
+
+访问地址：127.0.0.1:8036
+
+接口文档地址：127.0.0.1:8036/swagger-ui/index.html

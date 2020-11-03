@@ -17,8 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Configuration
 @MapperScan(basePackages = {
-        "com.hulunbuir.clam.evening.persistence.mapper",
-        "com.hulunbuir.clam.evening.generationcode.mapper",
+        "com.hulunbuir.clam.evening.*.mapper",
 },annotationClass = Repository.class)
 public class MybatisPlusAutoConfig {
     @Bean

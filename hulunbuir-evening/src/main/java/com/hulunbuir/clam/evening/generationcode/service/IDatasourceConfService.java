@@ -1,8 +1,11 @@
 package com.hulunbuir.clam.evening.generationcode.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.clam.evening.generationcode.entity.DatasourceConf;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.generationcode.entity.DatasourceConf;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
+
+import java.util.List;
 
 /**
  * 数据源表 Service接口
@@ -26,7 +29,7 @@ public interface IDatasourceConfService {
      * @author Mr.Wang
      * @since 2020-10-20 14:32:13
      */
-     boolean save(DatasourceConf datasourceConf);
+     boolean save(DatasourceConf datasourceConf) throws HulunBuirException;
 
     /**
      * 修改
@@ -34,7 +37,7 @@ public interface IDatasourceConfService {
      * @author Mr.Wang
      * @since 2020-10-20 14:32:13
      */
-     boolean update(DatasourceConf datasourceConf);
+     boolean update(DatasourceConf datasourceConf) throws HulunBuirException;
 
 
     /**
@@ -44,6 +47,22 @@ public interface IDatasourceConfService {
      * @since 2020-10-20 14:32:13
      */
     DatasourceConf selOne(DatasourceConf datasourceConf);
+
+    /**
+     * 效验数据源
+     *
+     * @author wangjunming
+     * @since 2020/11/3 20:32
+     */
+    boolean checkDataSource(DatasourceConf datasourceConf);
+
+    /**
+     * 查询数据源列表
+     *
+     * @author wangjunming
+     * @since 2020/11/3 20:57
+     */
+    List<DatasourceConf> dataSourceConfList();
 
 
 }

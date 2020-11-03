@@ -11,7 +11,7 @@ public interface DataSourceConstants {
     /**
      * 数据源名称
      */
-    String DS_NAME = "name";
+    String DS_NAME = "database_name";
 
     /**
      * 默认驱动
@@ -27,6 +27,16 @@ public interface DataSourceConstants {
      * jdbcurl
      */
     String DS_JDBC_URL = "url";
+
+    /**
+     * 数据库IP地址
+     */
+    String DS_IP = "database_ip";
+
+    /**
+     * 数据库端口号
+     */
+    String DS_PORT = "database_port";
 
     /**
      * 用户名

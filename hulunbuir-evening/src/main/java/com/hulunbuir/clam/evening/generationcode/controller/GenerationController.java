@@ -4,11 +4,11 @@ import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.common.config.ApplicationContextUtils;
 import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.evening.controller.BaseController;
-import com.hulunbuir.clam.evening.generationcode.util.CodeHelper;
-import com.hulunbuir.clam.evening.generationcode.util.GenerationConfig;
 import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
 import com.hulunbuir.clam.evening.generationcode.entity.Column;
 import com.hulunbuir.clam.evening.generationcode.service.GenerationService;
+import com.hulunbuir.clam.evening.generationcode.util.CodeHelper;
+import com.hulunbuir.clam.evening.generationcode.util.GenerationConfig;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import com.hulunbuir.clam.parent.tool.CommonUtils;
@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -56,13 +58,18 @@ public class GenerationController extends BaseController {
 
     @ApiOperation("获取已配置的模板文件夹列表")
     @GetMapping("/getFolderList")
-    public JsonResult getFolderList() throws IOException {
-//        ClassPathResource resource = new ClassPathResource("generation" + File.separator);
-//        final File file = resource.getFile();
-//        return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
-//            return floder.getPath().substring(floder.getPath().lastIndexOf("\\")+1);
-//        }).collect(Collectors.toList()));
-      return JsonResult.success(Arrays.stream(new java.lang.String[]{"default", "xinmeng"}).collect(Collectors.toList()));
+    public JsonResult getFolderList() {
+        final File file;
+        try {
+            ClassPathResource resource = new ClassPathResource("generation" + File.separator);
+            file = resource.getFile();
+            return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
+                return floder.getPath().substring(floder.getPath().lastIndexOf("\\") + 1);
+            }).collect(Collectors.toList()));
+        } catch (IOException e) {
+            log.error("获取已配置的模板文件夹列表-失败", e);
+            return JsonResult.success(Arrays.stream(new java.lang.String[]{"default", "xinmeng"}).collect(Collectors.toList()));
+        }
     }
 
     @ApiOperation("获取配置")
@@ -115,28 +122,28 @@ public class GenerationController extends BaseController {
         try {
             final File file = new File(BuirProperties.me().getTemplateGenerationTmp() + "src");
             final boolean mkdirs = file.mkdirs();
-            log.info("创建临时文件夹是否成功：{}",mkdirs);
+            log.info("创建临时文件夹是否成功：{}", mkdirs);
         } catch (Exception e) {
-            log.error("创建临时文件夹失败！",e);
+            log.error("创建临时文件夹失败！", e);
         }
         try {
-            if(GenerationConfig.DEFAULT_FOLDER.equals(config.getTemplateFolder())){
+            if (GenerationConfig.DEFAULT_FOLDER.equals(config.getTemplateFolder())) {
                 generatorHelper.generateEntityFile(columns, config);
                 generatorHelper.generateMapperFile(GenerationConfig.MAPPER_FILE_SUFFIX, config);
                 generatorHelper.generateMapperXmlFile(config);
-                generatorHelper.generateServiceFile(columns, config,true);
+                generatorHelper.generateServiceFile(columns, config, true);
                 generatorHelper.generateServiceImplFile(columns, config);
                 generatorHelper.generateControllerFile(columns, config);
             } else {
-                String entity = GenerationConfig.ENTITY_TEMPLATE,vo = "infoVo.ftl",exportVo = "exportVo.ftl",pageListPo = "pageListPo.ftl",po = "po.ftl",pageListVo = "pageListVo.ftl";
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPackage(),entity);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),po);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),vo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),exportVo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityVoPackage(),pageListVo);
-                generatorHelper.generateEntityVoPoFile(columns, config,config.getEntityPoPackage(),pageListPo);
+                String entity = GenerationConfig.ENTITY_TEMPLATE, vo = "infoVo.ftl", exportVo = "exportVo.ftl", pageListPo = "pageListPo.ftl", po = "po.ftl", pageListVo = "pageListVo.ftl";
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityPackage(), entity);
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityPoPackage(), po);
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityVoPackage(), vo);
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityVoPackage(), exportVo);
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityVoPackage(), pageListVo);
+                generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityPoPackage(), pageListPo);
                 generatorHelper.generateControllerFile(columns, config);
-                generatorHelper.generateServiceFile(columns, config,false);
+                generatorHelper.generateServiceFile(columns, config, false);
                 generatorHelper.generateMapperFile(GenerationConfig.MAPPER_FILE_SUFFIX, config);
                 generatorHelper.generateMapperCrudXmlFile(columns, config);
             }

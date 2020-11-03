@@ -99,4 +99,9 @@ public class DatasourceConf implements Serializable {
     @TableField("username")
     private String username;
 
+
+    public String formatUrl(){
+        return String.format(this.url,this.databaseIp,this.databasePort);
+    }
+
 }

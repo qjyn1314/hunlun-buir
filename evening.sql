@@ -1,18 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 47.104.78.115_3308-1234567
- Source Server Type    : MySQL
- Source Server Version : 80020
- Source Host           : 47.104.78.115:3308
- Source Schema         : evening
-
- Target Server Type    : MySQL
- Target Server Version : 80020
- File Encoding         : 65001
-
- Date: 09/10/2020 13:52:10
-*/
 DROP DATABASE IF EXISTS `evening`;
 
 CREATE DATABASE  `evening` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
