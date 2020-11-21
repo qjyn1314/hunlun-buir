@@ -55,8 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //不需要登录认证的路径-之后将配置到配置文件中
-                .antMatchers("/actuator/health", "/details", "/instances/**/**",
-                        "/auth/login", "/login/form", "/auth/fail", "/auth/register").permitAll()
+                .antMatchers(
+                        "/auth/login", "/login/form", "/auth/fail", "/auth/register",
+                        "/instances/**","/instances", "/actuator/**","/actuator/health", "/details"
+                ).permitAll()
                 //其余请求都需要登录认证通过
                 .anyRequest().authenticated()
                 .and()

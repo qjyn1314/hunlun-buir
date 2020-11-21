@@ -45,7 +45,7 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <!--spring-boot-admin-start-->
+        <!--admin监控-start-->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
@@ -58,21 +58,7 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
-        </dependency>
-        <!--spring-boot-admin-end-->
+        <!--admin监控-end-->
     </dependencies>
 
 </project>

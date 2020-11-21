@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2020-02-12 11:47
  */
 @Configuration
-public class CommonConfig extends HandlerInterceptorAdapter {
+public class ErrorPageConfig extends HandlerInterceptorAdapter {
     private final List<Integer> errorCodeList = Arrays.asList(404, 403, 500, 501);
 
     @Override
