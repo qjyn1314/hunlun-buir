@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.calm.datasource.support.DataSourceConstants;
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.common.config.ApplicationContextUtils;
+import com.hulunbuir.clam.common.config.ApplicationUtil;
 import com.hulunbuir.clam.evening.generationcode.entity.DatasourceConf;
 import com.hulunbuir.clam.evening.generationcode.mapper.DatasourceConfMapper;
 import com.hulunbuir.clam.evening.generationcode.service.IDatasourceConfService;
@@ -97,7 +97,7 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
         dataSourceProperty.setPassword(datasourceConf.getPassword());
         dataSourceProperty.setDriverClassName(DataSourceConstants.DS_DRIVER);
         DataSource dataSource = dataSourceCreator.createDataSource(dataSourceProperty);
-        ApplicationContextUtils.getBean(DynamicRoutingDataSource.class).addDataSource(dataSourceProperty.getPoolName(), dataSource);
+        ApplicationUtil.getBean(DynamicRoutingDataSource.class).addDataSource(dataSourceProperty.getPoolName(), dataSource);
     }
 
     /**
@@ -114,7 +114,7 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
             HulunBuirException.build("请检查数据库信息是否正确，数据库连接失败！");
         }
         final DatasourceConf selOne = selOne(datasourceConf);
-        ApplicationContextUtils.getBean(DynamicRoutingDataSource.class)
+        ApplicationUtil.getBean(DynamicRoutingDataSource.class)
                 .removeDataSource(selOne.getDatabaseName());
         addDataSourceToIoc(datasourceConf);
         datasourceConf.setPassword(JasyptUtil.encryptPwd(datasourceConf.getPassword()));
@@ -163,14 +163,14 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
      */
     @Override
     public List<DatasourceConf> dataSourceConfList() {
-        final Map<String, DataSource> beforeCurrentDataSources = ApplicationContextUtils.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
+        final Map<String, DataSource> beforeCurrentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
         log.info("当前SpringIoc中的动态数据源有：{},",beforeCurrentDataSources);
 
-        final Map<String, GroupDataSource> currentGroupDataSources = ApplicationContextUtils.getBean(DynamicRoutingDataSource.class).getCurrentGroupDataSources();
+        final Map<String, GroupDataSource> currentGroupDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentGroupDataSources();
         log.info("当前SpringIoc中的动态数据源有：{},",currentGroupDataSources);
         //手动切换数据源
         DynamicDataSourceContextHolder.push("steta_order");
-        final Map<String, DataSource> afterCurrentDataSources = ApplicationContextUtils.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
+        final Map<String, DataSource> afterCurrentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
         log.info("当前SpringIoc中的动态数据源有：{},",afterCurrentDataSources);
         try {
             final List<DatasourceConf> datasourceConfs = datasourceConfMapper.selectList(initQueryWrapper(null, null));

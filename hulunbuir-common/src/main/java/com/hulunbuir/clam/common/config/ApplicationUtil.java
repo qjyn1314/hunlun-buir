@@ -20,7 +20,7 @@ import java.util.Objects;
  * @since 2020/6/21 12:25
  */
 @Configuration
-public class ApplicationContextUtils implements ApplicationContextAware {
+public class ApplicationUtil implements ApplicationContextAware {
 
     private static ApplicationContext context;
 

@@ -3,7 +3,6 @@ package ${basePackage}.${serviceImplPackage};
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import cc.mrbird.febs.common.domain.QueryRequest;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${servicePackage}.I${className}Service;
@@ -11,6 +10,7 @@ import com.hulunbuir.clam.common.base.QueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * ${tableComment} Service实现
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ${author}
  * @since ${date}
  */
+@Slf4j
 @Service
 public class ${className}ServiceImpl implements I${className}Service {
 
@@ -59,7 +60,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     * @since ${date}
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean save(${className} ${className?uncap_first}) {
         //--TODO 做一些初始化动作
         return ${className?uncap_first}Mapper.insert(${className?uncap_first})>0;
@@ -73,7 +74,7 @@ public class ${className}ServiceImpl implements I${className}Service {
     * @since ${date}
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(${className} ${className?uncap_first}) {
         //--TODO 做一些效验动作
         return ${className?uncap_first}Mapper.updateById(${className?uncap_first})>0;

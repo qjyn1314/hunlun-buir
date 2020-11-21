@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
  * @author wangjunming
  * @since 2020/8/27 10:26
  */
-@DependsOn("applicationContextUtils")
+@DependsOn("applicationUtil")
 @Configuration
 @ConfigurationProperties(prefix = "buir")
 public class BuirProperties {
@@ -32,7 +32,7 @@ public class BuirProperties {
     private String templateGenerationTmp;
 
     public static BuirProperties me() {
-        return ApplicationContextUtils.getBean(BuirProperties.class);
+        return ApplicationUtil.getBean(BuirProperties.class);
     }
 
     @PostConstruct

@@ -101,7 +101,7 @@ public class JasyptUtil {
         //真实密码
         final String password = "admin";
         // 加密,打印出来的就是ENC(密码)的密码
-        final String pwd = encryptPwd(ENCRYPT_PWD, password);
+        String pwd = encryptPwd(ENCRYPT_PWD, password);
         System.out.println("配置文件中需要ENC(密码)配置的密码是：" + pwd);
         final String decyptPwd = decyptPwd(ENCRYPT_PWD, pwd);
         System.out.println("解密之后的真实密码：" + decyptPwd);

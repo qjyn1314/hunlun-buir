@@ -4,6 +4,7 @@ import jodd.util.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2020/5/31 21:59
  */
 @Slf4j
+@Component
 @Configuration
 public class AuthIntercept implements HandlerInterceptor {
 

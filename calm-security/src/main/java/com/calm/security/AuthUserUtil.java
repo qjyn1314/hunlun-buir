@@ -1,6 +1,6 @@
 package com.calm.security;
 
-import com.hulunbuir.clam.common.config.RedisTemplateConfig;
+import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.distributed.evening.AuthProvider;
 import com.hulunbuir.clam.parent.tool.JwtUtils;
 import com.hulunbuir.clam.parent.tool.RequestUtils;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @since 2020/9/18 10:39
  */
 @Slf4j
-@DependsOn("applicationContextUtils")
+@DependsOn("applicationUtil")
 @Component
 public class AuthUserUtil {
 
@@ -45,9 +45,9 @@ public class AuthUserUtil {
     private static AuthProvider userService;
     @Autowired
     private AuthProvider serviceUser;
-    private static RedisTemplateConfig redisTemplate;
+    private static RedisService redisTemplate;
     @Autowired
-    private RedisTemplateConfig redisHelper;
+    private RedisService redisHelper;
 
     /**
      * 初始化密码

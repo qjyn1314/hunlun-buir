@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.generationcode.controller;
 
 import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.common.config.ApplicationContextUtils;
+import com.hulunbuir.clam.common.config.ApplicationUtil;
 import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
@@ -92,7 +92,7 @@ public class GenerationController extends BaseController {
      * @since 2020/7/8 13:12
      */
     private String getSessionId() {
-        return ApplicationContextUtils.getRequestSessionId();
+        return ApplicationUtil.getRequestSessionId();
     }
 
     @ApiOperation("数据库中的表")

@@ -37,8 +37,8 @@ public class ${className}Controller extends BaseController {
 
     @ApiOperation("${tableComment}分页列表")
     @GetMapping("/page")
-    public Map<String , Object> page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
-        return getLayTable(getDataTable(service.page(queryRequest,${className?uncap_first}));
+    public JsonResult page(QueryRequest queryRequest, ${className} ${className?uncap_first}){
+        return JsonResult.success(getDataTable(service.page(queryRequest,${className?uncap_first})));
     }
 
     @ApiOperation("${tableComment}添加")

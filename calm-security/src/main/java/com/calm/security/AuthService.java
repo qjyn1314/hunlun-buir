@@ -1,6 +1,6 @@
 package com.calm.security;
 
-import com.hulunbuir.clam.common.config.ApplicationContextUtils;
+import com.hulunbuir.clam.common.config.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author wangjunming
  * @since 2020/9/15 17:57
  */
-@DependsOn("applicationContextUtils")
+@DependsOn("applicationUtil")
 @Component
 public class AuthService implements Auth {
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
@@ -25,7 +25,7 @@ public class AuthService implements Auth {
     private HttpServletRequest request;
 
     public static AuthService me() {
-        return ApplicationContextUtils.getBean(AuthService.class);
+        return ApplicationUtil.getBean(AuthService.class);
     }
 
     public String handleView(){

@@ -1,6 +1,5 @@
 package com.hulunbuir.clam.parent.tool;
 
-import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;
@@ -18,7 +17,7 @@ import java.util.Locale;
  * @author wangjunming
  * @since 2020-01-16 11:45
  */
-public final class DateUtils extends DateUtil {
+public final class DateUtils {
 
 
     private final static String dateTimesFormat = "yyyy-MM-dd HH:mm:ss";

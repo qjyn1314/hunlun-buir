@@ -1,11 +1,9 @@
 package com.hulunbuir.clam.admin.mail;
 
-import com.hulunbuir.clam.admin.test_demo.Person;
 import com.hulunbuir.clam.common.config.BuirProperties;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,10 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.internet.MimeMessage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -82,61 +77,6 @@ public class MailService {
         DataSource dataSource = new FileDataSource(new File(""));
         messageHelper.addAttachment(emailFileName, dataSource);//添加附件信息
         mailSender.send(messageHelper.getMimeMessage());//正式发送邮件
-    }
-
-    public ByteArrayInputStream getInputStream() {
-        // 第一步，创建一个workbook，对应一个Excel文件
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
-        HSSFSheet hssfSheet = workbook.createSheet("sheet1");
-        // 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short
-        HSSFRow row = hssfSheet.createRow(0);
-        // 第四步，创建单元格，并设置值表头 设置表头居中
-        HSSFCellStyle hssfCellStyle = workbook.createCellStyle();
-        String[] titles = {"姓名", "年龄"};
-        HSSFCell hssfCell = null;
-        for (int i = 0; i < titles.length; i++) {
-            hssfCell = row.createCell(i);//列索引从0开始
-            hssfCell.setCellValue(titles[i]);//列名1
-            hssfCell.setCellStyle(hssfCellStyle);//列居中显示
-        }
-        // 第五步，写入实体数据
-        Person person1 = new Person(20, "张三");
-        Person person2 = new Person(21, "李四");
-        Person person3 = new Person(22, "王五");
-        Person person4 = new Person(23, "徐小筱");
-        //这里我把list当做数据库啦
-        ArrayList<Person> list = new ArrayList<Person>();
-        list.add(person1);
-        list.add(person2);
-        list.add(person3);
-        list.add(person4);
-        for (int i = 0; i < list.size(); i++) {
-            row = hssfSheet.createRow(i + 1);
-            Person person = list.get(i);
-            // 第六步，创建单元格，并设置值
-            String name = null;
-            if (person.getName() != null) {
-                name = person.getName();
-            }
-            row.createCell(0).setCellValue(name);
-            int age = 0;
-            if (person.getAge() != 0) {
-                age = person.getAge();
-            }
-            row.createCell(1).setCellValue(age);
-        }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
-        ByteArrayInputStream iss = null;
-        try {
-            workbook.write(out);
-            workbook.close();
-            iss = new ByteArrayInputStream(out.toByteArray());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return iss;
     }
 
 }
