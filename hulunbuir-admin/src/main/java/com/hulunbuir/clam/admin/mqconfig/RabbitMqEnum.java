@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.config;
+package com.hulunbuir.clam.admin.mqconfig;
 
 /**
  * <p>

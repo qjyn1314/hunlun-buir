@@ -1,13 +1,12 @@
-package com.hulunbuir.clam.admin.configservice;
+package com.hulunbuir.clam.admin.scheduleconfig;
 
-import com.hulunbuir.clam.admin.config.RabbitMqQo;
-import com.hulunbuir.clam.admin.config.RabbitMqUtils;
+import com.hulunbuir.clam.admin.mqconfig.RabbitMqQo;
+import com.hulunbuir.clam.admin.mqconfig.RabbitMqUtils;
 import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -33,17 +32,17 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/15 * * * * ?")
+//    @Scheduled(cron = "0/15 * * * * ?")
     public void checkState1() {
 //        ReflectionUtils.findMethod();
 //        ReflectionUtils.invokeMethod();
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息开始....");
         String key = "nowDateTimes";
         String value = DateUtils.getDateTimes();
-        long overdueTime = 60*60*24;
-        redisService.setStrKey(key,value,overdueTime);
+        long overdueTime = 60 * 60 * 24;
+        redisService.setStrKey(key, value, overdueTime);
         final Object strValue = redisService.getStrValue(key);
-        log.info("redis中存储的key：{}，value：{}",key,strValue);
+        log.info("redis中存储的key：{}，value：{}", key, strValue);
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查redis存储信息结束....");
     }
 
@@ -68,7 +67,7 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void checkRedisMessage() {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
         RabbitMqUtils.messageProdFanout("MQ消息手动确认信息！！");

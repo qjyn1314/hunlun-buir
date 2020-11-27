@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.config;
+package com.hulunbuir.clam.admin.mqconfig;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

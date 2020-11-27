@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.config;
+package com.hulunbuir.clam.admin.mqconfig;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;

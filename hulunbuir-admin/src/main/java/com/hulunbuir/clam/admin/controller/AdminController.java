@@ -1,15 +1,17 @@
 package com.hulunbuir.clam.admin.controller;
 
+import com.hulunbuir.clam.admin.threadconfig.ThreadService;
 import com.hulunbuir.clam.distributed.evening.AuthProvider;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * <p>
@@ -38,6 +40,18 @@ public class AdminController {
             log.error("调用dubbo接口异常，", e);
             return JsonResult.error();
         }
+    }
+
+    @Autowired
+    private ThreadService service;
+
+    @ApiOperation("测试线程池")
+    @PostMapping("/threadServiceSayHello")
+    public void threadServiceSayHello(@RequestParam String username) throws ExecutionException, InterruptedException {
+        service.sayHello(username);
+        final CompletableFuture<String> completableFuture = service.sayHelloAndReturn(username);
+        final String re = completableFuture.get();
+        log.info("re:{}", re);
     }
 
 }

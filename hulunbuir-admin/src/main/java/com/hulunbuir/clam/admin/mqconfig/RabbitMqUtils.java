@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.config;
+package com.hulunbuir.clam.admin.mqconfig;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -40,7 +40,7 @@ public class RabbitMqUtils {
      */
     public RabbitMqUtils(RabbitTemplate rabbitTemplate) {
         rabbitTem = rabbitTemplate;
-        log.info("初始化MQ的信息：" + JSON.toJSONString(rabbitTem, SerializerFeature.PrettyFormat));
+        log.info("初始化MQ的信息：" + JSON.toJSONString(rabbitTem));
     }
 
     /**
