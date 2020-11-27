@@ -20,10 +20,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.hulunbuir.clam.common</groupId>
-            <artifactId>hulunbuir-common</artifactId>
-        </dependency>
         <!--作用于，通过dubbo进行查询用户信息-->
         <dependency>
             <groupId>com.hulunbuir.clam.distributed</groupId>

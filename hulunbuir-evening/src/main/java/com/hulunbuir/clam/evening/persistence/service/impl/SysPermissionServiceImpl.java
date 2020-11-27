@@ -3,6 +3,8 @@ package com.hulunbuir.clam.evening.persistence.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.calm.security.AuthUserUtil;
+import com.calm.security.CurrentUser;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
 import com.hulunbuir.clam.evening.persistence.mapper.SysPermissionMapper;
@@ -26,6 +28,11 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
 
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
+
+    private CurrentUser getCurrentUser() {
+        return AuthUserUtil.currentUser();
+    }
+
 
    /**
     * 权限表分页列表
@@ -104,6 +111,9 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      */
     @Override
     public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree) {
+        final Long userId = getCurrentUser().getId();
+
+
         return handlePermissionTree(permissionTree);
     }
 

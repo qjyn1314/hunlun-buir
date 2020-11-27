@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * <p>
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Repository;
 @MapperScan(basePackages = {
         "com.hulunbuir.clam.evening.*.mapper",
 },annotationClass = Repository.class)
+@EnableTransactionManagement
 public class MybatisPlusAutoConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {

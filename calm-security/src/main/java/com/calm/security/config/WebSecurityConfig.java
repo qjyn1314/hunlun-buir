@@ -46,6 +46,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**安全拦截放过的URL路径*/
+    private static final String[] MATCHERS_PERMIT_ALL = {"/auth/login", "/login/form", "/auth/fail", "/auth/register",
+            "/instances/**","/instances", "/actuator/**","/actuator/health", "/details"};
+    /**静态资源的请求路径*/
+    private static final String[] IGNORING_MATCHERS = {"/css/**", "/error/**", "/static/**", "/instances/**", "/actuator/**",
+            "/font/**", "/icon/**", "/images/**", "/js/**", "/json/**", "/layui/**"};
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
+    }
+
     /**
      * 安全拦截机制-核心配置
      */
@@ -55,10 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //不需要登录认证的路径-之后将配置到配置文件中
-                .antMatchers(
-                        "/auth/login", "/login/form", "/auth/fail", "/auth/register",
-                        "/instances/**","/instances", "/actuator/**","/actuator/health", "/details"
-                ).permitAll()
+                .antMatchers(MATCHERS_PERMIT_ALL).permitAll()
                 //其余请求都需要登录认证通过
                 .anyRequest().authenticated()
                 .and()
@@ -92,19 +102,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new AuthTokenFilter(authenticationManager()));
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
-
     /**
      * 放过静态资源的请求
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/error/**", "/static/**", "/instances/**", "/actuator/**",
-                "/font/**", "/icon/**", "/images/**", "/js/**", "/json/**", "/layui/**");
+        web.ignoring().antMatchers(IGNORING_MATCHERS);
     }
 
     /**

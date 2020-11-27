@@ -27,6 +27,7 @@
             <groupId>com.hulunbuir.clam.parent</groupId>
             <artifactId>hulunbuir-parent</artifactId>
         </dependency>
+        <!--redis-start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -40,11 +41,14 @@
             <artifactId>redisson</artifactId>
             <version>${redisson.version}</version>
         </dependency>
+        <!--redis-end-->
+        <!--swagger-start-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
         </dependency>
+        <!--swagger-end-->
         <!--admin监控-start-->
         <dependency>
             <groupId>de.codecentric</groupId>

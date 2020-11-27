@@ -18,6 +18,8 @@
         <java.version>1.8</java.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dubbo.version>2.7.5</dubbo.version>
+        <curator.version>5.1.0</curator.version>
     </properties>
 
     <dependencies>
@@ -25,6 +27,24 @@
             <groupId>com.hulunbuir.clam.common</groupId>
             <artifactId>hulunbuir-common</artifactId>
         </dependency>
+        <!--dubbo-start-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>${curator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--dubbo-end-->
     </dependencies>
 
 </project>
