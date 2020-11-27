@@ -1,4 +1,4 @@
-package com.calm.security;
+package com.calm.security.support;
 
 import com.hulunbuir.clam.distributed.evening.AuthUser;
 import io.swagger.annotations.ApiModelProperty;

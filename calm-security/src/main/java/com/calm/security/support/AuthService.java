@@ -1,4 +1,4 @@
-package com.calm.security;
+package com.calm.security.support;
 
 import com.hulunbuir.clam.common.config.ApplicationUtil;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class AuthService implements Auth {
         return ApplicationUtil.getBean(AuthService.class);
     }
 
-    public String handleView(){
+    public String handleView() {
         return request.getRequestURI().substring(1).replace(HTML_SUFFIX, "");
     }
 

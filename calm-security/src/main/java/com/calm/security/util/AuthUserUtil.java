@@ -1,5 +1,6 @@
-package com.calm.security;
+package com.calm.security.util;
 
+import com.calm.security.support.CurrentUser;
 import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.distributed.evening.AuthProvider;
 import com.hulunbuir.clam.parent.tool.JwtUtils;

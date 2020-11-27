@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.auth;
 
-import com.calm.security.AuthService;
-import com.calm.security.AuthUserUtil;
+import com.calm.security.support.AuthService;
+import com.calm.security.util.AuthUserUtil;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

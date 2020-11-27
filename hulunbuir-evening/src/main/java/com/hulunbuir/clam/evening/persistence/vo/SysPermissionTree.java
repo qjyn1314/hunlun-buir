@@ -1,7 +1,6 @@
 package com.hulunbuir.clam.evening.persistence.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * @author wangjunming
  * @date 2020-07-22 14:23:29
  */
-@Data
 public class SysPermissionTree implements Serializable {
 
     /**
@@ -65,5 +63,69 @@ public class SysPermissionTree implements Serializable {
 
     public SysPermissionTree(Integer pid) {
         this.pid = pid;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public boolean isSpread() {
+        return spread;
+    }
+
+    public void setSpread(boolean spread) {
+        this.spread = spread;
+    }
+
+    public List<SysPermissionTree> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysPermissionTree> children) {
+        this.children = children;
     }
 }

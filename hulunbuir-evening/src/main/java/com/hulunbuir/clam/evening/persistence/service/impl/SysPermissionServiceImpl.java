@@ -3,9 +3,11 @@ package com.hulunbuir.clam.evening.persistence.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.calm.security.AuthUserUtil;
-import com.calm.security.CurrentUser;
+import com.calm.security.support.Auth;
+import com.calm.security.support.CurrentUser;
+import com.calm.security.util.AuthUserUtil;
 import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
 import com.hulunbuir.clam.evening.persistence.mapper.SysPermissionMapper;
 import com.hulunbuir.clam.evening.persistence.service.ISysPermissionService;
@@ -28,6 +30,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
 
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
+    @Autowired
+    private RedisService redisService;
 
     private CurrentUser getCurrentUser() {
         return AuthUserUtil.currentUser();
@@ -71,6 +75,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(SysPermission sysPermission) {
+        redisService.deleteByRegularKey(RedisService.PERMISSION);
         //--TODO 做一些初始化动作
         return sysPermissionMapper.insert(sysPermission)>0;
     }
@@ -85,6 +90,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(SysPermission sysPermission) {
+        redisService.deleteByRegularKey(RedisService.PERMISSION);
         //--TODO 做一些效验动作
         return sysPermissionMapper.updateById(sysPermission)>0;
     }
@@ -112,9 +118,14 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     @Override
     public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree) {
         final Long userId = getCurrentUser().getId();
-
-
-        return handlePermissionTree(permissionTree);
+        final Object permission = redisService.getStrValue(RedisService.PERMISSION + userId);
+        if(null != permission){
+            return (List<SysPermissionTree>) permission;
+        }else {
+            final List<SysPermissionTree> permissionTrees = handlePermissionTree(permissionTree);
+            redisService.setStrKey(RedisService.PERMISSION + userId,permissionTrees, Auth.day);
+            return permissionTrees;
+        }
     }
 
     /**

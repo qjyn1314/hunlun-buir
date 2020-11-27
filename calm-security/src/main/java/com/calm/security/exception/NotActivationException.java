@@ -1,4 +1,4 @@
-package com.calm.security;
+package com.calm.security.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

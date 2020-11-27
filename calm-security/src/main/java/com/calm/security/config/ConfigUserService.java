@@ -1,6 +1,6 @@
 package com.calm.security.config;
 
-import com.calm.security.NotActivationException;
+import com.calm.security.exception.NotActivationException;
 import com.hulunbuir.clam.distributed.evening.AuthProvider;
 import com.hulunbuir.clam.distributed.evening.AuthUser;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class SecurityUserService implements UserDetailsService {
+public class ConfigUserService implements UserDetailsService {
 
     @Autowired
     private AuthProvider authProvider;

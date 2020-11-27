@@ -1,4 +1,4 @@
-package com.calm.security;
+package com.calm.security.support;
 
 /**
  * <p>
@@ -16,5 +16,14 @@ public interface Auth {
     String LOGIN_FAIL_URL = "/auth/fail";
     String LOGOUT_URL = "/logout";
     String HTML_SUFFIX = ".html";
-
+    //1分
+    long points = 60*60 ;
+    //1时
+    long when = 60*60*60;
+    //1天
+    long day = 60*60*60*24;
+    //1周
+    long week = 60*60*60*24*7;
+    //1月
+    long month = 60*60*60*24*30;
 }

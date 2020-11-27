@@ -59,6 +59,12 @@ public class SysPermissionController extends BaseController {
         return JsonResult.success(service.selOne(sysPermission));
     }
 
+    /**
+     * 当前登录用户的权限列表
+     *
+     * @author wangjunming
+     * @since 2020/11/27 22:33
+     */
     @ApiOperation("树形权限列表")
     @GetMapping("/permissionTree")
     public JsonResult permissionTree() {

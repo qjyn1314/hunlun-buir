@@ -1,6 +1,6 @@
 package com.calm.security.handle;
 
-import com.calm.security.AuthUserUtil;
+import com.calm.security.util.AuthUserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -28,9 +28,8 @@ public class AuthTokenFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info("过滤器中的请求路径是：{}",request.getRequestURI());
-//        super.doFilterInternal(request, response, chain);
-            log.info(request.getHeader(AuthUserUtil.AUTH_TOKEN_KEY));
-        chain.doFilter(request,response);
+        log.info("过滤器中的请求路径是：{}", request.getRequestURI());
+        log.info(request.getHeader(AuthUserUtil.AUTH_TOKEN_KEY));
+        chain.doFilter(request, response);
     }
 }
