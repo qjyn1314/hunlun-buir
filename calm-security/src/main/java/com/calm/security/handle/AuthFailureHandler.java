@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2020/9/21 10:35
  */
 @Slf4j
-@Component
 public class AuthFailureHandler implements AuthenticationFailureHandler {
     @Override
     @SneakyThrows

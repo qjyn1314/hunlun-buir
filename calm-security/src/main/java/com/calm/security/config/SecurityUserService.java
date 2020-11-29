@@ -37,7 +37,7 @@ public class SecurityUserService implements UserDetailsService {
         if (AuthUser.UserStatus.STATUS_0.equals(authUser.getStatus())) {
             throw new NotActivationException("您的账号未激活，请联系管理员，qjyn1314@163.com");
         }
-        return User.withUsername(authUser.getUserName()).password(authUser.getPassword()).authorities("po").build();
+        return User.withUsername(authUser.getUserName()).password(authUser.getPassword()).authorities("ADMIN").build();
     }
 
 }

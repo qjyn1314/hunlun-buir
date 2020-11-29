@@ -39,18 +39,35 @@ import java.util.Map;
 public class AuthUserUtil {
 
     public static final String AUTH_TOKEN_KEY = "AuthToken_";
-    public static final int AUTH_COOKIE_TIME = 24;
+    public static final int AUTH_COOKIE_TIME = 60 * 60 * 24;
     public static final int AUTH_REDIS_TIME = 60 * 60 * 12;
     private static final String AUTH_PREFIX = "Auth_";
-
+    /**签发jwt-token中map的key*/
+    private static final String CHIMES_MAP_KEY = "authUser";
+    /**操作密码*/
     private static PasswordEncoder passwordEncoder;
+    /**查询用户信息*/
+    private static AuthProvider userService;
+    /**操作redis数据库*/
+    private static RedisService redisTemplate;
     @Autowired
     private PasswordEncoder encoderPassword;
-    private static AuthProvider userService;
     @Autowired
     private AuthProvider serviceUser;
-    private static RedisService redisTemplate;
-    private static final String chimesMapKey = "authUser";
+    @Autowired
+    private RedisService redisService;
+
+    /**
+     * 将当前登录用户信息存储到map中用于签发jwt-token
+     *
+     * @param currentUser 当前系统的登录用户
+     * @return Map
+     */
+    private static Map<String, Object> chimesMap(CurrentUser currentUser) {
+        Map<String, Object> chimes = new HashMap<>(1);
+        chimes.put(CHIMES_MAP_KEY, currentUser);
+        return chimes;
+    }
 
     /**
      * 初始化密码
@@ -58,8 +75,6 @@ public class AuthUserUtil {
     public static String handleUser(String password) {
         return passwordEncoder.encode(password);
     }
-    @Autowired
-    private RedisService redisService;
 
     /**
      * 获取Security全局信息
@@ -90,15 +105,48 @@ public class AuthUserUtil {
     }
 
     /**
-     * 将当前登录用户信息存储到map中用于签发jwt-token
+     * 获取当前登录用户的详细信息
+     * <p>
+     * 为其他模块调用的静态方法，获取当前登录用户信息
+     * <p>
+     * 1.从当前请求头中获取当前登录用户的信息
+     * <p>
+     * 2.从浏览器中获取当前登录用户信息
+     * <p>
+     * 3.从redis中获取当前登录用户信息
+     * <p>
+     * 4.获取不到时则通过当前登录用户名从数据库查找
      *
-     * @param currentUser 当前系统的登录用户
-     * @return Map
+     * @author wangjunming
+     * @since 2020/11/28 22:06
      */
-    private static Map<String, Object> chimesMap(CurrentUser currentUser) {
-        Map<String, Object> chimes = new HashMap<>(1);
-        chimes.put(chimesMapKey, currentUser);
-        return chimes;
+    public static CurrentUser currentUser() {
+        final UserDetails authUser = authUser();
+        if (null == authUser || StringUtils.isBlank(authUser.getUsername())) {
+            return null;
+        }
+        final String username = authUser.getUsername();
+        log.info("当前security中的用户名是：{}", username);
+        final HttpServletRequest request = ApplicationUtil.getHttpServletRequest();
+        String authToken = request.getHeader(AUTH_TOKEN_KEY);
+        if (StringUtils.isNotBlank(authToken)) {
+            return getUserByToken(authToken);
+        }
+        log.warn("请求头中没有获取到用户的token，将从cookie中获取");
+        final Cookie cookie = RequestUtils.getCookieByName(request, AUTH_TOKEN_KEY);
+        if (null != cookie) {
+            authToken = cookie.getValue();
+            return getUserByToken(authToken);
+        }
+        log.warn("当前请求的浏览器cookie中没有获取到用户的token，将从redis中获取");
+        final String redisUserKey = AUTH_TOKEN_KEY + username;
+        authToken = (String) redisTemplate.getStrValue(redisUserKey);
+        if (StringUtils.isNotBlank(authToken)) {
+            return getUserByToken(authToken);
+        }
+        log.warn("从redis中没有获取到该用户的token，将从数据库中查询当前登录用户信息");
+//        return  getCurrentUserByDb(username);
+        return null;
     }
 
     /**
@@ -152,51 +200,6 @@ public class AuthUserUtil {
     }
 
     /**
-     * 获取当前登录用户的详细信息
-     * <p>
-     * 为其他模块调用的静态方法，获取当前登录用户信息
-     * <p>
-     * 1.从当前请求头中获取当前登录用户的信息
-     * <p>
-     * 2.从浏览器中获取当前登录用户信息
-     * <p>
-     * 3.从redis中获取当前登录用户信息
-     * <p>
-     * 4.获取不到时则通过当前登录用户名从数据库查找
-     *
-     * @author wangjunming
-     * @since 2020/11/28 22:06
-     */
-    public static CurrentUser currentUser() {
-        final UserDetails authUser = authUser();
-        if (null == authUser || StringUtils.isBlank(authUser.getUsername())) {
-            return null;
-        }
-        final String username = authUser.getUsername();
-        log.info("当前security中的用户名是：{}", username);
-        final HttpServletRequest request = ApplicationUtil.getHttpServletRequest();
-        String authToken = request.getHeader(AUTH_TOKEN_KEY);
-        if (StringUtils.isNotBlank(authToken)) {
-            return getUserByToken(authToken);
-        }
-        log.warn("请求头中没有获取到用户的token，将从cookie中获取");
-        final Cookie cookie = RequestUtils.getCookieByName(request, AUTH_TOKEN_KEY);
-        if (null != cookie) {
-            authToken = cookie.getValue();
-            return getUserByToken(authToken);
-        }
-        log.warn("当前请求的浏览器cookie中没有获取到用户的token，将从redis中获取");
-        final String redisUserKey = AUTH_TOKEN_KEY + username;
-        authToken = (String) redisTemplate.getStrValue(redisUserKey);
-        if (StringUtils.isNotBlank(authToken)) {
-            return getUserByToken(authToken);
-        }
-        log.warn("从redis中没有获取到该用户的token，将从数据库中查询当前登录用户信息");
-//        return  getCurrentUserByDb(username);
-        return  null;
-    }
-
-    /**
      * 根据jwt-token解析出用户信息
      *
      * @author wangjunming
@@ -208,10 +211,10 @@ public class AuthUserUtil {
         try {
             claimFromToken = JwtUtils.getClaimFromToken(authToken);
         } catch (Exception e) {
-            log.error("解析token失败！！",e);
+            log.error("解析token失败！！", e);
             return null;
         }
-        final HashMap hashMap = claimFromToken.get(chimesMapKey, HashMap.class);
+        final HashMap hashMap = claimFromToken.get(CHIMES_MAP_KEY, HashMap.class);
         return JwtUtils.mapToEntity(hashMap, CurrentUser.class);
     }
 

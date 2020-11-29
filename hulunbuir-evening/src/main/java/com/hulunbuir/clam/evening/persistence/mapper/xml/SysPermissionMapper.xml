@@ -19,8 +19,14 @@
             RIGHT JOIN sys_permission sp ON srp.permission_id = sp.id
         WHERE
             sp.per_status = '1'
-            AND su.id = #{userId}
-            AND sp.parent_id = #{per.pid}
+            <if test="userId != null">
+                AND su.id = #{userId}
+            </if>
+            <if test="per != null">
+                <if test="per.pid != null">
+                    AND sp.parent_id = #{per.pid}
+                </if>
+            </if>
             ORDER BY sp.per_sort;
     </select>
 
