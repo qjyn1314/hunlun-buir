@@ -78,6 +78,7 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
         getBodyWidth: function () {
             return document.body.scrollWidth;
         },
+        storageKey: "user_",
         /**
          * 封装初始化表格
          * 2.4.0版本之后所使用

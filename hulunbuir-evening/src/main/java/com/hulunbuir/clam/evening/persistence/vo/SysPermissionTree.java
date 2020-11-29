@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.evening.persistence.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author wangjunming
  * @date 2020-07-22 14:23:29
  */
+@Data
 public class SysPermissionTree implements Serializable {
 
     /**
@@ -30,6 +32,12 @@ public class SysPermissionTree implements Serializable {
      */
     @ApiModelProperty(value = "权限名称")
     private String title;
+
+    /**
+     * 权限编码
+     */
+    @ApiModelProperty(value = "权限编码")
+    private String percode;
 
     /**
      * 权限名称
@@ -60,6 +68,9 @@ public class SysPermissionTree implements Serializable {
      */
     @ApiModelProperty(value = "子节点")
     private List<SysPermissionTree> children;
+
+    public SysPermissionTree() {
+    }
 
     public SysPermissionTree(Integer pid) {
         this.pid = pid;

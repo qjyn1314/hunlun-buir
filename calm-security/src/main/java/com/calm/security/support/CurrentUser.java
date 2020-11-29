@@ -20,7 +20,7 @@ public class CurrentUser implements Serializable {
      * 用户ID
      */
     @ApiModelProperty(value = "用户ID")
-    private Long id;
+    private Integer id;
     /**
      * 用户名
      */
@@ -61,17 +61,12 @@ public class CurrentUser implements Serializable {
      */
     @ApiModelProperty(value = "描述")
     private String description;
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
-    private Date createDate;
 
     public CurrentUser() {
     }
 
     public CurrentUser(AuthUser user) {
-        this.id = user.getId();
+        this.id = Math.toIntExact(user.getId());
         this.userName = user.getUserName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
@@ -80,14 +75,13 @@ public class CurrentUser implements Serializable {
         this.sex = user.getSex();
         this.avatar = user.getAvatar();
         this.description = user.getDescription();
-        this.createDate = user.getCreateDate();
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -153,14 +147,6 @@ public class CurrentUser implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
 }

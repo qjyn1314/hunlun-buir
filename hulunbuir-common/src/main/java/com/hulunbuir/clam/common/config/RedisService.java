@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,8 +28,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Configuration
 public class RedisService {
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
 
     @Bean("redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -47,9 +46,44 @@ public class RedisService {
         template.afterPropertiesSet();
         return template;
     }
+
+    /**
+     * 通配符  “*” 号
+     */
+    public static final String ASTERISK = "*";
+    /**
+     * 存储权限的key
+     */
     public static final String PERMISSION = "permission_";
     /**
-     * 存储key为字符串的key的value值
+     * 删除所有权限的模糊key
+     */
+    public static final String PERMISSION_DELKEY = PERMISSION + ASTERISK;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Bean
+    public HashOperations<String, String, Object> hashOperations(RedisTemplate<String, Object> redisTemplate) {
+        return redisTemplate.opsForHash();
+    }
+
+    @Bean
+    public ListOperations<String, Object> listOperations(RedisTemplate<String, Object> redisTemplate) {
+        return redisTemplate.opsForList();
+    }
+
+    @Bean
+    public SetOperations<String, Object> setOperations(RedisTemplate<String, Object> redisTemplate) {
+        return redisTemplate.opsForSet();
+    }
+
+    @Bean
+    public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
+        return redisTemplate.opsForZSet();
+    }
+
+    /**
+     * 存储数据类型是String的value值
      *
      * @param key:存储的key
      * @param object:key对应的values
@@ -59,12 +93,12 @@ public class RedisService {
      * @since 2020/3/3 13:49
      */
     public void setStrKey(String key, Object object, long time) {
-        ValueOperations<String, Object> stringObjectValueOperations = redisTemplate.opsForValue();
-        stringObjectValueOperations.set(key, object, time, TimeUnit.SECONDS);
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(key, object, time, TimeUnit.SECONDS);
     }
 
     /**
-     * 获取字符串的key的value值
+     * 获取数据类型是String的value值
      *
      * @param key:
      * @return java.lang.Object
@@ -72,9 +106,9 @@ public class RedisService {
      * @since 2020/3/3 15:04
      */
     public Object getStrValue(String key) {
-        ValueOperations<String, Object> stringObjectValueOperations = redisTemplate.opsForValue();
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         try {
-            return stringObjectValueOperations.get(key);
+            return valueOperations.get(key);
         } catch (Exception e) {
             log.error("redis根据-{}-获取值失败，失败原因：{}", key, e);
             return null;
@@ -90,48 +124,34 @@ public class RedisService {
      * @since 2020/3/3 15:17
      */
     public boolean validationStrValue(String key) {
-        Object strValue = getStrValue(key);
-        return null == strValue;
+        final Set<String> keys = redisTemplate.keys(key);
+        return null != keys && keys.size() > 0;
     }
 
     /**
-     * 删除redis中的数据
+     * 根据模糊的key或者根据具体的key，删除redis中的数据
      *
      * @param key:
      * @author wangjunming
      * @since 2020/11/27 22:15
      */
     public boolean deleteByKey(String key) {
-        if(StringUtils.isNotBlank(key)){
+        if (StringUtils.isNotBlank(key)) {
             try {
-                return redisTemplate.delete(key);
+                Set<String> keys = redisTemplate.keys(key);
+                log.info("redis中---查询出来的所匹配的key是：{}", keys);
+                if (!CollectionUtils.isEmpty(keys)) {
+                    return redisTemplate.delete(keys) > 0;
+                }
+                log.warn("redis中---并没有查询出key：{}，其对应的值", key);
+                return Boolean.TRUE;
             } catch (Exception e) {
-                log.error("redis根据key：{}，删除失败，原因是：{}",key,e);
+                log.error("redis根据key：{}，删除失败，原因是：{}", key, e);
                 return Boolean.FALSE;
             }
-        }else {
+        } else {
             return Boolean.FALSE;
         }
     }
 
-    /**
-     * 删除redis中的数据
-     *
-     * @param key:一个正则字符串
-     * @author wangjunming
-     * @since 2020/11/27 22:15
-     */
-    public boolean deleteByRegularKey(String key) {
-        if(StringUtils.isNotBlank(key)){
-            key = key+":*";
-            try {
-                return redisTemplate.delete(key);
-            } catch (Exception e) {
-                log.error("redis根据key：{}，删除失败，原因是：{}",key,e);
-                return Boolean.FALSE;
-            }
-        }else {
-            return Boolean.FALSE;
-        }
-    }
 }

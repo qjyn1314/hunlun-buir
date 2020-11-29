@@ -1,6 +1,7 @@
 package com.hulunbuir.clam.distributed.evening;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @author wangjunming
  * @since 2020/9/18 10:39
  */
+@Data
 public class AuthUser implements Serializable {
 
     /**

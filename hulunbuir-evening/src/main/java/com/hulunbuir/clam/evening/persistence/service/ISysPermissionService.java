@@ -51,12 +51,13 @@ public interface ISysPermissionService {
 
 
     /**
-     * 树形权限列表
+     * 当前登录用户的权限列表
      *
      * @author wangjunming
      * @since 2020/9/25 18:00
+     * @return
      */
-    List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree);
+    List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Integer userId);
 
     /**
      * 添加权限页面的权限树

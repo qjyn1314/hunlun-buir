@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class ConfigUserService implements UserDetailsService {
+public class SecurityUserService implements UserDetailsService {
 
     @Autowired
     private AuthProvider authProvider;

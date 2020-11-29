@@ -17,9 +17,8 @@ layui.use(['authUtils', 'bodyTab', 'form', 'element', 'layer', 'jquery'], functi
     }
     function handleUser(result) {
         let data = result.data;
-        let storageKey = "user_";
-        authUtils.localStorage(storageKey, data);
-        let storageUser = authUtils.localStorage(storageKey,null);
+        authUtils.localStorage(authUtils.storageKey, data);
+        let storageUser = authUtils.localStorage(authUtils.storageKey,null);
         $(".userName").html(storageUser.userName)
     }
 

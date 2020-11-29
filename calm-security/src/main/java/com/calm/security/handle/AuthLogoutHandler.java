@@ -24,7 +24,6 @@ public class AuthLogoutHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         log.info("退出登录成功了---------进入退出登陆成功处理器！！！");
         AuthUserUtil.logoutHandle(request, response, authentication);
-        response.setHeader(AuthUserUtil.AUTH_TOKEN_KEY,null);
         response.sendRedirect(Auth.LOGIN_URL);
     }
 }

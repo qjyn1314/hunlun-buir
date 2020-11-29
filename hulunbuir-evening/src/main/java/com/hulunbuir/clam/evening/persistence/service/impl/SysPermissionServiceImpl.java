@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.calm.security.support.Auth;
-import com.calm.security.support.CurrentUser;
-import com.calm.security.util.AuthUserUtil;
 import com.hulunbuir.clam.common.base.QueryRequest;
 import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.evening.persistence.entity.SysPermission;
@@ -33,97 +31,92 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     @Autowired
     private RedisService redisService;
 
-    private CurrentUser getCurrentUser() {
-        return AuthUserUtil.currentUser();
-    }
-
-
-   /**
-    * 权限表分页列表
-    *
-    * @param queryRequest
-    * @param sysPermission
-    * @author Mr.Wang
-    * @since 2020-09-22 11:04:50
-    */
+    /**
+     * 权限表分页列表
+     *
+     * @param queryRequest
+     * @param sysPermission
+     * @author Mr.Wang
+     * @since 2020-09-22 11:04:50
+     */
     @Override
     public IPage<SysPermission> page(QueryRequest queryRequest, SysPermission sysPermission) {
-        LambdaQueryWrapper<SysPermission> queryWrapper = initQueryWrapper(queryRequest,sysPermission);
+        LambdaQueryWrapper<SysPermission> queryWrapper = initQueryWrapper(queryRequest, sysPermission);
         Page<SysPermission> page = new Page<>(queryRequest.getCurrent(), queryRequest.getPageSize());
         return sysPermissionMapper.selectPage(page, queryWrapper);
     }
 
     /**
-    * 列表的查询参数
-    *
-    * @author Mr.Wang
-    * @since 2020-09-22 11:04:50
-    */
+     * 列表的查询参数
+     *
+     * @author Mr.Wang
+     * @since 2020-09-22 11:04:50
+     */
     private LambdaQueryWrapper<SysPermission> initQueryWrapper(QueryRequest queryRequest, SysPermission sysPermission) {
         LambdaQueryWrapper<SysPermission> queryWrapper = new LambdaQueryWrapper<>();
         //--TODO  添加查询条件
         return queryWrapper;
     }
 
-   /**
-    * 保存
-    *
-    * @param sysPermission
-    * @author Mr.Wang
-    * @since 2020-09-22 11:04:50
-    */
+    /**
+     * 保存
+     *
+     * @param sysPermission
+     * @author Mr.Wang
+     * @since 2020-09-22 11:04:50
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(SysPermission sysPermission) {
-        redisService.deleteByRegularKey(RedisService.PERMISSION);
+        redisService.deleteByKey(RedisService.PERMISSION_DELKEY);
         //--TODO 做一些初始化动作
-        return sysPermissionMapper.insert(sysPermission)>0;
+        return sysPermissionMapper.insert(sysPermission) > 0;
     }
 
-   /**
-    * 修改
-    *
-    * @param sysPermission
-    * @author Mr.Wang
-    * @since 2020-09-22 11:04:50
-    */
+    /**
+     * 修改
+     *
+     * @param sysPermission
+     * @author Mr.Wang
+     * @since 2020-09-22 11:04:50
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(SysPermission sysPermission) {
-        redisService.deleteByRegularKey(RedisService.PERMISSION);
+        redisService.deleteByKey(RedisService.PERMISSION_DELKEY);
         //--TODO 做一些效验动作
-        return sysPermissionMapper.updateById(sysPermission)>0;
+        return sysPermissionMapper.updateById(sysPermission) > 0;
     }
 
-   /**
-    * 获取单个
-    *
-    * @param sysPermission
-    * @author Mr.Wang
-    * @since 2020-09-22 11:04:50
-    */
+    /**
+     * 获取单个
+     *
+     * @param sysPermission
+     * @author Mr.Wang
+     * @since 2020-09-22 11:04:50
+     */
     @Override
     public SysPermission selOne(SysPermission sysPermission) {
-    LambdaQueryWrapper<SysPermission> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<SysPermission> queryWrapper = new LambdaQueryWrapper<>();
         //--TODO 初始化查询条件
         return sysPermissionMapper.selectOne(queryWrapper);
     }
 
     /**
-     * 树形权限列表
+     * 当前登录用户的权限列表
      *
+     * @return
      * @author wangjunming
      * @since 2020/9/25 18:00
      */
     @Override
-    public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree) {
-        final Long userId = getCurrentUser().getId();
+    public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Integer userId) {
         final Object permission = redisService.getStrValue(RedisService.PERMISSION + userId);
-        if(null != permission){
-            return (List<SysPermissionTree>) permission;
-        }else {
-            final List<SysPermissionTree> permissionTrees = handlePermissionTree(permissionTree);
-            redisService.setStrKey(RedisService.PERMISSION + userId,permissionTrees, Auth.day);
+        if (null != permission) {
+            return (List<SysPermissionTree>)permission;
+        } else {
+            final List<SysPermissionTree> permissionTrees = handlePermissionTree(permissionTree, userId);
+            redisService.setStrKey(RedisService.PERMISSION + userId, permissionTrees, Auth.day);
             return permissionTrees;
         }
     }
@@ -139,11 +132,11 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         return handleLayPermissionTree(layPermissionTree);
     }
 
-    List<LayPermissionTree> handleLayPermissionTree(LayPermissionTree permissionTree){
+    List<LayPermissionTree> handleLayPermissionTree(LayPermissionTree permissionTree) {
         List<LayPermissionTree> permissionTreeList = sysPermissionMapper.getLayPermissionTree(permissionTree);
         for (LayPermissionTree layPermissionTree : permissionTreeList) {
             final List<LayPermissionTree> permissionChild = sysPermissionMapper.getLayPermissionTree(new LayPermissionTree(layPermissionTree.getId()));
-            if(null != permissionChild && permissionChild.size() > 0){
+            if (null != permissionChild && permissionChild.size() > 0) {
                 layPermissionTree.setChildren(permissionChild);
                 handleLayPermissionTree(new LayPermissionTree(layPermissionTree.getId()));
             }
@@ -151,13 +144,13 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         return permissionTreeList;
     }
 
-    List<SysPermissionTree> handlePermissionTree(SysPermissionTree permissionTree){
-        List<SysPermissionTree> permissionTreeList = sysPermissionMapper.getPermissionTree(permissionTree);
+    List<SysPermissionTree> handlePermissionTree(SysPermissionTree permissionTree, Integer userId) {
+        List<SysPermissionTree> permissionTreeList = sysPermissionMapper.getPermissionTree(permissionTree, userId);
         for (SysPermissionTree buirPermissionTree : permissionTreeList) {
-            final List<SysPermissionTree> permissionChild = sysPermissionMapper.getPermissionTree(new SysPermissionTree(buirPermissionTree.getId()));
-            if(null != permissionChild && permissionChild.size() > 0){
+            final List<SysPermissionTree> permissionChild = sysPermissionMapper.getPermissionTree(new SysPermissionTree(buirPermissionTree.getId()), userId);
+            if (null != permissionChild && permissionChild.size() > 0) {
                 buirPermissionTree.setChildren(permissionChild);
-                handlePermissionTree(new SysPermissionTree(buirPermissionTree.getId()));
+                handlePermissionTree(new SysPermissionTree(buirPermissionTree.getId()), userId);
             }
         }
         return permissionTreeList;

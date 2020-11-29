@@ -1,6 +1,9 @@
 package com.hulunbuir.clam.evening.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.calm.security.support.CurrentUser;
+import com.calm.security.util.AuthUserUtil;
+import com.hulunbuir.clam.parent.exception.HulunBuirException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
@@ -50,6 +53,20 @@ public abstract class BaseController {
         rspData.put("data", pageInfo.getRecords());
         rspData.put("code", 0);
         return rspData;
+    }
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @author wangjunming
+     * @since 2020/11/28 19:51
+     */
+    protected CurrentUser getCurrentUser() throws HulunBuirException {
+        final CurrentUser currentUser = AuthUserUtil.currentUser();
+        if (null == currentUser) {
+            HulunBuirException.build("当前登录用户信息获取失败！！");
+        }
+        return currentUser;
     }
 
 }
