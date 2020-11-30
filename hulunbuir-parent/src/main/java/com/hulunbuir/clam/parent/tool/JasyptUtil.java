@@ -100,10 +100,10 @@ public class JasyptUtil {
 //        encryptPwd = "MdQRVDiKXf4sS0lXp61SH5cvVdmn8FJw++ODKj0ojhY=";
         System.out.println("配置文件中jasypt.encryptor.password所配置的加密字符串是：" + ENCRYPT_PWD);
         //真实密码
-        final String password = "admin";
+        final String password = "jdbc:mysql://47.105.33.140:3307/evening_prod?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true";
         // 加密,打印出来的就是ENC(密码)的密码
         String pwd = encryptPwd(ENCRYPT_PWD, password);
-        pwd = "cTGBYZGJ6J2ikE2ECTwSX/R8KfGo8a42";
+//        pwd = "cTGBYZGJ6J2ikE2ECTwSX/R8KfGo8a42";
         System.out.println("配置文件中需要ENC(密码)配置的密码是：" + pwd);
         final String decyptPwd = decyptPwd(ENCRYPT_PWD, pwd);
         System.out.println("解密之后的真实密码：" + decyptPwd);
