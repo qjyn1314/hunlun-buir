@@ -1,5 +1,7 @@
 package com.hulunbuir.clam.admin.controller;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangjunming
  * @since 2020/9/23 15:24
  */
+@Data
 public class ContentPo implements Serializable {
 
     private String content;

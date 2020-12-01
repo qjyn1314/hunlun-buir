@@ -54,4 +54,12 @@ public class AdminController {
         log.info("re:{}", re);
     }
 
+
+    @ApiOperation("测试http直接调用")
+    @PostMapping("/testHttp")
+    public SupplierPo testHttp(@RequestBody SupplierPo supplierPo) {
+        log.info("supplierPo：{}", supplierPo);
+        return supplierPo;
+    }
+
 }
