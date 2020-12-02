@@ -9,14 +9,14 @@ import lombok.Data;
  * </p>
  *
  * @author wangjunming
- * @since 2020/12/1 20:17
+ * @since 2020/12/2 21:21
  */
 @Data
 @AllArgsConstructor
-public class UsersPo {
+public class UserSupplierPo {
 
     private Long userId;
-    private String phone;
-    private String username;
+    private String supplierCode;
+
 
 }

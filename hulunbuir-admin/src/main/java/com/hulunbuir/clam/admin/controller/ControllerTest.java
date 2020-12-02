@@ -17,9 +17,6 @@ public class ControllerTest {
 
     /**传输过来的数据*/
     static List<SupplierPo> supplierPos = new ArrayList<>();
-    /**数据库已有的的数据*/
-    static List<SupplierPo> supplierPoes = new ArrayList<>();
-
     static {
         SupplierPo supplierPo = new SupplierPo("15321355715","A0001","username001");
         supplierPos.add(supplierPo);
@@ -42,7 +39,8 @@ public class ControllerTest {
         SupplierPo supplierPo8 = new SupplierPo("15321355711","A0008","username008");
         supplierPos.add(supplierPo8);
     }
-
+    /**数据库已有的供应商的数据*/
+    static List<SupplierPo> supplierPoes = new ArrayList<>();
     static {
         SupplierPo supplierPo = new SupplierPo("15321355715","A0001","username001");
         supplierPoes.add(supplierPo);
@@ -57,13 +55,34 @@ public class ControllerTest {
         SupplierPo supplierPo5 = new SupplierPo("15321355748","A0004","username004");
         supplierPoes.add(supplierPo5);
     }
+    /**通过手机号查询出来的用户*/
+    static List<UsersPo> usersPos = new ArrayList<>();
+    /**供应商与用户的关联表数据*/
+    static List<UserSupplierPo> userSupplierPos = new ArrayList<>();
 
+    static {
+        UsersPo usersPo = new UsersPo(12L,"15321355715","username001");
+        usersPos.add(usersPo);
+        UsersPo usersPo1 = new UsersPo(13L,"15321355716","username001");
+        usersPos.add(usersPo1);
+        UsersPo usersPo2 = new UsersPo(14L,"15321355717","username001");
+        usersPos.add(usersPo2);
+        UsersPo usersPo3 = new UsersPo(15L,"15321355235","username001");
+        usersPos.add(usersPo3);
+    }
+
+    static {
+        UserSupplierPo userSupplierPo = new UserSupplierPo(12L,"A0001");
+        userSupplierPos.add(userSupplierPo);
+        UserSupplierPo userSupplierPo2 = new UserSupplierPo(13L,"A0002");
+        userSupplierPos.add(userSupplierPo2);
+    }
 
     public static void main(String[] args) {
         final Map<String, List<SupplierPo>> phoneMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getPhone));
         final Map<String, List<SupplierPo>> supplierMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getSupplierCode));
-
-
+        final List<String> phones = usersPos.stream().map(UsersPo::getPhone).collect(Collectors.toList());
+        final List<Long> userIds = userSupplierPos.stream().map(UserSupplierPo::getUserId).collect(Collectors.toList());
 
 
 
