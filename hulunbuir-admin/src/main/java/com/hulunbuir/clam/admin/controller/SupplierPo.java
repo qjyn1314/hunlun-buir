@@ -21,4 +21,6 @@ public class SupplierPo {
     private String supplierCode;
     private String username;
 
+    public SupplierPo(){}
+
 }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
@@ -38,6 +39,19 @@ class HulunBuirEveningApplicationTests {
         log.info("redis中---删除是否成功：{}",deletes>0);
         final Object permissiones = redisService.getStrValue(permission);
         log.info("redis中---删除之后查询出来的权限是：{}",permissiones);
+    }
+
+    @Autowired
+    private ListOperations<String, Object> listOperations;
+    @Test
+    void contextLoadsList() {
+
+//        listOperations.rightPush();
+
+
+
+
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.hulunbuir.clam.admin;
 
+import com.hulunbuir.clam.admin.controller.SupplierPo;
 import com.hulunbuir.clam.admin.design.factory.messagefactory.Message;
 import com.hulunbuir.clam.admin.design.factory.messagefactory.MessageFactory;
 import com.hulunbuir.clam.admin.design.proxy.FoodService;
@@ -7,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ListOperations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class HulunbuirAdminApplicationTests {
@@ -33,14 +38,25 @@ class HulunbuirAdminApplicationTests {
     void contextLoadsProxy() {
         foodService.scrambledEggWithTomato();
     }
-
+    @Autowired
+    private ListOperations<String, Object> listOperations;
     @Test
     void getAppKey(){
-        String appKey = "testConfig";
-        System.out.println();
-        System.out.printf("AppKey:%s",appKey);
-        System.out.println();
+         List<SupplierPo> supplierPos = new ArrayList<>();
+        SupplierPo supplierPo = new SupplierPo("15321355715","A0001","username001");
+        supplierPos.add(supplierPo);
+        SupplierPo supplierPo1 = new SupplierPo("15321355715","A0001","username001");
+        supplierPos.add(supplierPo1);
+        supplierPos.forEach( supplier ->{
+            listOperations.rightPush(supplier.getPhone(),supplier);
+            System.out.println(supplier.getPhone());
+        });
+        supplierPos.forEach( supplier ->{
+            final Object leftPop = listOperations.rightPop(supplier.getPhone());
+            System.out.println(leftPop);
+        });
     }
+
 
 
 

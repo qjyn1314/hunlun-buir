@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 @Api(tags = "测试控制层")
 public class AdminController {
 
-    @Reference
+    @Reference(check = false)
     private AuthProvider authProvider;
 
     @ApiOperation("测试ResuqstBody")
