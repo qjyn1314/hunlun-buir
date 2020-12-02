@@ -10,6 +10,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -55,11 +56,21 @@ public class AdminController {
     }
 
 
+
     @ApiOperation("测试http直接调用")
     @PostMapping("/testHttp")
-    public SupplierPo testHttp(@RequestBody SupplierPo supplierPo) {
+    public void testHttp(@RequestBody List<SupplierPo> supplierPo) {
         log.info("supplierPo：{}", supplierPo);
-        return supplierPo;
+
+
+
+
+
+
+
+
+
+
     }
 
 }

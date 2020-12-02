@@ -1,5 +1,7 @@
 package com.hulunbuir.clam.admin.test_demo;
 
+import java.util.Objects;
+
 /**
  * <p>
  * explain:
@@ -50,5 +52,18 @@ public class Cat {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cat cat = (Cat) o;
+        return Objects.equals(id, cat.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
