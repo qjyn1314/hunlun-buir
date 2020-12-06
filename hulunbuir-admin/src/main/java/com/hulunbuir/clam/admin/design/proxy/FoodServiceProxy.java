@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class FoodServiceProxy implements FoodService {
 
     @Autowired
-    private FoodService foodService;
+    private FoodService foodService = new FoodServiceImpl();
 
     /**
      * 番茄炒鸡蛋

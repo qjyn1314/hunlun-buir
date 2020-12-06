@@ -25,7 +25,6 @@ public class LoggerAspect {
      * 定义切入点，切入点为com.example.aop下的所有函数com.example.jack.controller
      *
      */
-//    @Pointcut("execution(public * com.*.jack.controller..*.*(..))")
     @Pointcut("execution(public * com.hulunbuir.clam.admin.mail.*.*(..))")
     public void webLog(){
     }
@@ -50,7 +49,7 @@ public class LoggerAspect {
     }
 
 
-    @After(value = "execution(public * com.*.jack.controller..*.*(..))")
+    @After("webLog()")
     public void after(JoinPoint joinPoint){
         //获取方法名
         String name = joinPoint.getSignature().getName();
@@ -78,7 +77,7 @@ public class LoggerAspect {
         logger.info("执行过后返回的结果是：--{"+result+"}");
     }
 
-    @AfterThrowing(value="execution(public * com.*.jack.controller..*.*(..))",throwing="ex",pointcut = "webLog()")
+    @AfterThrowing(value="webLog()",throwing="ex",pointcut = "webLog()")
     public void afterThrowing(JoinPoint joinPoint, Exception ex){
         //获取方法名
         String name = joinPoint.getSignature().getName();

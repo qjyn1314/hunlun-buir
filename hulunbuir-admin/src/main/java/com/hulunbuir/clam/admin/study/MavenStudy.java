@@ -3,7 +3,7 @@ package com.hulunbuir.clam.admin.study;
 
 import com.hulunbuir.clam.admin.design.proxy.DynaProxy;
 import com.hulunbuir.clam.admin.design.proxy.IHello;
-import com.hulunbuir.clam.admin.design.proxy.MyDynamicServiceImpl;
+import com.hulunbuir.clam.admin.design.proxy.HelloServiceImpl;
 
 /**
  * <p>
@@ -154,10 +154,10 @@ public class MavenStudy {
     public static void main(String[] args) {
         // 巩固动态代理知识
      /*   DynamicProxy dy = new DynamicProxy();
-        MyDynamicServiceImpl dynamicService = new MyDynamicServiceImpl();
+        HelloServiceImpl dynamicService = new HelloServiceImpl();
         IHello bind = (IHello) dy.bind(dynamicService);
         bind.sayHello("mr.wang");*/
-        MyDynamicServiceImpl dynamicServices = new MyDynamicServiceImpl();
+        HelloServiceImpl dynamicServices = new HelloServiceImpl();
         DynaProxy dys = new DynaProxy(dynamicServices);
         IHello binds = (IHello) dys.bind();
         String k = "";

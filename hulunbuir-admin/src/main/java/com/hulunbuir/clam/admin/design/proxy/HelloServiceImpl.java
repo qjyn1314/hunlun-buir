@@ -8,7 +8,7 @@ package com.hulunbuir.clam.admin.design.proxy;
  * @author wangjunming
  * @since 2019-07-11
  */
-public class MyDynamicServiceImpl implements IHello {
+public class HelloServiceImpl implements IHello {
 
     /**
      * 打印hello的接口
