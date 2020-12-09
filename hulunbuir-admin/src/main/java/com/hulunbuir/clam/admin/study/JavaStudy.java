@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class JavaStudy {
 
-
     /**
      * 成员变量会进行初始化值
      * 局部变量则需要手动初始化值
@@ -55,14 +54,11 @@ public class JavaStudy {
      * @param args
      */
     public static void main001(String[] args) {
-
         int[] arr = {23, 4545, 67, 222, 444, 3434, 90, 9999, 5555, 4444};
         System.out.println("排序之前：" + JSONArray.toJSONString(arr));
         bubbleSort(arr, arr.length);
         System.out.println("排序之后：" + JSONArray.toJSONString(arr));
-
     }
-
 
     /**
      * @description: 冒泡排序
@@ -123,8 +119,6 @@ public class JavaStudy {
      * 对对象进行对应的构造函数初始化
      * 将内存地址赋给栈内存中的m1变量
      *
-     *
-     *
      * ArrayList:数组结构
      * LinkedList:链表结构
      * HashSet:哈希表结构，线程非同步
@@ -167,48 +161,26 @@ public class JavaStudy {
      *
      * Set底层就是使用了map集合。
      *
-     *
      */
     public static void main(String[] args) throws Exception {
-
-
         List<String> demolists = new ArrayList<>(2);
-
         demolists.add("ni");
         demolists.add("niqw");
-
         System.out.println(demolists.toString());
-
         String remove = demolists.remove(0);
-
         System.out.println(remove);
-
         Object[] objects = demolists.toArray();
-
         System.out.println(objects[0]);
-
-        Integer i = 9;
-        Integer j = 8;
+        int i = 9;
+        int j = 8;
         int i2 = Integer.bitCount(i);
         System.out.println(i2);
         Integer i1 = i * j;
-
         System.out.println(i1);
-
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
-
         final String format1 = format.format(new Date());
         System.out.println(format1);
-
-
         String folder = "654654\\987987\\wer";
-
-
-
-
-
-
 
     }
 

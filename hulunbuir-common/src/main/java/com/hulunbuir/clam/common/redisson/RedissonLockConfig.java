@@ -1,14 +1,8 @@
 package com.hulunbuir.clam.common.redisson;
 
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
 
 /**
  * <p>
@@ -31,20 +25,21 @@ public class RedissonLockConfig {
     @Value("${spring.redis.password}")
     private String password;
 
-    @Bean
-    public RedissonClient redissonClient() {
-        Config config = new Config();
-        url = String.format("redis://%s:%s", url, port);
-        config.useSingleServer()
-                .setAddress(url).setPassword(password);
-        RedissonClient redisson = Redisson.create(config);
-        try {
-            log.info("创建成功的分布式锁是：{}", redisson.getConfig().toJSON());
-        } catch (IOException e) {
-            log.error("获取创建成功的分布式锁失败！！", e);
-        }
-        return redisson;
-    }
+//    @Bean
+//    public RedissonClient redissonClient() {
+//        Config config = new Config();
+//        url = String.format("redis://%s:%s", url, port);
+//        RedissonClient redisson = null;
+//        try {
+//            config.useSingleServer()
+//                    .setAddress(url).setPassword(password);
+//            redisson = Redisson.create(config);
+//            log.info("创建成功的分布式锁是：{}", redisson.getConfig().toJSON());
+//        } catch (IOException e) {
+//            log.error("获取创建成功的分布式锁失败！！", e);
+//        }
+//        return redisson;
+//    }
 
 
 }

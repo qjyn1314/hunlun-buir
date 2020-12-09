@@ -1,13 +1,12 @@
 package com.hulunbuir.clam.admin.scheduleconfig;
 
-import com.hulunbuir.clam.admin.mqconfig.RabbitMqQo;
-import com.hulunbuir.clam.admin.mqconfig.RabbitMqUtils;
+import com.hulunbuir.clam.admin.rabbitmq.RabbitMqQo;
+import com.hulunbuir.clam.admin.rabbitmq.RabbitMqUtils;
 import com.hulunbuir.clam.common.config.RedisService;
 import com.hulunbuir.clam.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -68,7 +67,7 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void checkRedisMessage() {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
         RabbitMqUtils.messageProdFanout("MQ消息手动确认信息！！");

@@ -1,7 +1,6 @@
-package com.hulunbuir.clam.admin.mqconfig;
+package com.hulunbuir.clam.admin.rabbitmq;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.CorrelationData;

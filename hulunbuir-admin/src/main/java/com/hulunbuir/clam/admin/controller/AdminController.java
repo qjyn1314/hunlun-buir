@@ -1,12 +1,9 @@
 package com.hulunbuir.clam.admin.controller;
 
 import com.hulunbuir.clam.admin.threadconfig.ThreadService;
-import com.hulunbuir.clam.distributed.evening.AuthProvider;
-import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,20 +25,20 @@ import java.util.concurrent.ExecutionException;
 @Api(tags = "测试控制层")
 public class AdminController {
 
-    @Reference(check = false)
-    private AuthProvider authProvider;
-
-    @ApiOperation("测试ResuqstBody")
-    @PostMapping("/testContent")
-    public JsonResult testContent(@RequestBody ContentPo contentPo) {
-        log.info("contentPo：{}", contentPo);
-        try {
-            return JsonResult.success(authProvider.queryUser("zhangsan"));
-        } catch (Exception e) {
-            log.error("调用dubbo接口异常，", e);
-            return JsonResult.error();
-        }
-    }
+//    @Reference(check = false)
+//    private AuthProvider authProvider;
+//
+//    @ApiOperation("测试ResuqstBody")
+//    @PostMapping("/testContent")
+//    public JsonResult testContent(@RequestBody ContentPo contentPo) {
+//        log.info("contentPo：{}", contentPo);
+//        try {
+//            return JsonResult.success(authProvider.queryUser("zhangsan"));
+//        } catch (Exception e) {
+//            log.error("调用dubbo接口异常，", e);
+//            return JsonResult.error();
+//        }
+//    }
 
     @Autowired
     private ThreadService service;

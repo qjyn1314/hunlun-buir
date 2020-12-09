@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public final class RedissonLock {
 
-    @Autowired
+    @Autowired(required = false)
     private RedissonClient redissonClient;
 
     /**

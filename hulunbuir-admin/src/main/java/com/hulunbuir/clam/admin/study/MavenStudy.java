@@ -1,10 +1,6 @@
 package com.hulunbuir.clam.admin.study;
 
 
-import com.hulunbuir.clam.admin.design.proxy.DynaProxy;
-import com.hulunbuir.clam.admin.design.proxy.IHello;
-import com.hulunbuir.clam.admin.design.proxy.HelloServiceImpl;
-
 /**
  * <p>
  * 说明：巩固maven知识
@@ -14,51 +10,14 @@ import com.hulunbuir.clam.admin.design.proxy.HelloServiceImpl;
  * @since 2019-07-10
  */
 public class MavenStudy {
-    static long j;
-    int         i;
-    private String name;
-    private int age;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    static{
+    static {
         System.out.println("加载类字节码文件到内存，并只加载一次...");
-        pripro();
-    }
-
-    public static void pripro(){
-        System.out.println("静态代码块调用");
     }
 
     {
         //在每一次创建对象的之前执行，也就是在构造函数之前执行
         System.out.println("创建对象之前......");
-    }
-
-    public MavenStudy(String name) {
-        this.name = name;
-    }
-
-    public MavenStudy(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public MavenStudy() {
     }
 
     /**
@@ -144,41 +103,11 @@ public class MavenStudy {
      *
      *     Site Lifecycle 生成项目报告，站点，发布站点。
      *
-     *
-     *
-     *
-     *
-     *
      * @param args 参数
      */
     public static void main(String[] args) {
         // 巩固动态代理知识
-     /*   DynamicProxy dy = new DynamicProxy();
-        HelloServiceImpl dynamicService = new HelloServiceImpl();
-        IHello bind = (IHello) dy.bind(dynamicService);
-        bind.sayHello("mr.wang");*/
-        HelloServiceImpl dynamicServices = new HelloServiceImpl();
-        DynaProxy dys = new DynaProxy(dynamicServices);
-        IHello binds = (IHello) dys.bind();
-        String k = "";
-        k = binds.function("\t\t kokoko   mr.wang  \t\t  ", k);
-        System.out.println(k);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //~ Formatted by Jindent --- http://www.jindent.com
 
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

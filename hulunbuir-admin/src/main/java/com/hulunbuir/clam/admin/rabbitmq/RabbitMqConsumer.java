@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.mqconfig;
+package com.hulunbuir.clam.admin.rabbitmq;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -6,7 +6,6 @@ import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -71,7 +70,7 @@ public class RabbitMqConsumer {
      * DIRECT(直连)模式
      * MQ消息消费端消费消息，只监听开发环境的消息接收
      */
-    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
+//    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
     public void devMessageConsumer(Message message, Channel channel) {
         final String messageContent = getMessageContent(message);
         boolean flag = true;
@@ -106,7 +105,7 @@ public class RabbitMqConsumer {
      * DIRECT(直连)模式
      * MQ消息消费端消费消息，只监听测试环境的消息接收
      */
-    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
+//    @RabbitListener(queues = {RabbitMqUtils.DEV_MAIL_SEND_QUEUES})
     public void testMessageConsumer(Message message, Channel channel) {
         final String messageContent = getMessageContent(message);
         boolean flag = true;
@@ -141,7 +140,7 @@ public class RabbitMqConsumer {
      * FANOUT(广播)模式
      * MQ消息消费端消费消息，只监听测试环境的广播消息接收
      */
-    @RabbitListener(queues = {RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_ONE,RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_TWO})
+//    @RabbitListener(queues = {RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_ONE,RabbitMqUtils.FANOUT_TEST_MAIL_SEND_QUEUES_TWO})
     public void fanoutTestMessageConsumerOne(Message message, Channel channel) {
         final String messageContent = getMessageContent(message);
         boolean flag = true;
@@ -173,7 +172,7 @@ public class RabbitMqConsumer {
     }
 
 
-    @RabbitListener(queues = {RabbitMqUtils.PRO_MAIL_SEND_QUEUES})
+//    @RabbitListener(queues = {RabbitMqUtils.PRO_MAIL_SEND_QUEUES})
     public static void proMessageConsumer(Message message, Channel channel) {
         final String messageContent = getMessageContent(message);
         boolean flag = true;

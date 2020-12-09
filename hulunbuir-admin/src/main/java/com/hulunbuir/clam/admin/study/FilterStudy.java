@@ -103,7 +103,6 @@ public class FilterStudy implements Filter {
         //将请求放行到下一个资源
         chain.doFilter(request,response);
         request.setCharacterEncoding("UTF-8");
-
     }
 
 }

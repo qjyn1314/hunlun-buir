@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.jdkannotation;
+package com.hulunbuir.clam.admin.annotation;
 
 import java.lang.annotation.*;
 

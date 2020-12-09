@@ -1,4 +1,4 @@
-package com.hulunbuir.clam.admin.test_demo;
+package com.hulunbuir.clam.admin.worktest;
 
 import java.util.Objects;
 

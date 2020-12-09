@@ -21,15 +21,6 @@ public class ZookeeperStudy {
      *
      * 短暂性：当客户端与服务端断开连接之后，创建的节点，自己删除在服务端中的数据
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
      * @param args
      */
     public static void main(String[] args) {
