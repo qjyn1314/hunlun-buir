@@ -23,8 +23,8 @@
     <dependencies>
         <!--数据源-->
         <dependency>
-            <groupId>com.calm.datasource</groupId>
-            <artifactId>calm-datasource</artifactId>
+            <groupId>com.hulunbuir.datasource</groupId>
+            <artifactId>hulunbuir-datasource</artifactId>
         </dependency>
         <!--dubbo调用其他服务的接口-->
         <!--<dependency>

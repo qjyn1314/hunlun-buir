@@ -7,10 +7,10 @@
         <artifactId>hulun-buir</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.calm.datasource</groupId>
-    <artifactId>calm-datasource</artifactId>
+    <groupId>com.hulunbuir.datasource</groupId>
+    <artifactId>hulunbuir-datasource</artifactId>
     <version>1.0.0</version>
-    <name>calm-datasource</name>
+    <name>hulunbuir-datasource</name>
     <description>Calm project for Spring Boot</description>
 
     <properties>

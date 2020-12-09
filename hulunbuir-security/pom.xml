@@ -7,10 +7,10 @@
         <artifactId>hulun-buir</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.calm.security</groupId>
-    <artifactId>calm-security</artifactId>
+    <groupId>com.hulunbuir.security</groupId>
+    <artifactId>hulunbuir-security</artifactId>
     <version>1.0.0</version>
-    <name>calm-security</name>
+    <name>hulunbuir-security</name>
     <description>Security project for Spring Boot</description>
 
     <properties>

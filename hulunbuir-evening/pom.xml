@@ -22,16 +22,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.calm.datasource</groupId>
-            <artifactId>calm-datasource</artifactId>
+            <groupId>com.hulunbuir.datasource</groupId>
+            <artifactId>hulunbuir-datasource</artifactId>
         </dependency>
         <dependency>
             <groupId>com.hulunbuir.clam.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.calm.security</groupId>
-            <artifactId>calm-security</artifactId>
+            <groupId>com.hulunbuir.security</groupId>
+            <artifactId>hulunbuir-security</artifactId>
         </dependency>
     </dependencies>
 

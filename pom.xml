@@ -23,8 +23,8 @@
     <modules>
         <module>hulunbuir-parent</module>
         <module>hulunbuir-common</module>
-        <module>calm-datasource</module>
-        <module>calm-security</module>
+        <module>hulunbuir-datasource</module>
+        <module>hulunbuir-security</module>
         <module>hulunbuir-distributed</module>
         <module>hulunbuir-admin</module>
         <module>hulunbuir-evening</module>
@@ -84,13 +84,13 @@
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.calm.datasource</groupId>
-                <artifactId>calm-datasource</artifactId>
+                <groupId>com.hulunbuir.datasource</groupId>
+                <artifactId>hulunbuir-datasource</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.calm.security</groupId>
-                <artifactId>calm-security</artifactId>
+                <groupId>com.hulunbuir.security</groupId>
+                <artifactId>hulunbuir-security</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
