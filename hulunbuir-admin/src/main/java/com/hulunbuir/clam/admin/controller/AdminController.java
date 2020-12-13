@@ -59,15 +59,14 @@ public class AdminController {
     public void testHttp(@RequestBody List<SupplierPo> supplierPo) {
         log.info("supplierPo：{}", supplierPo);
 
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
+
 
 }

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.hulunbuir.clam</groupId>
+    <groupId>com.hulunbuir</groupId>
     <artifactId>hulun-buir</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
@@ -69,17 +69,17 @@
             </dependency>
             <!--工程中所用到的模块-进行控制版本号-参考：https://gitee.com/y_project/RuoYi -->
             <dependency>
-                <groupId>com.hulunbuir.clam.parent</groupId>
+                <groupId>com.hulunbuir.parent</groupId>
                 <artifactId>hulunbuir-parent</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hulunbuir.clam.common</groupId>
+                <groupId>com.hulunbuir.common</groupId>
                 <artifactId>hulunbuir-common</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hulunbuir.clam.distributed</groupId>
+                <groupId>com.hulunbuir.distributed</groupId>
                 <artifactId>hulunbuir-distributed</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
@@ -94,12 +94,12 @@
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hulunbuir.clam.evening</groupId>
+                <groupId>com.hulunbuir.evening</groupId>
                 <artifactId>hulunbuir-evening</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hulunbuir.clam.admin</groupId>
+                <groupId>com.hulunbuir.admin</groupId>
                 <artifactId>hulunbuir-admin</artifactId>
                 <version>${hulunbuir.version}</version>
             </dependency>
