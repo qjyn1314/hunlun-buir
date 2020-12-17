@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.adapter;
+package com.hulunbuir.admin.design.adapter.def;
 
 /**
  * <p>
