@@ -1,9 +1,9 @@
 package com.calm.security.util;
 
 import com.calm.security.support.CurrentUser;
-import com.hulunbuir.clam.common.config.ApplicationUtil;
-import com.hulunbuir.clam.common.config.RedisService;
-import com.hulunbuir.clam.distributed.evening.AuthProvider;
+import com.hulunbuir.common.config.ApplicationUtil;
+import com.hulunbuir.common.config.RedisService;
+import com.hulunbuir.distributed.evening.AuthProvider;
 import com.hulunbuir.clam.parent.tool.JwtUtils;
 import com.hulunbuir.clam.parent.tool.RequestUtils;
 import io.jsonwebtoken.Claims;

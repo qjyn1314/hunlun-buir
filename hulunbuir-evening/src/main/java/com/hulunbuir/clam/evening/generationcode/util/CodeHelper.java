@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.generationcode.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hulunbuir.clam.common.config.BuirProperties;
+import com.hulunbuir.common.config.BuirProperties;
 import com.hulunbuir.clam.evening.generationcode.entity.Column;
 import com.hulunbuir.clam.parent.tool.CommonUtils;
 import freemarker.template.Configuration;

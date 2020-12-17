@@ -2,7 +2,7 @@ package ${basePackage}.${servicePackage};
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import ${basePackage}.${entityPackage}.${className};
-import com.hulunbuir.clam.common.base.QueryRequest;
+import QueryRequest;
 
 /**
  * ${tableComment} Service接口

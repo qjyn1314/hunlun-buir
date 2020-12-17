@@ -1,0 +1,33 @@
+
+设计模式的学习：
+Proxy代理模式  --->  proxy
+其应用场景：SpringAop的底层实现即使用了JDK动态代理，具体实践在于使用了 @Transactional 注解使用，以及自定义注解(防重复提交注解)。
+Factory工厂模式  --->  factory
+spring的bean创建，
+Singleton单例模式  --->  singlecase
+spring的bean
+Delegate委派模式   --->
+Strategy策略模式   --->
+Prototype原型模式   --->
+Template模板模式   --->
+Decorator装饰器模式   --->
+装饰器设计模式（Decorator design pattern）被用于多个 Java IO 类中。
+Observer观察者模式   --->   observation
+listener监听器，spring事件监听和发送，
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 package com.calm.security.support;
 
-import com.hulunbuir.clam.common.config.ApplicationUtil;
+import com.hulunbuir.common.config.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

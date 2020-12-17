@@ -1,8 +1,8 @@
 package com.calm.security.config;
 
 import com.calm.security.exception.NotActivationException;
-import com.hulunbuir.clam.distributed.evening.AuthProvider;
-import com.hulunbuir.clam.distributed.evening.AuthUser;
+import com.hulunbuir.distributed.evening.AuthProvider;
+import com.hulunbuir.distributed.evening.AuthUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;

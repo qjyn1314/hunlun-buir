@@ -1,8 +1,8 @@
 package com.hulunbuir.clam.evening.generationcode.controller;
 
-import com.hulunbuir.clam.common.base.QueryRequest;
-import com.hulunbuir.clam.common.config.ApplicationUtil;
-import com.hulunbuir.clam.common.config.BuirProperties;
+import com.hulunbuir.common.base.QueryRequest;
+import com.hulunbuir.common.config.ApplicationUtil;
+import com.hulunbuir.common.config.BuirProperties;
 import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.generationcode.entity.CodeTable;
 import com.hulunbuir.clam.evening.generationcode.entity.Column;

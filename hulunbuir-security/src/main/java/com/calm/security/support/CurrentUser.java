@@ -1,6 +1,6 @@
 package com.calm.security.support;
 
-import com.hulunbuir.clam.distributed.evening.AuthUser;
+import com.hulunbuir.distributed.evening.AuthUser;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;

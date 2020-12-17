@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.evening;
 
-import com.hulunbuir.clam.common.config.RedisService;
+import com.hulunbuir.common.config.RedisService;
 import com.hulunbuir.clam.evening.persistence.service.ISysPermissionService;
 import com.hulunbuir.clam.evening.persistence.vo.SysPermissionTree;
 import lombok.extern.slf4j.Slf4j;

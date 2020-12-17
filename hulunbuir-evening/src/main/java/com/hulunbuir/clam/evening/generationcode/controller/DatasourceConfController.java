@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.evening.generationcode.controller;
 
-import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.generationcode.entity.DatasourceConf;
 import com.hulunbuir.clam.evening.generationcode.service.IDatasourceConfService;

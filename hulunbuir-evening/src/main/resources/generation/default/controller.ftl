@@ -3,7 +3,7 @@ package ${basePackage}.${controllerPackage};
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
 import com.hulunbuir.clam.evening.controller.BaseController;
-import com.hulunbuir.clam.common.base.QueryRequest;
+import QueryRequest;
 import com.hulunbuir.clam.parent.result.JsonResult;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

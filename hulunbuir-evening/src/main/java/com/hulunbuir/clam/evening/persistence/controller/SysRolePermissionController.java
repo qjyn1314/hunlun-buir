@@ -1,6 +1,6 @@
 package com.hulunbuir.clam.evening.persistence.controller;
 
-import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.persistence.entity.SysRolePermission;
 import com.hulunbuir.clam.evening.persistence.service.ISysRolePermissionService;

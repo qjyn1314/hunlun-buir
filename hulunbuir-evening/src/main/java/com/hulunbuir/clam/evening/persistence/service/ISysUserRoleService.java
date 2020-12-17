@@ -2,7 +2,7 @@ package com.hulunbuir.clam.evening.persistence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hulunbuir.clam.evening.persistence.entity.SysUserRole;
-import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.common.base.QueryRequest;
 
 /**
  * 用户角色关联表 Service接口

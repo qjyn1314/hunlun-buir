@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.provider;
 
-import com.hulunbuir.clam.distributed.evening.AuthProvider;
-import com.hulunbuir.clam.distributed.evening.AuthUser;
+import com.hulunbuir.distributed.evening.AuthProvider;
+import com.hulunbuir.distributed.evening.AuthUser;
 import com.hulunbuir.clam.evening.persistence.entity.SysUser;
 import com.hulunbuir.clam.evening.persistence.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;

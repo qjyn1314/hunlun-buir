@@ -1,8 +1,6 @@
 package com.hulunbuir.clam.evening.controller;
 
-import com.hulunbuir.clam.common.config.RestTemplateService;
 import com.hulunbuir.clam.parent.result.JsonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EveningController {
 
-    @Autowired
-    private RestTemplateService restTemplate;
 
     @PostMapping
     public JsonResult ceshi(){

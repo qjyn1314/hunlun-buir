@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${servicePackage}.I${className}Service;
-import com.hulunbuir.clam.common.base.QueryRequest;
+import QueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

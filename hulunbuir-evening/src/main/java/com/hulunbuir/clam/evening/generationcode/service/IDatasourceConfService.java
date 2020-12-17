@@ -1,7 +1,7 @@
 package com.hulunbuir.clam.evening.generationcode.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.clam.common.base.QueryRequest;
+import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.clam.evening.generationcode.entity.DatasourceConf;
 import com.hulunbuir.clam.parent.exception.HulunBuirException;
 
