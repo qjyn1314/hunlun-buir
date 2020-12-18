@@ -1,8 +1,8 @@
 package com.hulunbuir.admin.mail;
 
 import com.hulunbuir.common.config.BuirProperties;
-import com.hulunbuir.clam.parent.exception.HulunBuirException;
-import com.hulunbuir.clam.parent.tool.DateUtils;
+import com.hulunbuir.parent.exception.HulunBuirException;
+import com.hulunbuir.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;

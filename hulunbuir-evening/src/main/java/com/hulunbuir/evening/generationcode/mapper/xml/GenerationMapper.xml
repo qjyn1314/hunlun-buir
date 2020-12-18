@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hulunbuir.evening.generationcode.mapper.GenerationMapper">
+
+    <select id="generationDatabases" resultType="java.lang.String">
+        SELECT DISTINCT TABLE_SCHEMA schemaName
+        FROM information_schema.TABLES
+        <include refid="generation_query"/>
+    </select>
+
+    <select id="generationTables" resultType="com.hulunbuir.evening.generationcode.entity.CodeTable">
+        SELECT
+        TABLE_SCHEMA schemaName,
+        TABLE_NAME tableName,
+        CREATE_TIME createTime,
+        UPDATE_TIME updateTime,
+        TABLE_ROWS dataRows,
+        TABLE_COMMENT remark,
+        TABLE_COLLATION coding
+        FROM
+        information_schema.TABLES
+        <include refid="generation_query"/>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <sql id="generation_query">
+        <where>
+            TABLE_SCHEMA != 'information_schema' AND TABLE_SCHEMA != 'performance_schema' AND TABLE_SCHEMA != 'sys' AND
+            TABLE_SCHEMA != 'mysql'
+            <if test="generation.schemaName != null and generation.schemaName != ''">
+                AND TABLE_SCHEMA = #{generation.schemaName}
+            </if>
+            <if test="generation.tableName != null and generation.tableName != ''">
+                AND TABLE_NAME = #{generation.tableName}
+            </if>
+        </where>
+    </sql>
+
+    <select id="tablesOne" resultType="com.hulunbuir.evening.generationcode.entity.CodeTable">
+        SELECT
+        TABLE_SCHEMA schemaName,
+        TABLE_NAME tableName,
+        CREATE_TIME createTime,
+        UPDATE_TIME updateTime,
+        TABLE_ROWS dataRows,
+        TABLE_COMMENT remark,
+        TABLE_COLLATION coding
+        FROM
+        information_schema.TABLES
+        <include refid="generation_query"/>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <select id="getColumns" resultType="com.hulunbuir.evening.generationcode.entity.Column">
+        SELECT
+        COLUMN_NAME name,
+        CASE
+        COLUMN_key
+        WHEN 'PRI' THEN
+        1 ELSE 0
+        END isKey,
+        DATA_TYPE type,
+        COLUMN_COMMENT remark,
+        REPLACE(COLUMN_NAME,'_','') field,
+        REPLACE(COLUMN_NAME,'_','') fields,
+        REPLACE(COLUMN_NAME,'_','') typeCapital
+        FROM information_schema.COLUMNS
+        <include refid="generation_query"/>
+    </select>
+
+</mapper>

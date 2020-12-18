@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * explain: 创建注解
+ * 参考：https://www.cnblogs.com/peida/archive/2013/04/24/3036689.html
  * </p>
  *
  * @author wangjunming

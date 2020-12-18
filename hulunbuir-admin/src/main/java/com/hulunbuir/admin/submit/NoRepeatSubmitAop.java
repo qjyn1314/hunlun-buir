@@ -1,6 +1,6 @@
 package com.hulunbuir.admin.submit;
 
-import com.hulunbuir.clam.parent.result.JsonResult;
+import com.hulunbuir.parent.result.JsonResult;
 import com.hulunbuir.common.config.ApplicationUtil;
 import com.hulunbuir.common.config.RedisService;
 import lombok.extern.slf4j.Slf4j;

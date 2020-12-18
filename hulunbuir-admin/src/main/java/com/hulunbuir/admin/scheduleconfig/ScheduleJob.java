@@ -3,7 +3,7 @@ package com.hulunbuir.admin.scheduleconfig;
 import com.hulunbuir.admin.rabbitmq.RabbitMqQo;
 import com.hulunbuir.admin.rabbitmq.RabbitMqUtils;
 import com.hulunbuir.common.config.RedisService;
-import com.hulunbuir.clam.parent.tool.DateUtils;
+import com.hulunbuir.parent.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -52,7 +52,7 @@ docker中部署的环境地址：docker.hulunbuir.vip
 
 2、更改application-dev.properties 配置
 mysql用户名和密码
-密码可参考： com.hulunbuir.clam.parent.tool.JasyptUtil 类
+密码可参考： JasyptUtil 类
 
 3、启动项目。
 

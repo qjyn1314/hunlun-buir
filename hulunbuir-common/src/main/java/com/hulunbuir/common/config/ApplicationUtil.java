@@ -1,6 +1,6 @@
 package com.hulunbuir.common.config;
 
-import com.hulunbuir.clam.parent.exception.BuirException;
+import com.hulunbuir.parent.exception.BuirException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

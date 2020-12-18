@@ -3,7 +3,7 @@ package com.hulunbuir.datasource.config;
 import com.baomidou.dynamic.datasource.provider.AbstractJdbcDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.hulunbuir.datasource.support.DataSourceConstants;
-import com.hulunbuir.clam.parent.tool.JasyptUtil;
+import com.hulunbuir.parent.tool.JasyptUtil;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.ResultSet;
