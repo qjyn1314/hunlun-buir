@@ -4,7 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * explain: 鸭接口有 fly() 和 quare() 两个方法，鸡 Cock 如果要冒充鸭，fly() 方法是现成的，但是鸡不会鸭的呱呱叫，没有 quack() 方法。这个时候就需要适配了：
+ * explain: 把鸡包装成鸭，然后当做鸭来使用
+ * <p>
+ * 鸭接口有 fly() 和 quare() 两个方法，鸡 Cock 如果要冒充鸭，fly() 方法是现成的，但是鸡不会鸭的呱呱叫，没有 quack() 方法。这个时候就需要适配了：
+ * <p>
  * 就是鸡来适配鸭，
  * </p>
  *

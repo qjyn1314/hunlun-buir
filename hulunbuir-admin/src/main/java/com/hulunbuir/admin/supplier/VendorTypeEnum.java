@@ -2,6 +2,9 @@ package com.hulunbuir.admin.supplier;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * explain: 供应商 类型/分类
@@ -33,6 +36,16 @@ public enum VendorTypeEnum {
     VendorTypeEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    /**
+     * 通过code返回desc
+     *
+     * @author wangjunming
+     * @since 2020/12/18 10:46
+     */
+    public static String getVendorTypeDesc(int code) {
+        return Arrays.stream(VendorTypeEnum.values()).collect(Collectors.toMap(VendorTypeEnum::getCode, VendorTypeEnum::getDesc)).get(code);
     }
 
 

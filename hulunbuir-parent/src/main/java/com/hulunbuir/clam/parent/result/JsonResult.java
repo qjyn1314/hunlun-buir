@@ -1,5 +1,7 @@
 package com.hulunbuir.clam.parent.result;
 
+import lombok.ToString;
+
 /**
  * <p>
  * Explain:结果返回类，封装参数
@@ -8,6 +10,7 @@ package com.hulunbuir.clam.parent.result;
  * @author wangjunming
  * @since 2020-01-16 11:51
  */
+@ToString
 public final class JsonResult<T> {
 
     final private static String SUCCESS = "success";

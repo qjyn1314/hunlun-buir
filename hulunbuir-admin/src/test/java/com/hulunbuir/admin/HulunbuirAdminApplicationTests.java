@@ -1,8 +1,8 @@
 package com.hulunbuir.admin;
 
 import com.hulunbuir.admin.controller.SupplierPo;
-import com.hulunbuir.admin.design.factory_strategy.Message;
-import com.hulunbuir.admin.design.factory_strategy.MessageFactory;
+import com.hulunbuir.admin.design.factory_strategy.message.Message;
+import com.hulunbuir.admin.design.factory_strategy.message.MessageFactory;
 import com.hulunbuir.admin.design.proxy.FoodService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

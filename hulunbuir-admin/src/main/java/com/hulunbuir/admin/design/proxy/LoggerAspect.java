@@ -1,5 +1,6 @@
 package com.hulunbuir.admin.design.proxy;
 
+import com.hulunbuir.common.config.ApplicationUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class LoggerAspect {
      * 定义切入点，切入点为com.example.aop下的所有函数com.example.jack.controller
      *
      */
-    @Pointcut("execution(public * com.hulunbuir.admin.mail.*.*(..))")
+    @Pointcut("execution(public * com.hulunbuir.admin.controller.*.*(..))")
     public void webLog(){
     }
 
@@ -36,8 +37,7 @@ public class LoggerAspect {
         //获取参数列表
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("进入的方法名：--"+name+"的参数:--"+args);
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        final HttpServletRequest request = ApplicationUtil.getHttpServletRequest();
         logger.info("URL：--"+request.getRequestURI());
         logger.info("HTTP_METHOD:--"+request.getMethod());
         logger.info("IP：--"+request.getRemoteAddr());

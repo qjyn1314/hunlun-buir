@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.factory_strategy;
+package com.hulunbuir.admin.design.factory_strategy.message;
 
 /**
  * <p>

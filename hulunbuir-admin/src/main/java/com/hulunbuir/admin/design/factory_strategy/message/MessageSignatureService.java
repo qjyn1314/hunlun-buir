@@ -1,10 +1,10 @@
-package com.hulunbuir.admin.design.factory_strategy;
+package com.hulunbuir.admin.design.factory_strategy.message;
 
 import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * explain:
+ * explain:短信签名
  * </p>
  *
  * @author wangjunming

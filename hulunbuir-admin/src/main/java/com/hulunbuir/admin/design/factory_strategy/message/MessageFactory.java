@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.factory_strategy;
+package com.hulunbuir.admin.design.factory_strategy.message;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -52,7 +52,7 @@ public class MessageFactory {
     }
 
     /**
-     * 使用策略模式 + 工厂模式  根据不同的规则进行创建不同的发送短信具体对象
+     * 使用策略模式 + 简单工厂模式  根据不同的规则进行创建不同的发送短信具体对象
      *
      * @author wangjunming
      * @since 2020/5/19 10:20

@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.factory_strategy;
+package com.hulunbuir.admin.design.factory_strategy.message;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,44 +22,28 @@ public abstract class BaseMessage implements Message {
      * @author wangjunming
      * @since 2020/5/12 18:14
      */
-    private static String nestedStr(String smsContent,String smsDate) {
+    private static String nestedStr(String smsContent, String smsDate) {
         final Comparator<String> caseInsensitiveOrder = String.CASE_INSENSITIVE_ORDER;
         String dataK = "\\{\\$var}";
         String[] smsContentSplit = smsContent.split(dataK);
         String[] smsDateSplit = smsDate.split(",");
         StringBuilder smsContentData = new StringBuilder();
         for (int i = 0; i < smsContentSplit.length; i++) {
-            for (int j = 0; j < smsDateSplit.length;) {
-                try{
-                    if(i==smsDateSplit.length) {
+            for (int j = 0; j < smsDateSplit.length; ) {
+                try {
+                    if (i == smsDateSplit.length) {
                         smsContentData.append(smsContentSplit[i]);
                         break;
                     }
                     smsContentData.append(smsContentSplit[i]).append(smsDateSplit[i]);
                     break;
-                }catch (Exception e){
-                    log.error("====>>>发送短信：填充短信模板数据异常!",e);
+                } catch (Exception e) {
+                    log.error("====>>>发送短信：填充短信模板数据异常!", e);
                 }
             }
         }
         return smsContentData.toString();
     }
-
-    /**
-     * 抽象方法--发送短信
-     * 具体的实现在各个继承类中
-     * @param otherData 某一标识，用于查询某一套的模板，需要根据具体使用场景来判断使用
-     * @param phone 短信内容
-     * @param signatureCode 签名唯一标识
-     * @param messageTemplateCode 模板唯一标识
-     * @param params 短信内容
-     * @author wangjunming
-     * @since 2020/2/24 11:28
-     */
-    /*@Override
-    public void sendMessage(String otherData,String phone,String signatureCode,String messageTemplateCode,String params) {
-
-    }*/
 
     /**
      * 封装短信内容

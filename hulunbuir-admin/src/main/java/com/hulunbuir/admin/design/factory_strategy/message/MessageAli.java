@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.factory_strategy;
+package com.hulunbuir.admin.design.factory_strategy.message;
 
 import lombok.extern.slf4j.Slf4j;
 
