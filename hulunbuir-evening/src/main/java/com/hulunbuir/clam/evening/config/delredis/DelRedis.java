@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * explain: 根据注解进行删除redis中的数据
+ * explain: 根据注解中的值进行删除redis中的数据
  * </p>
  *
  * @author wangjunming

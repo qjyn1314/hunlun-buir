@@ -1,11 +1,13 @@
 package com.hulunbuir.clam.evening.persistence.controller;
 
-import com.hulunbuir.common.base.QueryRequest;
+import com.hulunbuir.clam.evening.config.delredis.DelRedis;
 import com.hulunbuir.clam.evening.controller.BaseController;
 import com.hulunbuir.clam.evening.persistence.entity.SysRole;
 import com.hulunbuir.clam.evening.persistence.service.ISysRoleService;
 import com.hulunbuir.clam.evening.persistence.vo.SysRoleVo;
 import com.hulunbuir.clam.parent.result.JsonResult;
+import com.hulunbuir.common.base.QueryRequest;
+import com.hulunbuir.common.config.RedisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -40,12 +42,14 @@ public class SysRoleController extends BaseController {
         return getLayTable(service.page(queryRequest, sysRole));
     }
 
+    @DelRedis(RedisService.PERMISSION_DELKEY)
     @ApiOperation("角色表添加")
     @PostMapping("/save")
     public JsonResult save(SysRoleVo sysRole) {
         return JsonResult.success(service.save(sysRole));
     }
 
+    @DelRedis(RedisService.PERMISSION_DELKEY)
     @ApiOperation("角色表修改")
     @PostMapping("/update")
     public JsonResult update(SysRoleVo sysRole) {
