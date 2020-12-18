@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @MapperScan(basePackages = {
-        "com.hulunbuir.clam.evening.*.mapper",
+        "com.hulunbuir.evening.*.mapper",
 },annotationClass = Repository.class)
 @EnableTransactionManagement
 public class MybatisPlusAutoConfig {
