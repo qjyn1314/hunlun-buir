@@ -3,7 +3,7 @@ package com.hulunbuir.evening.persistence.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.calm.security.support.Auth;
+import com.hulunbuir.security.support.Auth;
 import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.common.config.RedisService;
 import com.hulunbuir.evening.persistence.entity.SysPermission;

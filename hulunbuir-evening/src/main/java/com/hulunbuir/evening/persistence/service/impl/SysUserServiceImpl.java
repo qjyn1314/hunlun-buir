@@ -3,7 +3,7 @@ package com.hulunbuir.evening.persistence.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.calm.security.util.AuthUserUtil;
+import com.hulunbuir.security.util.AuthUserUtil;
 import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.evening.persistence.entity.SysUser;
 import com.hulunbuir.evening.persistence.entity.SysUserRole;

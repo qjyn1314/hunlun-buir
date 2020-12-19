@@ -2,6 +2,7 @@ package com.hulunbuir.security.support;
 
 import com.hulunbuir.distributed.evening.AuthUser;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @author wangjunming
  * @since 2020/9/21 10:08
  */
+@ToString
 public class CurrentUser implements Serializable {
 
     /**

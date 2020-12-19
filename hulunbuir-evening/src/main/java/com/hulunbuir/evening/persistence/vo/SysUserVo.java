@@ -3,6 +3,7 @@ package com.hulunbuir.evening.persistence.vo;
 import com.hulunbuir.evening.persistence.entity.SysUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @author Mr.Wang
  * @date 2020-09-18 10:33:50
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class SysUserVo extends SysUser implements Serializable {
 
