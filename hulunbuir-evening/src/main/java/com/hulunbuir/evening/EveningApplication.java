@@ -16,9 +16,9 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDubbo
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.hulunbuir","com.calm.security"})
-public class HulunBuirEveningApplication {
+public class EveningApplication {
     public static void main(String[] args) {
-        SpringApplication.run(HulunBuirEveningApplication.class, args);
+        SpringApplication.run(EveningApplication.class, args);
         log.info("Start Success !!!");
     }
 }

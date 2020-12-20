@@ -15,8 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableDynamicDataSource
 @ComponentScan(basePackages = {"com.hulunbuir"})
-public class HulunBuirAdminApplication {
+public class AdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(HulunBuirAdminApplication.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 }

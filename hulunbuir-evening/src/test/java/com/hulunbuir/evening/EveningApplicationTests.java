@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Slf4j
 @SpringBootTest
-class HulunBuirEveningApplicationTests {
+class EveningApplicationTests {
 
 
     @Autowired
