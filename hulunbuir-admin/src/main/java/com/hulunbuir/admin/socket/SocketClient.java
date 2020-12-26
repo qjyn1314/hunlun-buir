@@ -16,7 +16,7 @@ public class SocketClient {
 				System.out.println("请输入报文。。。");
 				Scanner scanner = new Scanner(System.in);
 				String string = scanner.nextLine();
-				if(string.equals("bye")) {
+				if("bye".equals(string)) {
 					break;
 				}
 				//发送给服务器数据

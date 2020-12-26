@@ -32,7 +32,7 @@ public class EvenScheduleTest {
      * @author wangjunming
      * @since 2020/12/10 21:34
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void sendMailEventByInterface() {
         log.info(">>>>> cron测试定时任务-基于接口-每10秒执行一次发送邮件事件开始....");
         final String localDateFormat = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
@@ -51,7 +51,7 @@ public class EvenScheduleTest {
      * @author wangjunming
      * @since 2020/12/10 21:34
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void sendMailEventByAnnotations() {
         log.info(">>>>> cron测试定时任务-基于注解-每10秒执行一次发送邮件事件开始....");
         final String localDateFormat = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);

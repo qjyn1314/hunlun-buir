@@ -20,7 +20,7 @@ import java.util.Locale;
 public final class DateUtils {
 
 
-    private final static String dateTimesFormat = "yyyy-MM-dd HH:mm:ss";
+    private final static String DATE_TIMES_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static String getFormatDate(Date date, String patent) {
         return DateFormatUtils.format(date, patent);
@@ -31,7 +31,7 @@ public final class DateUtils {
     }
 
     public static String getDateTimes() {
-        return getFormatDate(getNowDate(), dateTimesFormat);
+        return getFormatDate(getNowDate(), DATE_TIMES_FORMAT);
     }
 
     public static final String FULL_TIME_PATTERN = "yyyyMMddHHmmss";

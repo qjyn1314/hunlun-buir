@@ -21,7 +21,7 @@ public class IUserAnnoServiceImpl implements IUserAnnoService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void transfer(String outer, String inner, Integer money) {
         userDao.out(outer,money);
         int i = 1/0;

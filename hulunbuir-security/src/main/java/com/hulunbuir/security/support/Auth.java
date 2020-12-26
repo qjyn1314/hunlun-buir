@@ -17,7 +17,7 @@ public interface Auth {
     String LOGOUT_URL = "/logout";
     String HTML_SUFFIX = ".html";
     //1分
-    long points = 60*60 ;
+    long POINTS = 60*60 ;
     //1时
     long when = 60*60*60;
     //1天

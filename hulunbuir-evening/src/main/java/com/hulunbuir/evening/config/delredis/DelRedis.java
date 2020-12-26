@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * @author wangjunming
  * @since 2020/12/18 15:37
  */
-@Target(value = {ElementType.TYPE, ElementType.METHOD})
+@Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface DelRedis {
 

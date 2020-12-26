@@ -39,7 +39,7 @@ public class LunarCalendarUtil {
     private final static int MAX_YEAR = 2049;
     // 阳历日期计算起点
     private final static String START_DATE = "1900-01-30";
-    private final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
     // 当年是否有闰月
     private static boolean isLeapYear;
 
@@ -262,7 +262,7 @@ public class LunarCalendarUtil {
      */
     public static Date lunarToSolar(String lunarDate, boolean leapMonthFlag) throws Exception {
         System.out.println(lunarDate);
-        final Date parse = formatter.parse(lunarDate);
+        final Date parse = FORMATTER.parse(lunarDate);
         final Calendar instance = Calendar.getInstance();
         instance.setTime(parse);
         int lunarYear = instance.get(Calendar.YEAR);
@@ -318,7 +318,7 @@ public class LunarCalendarUtil {
             }
         }
         Date myDate = null;
-        myDate = formatter.parse(START_DATE);
+        myDate = FORMATTER.parse(START_DATE);
         Calendar c = Calendar.getInstance();
         c.setTime(myDate);
         c.add(Calendar.DATE, offset);
@@ -342,7 +342,7 @@ public class LunarCalendarUtil {
         boolean leapMonthFlag = false;
         Date startDate = null;
         try {
-            startDate = formatter.parse(START_DATE);
+            startDate = FORMATTER.parse(START_DATE);
         } catch (Exception e) {
             e.printStackTrace();
         }

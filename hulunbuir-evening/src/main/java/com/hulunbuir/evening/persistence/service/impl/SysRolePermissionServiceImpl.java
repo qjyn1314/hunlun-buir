@@ -60,7 +60,7 @@ public class SysRolePermissionServiceImpl implements ISysRolePermissionService {
     * @since 2020-09-22 11:04:50
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean save(SysRolePermission sysRolePermission) {
         //--TODO 做一些初始化动作
         return sysRolePermissionMapper.insert(sysRolePermission)>0;
@@ -74,7 +74,7 @@ public class SysRolePermissionServiceImpl implements ISysRolePermissionService {
     * @since 2020-09-22 11:04:50
     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(SysRolePermission sysRolePermission) {
         //--TODO 做一些效验动作
         return sysRolePermissionMapper.updateById(sysRolePermission)>0;
