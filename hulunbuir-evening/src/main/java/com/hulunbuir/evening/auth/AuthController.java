@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Slf4j
 @Controller
-@ControllerAdvice
 public class AuthController extends AuthService {
 
     /**
@@ -29,10 +28,14 @@ public class AuthController extends AuthService {
      * @author wangjunming
      * @since 2020/9/16 10:47
      */
-    @GetMapping("/login_success")
+    @GetMapping({"/login_success", "/"})
     public String loginSuccessGet() {
-        log.info("登陆成功之后将跳转到首页!");
-        return INDEX;
+        if (AuthUserUtil.isAuthenticated()) {
+            log.info("登陆成功之后将跳转到首页!");
+            return INDEX;
+        }
+        log.info("未登录则访问登录页面!");
+        return "redirect:/auth/login";
     }
 
     /**

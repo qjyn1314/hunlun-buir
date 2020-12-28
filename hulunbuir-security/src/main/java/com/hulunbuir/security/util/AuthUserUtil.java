@@ -96,6 +96,12 @@ public class AuthUserUtil {
     private static Object principal() {
         return authentication().getPrincipal();
     }
+    /**
+     * 是否一登录
+     */
+    public static Boolean isAuthenticated() {
+        return authentication().isAuthenticated();
+    }
 
     /**
      * 当前登录用户信息
@@ -126,7 +132,7 @@ public class AuthUserUtil {
             return null;
         }
         final String username = authUser.getUsername();
-        log.info("当前security中的用户名是：{}", username);
+        log.info("当前security中的用户名是：{}，是否已登陆：{}", username, isAuthenticated());
         final HttpServletRequest request = ApplicationUtil.getHttpServletRequest();
         String authToken = request.getHeader(AUTH_TOKEN_KEY);
         if (StringUtils.isNotBlank(authToken)) {

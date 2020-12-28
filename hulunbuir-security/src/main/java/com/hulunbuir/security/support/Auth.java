@@ -19,11 +19,11 @@ public interface Auth {
     //1分
     long POINTS = 60*60 ;
     //1时
-    long when = 60*60*60;
+    long WHEN = 60*60*60;
     //1天
-    long day = 60*60*60*24;
+    long DAY = 60*60*60*24;
     //1周
-    long week = 60*60*60*24*7;
+    long WEEK = 60*60*60*24*7;
     //1月
-    long month = 60*60*60*24*30;
+    long MONTH = 60*60*60*24*30;
 }

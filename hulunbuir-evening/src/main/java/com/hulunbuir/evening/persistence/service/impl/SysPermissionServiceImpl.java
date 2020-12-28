@@ -116,7 +116,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             return (List<SysPermissionTree>)permission;
         } else {
             final List<SysPermissionTree> permissionTrees = handlePermissionTree(permissionTree, userId);
-            redisService.setStrKey(RedisService.PERMISSION + userId, permissionTrees, Auth.day);
+            redisService.setStrKey(RedisService.PERMISSION + userId, permissionTrees, Auth.DAY);
             return permissionTrees;
         }
     }

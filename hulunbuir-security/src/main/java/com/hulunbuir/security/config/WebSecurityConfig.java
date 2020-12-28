@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl(Auth.LOGIN_FORM_URL)
                     //登陆成功的处理--不能与defaultSuccessUrl同时配置，如果同时配置，则优先使用defaultSuccessUrl的配置。此配置主要是将用户信息放置pc端的cookie中
                     .successHandler(authSuccessHandler())
-                    //登录失败的处理--不能与failureUrl同时配置，如果同时配置，则优先使用failureUrl的配置。此配置主要是将用户的登陆失败原因返回给前端
+                    //登录失败的处理--不能与failureUrl/同时配置，如果同时配置，则优先使用failureUrl的配置。此配置主要是将用户的登陆失败原因返回给前端
 //                    .failureHandler(authFailureHandler())
                     //认证成功成功后的请求路径
 //                    .defaultSuccessUrl(Auth.LOGIN_SUCCESS_URL,true)

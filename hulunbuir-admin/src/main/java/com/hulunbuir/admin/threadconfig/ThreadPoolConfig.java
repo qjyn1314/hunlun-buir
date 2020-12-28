@@ -1,5 +1,7 @@
 package com.hulunbuir.admin.threadconfig;
 
+import com.hulunbuir.admin.threadconfig.utils.ThreadPoolExceptionHandler;
+import org.springframework.boot.task.TaskExecutorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -26,7 +28,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
 
     /**
-     *
+     * 自定义线程池
      * @author wangjunming
      * @since 2020/11/22 21:35
      */
@@ -44,7 +46,7 @@ public class ThreadPoolConfig {
         // 设置默认线程名称
         executor.setThreadNamePrefix("hulunBuir-");
         // 设置拒绝策略
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        executor.setRejectedExecutionHandler(new ThreadPoolExceptionHandler());
         // 等待所有任务结束后再关闭线程池
         executor.setWaitForTasksToCompleteOnShutdown(true);
         return executor;

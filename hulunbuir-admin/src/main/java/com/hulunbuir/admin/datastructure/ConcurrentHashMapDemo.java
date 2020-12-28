@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConcurrentHashMapDemo {
 
     public static void main(String[] args) {
-        ConcurrentHashMap<String, Object> concurrentHashMap = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, Object> concurrentHashMap = new ConcurrentHashMap<>(1);
         concurrentHashMap.put("qjyn1314", "qjyn1314@163.com");
     }
 
