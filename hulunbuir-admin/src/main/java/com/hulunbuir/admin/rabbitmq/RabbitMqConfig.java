@@ -101,7 +101,7 @@ public class RabbitMqConfig {
                     directExchange = new DirectExchange(enums.getExchanges());
                     amqpAdmin.declareExchange(directExchange);
                 } catch (Exception e) {
-                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>", e);
+                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>");
                     break;
                 }
             } else if (Integer.valueOf("2").equals(exchangesType)) {
@@ -109,7 +109,7 @@ public class RabbitMqConfig {
                     fanoutExchange = new FanoutExchange(enums.getExchanges());
                     amqpAdmin.declareExchange(fanoutExchange);
                 } catch (Exception e) {
-                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>", e);
+                    log.error("停止创建MQ，原因：创建MQ的交换机异常：，可能没有创建spring.rabbitmq.virtual-host>>>");
                     break;
                 }
             }

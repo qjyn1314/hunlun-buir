@@ -39,7 +39,6 @@ public class RabbitMqUtils {
      */
     public RabbitMqUtils(RabbitTemplate rabbitTemplate) {
         rabbitTem = rabbitTemplate;
-        log.info("初始化MQ的信息：" + JSON.toJSONString(rabbitTem));
     }
 
     /**

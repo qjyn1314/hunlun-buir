@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jwt.version>0.9.1</jwt.version>
         <fastjson.version>1.2.75</fastjson.version>
+        <hutool.version>5.5.4</hutool.version>
     </properties>
 
     <dependencies>
@@ -84,7 +85,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.5.4</version>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 

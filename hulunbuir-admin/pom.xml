@@ -27,10 +27,10 @@
             <artifactId>hulunbuir-datasource</artifactId>
         </dependency>
         <!--dubbo调用其他服务的接口-->
-        <!--<dependency>
-            <groupId>com.hulunbuir.clam.distributed</groupId>
+        <dependency>
+            <groupId>com.hulunbuir.distributed</groupId>
             <artifactId>hulunbuir-distributed</artifactId>
-        </dependency>-->
+        </dependency>
         <!--整合邮件发送-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

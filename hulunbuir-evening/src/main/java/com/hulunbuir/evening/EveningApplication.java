@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 @Slf4j
 @EnableDubbo
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.hulunbuir","com.calm.security"})
+@ComponentScan(basePackages = {"com.hulunbuir"})
 public class EveningApplication {
     public static void main(String[] args) {
         SpringApplication.run(EveningApplication.class, args);
