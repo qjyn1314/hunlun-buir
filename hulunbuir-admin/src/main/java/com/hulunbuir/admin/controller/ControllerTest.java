@@ -20,6 +20,8 @@ public class ControllerTest {
     static {
         SupplierPo supplierPo = new SupplierPo("15321355715","A0001","username001");
         supplierPos.add(supplierPo);
+        SupplierPo supplierPo0 = new SupplierPo("15321355715","A0001","username001");
+        supplierPos.add(supplierPo0);
         SupplierPo supplierPo1 = new SupplierPo("15321355716","A0002","username002");
         supplierPos.add(supplierPo1);
         SupplierPo supplierPo2 = new SupplierPo("15321355717","A0003","username003");
@@ -79,13 +81,16 @@ public class ControllerTest {
     }
 
     public static void main(String[] args) {
-        final Map<String, List<SupplierPo>> phoneMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getPhone));
-        final Map<String, List<SupplierPo>> supplierMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getSupplierCode));
-        final List<String> phones = usersPos.stream().map(UsersPo::getPhone).collect(Collectors.toList());
-        final List<Long> userIds = userSupplierPos.stream().map(UserSupplierPo::getUserId).collect(Collectors.toList());
+//        final Map<String, List<SupplierPo>> phoneMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getPhone));
+//        final Map<String, List<SupplierPo>> supplierMaps = supplierPos.stream().collect(Collectors.groupingBy(SupplierPo::getSupplierCode));
+//        final List<String> phones = usersPos.stream().map(UsersPo::getPhone).collect(Collectors.toList());
+//        final List<Long> userIds = userSupplierPos.stream().map(UserSupplierPo::getUserId).collect(Collectors.toList());
 
+        final long count1 = supplierPos.stream().distinct().count();
 
-
+        final long count = supplierPos.size();
+        System.out.println(count1);
+        System.out.println(count);
 
 
     }

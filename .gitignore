@@ -18,7 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
-
+*/src/main/resources/rebel.xml
+*/src/main/java/rebel.xml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
