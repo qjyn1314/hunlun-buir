@@ -2,6 +2,8 @@ package com.hulunbuir.admin.threadconfig.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  * <p>
  * explain:
@@ -20,6 +22,9 @@ public class ThreadPoolTest {
             ThreadPoolEntity threadPoolEntity = new ThreadPoolEntity("JACK"+i);
             ThreadPoolUtils.getTaskExecutor().execute(threadPoolEntity);
         }
+        ThreadPoolUtils.getTaskExecutor().shutdown();
+        final List<Runnable> runnables = ThreadPoolUtils.getTaskExecutor().shutdownNow();
+        System.out.println(runnables);
         log.info("main方法结束");
     }
 

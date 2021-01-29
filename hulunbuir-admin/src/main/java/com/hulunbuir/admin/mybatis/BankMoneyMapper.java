@@ -17,5 +17,9 @@ public interface BankMoneyMapper {
 
     List<Bankmoney> bankMoneyLists(@Param("map") HashMap<String, Object> map);
 
+//    List<VendorSettingClassOld>
+    VendorSettingClassOld selectByClassId(@Param("classId")Long classId);
+
+    int insert(Bankmoney bankmoney);
 
 }

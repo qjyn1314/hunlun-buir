@@ -15,9 +15,6 @@
     <description>Clam project for Spring Boot</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dubbo.version>2.7.5</dubbo.version>
         <curator.version>5.1.0</curator.version>
     </properties>

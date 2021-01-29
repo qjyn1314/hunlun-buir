@@ -22,4 +22,16 @@ public class Bankmoney {
     private Integer money;
 
     private String dataJson;
+
+
+    public Bankmoney() {
+    }
+
+
+    public Bankmoney(Integer id, String username, Integer money, String dataJson) {
+        this.id = id;
+        this.username = username;
+        this.money = money;
+        this.dataJson = dataJson;
+    }
 }

@@ -47,6 +47,7 @@ public class AuthController extends AuthService {
     @GetMapping("/auth/login")
     public String authLogin() {
         log.info("将跳转至登录认证页面!");
+//        return null;
         return handleView();
     }
 

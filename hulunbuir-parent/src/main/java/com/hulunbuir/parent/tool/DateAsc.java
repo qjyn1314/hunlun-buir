@@ -186,6 +186,13 @@ public class DateAsc {
         }
     }
 
+    public static void main(String[] args) {
+        //appKey+私钥(测试环境是123456,上线前由我司提供正式私钥)+时间戳字符串的MD5加密
+        final String ypTest1234561611650478 = Md5Encryption("yp_test1234561611650478");
+        System.out.println(ypTest1234561611650478);
+
+    }
+
 
 
 

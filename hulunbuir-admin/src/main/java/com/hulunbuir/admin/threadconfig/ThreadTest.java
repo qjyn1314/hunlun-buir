@@ -2,6 +2,7 @@ package com.hulunbuir.admin.threadconfig;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +19,8 @@ public class ThreadTest {
 
     @Autowired
     private ThreadService service;
+    @Autowired
+    private ThreadPoolTaskExecutor hulunExecutor;
 
 //    @Scheduled(cron = "0/10 * * * * ?")
     public void threadServiceSayHello() {

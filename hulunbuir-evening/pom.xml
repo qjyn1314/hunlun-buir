@@ -15,9 +15,6 @@
     <description>Clam project for Spring Boot</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -33,6 +30,17 @@
             <groupId>com.hulunbuir.security</groupId>
             <artifactId>hulunbuir-security</artifactId>
         </dependency>
+
+        <!--
+        整合activiti工作流引擎
+        参考：https://www.cnblogs.com/smallSevens/p/10386042.html
+
+        -->
+        <!--<dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-basic</artifactId>
+            <version>6.0.0</version>
+        </dependency>-->
     </dependencies>
 
     <build>

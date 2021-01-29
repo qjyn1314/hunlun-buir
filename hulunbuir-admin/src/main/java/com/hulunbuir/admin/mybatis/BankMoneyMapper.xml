@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hulunbuir.admin.mybatis.BankMoneyMapper">
 
+    <!--
+        useGeneratedKeys ：
+        #{}：是以预编译的形式，将参数设置到SQL语句中，
+        ${}：取值是直接将值拼接在SQL语句中，会有安全问题，SQL注入的问题。
+
+        原生SQL是不支持占位符的形式进行取值，
+    -->
+    <insert id="insert" useGeneratedKeys="true" parameterType="com.hulunbuir.admin.mybatis.Bankmoney">
+
+    </insert>
+
     <select id="bankMoneyLists" resultType="com.hulunbuir.admin.mybatis.Bankmoney">
         select bm.id,bm.username,bm.money,bm.data_json AS dataJson from bankmoney bm
         <where>
@@ -13,5 +24,10 @@
         </where>
     </select>
 
+    <select id="selectByClassId" resultType="setClass">
+        SELECT c.id, c.pid, c.name, c.vendor_type,c.hierarchy
+        FROM vendor_setting_class c
+        WHERE c.id = #{classId}
+    </select>
 
 </mapper>

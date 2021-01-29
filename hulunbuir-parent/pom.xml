@@ -15,9 +15,6 @@
     <description>Clam project for Spring Boot</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jwt.version>0.9.1</jwt.version>
         <fastjson.version>1.2.75</fastjson.version>
         <hutool.version>5.5.4</hutool.version>

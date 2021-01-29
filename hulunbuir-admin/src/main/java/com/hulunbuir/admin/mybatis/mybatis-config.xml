@@ -3,6 +3,43 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!--
+    <properties url="" resource=""></properties>
+    可以引入其他配置文件中的信息
+        properties标签内的属性：
+        url：是指磁盘路径下的资源，或者网络资源
+        resource：是指引入类路径下的资源信息
+    -->
+    
+    <!--
+    settings:用来设置每一个设置项
+        setting：设置项的标签
+            name：所需要的设置项
+            value：设置项的值
+    -->
+    <settings>
+        <!--字段名的 是否开启驼峰命名自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--
+        配置返回值别名的两种方法：
+        1、1）、使用 typeAliases -> typeAlias 的type   alias   逐一的指定
+        2、1）、使用 typeAliases -> package 的 name需要扫描的包，其返回实体类上需要加上  2）、 @Alias("setClass")  注解。
+    -->
+    <typeAliases>
+        <package name="com.hulunbuir.admin.mybatis"/>
+    </typeAliases>
+    <!--
+        environments:配置多个环境，
+            environment：对应这个单个环境 ID 属性表示指定那种环境，可以随时切换环境
+                其中 transactionManager 与 dataSource 是必填项。
+                transactionManager ：type属性：MyBatis 中有两种类型的事务管理器（也就是 type="[JDBC|MANAGED]"）
+                dataSource： type属性：有三种内建的数据源类型（也就是 type="[UNPOOLED|POOLED|JNDI]"）
+                            自定义数据源：实现DataSourceFactory接口，type是全类名
+
+    -->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -13,8 +50,41 @@
                 <property name="password" value="123456"/>
             </dataSource>
         </environment>
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
     </environments>
+
+    <!--
+        databaseIdProvider :
+        MyBatis 可以根据不同的数据库厂商执行不同的语句，这种多厂商的支持是基于映射语句中的 databaseId 属性。
+            MyBatis 会加载带有匹配当前数据库 databaseId 属性和所有不带 databaseId 属性的语句。
+            如果同时找到带有 databaseId 和不带 databaseId 的相同语句，则后者会被舍弃。
+    -->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="SQL Server" value="sqlserver"/>
+        <property name="DB2" value="db2"/>
+        <property name="Oracle" value="oracle"/>
+    </databaseIdProvider>
+
+    <!--
+        mappers：SQL映射
+           mapper： resource ：引用类路径下的SQL映射配置文件
+                    url：引用网络路径下的，或者磁盘路径下的SQL映射文件
+                    class： 引用的接口，即接口的全类名，
+                        1、需要映射文件与接口名同名，并且需要放在同一级目录下面
+                        2、没有SQL的映射，
+         批量注册：
+           package  扫描的包名
+    -->
     <mappers>
-        <mapper resource="com\hulunbuir\clam\admin\mybatis\BankMoneyMapper.xml"/>
+        <mapper resource="com\hulunbuir\admin\mybatis\BankMoneyMapper.xml"/>
+        <package name="com.hulunbuir.admin.mybatis"/>
     </mappers>
 </configuration>
