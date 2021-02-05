@@ -3,13 +3,16 @@ package com.hulunbuir.admin.socket;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class SocketClient {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Socket socket = null;
+		ServerSocket serverSocket = new ServerSocket(  1233);
+
 		while(true) {
 			try {
 				socket = new Socket("localhost",12345);

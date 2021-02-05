@@ -34,13 +34,25 @@
         <!--
         整合activiti工作流引擎
         参考：https://www.cnblogs.com/smallSevens/p/10386042.html
+        整合过程中遇到的问题参考：
+            https://blog.csdn.net/elvishehai/article/details/83858196
 
         -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
             <version>6.0.0</version>
-        </dependency>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>activation</artifactId>
+                    <groupId>javax.activation</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -51,14 +63,9 @@
                 <includes>
                     <include>**/*.*</include>
                 </includes>
-                <filtering>false</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>

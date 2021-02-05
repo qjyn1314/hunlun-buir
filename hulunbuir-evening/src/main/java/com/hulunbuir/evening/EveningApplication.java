@@ -1,6 +1,7 @@
 package com.hulunbuir.evening;
 
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @Slf4j
 @EnableDubbo
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.hulunbuir"})
 public class EveningApplication {
     public static void main(String[] args) {

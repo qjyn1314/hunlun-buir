@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * explain:
@@ -19,7 +21,7 @@ public class ThreadTest {
 
     @Autowired
     private ThreadService service;
-    @Autowired
+    @Resource
     private ThreadPoolTaskExecutor hulunExecutor;
 
 //    @Scheduled(cron = "0/10 * * * * ?")
