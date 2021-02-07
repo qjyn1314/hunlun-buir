@@ -89,7 +89,7 @@ public class RabbitMqConfig {
      * 相关mq创建绑定,DIRECT(直连)模式
      */
     @Bean
-    public void MqCreateBinding() {
+    public void createBinding() {
         //获取MQ枚举所有枚举值
         for (RabbitMqEnum enums : RabbitMqEnum.values()) {
             //枚举值创建交换机

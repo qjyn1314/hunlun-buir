@@ -55,24 +55,24 @@ public class AopStudy {
 
         System.out.println("-======================springaop的具体实现第一种方式，实现MethodInterceptor，半自动，没有使用扫描==========================");
 
-        ApplicationContext ac = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\aop\\factorybean\\applicationContext.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("com\\hulunbuir\\admin\\aop\\factorybean\\applicationContext.xml");
         FactoryUserService factoryUserService = (FactoryUserService) ac.getBean("proxyFactoryBean");
         factoryUserService.addUser();
 
         System.out.println("-======================springaop的具体实现第二种方式，全自动，进行扫描==========================");
 
-        ApplicationContext ace = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\aop\\springaop\\applicationContext.xml");
+        ApplicationContext ace = new ClassPathXmlApplicationContext("com\\hulunbuir\\admin\\aop\\springaop\\applicationContext.xml");
         SpringUserService springUserService = (SpringUserService) ace.getBean("springUserService");
         springUserService.addUser();
 
         System.out.println("-======================springaop的具体实现第二种方式，全自动，灵活配置切点==========================");
-        ApplicationContext aces = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\aop\\springaopxml\\applicationContext.xml");
+        ApplicationContext aces = new ClassPathXmlApplicationContext("com\\hulunbuir\\admin\\aop\\springaopxml\\applicationContext.xml");
         SpringXmlUserService springXmlUserService = (SpringXmlUserService) aces.getBean("springXmlUserServiceId");
         springXmlUserService.addUser("SpringXmlService");
 
         System.out.println("-======================springaop的具体实现第三种方式，全自动，注解形式的SpringAop==========================");
 
-        ApplicationContext acs = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\aop\\springaopannotation\\applicationContext.xml");
+        ApplicationContext acs = new ClassPathXmlApplicationContext("com\\hulunbuir\\admin\\aop\\springaopannotation\\applicationContext.xml");
         SpringAnnUserService springAnnUserService = (SpringAnnUserService) acs.getBean("springAnnUserService");
         springAnnUserService.addUser("SpringXmlService");
 
