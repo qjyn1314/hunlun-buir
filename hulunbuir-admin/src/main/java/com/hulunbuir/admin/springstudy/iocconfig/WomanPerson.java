@@ -1,7 +1,4 @@
-package com.hulunbuir.admin.ioc.iocconfig;
-
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

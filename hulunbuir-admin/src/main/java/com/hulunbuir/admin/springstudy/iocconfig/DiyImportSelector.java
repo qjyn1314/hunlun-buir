@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.ioc.iocconfig;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;

@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.ioc.iocconfig;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
 import org.springframework.context.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @PropertySource(value = {"classpath:application.properties"})
 @Conditional({WindowsCondition.class})
 @Configuration(proxyBeanMethods = false)
-@ComponentScan(value = "com.hulunbuir.admin.ioc.iocconfig",excludeFilters = {
+@ComponentScan(value = "com.hulunbuir.admin.springstudy.iocconfig",excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {RestController.class})
-},useDefaultFilters = false
+}
 )
 @Import({WomanPersonController.class, DiyImportSelector.class,DiyImportBeanDefreg.class})
 public class IocConfig {
@@ -56,9 +56,12 @@ public class IocConfig {
         return new DiyBeanPostProcessor();
     }
 
-    @Bean
-    public DiyValue diyValue(){
-        return new DiyValue();
+    @Primary
+    @Bean("diyValueAutowired")
+    public DiyValue diyValueAutowired(){
+        DiyValue diyValue = new DiyValue();
+        diyValue.setId(10L);
+        return diyValue;
     }
 
 

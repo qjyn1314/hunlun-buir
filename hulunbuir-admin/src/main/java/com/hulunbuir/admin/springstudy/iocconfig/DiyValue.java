@@ -1,10 +1,10 @@
-package com.hulunbuir.admin.ioc.iocconfig;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Getter
 @Setter
 @ToString
+@Service
 public class DiyValue {
 
     @Value("zhangsan")
@@ -27,5 +28,7 @@ public class DiyValue {
 
     @Value("${diyname}")
     private String diyname;
+
+    private Long Id;
 
 }

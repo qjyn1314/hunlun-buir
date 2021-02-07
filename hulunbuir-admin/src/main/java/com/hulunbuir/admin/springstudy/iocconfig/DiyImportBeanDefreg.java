@@ -1,11 +1,9 @@
-package com.hulunbuir.admin.ioc.iocconfig;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.data.repository.config.RepositoryConfigurationDelegate;
 
 /**
  * <p>

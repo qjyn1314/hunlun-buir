@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.ioc.iocconfig;
+package com.hulunbuir.admin.springstudy.iocconfig;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
