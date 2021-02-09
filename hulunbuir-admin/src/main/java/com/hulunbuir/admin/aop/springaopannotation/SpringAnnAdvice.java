@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Aspect
 public class SpringAnnAdvice {
 
-    @Pointcut("execution(* com.hulunbuir.clam.admin.aop.springaopannotation.*.*(..))")
+    @Pointcut("execution(* com.hulunbuir.admin.aop.springaopannotation.*.*(..))")
     public void pointCut(){
 
     }

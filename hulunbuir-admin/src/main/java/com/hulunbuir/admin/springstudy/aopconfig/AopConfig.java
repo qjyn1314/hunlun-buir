@@ -1,6 +1,8 @@
 package com.hulunbuir.admin.springstudy.aopconfig;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * <p>
@@ -11,13 +13,8 @@ import org.springframework.context.annotation.Configuration;
  * @since 2021/2/8 0:00
  */
 @Configuration
+@EnableAspectJAutoProxy
+@ComponentScan("com.hulunbuir.admin.springstudy.aopconfig")
 public class AopConfig {
-
-
-
-
-
-
-
 
 }

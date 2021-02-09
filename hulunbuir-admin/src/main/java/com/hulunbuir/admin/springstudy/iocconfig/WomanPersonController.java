@@ -2,11 +2,9 @@ package com.hulunbuir.admin.springstudy.iocconfig;
 
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 
 /**
  * <p>
@@ -21,17 +19,13 @@ import javax.inject.Inject;
 public class WomanPersonController {
 
     @Autowired
-    @Qualifier("diyValueAutowired")
-    private DiyValue diyValues;
+    private DiyValue diyValue;
 
     @Autowired
     private DiyManPerson diyManPerson;
 
     @Resource
-    private DiyValue diyValueAuto;
-
-    @Inject
-    private DiyValue diyValue;
+    private DiyValue diyValueAutowired;
 
     @Autowired
     public WomanPersonController(@Autowired DiyManPerson diyManPerson) {

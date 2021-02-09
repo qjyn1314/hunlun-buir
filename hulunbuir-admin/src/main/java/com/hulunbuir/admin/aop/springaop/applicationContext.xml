@@ -15,7 +15,7 @@
     -->
     <aop:config proxy-target-class="true">
         <!--切入点，就是被代理类中的方法,使用切入点函数表达式-->
-        <aop:pointcut id="pointCuts" expression="execution(* com.hulunbuir.clam.admin.aop.springaop.*.*(..))"/>
+        <aop:pointcut id="pointCuts" expression="execution(* com.hulunbuir.admin.aop.springaop.*.*(..))"/>
         <!--切面类，即通知
 
             try

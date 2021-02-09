@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021/2/6 21:31
  */
 @PropertySource(value = {"classpath:application.properties"})
-@Conditional({WindowsCondition.class})
+@Conditional({WindowsCondition.class,LinuxCondition.class})
 @Configuration(proxyBeanMethods = false)
 @ComponentScan(value = "com.hulunbuir.admin.springstudy.iocconfig",excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {RestController.class})
@@ -56,7 +56,6 @@ public class IocConfig {
         return new DiyBeanPostProcessor();
     }
 
-    @Primary
     @Bean("diyValueAutowired")
     public DiyValue diyValueAutowired(){
         DiyValue diyValue = new DiyValue();

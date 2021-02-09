@@ -15,14 +15,15 @@
     <description>Clam project for Spring Boot</description>
 
     <properties>
+        <druid.version>1.2.4</druid.version>
     </properties>
 
     <dependencies>
         <!--为了使用  @Inject 进行spring的自动装配 -->
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
         </dependency>
         <!--数据源-->
         <dependency>

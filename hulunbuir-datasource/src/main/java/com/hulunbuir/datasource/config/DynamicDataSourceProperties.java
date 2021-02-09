@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Primary;
  * @since 2020/10/30 9:21
  */
 @Data
-@Primary
 @Configuration
 @ConfigurationProperties("spring.datasource")
 public class DynamicDataSourceProperties {

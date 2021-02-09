@@ -14,7 +14,7 @@
     <aop:config>
         <!--自定义切面，ref引用类-->
         <aop:aspect ref="springXmlAdviceId">
-            <aop:pointcut expression="execution( * com.hulunbuir.clam.admin.aop.springaopxml.*.*(..))" id="xmlPointCut"/>
+            <aop:pointcut expression="execution( * com.hulunbuir.admin.aop.springaopxml.*.*(..))" id="xmlPointCut"/>
             <aop:before method="before" pointcut-ref="xmlPointCut"/>
             <aop:after method="after" pointcut-ref="xmlPointCut"/>
             <aop:after-returning method="afterReturning" pointcut-ref="xmlPointCut" returning="object"/>
