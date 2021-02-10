@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.event;
+package com.hulunbuir.admin.springstudy.event.annotationsevent;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

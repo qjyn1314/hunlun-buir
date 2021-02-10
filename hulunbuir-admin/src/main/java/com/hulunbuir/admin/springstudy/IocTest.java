@@ -27,6 +27,17 @@ public class IocTest {
          *      value  :  DiyImportSelector  实现了 ImportSelector 接口
          *                DiyImportBeanDefreg  实现了 ImportBeanDefinitionRegistrar 接口
          * 4、使用FactoryBean接口，即实现了  FactoryBean  接口
+         * 5、@Configuration(proxyBeanMethods = false)
+         *      proxyBeanMethods = true 或不写，是Full模式
+                proxyBeanMethods = false 是lite模式
+                不带@Configuration的类叫Lite配置类
+                Full模式下，通过方法调用指向的仍旧是原来的Bean
+                lite模式下，直接返回新实例对象。
+         *
+         *
+         *
+         *
+         *
          */
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         //注册当前spring的运行环境
@@ -63,7 +74,7 @@ public class IocTest {
         String diyname = environment.getProperty("diyname");
         System.out.println(diyname);
 
-        /**
+        /*
          *
          * 自动装配：
          *      spring利用依赖注入（DI），完成IOC容器中各个组件的依赖关系赋值；

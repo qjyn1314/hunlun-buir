@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.event;
+package com.hulunbuir.admin.springstudy.event.interfaceevent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

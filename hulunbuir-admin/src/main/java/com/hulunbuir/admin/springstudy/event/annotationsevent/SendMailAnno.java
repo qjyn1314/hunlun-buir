@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.event;
+package com.hulunbuir.admin.springstudy.event.annotationsevent;
 
 import org.springframework.context.ApplicationEvent;
 
@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationEvent;
  * @author wangjunming
  * @since 2020/12/10 13:27
  */
-public class SendMail extends ApplicationEvent {
+public class SendMailAnno extends ApplicationEvent {
 
     private String username;
     private String email;
@@ -21,7 +21,7 @@ public class SendMail extends ApplicationEvent {
      * @author wangjunming
      * @since 2020/12/10 20:37
      */
-    public SendMail(Object source) {
+    public SendMailAnno(Object source) {
         super(source);
     }
     /**
@@ -29,7 +29,7 @@ public class SendMail extends ApplicationEvent {
      * @author wangjunming
      * @since 2020/12/10 20:37
      */
-    public SendMail(Object source, String username, String email) {
+    public SendMailAnno(Object source, String username, String email) {
         super(source);
         this.username = username;
         this.email = email;

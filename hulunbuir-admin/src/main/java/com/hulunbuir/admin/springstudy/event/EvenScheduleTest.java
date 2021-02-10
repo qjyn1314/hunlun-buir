@@ -1,5 +1,8 @@
-package com.hulunbuir.admin.event;
+package com.hulunbuir.admin.springstudy.event;
 
+import com.hulunbuir.admin.springstudy.event.annotationsevent.SendMailAnno;
+import com.hulunbuir.admin.springstudy.event.annotationsevent.UserLoginAnnoListener;
+import com.hulunbuir.admin.springstudy.event.interfaceevent.SendMail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ApplicationEventMulticaster;
@@ -57,7 +60,7 @@ public class EvenScheduleTest {
         final String localDateFormat = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
         String username = "zhangsan";
         String email = "qjyn1314@163.com";
-        SendMailAnno sendMail = new SendMailAnno(applicationEventMulticaster, username + localDateFormat, email);
+        SendMailAnno sendMail = new SendMailAnno("注解形式的发送", username + localDateFormat, email);
         userLoginAnnoListener.sendMail(sendMail);
         log.info(">>>>> cron测试定时任务-基于注解-每10秒执行一次发送邮件事件结束....");
     }
