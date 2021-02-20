@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -40,8 +41,8 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
     @Autowired
     private DatasourceConfMapper datasourceConfMapper;
 
-    @Autowired
-    DataSourceCreator dataSourceCreator;
+    @Resource
+    private DataSourceCreator dataSourceCreator;
 
     /**
      * 数据源表分页列表
@@ -150,9 +151,9 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
             DriverManager.getConnection(conf.getUrl(), conf.getUsername(), conf.getPassword());
         } catch (SQLException e) {
             log.error("数据源配置 {} , 获取链接失败", conf.getDatabaseName(), e);
-            return Boolean.TRUE;
+            return Boolean.FALSE;
         }
-        return Boolean.FALSE;
+        return Boolean.TRUE;
     }
 
     /**

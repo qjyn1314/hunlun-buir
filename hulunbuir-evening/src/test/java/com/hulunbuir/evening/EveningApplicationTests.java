@@ -28,7 +28,7 @@ class EveningApplicationTests {
 
     @Test
     void contextLoads() {
-        Integer userId = 1;
+        Long userId = 1L;
         final List<?> sysPermissionTrees = service.permissionTree(new SysPermissionTree(Integer.valueOf("0")), userId);
         log.info("查询出来的权限是：{}",sysPermissionTrees);
         String permission = "permission_21";

@@ -38,7 +38,7 @@
             https://blog.csdn.net/elvishehai/article/details/83858196
 
         -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
             <version>6.0.0</version>
@@ -52,7 +52,7 @@
                     <groupId>javax.activation</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>

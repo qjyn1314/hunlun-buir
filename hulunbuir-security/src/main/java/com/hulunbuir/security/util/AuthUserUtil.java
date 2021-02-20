@@ -1,11 +1,13 @@
 package com.hulunbuir.security.util;
 
-import com.hulunbuir.security.support.CurrentUser;
 import com.hulunbuir.common.config.ApplicationUtil;
 import com.hulunbuir.common.config.RedisService;
 import com.hulunbuir.distributed.evening.AuthProvider;
+import com.hulunbuir.distributed.evening.AuthUser;
+import com.hulunbuir.parent.exception.HulunBuirException;
 import com.hulunbuir.parent.tool.JwtUtils;
 import com.hulunbuir.parent.tool.RequestUtils;
+import com.hulunbuir.security.config.CurrentUser;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -42,13 +44,21 @@ public class AuthUserUtil {
     public static final int AUTH_COOKIE_TIME = 60 * 60 * 24;
     public static final int AUTH_REDIS_TIME = 60 * 60 * 12;
     private static final String AUTH_PREFIX = "Auth_";
-    /**签发jwt-token中map的key*/
+    /**
+     * 签发jwt-token中map的key
+     */
     private static final String CHIMES_MAP_KEY = "authUser";
-    /**操作密码*/
+    /**
+     * 操作密码
+     */
     private static PasswordEncoder passwordEncoder;
-    /**查询用户信息*/
+    /**
+     * 查询用户信息
+     */
     private static AuthProvider userService;
-    /**操作redis数据库*/
+    /**
+     * 操作redis数据库
+     */
     private static RedisService redisTemplate;
     @Autowired
     private PasswordEncoder encoderPassword;
@@ -96,6 +106,7 @@ public class AuthUserUtil {
     private static Object principal() {
         return authentication().getPrincipal();
     }
+
     /**
      * 是否一登录
      */
@@ -106,8 +117,8 @@ public class AuthUserUtil {
     /**
      * 当前登录用户信息
      */
-    private static UserDetails authUser() {
-        return principal() instanceof UserDetails ? (UserDetails) principal() : null;
+    private static CurrentUser authUser() {
+        return principal() instanceof UserDetails ? (CurrentUser) principal() : null;
     }
 
     /**
@@ -126,33 +137,13 @@ public class AuthUserUtil {
      * @author wangjunming
      * @since 2020/11/28 22:06
      */
-    public static CurrentUser currentUser() {
-        final UserDetails authUser = authUser();
-        if (null == authUser || StringUtils.isBlank(authUser.getUsername())) {
-            return null;
+    public static CurrentUser currentUser() throws HulunBuirException {
+        final CurrentUser authUser = authUser();
+        if (null == authUser) {
+            HulunBuirException.build("当前登录用户信息过期，请重新登录。");
         }
-        final String username = authUser.getUsername();
-        log.info("当前security中的用户名是：{}，是否已登陆：{}", username, isAuthenticated());
-        final HttpServletRequest request = ApplicationUtil.getHttpServletRequest();
-        String authToken = request.getHeader(AUTH_TOKEN_KEY);
-        if (StringUtils.isNotBlank(authToken)) {
-            return getUserByToken(authToken);
-        }
-        log.warn("请求头中没有获取到用户的token，将从cookie中获取");
-        final Cookie cookie = RequestUtils.getCookieByName(request, AUTH_TOKEN_KEY);
-        if (null != cookie) {
-            authToken = cookie.getValue();
-            return getUserByToken(authToken);
-        }
-        log.warn("当前请求的浏览器cookie中没有获取到用户的token，将从redis中获取");
-        final String redisUserKey = AUTH_TOKEN_KEY + username;
-        authToken = (String) redisTemplate.getStrValue(redisUserKey);
-        if (StringUtils.isNotBlank(authToken)) {
-            return getUserByToken(authToken);
-        }
-        log.warn("从redis中没有获取到该用户的token，将从数据库中查询当前登录用户信息");
-//        return  getCurrentUserByDb(username);
-        return null;
+        authUser.setPassword(null);
+        return authUser;
     }
 
     /**
@@ -191,7 +182,10 @@ public class AuthUserUtil {
      * @since 2020/11/28 22:35
      */
     private static CurrentUser getCurrentUserByDb(String username) {
-        return new CurrentUser(userService.queryUser(username));
+        AuthUser authUser = userService.queryUser(username);
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.preUser(authUser);
+        return currentUser;
     }
 
     /**
@@ -225,7 +219,7 @@ public class AuthUserUtil {
     }
 
     /**
-     * 初始化信息
+     * 初始化信息，即在此对象初始化成功之后赋值给静态资源一些信息
      *
      * @author wangjunming
      * @since 2020/11/28 22:08

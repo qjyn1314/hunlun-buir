@@ -16,8 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MybatisCodeGenerator {
     // 需要构建引入的表名
     private static final String[] INCLUDE_TABLE = new String[]{
-            "p2p_app_vendor_qualification",
-            "p2p_app_vendor_qualification_attachment",
+
     };
 
     public static void main(String[] args) {

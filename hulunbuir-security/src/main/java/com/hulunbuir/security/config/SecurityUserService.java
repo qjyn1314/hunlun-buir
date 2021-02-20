@@ -6,7 +6,6 @@ import com.hulunbuir.distributed.evening.AuthUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * explain: 自定义用户信息
+ * explain: 自定义用户信息，将从数据库中查询
  * </p>
  *
  * @author wangjunming
@@ -37,7 +36,9 @@ public class SecurityUserService implements UserDetailsService {
         if (AuthUser.UserStatus.STATUS_0.equals(authUser.getStatus())) {
             throw new NotActivationException("您的账号未激活，请联系管理员，qjyn1314@163.com");
         }
-        return User.withUsername(authUser.getUserName()).password(authUser.getPassword()).authorities("ADMIN").build();
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.preUser(authUser);
+        return currentUser;
     }
 
 }

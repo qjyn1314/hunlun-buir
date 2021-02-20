@@ -60,7 +60,7 @@ public class RequestUtils {
     public static HttpServletResponse setCookie(HttpServletResponse response, String name, String value, int time) {
         // new一个Cookie对象,键值对为参数
         Cookie cookie = new Cookie(name, value);
-        cookie.setDomain("zhichubao.com");
+//        cookie.setDomain("hulunbuir.com");
         // tomcat下多应用共享
         cookie.setPath("/");
         // 如果cookie的值中含有中文时，需要对cookie进行编码，不然会产生乱码

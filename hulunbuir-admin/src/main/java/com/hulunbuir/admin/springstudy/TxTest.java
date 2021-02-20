@@ -16,6 +16,14 @@ import java.util.UUID;
  * @since 2021/2/8 21:41
  */
 public class TxTest {
+    
+    
+    /**
+     * 
+     * 
+     * @author wangjunming
+     * @since 2021/2/17 21:51
+     */
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(TxConfig.class);
         StuInfoService stuInfoService = applicationContext.getBean(StuInfoService.class);

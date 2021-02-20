@@ -1,7 +1,7 @@
 package com.hulunbuir.evening.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hulunbuir.security.support.CurrentUser;
+import com.hulunbuir.security.config.CurrentUser;
 import com.hulunbuir.security.util.AuthUserUtil;
 import com.hulunbuir.parent.exception.HulunBuirException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,11 +62,7 @@ public abstract class BaseController {
      * @since 2020/11/28 19:51
      */
     protected CurrentUser getCurrentUser() throws HulunBuirException {
-        final CurrentUser currentUser = AuthUserUtil.currentUser();
-        if (null == currentUser) {
-            HulunBuirException.build("当前登录用户信息获取失败！！");
-        }
-        return currentUser;
+        return AuthUserUtil.currentUser();
     }
 
 }

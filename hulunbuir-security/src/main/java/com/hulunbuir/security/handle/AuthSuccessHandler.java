@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.hulunbuir.security.util.AuthUserUtil.AUTH_TOKEN_KEY;
+
 /**
  * <p>
  * explain:登陆成功处理器

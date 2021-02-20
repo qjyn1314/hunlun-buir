@@ -24,7 +24,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
      * @author wangjunming
      * @since 2020/9/25 18:03
      */
-    List<SysPermissionTree> getPermissionTree(@Param("per") SysPermissionTree permissionTree, @Param("userId") Integer userId);
+    List<SysPermissionTree> getPermissionTree(@Param("per") SysPermissionTree permissionTree, @Param("userId") Long userId);
 
     /**
      * 获取权限树列表

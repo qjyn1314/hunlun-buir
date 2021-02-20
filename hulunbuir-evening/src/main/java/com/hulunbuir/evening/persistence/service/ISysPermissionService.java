@@ -57,7 +57,7 @@ public interface ISysPermissionService {
      * @since 2020/9/25 18:00
      * @return
      */
-    List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Integer userId);
+    List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Long userId);
 
     /**
      * 添加权限页面的权限树

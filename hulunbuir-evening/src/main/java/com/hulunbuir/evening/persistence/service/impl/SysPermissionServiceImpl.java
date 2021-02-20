@@ -110,7 +110,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
      * @since 2020/9/25 18:00
      */
     @Override
-    public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Integer userId) {
+    public List<SysPermissionTree> permissionTree(SysPermissionTree permissionTree, Long userId) {
         final Object permission = redisService.getStrValue(RedisService.PERMISSION + userId);
         if (null != permission) {
             return (List<SysPermissionTree>)permission;
@@ -144,7 +144,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         return permissionTreeList;
     }
 
-    List<SysPermissionTree> handlePermissionTree(SysPermissionTree permissionTree, Integer userId) {
+    List<SysPermissionTree> handlePermissionTree(SysPermissionTree permissionTree, Long userId) {
         List<SysPermissionTree> permissionTreeList = sysPermissionMapper.getPermissionTree(permissionTree, userId);
         for (SysPermissionTree buirPermissionTree : permissionTreeList) {
             final List<SysPermissionTree> permissionChild = sysPermissionMapper.getPermissionTree(new SysPermissionTree(buirPermissionTree.getId()), userId);

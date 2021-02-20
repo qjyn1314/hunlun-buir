@@ -1,6 +1,5 @@
 package com.hulunbuir.evening.persistence.controller;
 
-import com.hulunbuir.security.support.CurrentUser;
 import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.evening.controller.BaseController;
 import com.hulunbuir.evening.persistence.entity.SysPermission;
@@ -9,6 +8,7 @@ import com.hulunbuir.evening.persistence.vo.LayPermissionTree;
 import com.hulunbuir.evening.persistence.vo.SysPermissionTree;
 import com.hulunbuir.parent.exception.HulunBuirException;
 import com.hulunbuir.parent.result.JsonResult;
+import com.hulunbuir.security.config.CurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -71,8 +71,7 @@ public class SysPermissionController extends BaseController {
     @GetMapping("/permissionTree")
     public JsonResult permissionTree() throws HulunBuirException {
         final CurrentUser currentUser = getCurrentUser();
-        final Integer currentUserId = currentUser.getId();
-        return JsonResult.success(service.permissionTree(new SysPermissionTree(Integer.valueOf("0")),currentUserId));
+        return JsonResult.success(service.permissionTree(new SysPermissionTree(Integer.valueOf("0")),currentUser.getId()));
     }
 
     @ApiOperation("树形权限列表")

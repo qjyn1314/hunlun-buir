@@ -2,10 +2,12 @@ package com.hulunbuir.admin.worktest;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * <p>
@@ -18,13 +20,15 @@ import java.util.Date;
 @Slf4j
 public class HttpSendTest {
 
+private static volatile AtomicBoolean ATOMIC_BOOLEAN = new AtomicBoolean();
+
     public static void main(String[] args) {
         System.out.println("abc".matches("..."));
         final Calendar instance = Calendar.getInstance();
+        ATOMIC_BOOLEAN.set(false);
         Integer budgetYear = 20210201;
-
         System.out.println(budgetYear.toString().substring(0,4));
-
+        boolean b = ATOMIC_BOOLEAN.get();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         try {
             final Date parse = simpleDateFormat.parse(budgetYear.toString());
@@ -34,6 +38,20 @@ public class HttpSendTest {
         }
         final String byBudgetYear = getBudgetTypeByBudgetYear(budgetYear);
         System.out.println(byBudgetYear);
+
+
+
+        BigDecimal one  = new BigDecimal("1");
+        BigDecimal two  = new BigDecimal("2");
+        boolean flag = false;
+        System.out.println(one.compareTo(two));
+//        System.out.println(one.compareTo(two)>0);//大于
+//        System.out.println(one.compareTo(two)>=0);//大于等于
+        System.out.println(one.compareTo(two)<0);//小于
+        System.out.println(one.compareTo(two)<=0);//小于等于
+
+
+
     }
 
     private static String getBudgetTypeByBudgetYear(Integer budgetYear) {

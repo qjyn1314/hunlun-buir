@@ -33,8 +33,12 @@ public class IocTest {
                 不带@Configuration的类叫Lite配置类
                 Full模式下，通过方法调用指向的仍旧是原来的Bean
                 lite模式下，直接返回新实例对象。
-         *
-         *
+
+         * ioc：控制反转
+         *      1、把创建对象和对象之间的调用过程，交给spring管理
+         *      2、使用ioc是为了降低耦合
+         *  原理：xml解析、工程模式、反射、
+         * 1、
          *
          *
          *

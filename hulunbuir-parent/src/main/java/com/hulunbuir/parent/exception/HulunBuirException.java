@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author wangjunming
  * @since 2020-01-16 11:41
  */
-public class HulunBuirException extends Exception implements Serializable {
+public class HulunBuirException extends RuntimeException implements Serializable {
 
     private HulunBuirException() {
     }
