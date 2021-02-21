@@ -1,14 +1,16 @@
 package com.hulunbuir.security.config;
 
+import com.hulunbuir.security.filter.AuthTokenFilter;
 import com.hulunbuir.security.handle.AuthFailureHandler;
 import com.hulunbuir.security.handle.AuthLogoutHandler;
 import com.hulunbuir.security.handle.AuthSuccessHandler;
-import com.hulunbuir.security.handle.AuthTokenFilter;
 import com.hulunbuir.security.support.Auth;
+import com.hulunbuir.security.util.AuthUserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +37,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -78,7 +81,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthLogoutHandler();
     }
 
-
     /**
      * 安全拦截放过的URL路径
      */
@@ -92,9 +94,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 用户认证
-     *
-     * @param auth
-     * @throws Exception
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -109,6 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //未授权的页面
         http.exceptionHandling().accessDeniedPage("/error/403");
         //处理前端请求跨域的问题，参考：https://blog.csdn.net/davylee2008/article/details/61420751
         http.headers().frameOptions().sameOrigin()
@@ -145,11 +145,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //跨域
                 .and().cors()
                 //禁用跨站csrf攻击防御
-                .and().csrf().disable()
+                .and().csrf().disable();
                 // 添加JWT过滤器
-                .addFilter(new AuthTokenFilter());
+//        http.addFilterAt(new AuthTokenFilter(),);
         //开启记住我的功能，默认时间是两周
-        http.rememberMe();
+        http.rememberMe()
+                .alwaysRemember(Boolean.TRUE)
+                //cookie的过期秒数
+                .tokenValiditySeconds(AuthUserUtil.AUTH_COOKIE_TIME)
+                .rememberMeCookieName("hulunbuir_user")
+                .key(AuthUserUtil.AUTH_TOKEN_KEY)
+                .userDetailsService(userDetailsService());
     }
 
     /**

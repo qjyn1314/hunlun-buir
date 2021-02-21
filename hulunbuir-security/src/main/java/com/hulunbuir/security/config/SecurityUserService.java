@@ -27,7 +27,7 @@ public class SecurityUserService implements UserDetailsService {
     private AuthProvider authProvider;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws AuthenticationException {
+    public CurrentUser loadUserByUsername(String userName) throws AuthenticationException {
         log.info("当前进行登录的用户名是：{}", userName);
         final AuthUser authUser = authProvider.queryUser(userName);
         if (null == authUser) {

@@ -1,6 +1,5 @@
 package com.hulunbuir.security.util;
 
-import com.hulunbuir.common.config.ApplicationUtil;
 import com.hulunbuir.common.config.RedisService;
 import com.hulunbuir.distributed.evening.AuthProvider;
 import com.hulunbuir.distributed.evening.AuthUser;
@@ -21,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -43,7 +41,7 @@ public class AuthUserUtil {
     public static final String AUTH_TOKEN_KEY = "AuthToken_";
     public static final int AUTH_COOKIE_TIME = 60 * 60 * 24;
     public static final int AUTH_REDIS_TIME = 60 * 60 * 12;
-    private static final String AUTH_PREFIX = "Auth_";
+    public static final String AUTH_PREFIX = "Auth_";
     /**
      * 签发jwt-token中map的key
      */
@@ -125,19 +123,11 @@ public class AuthUserUtil {
      * 获取当前登录用户的详细信息
      * <p>
      * 为其他模块调用的静态方法，获取当前登录用户信息
-     * <p>
-     * 1.从当前请求头中获取当前登录用户的信息
-     * <p>
-     * 2.从浏览器中获取当前登录用户信息
-     * <p>
-     * 3.从redis中获取当前登录用户信息
-     * <p>
-     * 4.获取不到时则通过当前登录用户名从数据库查找
      *
      * @author wangjunming
      * @since 2020/11/28 22:06
      */
-    public static CurrentUser currentUser() throws HulunBuirException {
+    public static CurrentUser currentUser() {
         final CurrentUser authUser = authUser();
         if (null == authUser) {
             HulunBuirException.build("当前登录用户信息过期，请重新登录。");
@@ -149,7 +139,7 @@ public class AuthUserUtil {
     /**
      * 将当前登录用户信息转换成一个jwt-token，并存储到redis中，和cookie中
      */
-    public static String getAuthToken(HttpServletResponse response, Authentication authentication) {
+    private static String getAuthToken(HttpServletResponse response, Authentication authentication) {
         log.info("SecurityContextHolder.getContext().getAuthentication()与登录成功处理器中的[Authentication authentication]是否一致：{}", authentication().equals(authentication));
         CurrentUser currentUser = getUserBySecurityAndDb();
         String authToken = AUTH_PREFIX + JwtUtils.doGenerateToken(chimesMap(currentUser));

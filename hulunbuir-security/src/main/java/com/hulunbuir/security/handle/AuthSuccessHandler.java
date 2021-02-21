@@ -25,8 +25,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         log.info("登录成功了---------进入登陆成功处理器！！！");
-        final String authToken = AuthUserUtil.getAuthToken(response, authentication);
-        log.info("当前登录用户生成的token是：{}", authToken);
+//        final String authToken = AuthUserUtil.getAuthToken(response, authentication);
+//        log.info("当前登录用户生成的token是：{}", authToken);
         response.sendRedirect(Auth.LOGIN_SUCCESS_URL);
     }
 }
