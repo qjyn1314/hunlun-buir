@@ -19,5 +19,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
+        log.info("admin_run_success");
     }
 }

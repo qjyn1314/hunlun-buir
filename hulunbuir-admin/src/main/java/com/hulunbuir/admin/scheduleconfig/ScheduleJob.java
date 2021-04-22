@@ -78,10 +78,8 @@ public class ScheduleJob {
     @Autowired
     private SetOperations<String,Object> setOperations;
 
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void checkRedisSetMessage() {
-
-
 
 
     }

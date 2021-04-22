@@ -1,9 +1,8 @@
-package com.hulunbuir.admin.controller;
+package com.hulunbuir.admin.worktest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 /**
  * <p>
@@ -86,13 +85,33 @@ public class ControllerTest {
 //        final List<String> phones = usersPos.stream().map(UsersPo::getPhone).collect(Collectors.toList());
 //        final List<Long> userIds = userSupplierPos.stream().map(UserSupplierPo::getUserId).collect(Collectors.toList());
 
-        final long count1 = supplierPos.stream().distinct().count();
+//        final long count1 = supplierPos.stream().distinct().count();
+//
+//        final long count = supplierPos.size();
+//        System.out.println(count1);
+//        System.out.println(count);
 
-        final long count = supplierPos.size();
-        System.out.println(count1);
-        System.out.println(count);
-
-
+        System.out.println(randomStr(64));
     }
+
+    /**
+     * 生成指定长度的随机字符串
+     *
+     * @param length 指定长度
+     * @author wangjunming
+     * @since 2021/3/16 20:23
+     * @return java.lang.String
+     */
+    public static String randomStr(int length){
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            stringBuffer.append(str.charAt(number));
+        }
+        return stringBuffer.toString();
+    }
+
 
 }

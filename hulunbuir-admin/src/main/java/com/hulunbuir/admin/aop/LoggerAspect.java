@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.design.proxy;
+package com.hulunbuir.admin.aop;
 
 import com.hulunbuir.common.config.ApplicationUtil;
 import org.aspectj.lang.JoinPoint;

@@ -5,8 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -38,9 +37,6 @@ private static volatile AtomicBoolean ATOMIC_BOOLEAN = new AtomicBoolean();
         }
         final String byBudgetYear = getBudgetTypeByBudgetYear(budgetYear);
         System.out.println(byBudgetYear);
-
-
-
         BigDecimal one  = new BigDecimal("1");
         BigDecimal two  = new BigDecimal("2");
         boolean flag = false;
@@ -50,7 +46,11 @@ private static volatile AtomicBoolean ATOMIC_BOOLEAN = new AtomicBoolean();
         System.out.println(one.compareTo(two)<0);//小于
         System.out.println(one.compareTo(two)<=0);//小于等于
 
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
 
+        String join = String.join(",", (CharSequence) integers);
+
+        System.out.println(join);
 
     }
 

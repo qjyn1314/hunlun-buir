@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.controller;
+package com.hulunbuir.admin.worktest;
 
 import lombok.Data;
 

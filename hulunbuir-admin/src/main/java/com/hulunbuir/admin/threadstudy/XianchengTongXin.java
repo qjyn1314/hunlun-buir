@@ -1,4 +1,6 @@
-package com.hulunbuir.admin.threadtest;
+package com.hulunbuir.admin.threadstudy;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -9,6 +11,7 @@ package com.hulunbuir.admin.threadtest;
  * @author wangjunming
  * @since 2020/8/25 15:19
  */
+@Slf4j
 public class XianchengTongXin {
 
     /**
@@ -22,7 +25,7 @@ public class XianchengTongXin {
 
 }
 
-//生产者 演员
+/**生产者 演员*/
 class Player extends Thread {
 
     Tv tv;
@@ -43,7 +46,7 @@ class Player extends Thread {
     }
 }
 
-//消费者 观众
+/**消费者 观众*/
 class Watcher extends Thread {
     Tv tv;
 
@@ -59,21 +62,22 @@ class Watcher extends Thread {
     }
 }
 
-//同一个资源是电视
+/**同一个资源是电视*/
+@Slf4j
 class Tv {
-    //演员所说的话
+    /**演员所说的话*/
     String notice;
-    //信号灯的标志
+    /**信号灯的标志*/
     boolean flag = true;
 
-    //演员表演节目
+    /**演员表演节目*/
     public synchronized void play(String notice) {
         //演员等待
         if(!flag){
             try {
                 this.wait();
             } catch (InterruptedException e) {
-
+                log.error("InterruptedException:",e);
             }
         }
         //开始表演
@@ -85,7 +89,7 @@ class Tv {
         this.flag = !this.flag;
     }
 
-    //观众观看节目
+    /**观众观看节目*/
     public synchronized void watch() {
         //观众等待
         if(flag){

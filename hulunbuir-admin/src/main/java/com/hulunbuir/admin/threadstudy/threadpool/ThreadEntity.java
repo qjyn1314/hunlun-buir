@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.threadconfig;
+package com.hulunbuir.admin.threadstudy.threadpool;
 
 /**
  * <p>

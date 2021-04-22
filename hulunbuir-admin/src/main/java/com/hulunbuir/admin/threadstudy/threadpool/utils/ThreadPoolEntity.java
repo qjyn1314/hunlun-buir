@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.threadconfig.utils;
+package com.hulunbuir.admin.threadstudy.threadpool.utils;
 
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.threadconfig;
+package com.hulunbuir.admin.threadstudy.threadpool;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ThreadTest {
 
     @Autowired
     private ThreadService service;
-    @Resource
+    @Autowired
     private ThreadPoolTaskExecutor hulunExecutor;
 
 //    @Scheduled(cron = "0/10 * * * * ?")

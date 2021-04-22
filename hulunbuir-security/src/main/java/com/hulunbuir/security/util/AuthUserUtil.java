@@ -186,7 +186,6 @@ public class AuthUserUtil {
      */
     public static void logoutHandle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         RequestUtils.deleteCookieByName(request, response, AUTH_TOKEN_KEY);
-        redisTemplate.deleteByKey(AUTH_TOKEN_KEY + RedisService.ASTERISK);
     }
 
     /**

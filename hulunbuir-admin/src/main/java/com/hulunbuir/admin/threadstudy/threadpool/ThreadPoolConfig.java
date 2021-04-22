@@ -1,14 +1,11 @@
-package com.hulunbuir.admin.threadconfig;
+package com.hulunbuir.admin.threadstudy.threadpool;
 
-import com.hulunbuir.admin.threadconfig.utils.ThreadPoolExceptionHandler;
-import org.springframework.boot.task.TaskExecutorBuilder;
+import com.hulunbuir.admin.threadstudy.threadpool.utils.ThreadPoolExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <p>
@@ -33,7 +30,7 @@ public class ThreadPoolConfig {
      * @since 2020/11/22 21:35
      */
     @Bean
-    public TaskExecutor hulunExecutor() {
+    public TaskExecutor hulunbuirExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数
         executor.setCorePoolSize(5);

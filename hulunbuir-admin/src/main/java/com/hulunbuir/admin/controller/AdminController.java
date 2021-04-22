@@ -1,7 +1,8 @@
 package com.hulunbuir.admin.controller;
 
 import com.hulunbuir.admin.submit.NoRepeatSubmit;
-import com.hulunbuir.admin.threadconfig.ThreadService;
+import com.hulunbuir.admin.threadstudy.threadpool.ThreadService;
+import com.hulunbuir.admin.worktest.SupplierPo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.threadconfig.utils;
+package com.hulunbuir.admin.threadstudy.threadpool.utils;
 
 import org.springframework.stereotype.Component;
 
@@ -23,15 +23,15 @@ public class ThreadPoolUtils {
     /**
      * 最大线程数
      */
-    private static final int MAX_SIZE = 500;
+    private static final int MAX_SIZE = 10;
     /**
      * 线程活跃时间（秒）
      */
-    private static final int KEEP_ALIVE_SECONDS = 5;
+    private static final int KEEP_ALIVE_SECONDS = 15;
     /**
      * 任务队列数
      */
-    private static final int QUEUE_CAPACITY = 100;
+    private static final int QUEUE_CAPACITY = 15;
 
     /**
      * 获取自定义线程池

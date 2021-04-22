@@ -17,11 +17,11 @@ public class TransactionStudy {
 
     public static void main(String[] args) {
         ApplicationContext acs = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\transaction\\transactionxml\\applicationContext.xml");
-        IUserService userService = (IUserService) acs.getBean("userService");
+        IUserService userService = acs.getBean(IUserService.class);
         userService.transfer("jack","luse",1000);
 
         ApplicationContext acsAnno = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\transaction\\transactionanno\\applicationContext.xml");
-        IUserAnnoService userAnnoService = (IUserAnnoService) acsAnno.getBean("userService");
+        IUserAnnoService userAnnoService = acsAnno.getBean(IUserAnnoService.class);
         userAnnoService.transfer("jack","luse",1000);
     }
 

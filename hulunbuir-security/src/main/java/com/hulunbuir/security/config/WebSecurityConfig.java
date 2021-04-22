@@ -1,6 +1,5 @@
 package com.hulunbuir.security.config;
 
-import com.hulunbuir.security.filter.AuthTokenFilter;
 import com.hulunbuir.security.handle.AuthFailureHandler;
 import com.hulunbuir.security.handle.AuthLogoutHandler;
 import com.hulunbuir.security.handle.AuthSuccessHandler;
@@ -153,8 +152,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .alwaysRemember(Boolean.TRUE)
                 //cookie的过期秒数
                 .tokenValiditySeconds(AuthUserUtil.AUTH_COOKIE_TIME)
+                //form表单中的记住我input框的name属性值
                 .rememberMeCookieName("hulunbuir_user")
-                .key(AuthUserUtil.AUTH_TOKEN_KEY)
+//                .key(AuthUserUtil.AUTH_TOKEN_KEY)
+                //配置用户service，用于在关闭浏览器再次打开时，使用此service型数据库中根据名称查询用户数据，
                 .userDetailsService(userDetailsService());
     }
 
