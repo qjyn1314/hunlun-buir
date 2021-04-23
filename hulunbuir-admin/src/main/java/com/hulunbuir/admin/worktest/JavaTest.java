@@ -4,6 +4,8 @@ import cn.hutool.core.io.IoUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -16,7 +18,18 @@ import java.io.*;
 @Slf4j
 public class JavaTest {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(1);
+        for (Object object : objects) {
+            if (object.equals(1)) {
+                objects.remove(1);
+            }
+            objects.add(1);
+        }
+    }
+
+    public static void test001() throws IOException {
         //页码的数量
         int pageNo = 2;
         pageNo = (pageNo - 1) < 0 ? 0 : pageNo - 1;
@@ -39,12 +52,8 @@ public class JavaTest {
         IoUtil.copy(input,out);
         log.info("out:{}",out);
         out.flush();
-        if(input!=null){
-            input.close();
-        }
-        if(out!=null){
-            out.close();
-        }
+        input.close();
+        out.close();
         try {
             fileTmp.delete();
         } catch (Exception e) {

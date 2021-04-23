@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.datastructure;
+package com.hulunbuir.admin.study;
 
 import java.util.Hashtable;
 

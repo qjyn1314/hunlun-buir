@@ -3,6 +3,7 @@ package com.hulunbuir.admin.consumer;
 import com.hulunbuir.admin.mail.MailService;
 import com.hulunbuir.distributed.admin.AdminMailProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@Service
+@DubboService
 public class AdminMailProviderImpl implements AdminMailProvider {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.hulunbuir.distributed.evening.AuthUser;
 import com.hulunbuir.evening.persistence.entity.SysUser;
 import com.hulunbuir.evening.persistence.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@Service
+@DubboService
 public class AuthProviderImpl implements AuthProvider {
 
     @Autowired

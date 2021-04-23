@@ -15,7 +15,7 @@
     <description>Clam project for Spring Boot</description>
 
     <properties>
-        <dubbo.version>2.7.5</dubbo.version>
+        <dubbo.version>2.7.8</dubbo.version>
         <curator.version>5.1.0</curator.version>
     </properties>
 

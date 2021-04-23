@@ -1,9 +1,15 @@
 package com.hulunbuir.evening;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hulunbuir.common.config.RedisService;
+import com.hulunbuir.common.redisson.RedisLockConstants;
+import com.hulunbuir.common.redisson.RedissonLock;
+import com.hulunbuir.distributed.evening.AuthProvider;
+import com.hulunbuir.distributed.evening.AuthUser;
 import com.hulunbuir.evening.persistence.service.ISysPermissionService;
 import com.hulunbuir.evening.persistence.vo.SysPermissionTree;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,15 +49,22 @@ class EveningApplicationTests {
 
     @Autowired
     private ListOperations<String, Object> listOperations;
+
+    @DubboReference
+    private AuthProvider authProvider;
+
+    @Autowired
+    private RedissonLock redissonLock;
+
     @Test
     void contextLoadsList() {
-
-//        listOperations.rightPush();
-
-
-
-
-
+        redissonLock.lock(RedisLockConstants.REDIS_TEST_LOCK);
+        try {
+            AuthUser authUser = authProvider.queryUser("admin");
+            log.info("authUser:{}", JSONObject.toJSONString(authUser));
+        } finally {
+            redissonLock.unlock(RedisLockConstants.REDIS_TEST_LOCK);
+        }
     }
 
 

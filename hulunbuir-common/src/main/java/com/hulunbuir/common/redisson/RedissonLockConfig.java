@@ -12,7 +12,10 @@ import java.io.IOException;
 
 /**
  * <p>
- * explain: 分布式锁配置类，参考与： https://blog.csdn.net/zhangcongyi420/article/details/89980469
+ * explain: 分布式锁配置类
+ * <p>
+ * 参考与： https://blog.csdn.net/zhangcongyi420/article/details/89980469
+ * https://www.cnblogs.com/throwable/p/14264804.html
  * </p>
  *
  * @author wangjunming

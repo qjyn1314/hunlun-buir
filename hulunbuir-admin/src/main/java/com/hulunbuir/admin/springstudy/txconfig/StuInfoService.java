@@ -21,7 +21,7 @@ public class StuInfoService {
     @Transactional(rollbackFor = Exception.class)
     public void insertStuInfo(StuInfo stuInfo){
         stuInfoMapper.insertStuInfo(stuInfo);
-        Integer i = 10/0;
+//        Integer i = 10/0;
     }
 
 
