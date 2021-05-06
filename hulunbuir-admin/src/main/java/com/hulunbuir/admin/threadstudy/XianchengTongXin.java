@@ -21,6 +21,9 @@ public class XianchengTongXin {
         Tv tv = new Tv();
         new Player(tv).start();
         new Watcher(tv).start();
+
+        new ThreadStudyTest();
+
     }
 
 }

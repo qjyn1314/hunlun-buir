@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 
 /**
  * <p>
@@ -25,7 +26,7 @@ public class ScheduleJob {
     @Autowired
     RedisService redisService;
     @Autowired
-    private RedisTemplate<String, Object> redisStrKeyTemplate;
+    private RedisTemplate<String, Object> strTemplate;
 
     /**
      * 测试定时任务-每十秒执行一次
@@ -51,12 +52,12 @@ public class ScheduleJob {
     /**
      * 测试定时任务-每十秒执行一次
      * 表达式参考：  https://www.bejson.com/othertools/cron/
-     *
+     * 测试直连模式的mq
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-//    @Scheduled(cron = "0/25 * * * * ?")
-    public void checkState2() {
+//    @Scheduled(cron = "0/10 * * * * ?")
+    public void checkTestDirect() {
         log.info(">>>>> cron测试定时任务-每25秒执行一次检查MQ信息开始....");
         RabbitMqUtils.messageDevJson(new RabbitMqQo());
         log.info(">>>>> cron测试定时任务-每25秒执行一次检查MQ信息结束....");
@@ -65,14 +66,14 @@ public class ScheduleJob {
     /**
      * 测试定时任务-每十秒执行一次
      * 表达式参考：  https://www.bejson.com/othertools/cron/
-     *
+     * 测试广播模式的mq
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-//    @Scheduled(cron = "0/10 * * * * ?")
-    public void checkRedisMessage() {
+    @Scheduled(cron = "0/10 * * * * ?")
+    public void checkTestFanout() {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
-        RabbitMqUtils.messageProdFanout("MQ消息手动确认信息！！");
+        RabbitMqUtils.messageTestFanout(new RabbitMqQo());
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息结束....");
     }
     @Autowired

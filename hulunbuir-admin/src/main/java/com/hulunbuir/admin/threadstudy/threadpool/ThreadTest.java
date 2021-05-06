@@ -23,8 +23,8 @@ public class ThreadTest {
 
     @Autowired
     private ThreadService service;
-    @Autowired
-    private ThreadPoolTaskExecutor hulunExecutor;
+    @Autowired(required = false)
+    private ThreadPoolTaskExecutor applicationTaskExecutor;
 
 //    @Scheduled(cron = "0/10 * * * * ?")
     public void threadServiceSayHello() {

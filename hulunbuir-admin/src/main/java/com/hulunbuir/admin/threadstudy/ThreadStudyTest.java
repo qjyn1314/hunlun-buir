@@ -3,71 +3,84 @@ package com.hulunbuir.admin.threadstudy;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <p>
  * explain: 多线程，并行，并发，juc，线程池-->学习记录：
+ * <p>
  * 进程：
  * 进程是用来加载指令、管理内存、管理IO的
+ * <p>
  * 线程：
  * 一个进程内可以分为多个线程。
+ * <p>
  * java中，线程为最小的调度单位，进程作为分配资源的最小单位。在windows中进程是不活动的，只是作为线程的容器
+ * <p>
  * 并发：
- * 线程轮流使用cpu的做法称为并发，concurrent
+ * 线程轮流使用cpu的做法称为并发，concurrent。
  * 即：同一时间应对多件事情的能力
+ * <p>
  * 并行：
- * 在多核cpu中，每个核都可以调度运行线程，这时候线程可以是并行
+ * 在多核cpu中，每个核都可以调度运行线程，这时候线程可以是并行。
  * 即：同一时间动手做多件事情的能力
+ * <p>
  * 原理之线程运行：
+ * <p>
  * 1、栈与栈帧：
  * jvm是由堆、栈、方法区、组成。
- * 其中栈内存就是给线程用的，每一个线程启动后，虚拟机就会为其分配一块内存。
- * 每个栈是由多个栈帧组成，对应着每次方法调用时，所占的内存。
- * 每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法。
- *
- *
- *
- *
- *
- *
- *
- * </p>
  * <p>
- * 只要涉及到并发，一定会涉及锁
+ * 其中栈内存就是给线程用的，每一个线程启动后，虚拟机就会为其分配一块栈内存。
+ * <p>
+ * 每个栈是由多个栈帧组成，对应着每次方法调用时，所占的内存。
+ * <p>
+ * 每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法。
+ * <p>
+ * synchronized 原理(只要涉及到并发，一定会涉及锁)：
+ * <p>
+ * synchronized 特性：
+ *
+ * synchronized是可重入锁，内部锁对象中会有一个计数器记录线程获取几次锁啦，在执行完同步代码块时，计数器的数量会-1，直到计数器的数量为0，就释放这个锁。
  * <p>
  * 其中synchronized与lock(灵活度非常高)的区别是什么？
+ * <p>
  * 1.synchronized  内置的java关键字，lock是一个java类
+ * <p>
  * 2.synchronized  无法判断获取锁的状态，lock可以判断是否获取到了锁
+ * <p>
  * 3.synchronized  会自动释放锁，lock必须手动的释放锁，如果不释放，则产生死锁
+ * <p>
  * 4.synchronized  线程1（获取锁，阻塞），线程2（等待，傻傻的等）;lock锁就不一定会等待下去，使用lock.tryLock()进行尝试获取锁
+ * <p>
  * 5.synchronized  课冲如梭，不可以中断的，非公平；lock可重入锁，可以判断锁，非公平，可以自己设置
+ * <p>
  * 6.synchronized  适合锁少量的代码同步问题，lock适合所大量的同步代码
  * <p>
- *
  * <p>
  * 创建线程的两种方式：
- * 继承thread类：
+ * 继承thread类： ThreadStudyTest#test001()
  * <p>
- * 实现runnable接口：
+ * 实现runnable接口：ThreadStudyTest#test002()
  * <p>
- * 实现callable接口:
+ * 实现callable接口: ThreadStudyTest#test003()
  * <p>
  * 其设计原理上，实现runnable接口使用了静态代理模式
  * <p>
  * lambad表达式：只有一行代码的情况下才能简化成一行代码，如果多行，那么就用代码块包裹。
+ * <p>
  * 前提是接口为函数式接口，函数式接口是指，接口中只有一个方法。
  * <p>
  * volatile 关键字：
- * volatile 关键字原理的前提知识：
- * 学习线程提前了解的基本概念：
- * 每一个线程都对应着一块工作空间，对主内存块中进行数据的处理。
+ * <p>
  * 处理流程：
+ * <p>
  * 将主内存中的数据拿到，进行更改，之后再写入到主内存中。
+ * <p>
  * 被修饰的变量只是对各个线程保证了可见性，而并没有保证原子性。
  *
  * @author wangjunming
@@ -78,17 +91,20 @@ public class ThreadStudyTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ThreadStudyTest studyTest = new ThreadStudyTest();
-//        studyTest.test001();
-//        studyTest.test002();
+        studyTest.test001();
+        studyTest.test002();
         log.info("main-主线程....");
-//        studyTest.test003();
+        studyTest.test003();
 //        studyTest.test004();
-//        studyTest.test007();
-//        studyTest.test008();
-//        studyTest.test009();
-//        studyTest.test010();
-//        studyTest.test011();
+        studyTest.test007();
+        studyTest.test008();
+        studyTest.test009();
+        studyTest.test010();
+        studyTest.test011();
         studyTest.test012();
+        studyTest.test013();
+        studyTest.test014();
+        studyTest.test015();
     }
 
     /**
@@ -174,6 +190,29 @@ public class ThreadStudyTest {
         };
         t2.start();
     }
+
+
+
+    /**
+     * Thread-的常用方法、状态、以及作用
+     *
+     * @author wangjunming
+     * @since 2021/4/22 15:17
+     */
+    public static void test005() throws InterruptedException {
+        log.info(" Thread-的常用方法。");
+        final Thread.State[] values = Thread.State.values();
+        log.info("线程的状态：{}", Arrays.asList(values));
+        //线程睡眠
+        TimeUnit.SECONDS.sleep(1);
+        //主要是为了放大问题的出现性
+        Thread.sleep(100);
+        Thread.yield();
+        Thread.interrupted();
+        Thread thread = new Thread();
+        thread.join();
+    }
+
 
     private static int test007 = 5;
     private static final Object test007Lock = new Object();
@@ -302,7 +341,8 @@ public class ThreadStudyTest {
      * <p>
      * synchronized，即对象锁。
      * <p>
-     * ：主要采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其他线程再想获取这个【对象锁】时就会阻塞住。
+     * 基本原理：主要采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其他线程再想获取这个【对象锁】时就会阻塞住。
+     * <p>
      * 这样就能保证拥有锁的线程可以安全的执行临界区内的代码，不用担心线程上下文切换。
      * <p>
      * java中的互斥和同步都可以采用 synchronized 关键字来完成，但是还是有区别的：
@@ -310,6 +350,7 @@ public class ThreadStudyTest {
      * 1、互斥是保证临界区的竟态条件发生，同一时刻只能有一个线程执行临界区代码
      * <p>
      * 2、同步是由于线程执行的先后、顺序不同，需要一个线程等待其他线程运行到某个点
+     *
      *
      * @author wangjunming
      * @since 2021/4/22 15:17
@@ -369,6 +410,7 @@ public class ThreadStudyTest {
 
     /**
      * 测试对象中的同步代码块，使用 synchronized 修饰临界区，对象锁为当前对象
+     * <p>
      * 总结:
      * <p>
      * 1、成员方法上加入 synchronized 关键字，此是锁住的对象为 this，例如：synchronized (this)  等同于   public synchronized void increment()
@@ -432,7 +474,7 @@ public class ThreadStudyTest {
     }
 
 
-    class Test009 {
+    static class Test009 {
 
         private int test009 = 10;
 
@@ -669,17 +711,38 @@ public class ThreadStudyTest {
      * 如果该对象没有逃离方法的作用方法，他是线程安全的
      * <p>
      * 如果该对象逃离方法的作用范围，就需要考虑线程安全
+     * <p>
+     * //方法可能会被子类去继承，这个时候可能会发生线程安全的问题
      *
      * @author wangjunming
      * @since 2021/4/23 16:40
      */
     public void test011() {
-        //方法可能会被子类去继承，这个时候可能会发生线程安全的问题
+
     }
 
     /**
+     * synchronized 关键字：
+     * <p>
+     * Monitor(存储在java对象头)：被翻译成监视器或管程
+     * <p>
+     * 每一个java对象都可以关联一个Monitor对象，如果使用了 synchronized 给对象上了锁，之后，该对象头 markword中就会设置指向Monitor对象的指针。
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * synchronized  修饰在成员方法上，锁对象为当前调用的对象，即，this
+     * <p>
+     * synchronized  修饰在静态方法上，锁对象为class对象，即，类名.class
+     * <p>
+     * synchronized 的原理：
+     * <p>
      * 线程安全的类
-     *
+     * <p>
      * String
      * Integer
      * StringBuffer
@@ -687,7 +750,7 @@ public class ThreadStudyTest {
      * Vector
      * HashTable
      * java.util.concurrent 包下的类
-     *
+     * <p>
      * 需要注意的是：
      * 其中每一个方法是线程安全的，但是方法的组合是线程不安全的
      *
@@ -695,25 +758,150 @@ public class ThreadStudyTest {
      * @since 2021/4/23 17:04
      */
     public void test012() {
+        log.info("String类中：其中每一个方法是线程安全的，但是方法的组合是线程不安全的。");
+    }
+
+    /**
+     * 售票并发问题
+     * <p>
+     * 测试：模拟多个人来买票
+     * <p>
+     * 即，多个线程来买票
+     * <p>
+     * 解决:
+     * 在买票方法上加上 synchronized 关键字
+     *
+     * @author wangjunming
+     * @since 2021/4/25 11:12
+     */
+    public void test013() throws InterruptedException {
+        TicketWindows windows = new TicketWindows(1000);
+        List<Integer> sellCountList = new Vector<>();
+        List<Thread> threadList = new ArrayList<>();
+        for (int i = 0; i < 2000; i++) {
+            Thread thread = new Thread(() -> {
+                int sell = windows.sell(getRandomInt());
+                try {
+                    Thread.sleep(getRandomInt());
+                } catch (InterruptedException e) {
+                    log.error("睡眠失败，", e);
+                }
+                sellCountList.add(sell);
+            }, "test013" + i);
+            threadList.add(thread);
+            thread.start();
+        }
+
+        for (Thread thread : threadList) {
+            thread.join();
+        }
+
+        log.info("余票数为：{}", windows.getCount());
+        log.info("已卖票数为：{}", sellCountList.stream().mapToInt(i -> i).sum());
+    }
+
+    public static Random random = new Random();
+
+    public static int getRandomInt() {
+        return random.nextInt(5) + 1;
+    }
+
+    /**
+     * 售票窗口
+     */
+    static class TicketWindows {
+        private Integer count;
+
+        public TicketWindows(Integer count) {
+            this.count = count;
+        }
+
+        public Integer getCount() {
+            return count;
+        }
+
+        public synchronized int sell(Integer sellCount) {
+            if (this.count >= sellCount) {
+                this.count -= sellCount;
+                return sellCount;
+            } else {
+                return 0;
+            }
+        }
 
     }
 
     /**
-     * Thread-的常用方法、状态、
+     * 两个人转账的并发问题
+     * <p>
+     * 解决：  synchronized (Account.class)  使用class对象作为锁对象。
+     * <p>
+     * 使用 synchronized 修饰 synchronized (Account.class)  使用类对象 作为锁对象。
      *
      * @author wangjunming
-     * @since 2021/4/22 15:17
+     * @since 2021/4/25 14:11
      */
-    public static void test005() throws InterruptedException {
-        log.info(" Thread-的常用方法。");
-        final Thread.State[] values = Thread.State.values();
-        log.info("线程的状态：{}", Arrays.asList(values));
-        //线程睡眠
-        TimeUnit.SECONDS.sleep(1);
-        //主要是为了放大问题的出现性
-        Thread.sleep(100);
-        Thread.yield();
-        Thread.interrupted();
+    public void test014() throws InterruptedException {
+        Account zhangsan = new Account(1000);
+        Account lisi = new Account(1000);
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 2000; i++) {
+                zhangsan.transfer(lisi, getRandomInt());
+            }
+        }, "test0141");
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 2000; i++) {
+                lisi.transfer(zhangsan, getRandomInt());
+            }
+        }, "test0142");
+        t1.start();
+        t2.start();
+        t1.join();//父线程需要等待子线程执行完成后再执行
+        t2.join();
+        log.info("totalAmount：{}", (zhangsan.getAmount() + lisi.getAmount()));
+    }
+
+    static class Account {
+        Integer amount;
+
+        public Integer getAmount() {
+            return amount;
+        }
+
+        public void setAmount(Integer amount) {
+            this.amount = amount;
+        }
+
+        public Account(Integer amount) {
+            this.amount = amount;
+        }
+
+        public void transfer(Account target, Integer transferAmount) {
+            synchronized (Account.class) {
+                if (this.amount >= transferAmount) {
+                    this.setAmount(this.getAmount() - transferAmount);
+                    target.setAmount(target.getAmount() + transferAmount);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * ReentrantLock，
+     * 特点：
+     *
+     * 可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     *
+     * 与 synchronized 一样的可以支持重入
+     *
+     * @author wangjunming
+     * @since 2021/4/28 14:00
+     */
+    private void test015() {
+        ReentrantLock lock = new ReentrantLock();
+
+
     }
 
     /**
@@ -723,28 +911,37 @@ public class ThreadStudyTest {
     public static ThreadLocal<String> threadLocal02 = ThreadLocal.withInitial(() -> "HelloWorld");
     public static ThreadLocal<String> threadLocal03 = new InheritableThreadLocal<>();
 
+    /**
+     * 对ThreadLocal的创建有几种方式
+     *
+     * @author wangjunming
+     * @since 2021/4/26 15:50
+     */
     public void test006() {
-        System.out.println(Thread.currentThread().getName() + "-->" + threadLocal01.get());
-        System.out.println(Thread.currentThread().getName() + "-->" + threadLocal02.get());
-        System.out.println(Thread.currentThread().getName() + "-->" + threadLocal03.get());
+        log.info(Thread.currentThread().getName() + "-->" + threadLocal01.get());
+        log.info(Thread.currentThread().getName() + "-->" + threadLocal02.get());
+        log.info(Thread.currentThread().getName() + "-->" + threadLocal03.get());
         threadLocal03.set("threadLocal03");
         new Thread(new ThreadStudyTest.MyThreadLocalRun()).start();
         new Thread(new ThreadStudyTest.MyThreadLocalRun()).start();
         new Thread(new ThreadStudyTest.MyThreadLocalRun()).start();
+        threadLocal01.remove();
+        threadLocal02.remove();
+        threadLocal03.remove();
     }
 
     static class MyThreadLocalRun implements Runnable {
         public MyThreadLocalRun() {
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal01.get());
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal02.get());
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal03.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal01.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal02.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal03.get());
         }
 
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal01.get());
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal02.get());
-            System.out.println(Thread.currentThread().getName() + "-->" + threadLocal03.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal01.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal02.get());
+            log.info(Thread.currentThread().getName() + "-->" + threadLocal03.get());
         }
     }
 
