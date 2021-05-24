@@ -2,7 +2,10 @@ package com.hulunbuir.admin.worktest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -90,7 +93,8 @@ public class ControllerTest {
 //        final long count = supplierPos.size();
 //        System.out.println(count1);
 //        System.out.println(count);
-
+        Map<String, SupplierPo> supplierPoMap = supplierPos.stream().collect(Collectors.toMap(SupplierPo::getPhone, Function.identity(),(key1,key2)->key1));
+        System.out.println(supplierPoMap);
         System.out.println(randomStr(64));
     }
 

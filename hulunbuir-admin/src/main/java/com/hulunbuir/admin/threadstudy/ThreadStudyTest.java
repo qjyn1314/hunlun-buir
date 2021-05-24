@@ -8,7 +8,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static cn.hutool.core.thread.ThreadUtil.sleep;
 
 /**
  * <p>
@@ -44,7 +47,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * synchronized 原理(只要涉及到并发，一定会涉及锁)：
  * <p>
  * synchronized 特性：
- *
+ * <p>
  * synchronized是可重入锁，内部锁对象中会有一个计数器记录线程获取几次锁啦，在执行完同步代码块时，计数器的数量会-1，直到计数器的数量为0，就释放这个锁。
  * <p>
  * 其中synchronized与lock(灵活度非常高)的区别是什么？
@@ -105,6 +108,9 @@ public class ThreadStudyTest {
         studyTest.test013();
         studyTest.test014();
         studyTest.test015();
+//        studyTest.test016();
+        studyTest.test017();
+        studyTest.test019();
     }
 
     /**
@@ -190,7 +196,6 @@ public class ThreadStudyTest {
         };
         t2.start();
     }
-
 
 
     /**
@@ -350,7 +355,6 @@ public class ThreadStudyTest {
      * 1、互斥是保证临界区的竟态条件发生，同一时刻只能有一个线程执行临界区代码
      * <p>
      * 2、同步是由于线程执行的先后、顺序不同，需要一个线程等待其他线程运行到某个点
-     *
      *
      * @author wangjunming
      * @since 2021/4/22 15:17
@@ -729,12 +733,6 @@ public class ThreadStudyTest {
      * 每一个java对象都可以关联一个Monitor对象，如果使用了 synchronized 给对象上了锁，之后，该对象头 markword中就会设置指向Monitor对象的指针。
      * <p>
      * <p>
-     * <p>
-     * <p>
-     * <p>
-     * <p>
-     * <p>
-     * <p>
      * synchronized  修饰在成员方法上，锁对象为当前调用的对象，即，this
      * <p>
      * synchronized  修饰在静态方法上，锁对象为class对象，即，类名.class
@@ -890,21 +888,302 @@ public class ThreadStudyTest {
     /**
      * ReentrantLock，
      * 特点：
-     *
-     * 可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
-     *
+     * 可重入；可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     * <p>
      * 与 synchronized 一样的可以支持重入
-     *
-     *
+     * <p>
+     * 此为：练习可重入
      *
      * @author wangjunming
      * @since 2021/4/28 14:00
      */
-    private void test015() {
-        ReentrantLock lock = new ReentrantLock();
-
+    public void test015() {
+        locktest015.lock();
+        try {
+            log.info("test015...");
+            m1();
+        } finally {
+            locktest015.unlock();
+        }
 
     }
+
+    public void m1() {
+        locktest015.lock();
+        try {
+            log.info("m1...");
+            m2();
+        } finally {
+            locktest015.unlock();
+        }
+    }
+
+    public void m2() {
+        locktest015.lock();
+        try {
+            log.info("m2...");
+        } finally {
+            locktest015.unlock();
+        }
+    }
+
+    public static ReentrantLock locktest015 = new ReentrantLock();
+
+    /**
+     * ReentrantLock，
+     * 特点：
+     * 可重入；可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     * <p>
+     * 此为：练习可中断
+     *
+     * @author wangjunming
+     * @since 2021/5/17 10:31
+     */
+    public void test016() {
+        Thread t1 = new Thread(() -> {
+            log.info("尝试获取到锁");
+            try {
+                //如果没有竞争关系那么此方法就会获取lock 对象锁
+                //如果有竞争关系就进入祖册队列，可以被其他线程用  interrupt 方法打断
+                locktest016.lockInterruptibly();
+            } catch (InterruptedException e) {
+                log.error("打断锁失败，", e);
+                log.info("没有获取到锁");
+                return;
+            }
+            try {
+                log.info("获取到锁");
+            } finally {
+                locktest016.unlock();
+            }
+
+        }, "test016");
+
+
+        //lock 加锁
+//        try {
+        locktest016.lock();
+//        } catch (Exception e) {
+//            log.error("e",e);
+//        }finally {
+//            locktest016.unlock();
+//        }
+
+        //启动线程
+        t1.start();
+
+        //让主线程睡眠 1  秒
+        sleep(1000);
+
+        log.info("尝试打断--t1 ");
+        //打断t1线程
+        t1.interrupt();
+
+    }
+
+    public static ReentrantLock locktest016 = new ReentrantLock();
+
+    /**
+     * ReentrantLock，
+     * 特点：
+     * 可重入；可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     * <p>
+     * 此为：练习尝试获得锁
+     * <p>
+     * 解决死锁的问题：首先将尝试获得A锁，在获取 成功之后在尝试获取 B锁，如果B锁获取失败，则释放A锁
+     *
+     * @author wangjunming
+     * @since 2021/5/17 10:31
+     */
+    public void test017() {
+        log.info("test017----");
+        Thread t1 = new Thread(() -> {
+            log.info("尝试获取到锁");
+            try {
+                /*locktest017.tryLock();//主要是为了解决无限期的等待下去
+                locktest017.tryLock(2,TimeUnit.SECONDS);*/
+                if (!locktest017.tryLock(2, TimeUnit.SECONDS)) {
+                    log.info("获取不到锁。");
+                    return;
+                }
+            } catch (Exception e) {
+                log.info("获取不到锁。", e);
+                return;
+            }
+            try {
+                log.info("获得到锁，此处为临界区的代码。");
+            } finally {
+                locktest017.unlock();
+            }
+        }, "test017");
+
+        //1.在主线程获得到锁
+        locktest017.lock();
+        log.info("获得到锁");
+        t1.start();
+        //2、睡眠一秒后主线程释放锁，进而让其他线程获得到锁
+        sleep(1000);
+        log.info("释放锁");
+        locktest017.unlock();
+
+    }
+
+    public static ReentrantLock locktest017 = new ReentrantLock();
+
+    /**
+     * ReentrantLock，
+     * 特点：
+     * 可重入；可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     * <p>
+     * 此为：练习条件变量，-- newCondition();
+     * <p>
+     * await 前需要获得锁
+     * <p>
+     * await 执行后，会释放锁，进入 ConditionObject 中等待
+     * <p>
+     * await 的线程被唤醒（或打断，或超时），将重新竞争lock锁
+     * <p>
+     * 在竞争 lock锁成功之后，从await后继续执行
+     *
+     * @author wangjunming
+     * @since 2021/5/24 12:02
+     */
+    public void test018() throws InterruptedException {
+        //创建一个新的 条件变量(休息室)
+        Condition condition1 = locktest018.newCondition();
+        //创建一个新的 条件变量(就餐厅)
+        Condition condition2 = locktest018.newCondition();
+
+        //获得锁
+        locktest018.lock();
+
+        //进入休息室
+        condition1.await();
+
+        //唤醒休息室
+        condition1.signal();
+
+        //唤醒所有的 条件变量
+        condition1.signalAll();
+
+    }
+
+    public static ReentrantLock locktest018 = new ReentrantLock();
+
+    /**
+     * ReentrantLock，
+     * 特点：
+     * 可重入；可中断；可以设置超时时间；可以设置为公平锁；支持多个条件变量；
+     * <p>
+     * 此为：练习条件变量，-- newCondition();，并操作实例
+     * <p>
+     * await 前需要获得锁
+     * <p>
+     * await 执行后，会释放锁，进入 ConditionObject 中等待
+     * <p>
+     * await 的线程被唤醒（或打断，或超时），将重新竞争lock锁
+     * <p>
+     * 在竞争 lock锁成功之后，从await后继续执行
+     *
+     * @author wangjunming
+     * @since 2021/5/24 12:02
+     */
+    public void test019() throws InterruptedException {
+        log.info("test019----");
+        Thread t1 = new Thread(() -> {
+            log.info("尝试获取到饭锁");
+            locktest019.lock();
+            try {
+                log.info("有饭没有：{}", condition1Flag);
+                while (!condition1Flag) {
+                    log.info("没饭，先歇会儿。");
+                    try {
+                        condition1.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                log.info("拿到饭了，开始吃饭。");
+                log.info("即，获得到锁，此处为临界区的代码。");
+            } finally {
+                locktest019.unlock();
+            }
+        }, "小南");
+
+        Thread t2 = new Thread(() -> {
+            log.info("尝试获取到烟锁");
+            locktest019.lock();
+            try {
+                log.info("有烟没有：{}", condition2Flag);
+                while (!condition2Flag) {
+                    log.info("没烟，先歇会儿。");
+                    try {
+                        condition2.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                log.info("拿到烟了，开始吃饭。");
+                log.info("即，获得到锁，此处为临界区的代码。");
+            } finally {
+                locktest019.unlock();
+            }
+        }, "小明");
+
+        t1.start();
+        t2.start();
+
+        Thread t3 = new Thread(() -> {
+            locktest019.lock();
+            try {
+                condition1Flag = true;
+                condition1.signal();
+            } finally {
+                locktest019.unlock();
+            }
+        }, "送饭的");
+        t3.start();
+        sleep(1000);
+        Thread t4 = new Thread(() -> {
+            locktest019.lock();
+            try {
+                condition2Flag = true;
+                condition2.signal();
+            } finally {
+                locktest019.unlock();
+            }
+        }, "送烟的");
+
+        t4.start();
+        sleep(1000);
+        Thread t5 = new Thread(() -> {
+            locktest019.lock();
+            try {
+                condition2Flag = true;
+                condition2.signal();
+            } finally {
+                locktest019.unlock();
+            }
+        }, "送烟的");
+
+        t5.start();
+
+    }
+
+    public static ReentrantLock locktest019 = new ReentrantLock();
+
+    /**
+     * 创建一个新的 条件变量(吃饭-休息室)
+     */
+    public static Condition condition1 = locktest019.newCondition();
+    /**
+     * 创建一个新的 条件变量(抽烟-休息室)
+     */
+    public static Condition condition2 = locktest019.newCondition();
+
+    public static boolean condition1Flag = false;
+    public static boolean condition2Flag = false;
+
 
     /**
      * ThreadLocal学习
