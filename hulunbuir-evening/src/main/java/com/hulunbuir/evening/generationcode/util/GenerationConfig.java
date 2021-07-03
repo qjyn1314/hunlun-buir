@@ -72,6 +72,7 @@ public class GenerationConfig implements Serializable {
     public static final String MAPPERXML_TEMPLATE = "mapperXml.ftl";
     public static final String DEFAULT_FOLDER = "default";
     public static final String XIN_MENG_FOLDER = "xinmeng";
+    public static final String SLC_FOLDER = "slc";
     /**
      * 存放在redis中的会话ID，用于获取当前操作人所生成的配置信息
      */

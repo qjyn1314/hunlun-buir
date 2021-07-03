@@ -2,20 +2,25 @@ package com.hulunbuir.evening.generationcode.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hulunbuir.evening.generationcode.util.GenerationConfig;
+import com.hulunbuir.common.base.QueryRequest;
+import com.hulunbuir.common.config.ApplicationUtil;
+import com.hulunbuir.common.config.RedisService;
 import com.hulunbuir.evening.generationcode.entity.CodeTable;
 import com.hulunbuir.evening.generationcode.entity.Column;
 import com.hulunbuir.evening.generationcode.mapper.GenerationMapper;
 import com.hulunbuir.evening.generationcode.service.GenerationService;
-import com.hulunbuir.common.base.QueryRequest;
-import com.hulunbuir.common.config.RedisService;
+import com.hulunbuir.evening.generationcode.util.GenerationConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,6 +38,7 @@ public class GenerationServiceImpl implements GenerationService {
     private GenerationMapper generationMapper;
     @Autowired
     private RedisService redisService;
+
     /**
      * 获取数据库列表
      *
@@ -54,6 +60,10 @@ public class GenerationServiceImpl implements GenerationService {
      */
     @Override
     public IPage<CodeTable> tables(QueryRequest queryRequest, CodeTable generation) {
+        Map<String, DataSource> currentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
+        log.info("当前SpringIoc中的动态数据源有--current：{},",currentDataSources.keySet());
+        String peek = DynamicDataSourceContextHolder.peek();
+        log.info("数据源名称是：{}",peek);
         Page<CodeTable> page = new Page<>(queryRequest.getCurrent(), queryRequest.getPageSize());
         return generationMapper.generationTables(page,generation);
     }
@@ -67,7 +77,7 @@ public class GenerationServiceImpl implements GenerationService {
      */
     @Override
     public Boolean saveGeneration(GenerationConfig generationConfig) {
-        redisService.setStrKey(generationConfig.getSessionId(),generationConfig,3600);
+        redisService.setStrKey(generationConfig.getSessionId(), generationConfig, 3600);
         return redisService.getStrValue(generationConfig.getSessionId()) != null;
     }
 

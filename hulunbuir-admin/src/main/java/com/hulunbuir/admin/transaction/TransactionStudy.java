@@ -16,11 +16,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TransactionStudy {
 
     public static void main(String[] args) {
-        ApplicationContext acs = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\transaction\\transactionxml\\applicationContext.xml");
+        ApplicationContext acs = new ClassPathXmlApplicationContext("com/hulunbuir/admin/transaction/transactionanno/applicationContext.xml");
         IUserService userService = acs.getBean(IUserService.class);
         userService.transfer("jack","luse",1000);
 
-        ApplicationContext acsAnno = new ClassPathXmlApplicationContext("com\\hulunbuir\\clam\\admin\\transaction\\transactionanno\\applicationContext.xml");
+        ApplicationContext acsAnno = new ClassPathXmlApplicationContext("com/hulunbuir/admin/transaction/transactionxml/applicationContext.xml");
         IUserAnnoService userAnnoService = acsAnno.getBean(IUserAnnoService.class);
         userAnnoService.transfer("jack","luse",1000);
     }

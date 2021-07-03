@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * 启动类 (exclude = SecurityAutoConfiguration.class)
+ * 启动类
  *
  * @author wangjunming
  * @since 2020/12/5 23:29
@@ -19,6 +19,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class EveningApplication {
     public static void main(String[] args) {
         SpringApplication.run(EveningApplication.class, args);
-        log.info("Start Success !!!");
+        log.info("Start_Success !!!");
     }
 }

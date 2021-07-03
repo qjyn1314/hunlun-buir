@@ -8,6 +8,7 @@ import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.hulunbuir.datasource.support.DataSourceConstants;
 import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.common.config.ApplicationUtil;
@@ -25,8 +26,11 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 数据源表 Service实现
@@ -151,9 +155,9 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
             DriverManager.getConnection(conf.getUrl(), conf.getUsername(), conf.getPassword());
         } catch (SQLException e) {
             log.error("数据源配置 {} , 获取链接失败", conf.getDatabaseName(), e);
-            return Boolean.FALSE;
+            return Boolean.TRUE;
         }
-        return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     /**
@@ -165,22 +169,20 @@ public class DatasourceConfServiceImpl implements IDatasourceConfService {
     @Override
     public List<DatasourceConf> dataSourceConfList() {
         final Map<String, DataSource> beforeCurrentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
-        log.info("当前SpringIoc中的动态数据源有：{},",beforeCurrentDataSources);
-
-        final Map<String, GroupDataSource> currentGroupDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentGroupDataSources();
-        log.info("当前SpringIoc中的动态数据源有：{},",currentGroupDataSources);
+        log.info("当前SpringIoc中的动态数据源有：{},", beforeCurrentDataSources);
+        //        final Map<String, GroupDataSource> currentGroupDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentGroupDataSources();
+//        log.info("当前SpringIoc中的动态数据源有：{},",currentGroupDataSources);
         //手动切换数据源
-        DynamicDataSourceContextHolder.push("steta_order");
-        final Map<String, DataSource> afterCurrentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
-        log.info("当前SpringIoc中的动态数据源有：{},",afterCurrentDataSources);
-        try {
-            final List<DatasourceConf> datasourceConfs = datasourceConfMapper.selectList(initQueryWrapper(null, null));
-        } catch (Exception e) {
-            log.error("查询失败:>{}",e.getMessage());
-        }
+//        DynamicDataSourceContextHolder.push("steta_order");
+//        final Map<String, DataSource> afterCurrentDataSources = ApplicationUtil.getBean(DynamicRoutingDataSource.class).getCurrentDataSources();
+//        log.info("当前SpringIoc中的动态数据源有：{},",afterCurrentDataSources);
         //将数据源切换至默认数据源
-        DynamicDataSourceContextHolder.clear();
-        return datasourceConfMapper.selectList(initQueryWrapper(null, null));
+//        DynamicDataSourceContextHolder.clear();
+        return beforeCurrentDataSources.keySet().stream().map(datasourceName -> {
+            DatasourceConf datasourceConf = new DatasourceConf();
+            datasourceConf.setDatasourceName(datasourceName);
+            return datasourceConf;
+        }).collect(Collectors.toList());
     }
 
 

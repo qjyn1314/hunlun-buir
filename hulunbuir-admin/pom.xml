@@ -16,6 +16,7 @@
 
     <properties>
         <druid.version>1.2.4</druid.version>
+        <easyexcel.version>2.2.10</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -23,6 +24,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
         </dependency>
         <!--数据源-->
         <dependency>
@@ -45,10 +51,20 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <!--整合rocketmq-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
             <version>2.2.0</version>
+        </dependency>-->
+        <!--整合mongodb-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <!--整合elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
     </dependencies>
 

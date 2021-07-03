@@ -1,6 +1,7 @@
 package com.hulunbuir.admin.mongodb;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -10,7 +11,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author wangjunming
  * @since 2021/5/31 17:40
  */
-public interface BuirUserRespo extends MongoRepository<> {
+@Repository
+public interface BuirUserRepository extends MongoRepository<BuirUser,String> {
 
 
 }

@@ -70,7 +70,7 @@ public class ScheduleJob {
      * @author wangjunming
      * @since 2020/5/13 16:22
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void checkTestFanout() {
         log.info(">>>>> cron测试定时任务-每15秒执行一次检查MQ信息开始....");
         RabbitMqUtils.messageTestFanout(new RabbitMqQo());

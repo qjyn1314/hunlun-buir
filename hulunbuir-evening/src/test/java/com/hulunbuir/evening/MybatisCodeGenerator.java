@@ -30,13 +30,15 @@ public class MybatisCodeGenerator {
         // 选择 freemarker 引擎，默认 Veloctiy
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         // 全局配置
-        mpg.setGlobalConfig(globalConfig());
+//        mpg.setGlobalConfig(globalConfig());
+        mpg.setGlobalConfig(globalConfigRFP());
         // 配置数据源
         mpg.setDataSource(dataSource());
         // 配置策略
         mpg.setStrategy(strategy());
         // 包配置
-        mpg.setPackageInfo(packageConfig());
+//        mpg.setPackageInfo(packageConfig());
+        mpg.setPackageInfo(packageConfigRFP());
         // 自定义配置
         mpg.setCfg(cfg());
         // 注入模板配置
@@ -49,6 +51,23 @@ public class MybatisCodeGenerator {
     /**
      * 配置全局配置
      */
+    private GlobalConfig globalConfigRFP() {
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.setOutputDir("F:\\idea_workspace\\zhichubao_workspace\\zhichubao_code");
+        globalConfig.setFileOverride(true); // 重写文件
+        globalConfig.setActiveRecord(false);// 不需要ActiveRecord特性的请改为false
+        globalConfig.setEnableCache(false);// 是否在xml中添加二级缓存配置
+        globalConfig.setBaseResultMap(true);// 开启 BaseResultMap
+        globalConfig.setBaseColumnList(true);// 开启 baseColumnList
+        globalConfig.setAuthor("wangjunming");
+        globalConfig.setMapperName("%sDao");
+        globalConfig.setXmlName("%sDao");
+        globalConfig.setServiceName("%sRepository");
+        globalConfig.setServiceImplName("%sRepositoryImpl");
+        globalConfig.setControllerName("%sController");
+        return globalConfig;
+    }
+
     private GlobalConfig globalConfig() {
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setOutputDir("F:\\idea_workspace\\zhichubao_workspace\\zhichubao_code");
@@ -77,7 +96,6 @@ public class MybatisCodeGenerator {
         dataSourceConfig.setUsername("p2p_test_root");
         dataSourceConfig.setPassword("Zhichubao!@#$%^&*(0");
         return dataSourceConfig;
-
     }
 
     /**
@@ -85,11 +103,11 @@ public class MybatisCodeGenerator {
      */
     private StrategyConfig strategy() {
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setTablePrefix("p2p_app_");// 此处可以修改为您的表前缀
+        strategy.setTablePrefix("");// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setColumnNaming(NamingStrategy.underline_to_camel); // 列名生成策略
         strategy.setInclude(INCLUDE_TABLE); // 需要生成的表
-//        strategy.setEntityTableFieldAnnotationEnable(true); //是否生成实体时，生成字段注解
+        strategy.setEntityTableFieldAnnotationEnable(true); //是否生成实体时，生成字段注解
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
         return strategy;
     }
@@ -97,6 +115,18 @@ public class MybatisCodeGenerator {
     /**
      * 包名配置
      */
+    private PackageConfig packageConfigRFP() {
+        PackageConfig packageConfig = new PackageConfig();
+        packageConfig.setParent("com.zhichubao.slc");
+        packageConfig.setEntity("model.model");
+        packageConfig.setMapper("dal.mapper");
+        packageConfig.setXml("dal.mapper");
+        packageConfig.setService("service");
+        packageConfig.setServiceImpl("service.impl");
+        packageConfig.setController("web.controller");
+        return packageConfig;
+    }
+
     private PackageConfig packageConfig() {
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent("com.zhichubao.slc");
@@ -148,8 +178,13 @@ public class MybatisCodeGenerator {
      * 模板配置
      */
     private TemplateConfig templateConfig() {
-        //TemplateConfig templateConfig = new TemplateConfig();
-        //templateConfig.setXml(null);
-        return null;
+        TemplateConfig templateConfig = new TemplateConfig();
+        templateConfig.setEntity("F:/IDEA_DIY/hunlun-buir/hulunbuir-evening/src/main/resources/generation/templateByMain/entity.java");
+        templateConfig.setXml("F:/IDEA_DIY/hunlun-buir/hulunbuir-evening/src/main/resources/generation/templateByMain/mapper.xml");
+        return templateConfig;
+    }
+
+    public static void main(String[] args) {
+        new MybatisCodeGenerator().generator();
     }
 }

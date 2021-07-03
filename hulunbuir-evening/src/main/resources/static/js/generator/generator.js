@@ -30,8 +30,24 @@ layui.use(["element", "jquery", "layer", "table", "form", "laydate", "authUtils"
     function getQueryParams() {
         return {
             schemaName: searchForm.find('input[name="schemaName"]').val(),
+            datesource: searchForm.find('select[name="datesource"]').val(),
         };
     }
+
+    //当前数据源下拉框
+    authUtils.axsGet(Action.DATASOURCE_URL, null,
+        function (result) {
+            if (result.flag) {
+                let datasource = result.data;
+                console.log($("#datesource_select"));
+                $("#datesource_select").append("<option value=''>请选择数据源</option>");
+                for (let i = 0; i < datasource.length; i++) {
+                    $("#datesource_select").append('<option value=' + datasource[i].datasourceName + '>' + datasource[i].datasourceName + '</option>');
+                }
+            } else {
+                alert(result.message);
+            }
+    });
 
     //代码生成按钮点击事件
     table.on('tool(generatorTable)', function (obj) {

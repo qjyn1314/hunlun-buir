@@ -4,11 +4,15 @@ import com.hulunbuir.admin.design.strategy.spring.model.SupplierEnum;
 import com.hulunbuir.admin.design.strategy.spring.service.SupplierDecorationService;
 import com.hulunbuir.admin.design.strategy.spring.service.SupplierService;
 import com.hulunbuir.common.config.ApplicationUtil;
+import com.hulunbuir.parent.exception.BuirException;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.bridge.IMessageHandler;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,6 +64,31 @@ public class SupplierContext<T> implements InitializingBean {
         final SupplierEnum supplierEnum = supplierHandle.get(tag).getType();
         log.info("此次保存供应商使用的[SupplierEnum]是:{}", supplierEnum);
         return supplierDecorationHandle.get(tag).saveSupplier(t);
+    }
+
+    private Map<Integer, SupplierService<T>> handlerMap = new ConcurrentHashMap<>();
+
+    @Autowired
+    public void initHandlerMap(List<SupplierService<T>> handlers) {
+        log.info("进入initHandlerMap：{}",handlers);
+        if (handlers == null || handlers.isEmpty()) {
+            BuirException.build("不存在任何消息处理器,请检查配置是否正确.");
+        }
+        for (SupplierService<T> handler : handlers) {
+            if (handler.getType() == null) {
+                log.info("未配置可处理，消息处理器:{}无法注册.", handler.getType().getDesc());
+                continue;
+            }
+            SupplierService<T> tmpHandler = handlerMap.get(handler.getType().getCode());
+            if (tmpHandler != null) {
+                log.info("{}类型消息处理器{}已配置，无法再注册{}.",
+                        tmpHandler.getType().getCode(),
+                        tmpHandler.getType().getDesc(),
+                        handler.getType());
+                continue;
+            }
+            handlerMap.put(handler.getType().getCode(), handler);
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zhichubao.project.web.config;
+package com.hulunbuir.evening.config;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,31 +12,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-/**
- * 
- * @ClassName: ServiceLogAop
- * @Description: Record core business access, results, time consuming, etc.
- * @author Nirvana
- * @date 2017年7月5日 下午12:07:31
- *
- */
-
 @Aspect
 @Order(5)
 @Component
 public class ServiceLogAop {
 
-	private Logger logger = LoggerFactory.getLogger(ServiceLogAop.class);
+	private final Logger logger = LoggerFactory.getLogger(ServiceLogAop.class);
 
-	ThreadLocal<Long> startTime = new ThreadLocal<>();
+	private final static ThreadLocal<Long> START_TIME = new ThreadLocal<>();
 
-	@Pointcut("execution(public * com.zhichubao.project.api..*.*(..)) || execution(public * com.zhichubao.demand.api..*.*(..))")
+	@Pointcut("execution(public * com.hulunbuir.evening.generationcode.service..*.*(..)) || execution(public * com.hulunbuir.evening.persistence.service..*.*(..))")
 	public void serviceLog() {
 	}
 
 	@Before("serviceLog()")
 	public void doBefore(JoinPoint joinPoint) throws Throwable {
-		startTime.set(System.currentTimeMillis());
+		START_TIME.set(System.currentTimeMillis());
 		// 记录下请求内容
 		logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
 				+ joinPoint.getSignature().getName());
@@ -48,6 +39,7 @@ public class ServiceLogAop {
 	public void doAfterReturning(Object ret) throws Throwable {
 		// 处理完请求，返回内容
 		logger.info("RESPONSE : " + ret);
-		logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
+		logger.info("SPEND TIME : " + (System.currentTimeMillis() - START_TIME.get()));
+		START_TIME.remove();
 	}
 }

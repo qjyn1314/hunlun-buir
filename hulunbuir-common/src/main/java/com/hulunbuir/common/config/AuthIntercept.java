@@ -10,6 +10,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -31,15 +34,28 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 @Configuration
 public class AuthIntercept implements HandlerInterceptor {
-
+    private final List<Integer> errorCodeList = Arrays.asList(404, 403, 500, 501);
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         response.setHeader("X-Frame-Options", "SAMEORIGIN");
+        // 跨域的概念： https://blog.csdn.net/weixin_36380516/article/details/116382640
+        // 跨域配置参考： https://blog.csdn.net/iteye_19045/article/details/108386177
+        // http://www.ruanyifeng.com/blog/2016/04/cors.html
+        // https://blog.csdn.net/weixin_43841924/article/details/111614936
+        // https://www.cnblogs.com/diandianquanquan/p/10607102.html
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
+        response.setHeader("Access-Control-Allow-Credentials","true");
         response.setContentType("text/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+        //配置默认错误页面
+        if (errorCodeList.contains(response.getStatus())) {
+            response.sendRedirect("/error/404");
+            return false;
+        }
         final String uri = request.getRequestURI();
         log.info("请求的路径是：{}", uri);
         final String interceptUrl = BuirProperties.me().getInterceptUrl();

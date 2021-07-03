@@ -58,14 +58,14 @@ public class BuirUserElasticsearchService {
      * @since 2021/6/2 16:17
      */
     public Page<BuirUserElasticsearch> selectPageUser(BuirUserElasticsearch buirUser, Integer pageSize, Integer pageNo) {
-        String name = buirUser.getName();
+//        String name = buirUser.getName();
         //构建分页
         Pageable pageable= PageRequest.of(0,10);
-        String[] fileds = {""};
-        Page<BuirUserElasticsearch> searchSimilar = userElasticsearchMapper.findByName(buirUser, pageable);
+//        String[] fileds = {""};
+//        Page<BuirUserElasticsearch> searchSimilar = userElasticsearchMapper.findByName(buirUser, pageable);
         Page<BuirUserElasticsearch> all = userElasticsearchMapper.findAll(pageable);
-        Page<BuirUserElasticsearch> elasticsearchPage = userElasticsearchMapper.searchSimilar(buirUser, fileds, pageable);
-        log.info("查询出来的es数据是_{}", JSON.toJSONString(searchSimilar));
+//        Page<BuirUserElasticsearch> elasticsearchPage = userElasticsearchMapper.searchSimilar(buirUser, fileds, pageable);
+        log.info("查询出来的es数据是_{}", JSON.toJSONString(all));
 //        SearchHits<BuirUserElasticsearch> search = elasticsearchRestTemplate.search(query, BuirUserElasticsearch.class);
 //        Stream<SearchHit<BuirUserElasticsearch>> searchHitStream = search.get();
 //        Iterator<SearchHit<BuirUserElasticsearch>> iterator = search.iterator();
@@ -74,7 +74,7 @@ public class BuirUserElasticsearchService {
 //            BuirUserElasticsearch content = searchHit.getContent();
 //            log.info("查询出来的es数据是：{}", JSON.toJSONString(content));
 //        }
-        return searchSimilar;
+        return all;
     }
 
 }

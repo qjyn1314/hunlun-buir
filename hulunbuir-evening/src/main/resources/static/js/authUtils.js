@@ -25,6 +25,8 @@ layui.define(["layer", 'jquery', 'table'], function (exprots) {
             DOWNLOAD_GENERATOR_URL: baseUrl + '/generation/generationCodeDownload',
             //生成代码的文件夹列表
             GENERATION_FOLDER_URL: baseUrl + "/generation/getFolderList",
+            //当前数据源列表
+            DATASOURCE_URL: baseUrl + "/datasourceConf/dataSourceConfList",
             //获取生成代码的配置
             GENERATION_SETTING_URL: baseUrl + "/generation/getGeneration",
             //保存生成代码的配置

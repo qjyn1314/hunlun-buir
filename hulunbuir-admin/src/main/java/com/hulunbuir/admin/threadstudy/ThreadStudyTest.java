@@ -1153,20 +1153,7 @@ public class ThreadStudyTest {
                 locktest019.unlock();
             }
         }, "送烟的");
-
         t4.start();
-        sleep(1000);
-        Thread t5 = new Thread(() -> {
-            locktest019.lock();
-            try {
-                condition2Flag = true;
-                condition2.signal();
-            } finally {
-                locktest019.unlock();
-            }
-        }, "送烟的");
-
-        t5.start();
 
     }
 
@@ -1184,6 +1171,34 @@ public class ThreadStudyTest {
     public static boolean condition1Flag = false;
     public static boolean condition2Flag = false;
 
+    /**
+     * 在学习juc相关的关键字时的前提知识：
+     *
+     * java 内存模型   java  memory model ，它定义了 主存、工作内存 抽象概念 ，底层对应着  cpu寄存器、缓存、硬件内存、cpu指令优化
+     *
+     * 主要体现在几方面：
+     *
+     *
+     *
+     * @author wangjunming
+     * @since 2021/5/24 18:27
+     */
+    public void test020(){
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
     /**
      * ThreadLocal学习

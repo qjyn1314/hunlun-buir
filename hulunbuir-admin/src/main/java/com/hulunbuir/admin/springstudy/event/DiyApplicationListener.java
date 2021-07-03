@@ -19,6 +19,6 @@ public class DiyApplicationListener implements ApplicationListener<ApplicationEv
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        log.info("spring中监听到的事件是：{}", applicationEvent);
+//        log.info("spring中监听到的事件是：{}", applicationEvent);
     }
 }

@@ -24,6 +24,7 @@
             <groupId>com.hulunbuir.parent</groupId>
             <artifactId>hulunbuir-parent</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
         <!--redis-start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -47,9 +48,20 @@
         </dependency>
         <!--swagger-end-->
         <!--admin监控-start-->
+<!--        <dependency>-->
+<!--            <groupId>org.reactivestreams</groupId>-->
+<!--            <artifactId>reactive-streams</artifactId>-->
+<!--&lt;!&ndash;            <version>1.0.3</version>&ndash;&gt;-->
+<!--        </dependency>-->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.projectreactor</groupId>
+                    <artifactId>reactor-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>

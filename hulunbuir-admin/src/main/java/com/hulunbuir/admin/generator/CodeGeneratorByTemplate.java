@@ -1,4 +1,4 @@
-package com.hulunbuir.evening;
+package com.hulunbuir.admin.generator;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.hulunbuir.datasource.generator.MybatisCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +16,11 @@ import org.slf4j.LoggerFactory;
  * 主要参考了： https://baomidou.com/config/generator-config.html#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE
  */
 @Slf4j
-public class MybatisCodeGenerator {
+public class CodeGeneratorByTemplate {
     private static final Logger logger = LoggerFactory.getLogger(MybatisCodeGenerator.class);
     // 需要构建引入的表名
     private static final String[] INCLUDE_TABLE = new String[]{
-            "vendor_setting_class_conditions",
+            "tender_apply_order",
     };
 
     /**
@@ -92,9 +93,12 @@ public class MybatisCodeGenerator {
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setDbType(DbType.MYSQL);
-        dataSourceConfig.setUrl("jdbc:mysql://rm-2ze86ne9n05vf0uw3o.mysql.rds.aliyuncs.com:3306/p2p_test?serverTimezone=GMT%2b8&allowMultiQueries=true");
-        dataSourceConfig.setUsername("p2p_test_root");
-        dataSourceConfig.setPassword("Zhichubao!@#$%^&*(0");
+//        dataSourceConfig.setUrl("jdbc:mysql://rm-2ze86ne9n05vf0uw3o.mysql.rds.aliyuncs.com:3306/p2p_test?serverTimezone=GMT%2b8&allowMultiQueries=true");
+//        dataSourceConfig.setUsername("p2p_test_root");
+//        dataSourceConfig.setPassword("Zhichubao!@#$%^&*(0");
+        dataSourceConfig.setUrl("jdbc:mysql://172.17.169.72:3306/rfp?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&serverTimezone=GMT%2b8&allowMultiQueries=true");
+        dataSourceConfig.setUsername("root");
+        dataSourceConfig.setPassword("zcb_admin");
         return dataSourceConfig;
     }
 
@@ -185,6 +189,6 @@ public class MybatisCodeGenerator {
     }
 
     public static void main(String[] args) {
-        new MybatisCodeGenerator().generator();
+        new CodeGeneratorByTemplate().generator();
     }
 }

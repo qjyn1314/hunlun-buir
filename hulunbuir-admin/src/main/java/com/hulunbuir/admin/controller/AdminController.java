@@ -66,6 +66,15 @@ public class AdminController {
 
 
 
+    @ApiOperation("导入excel")
+    @PostMapping("/import/excel/001")
+    public void importExcel001(@RequestBody List<SupplierPo> supplierPo) {
+
+
+
+    }
+
+
 
 
 

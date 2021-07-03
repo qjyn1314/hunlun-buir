@@ -1,5 +1,9 @@
 package com.hulunbuir.evening.generationcode.controller;
 
+import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.dynamic.datasource.ds.GroupDataSource;
+import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import com.hulunbuir.common.base.QueryRequest;
 import com.hulunbuir.common.config.ApplicationUtil;
 import com.hulunbuir.common.config.BuirProperties;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -63,12 +68,10 @@ public class GenerationController extends BaseController {
         try {
             ClassPathResource resource = new ClassPathResource("generation" + File.separator);
             file = resource.getFile();
-            return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(floder -> {
-                return floder.getPath().substring(floder.getPath().lastIndexOf("\\") + 1);
-            }).collect(Collectors.toList()));
+            return JsonResult.success(Arrays.stream(Objects.requireNonNull(file.listFiles())).map(folder -> folder.getPath().substring(folder.getPath().lastIndexOf("\\") + 1)).collect(Collectors.toList()));
         } catch (IOException e) {
             log.error("获取已配置的模板文件夹列表-失败", e);
-            return JsonResult.success(Arrays.stream(new java.lang.String[]{"default", "xinmeng"}).collect(Collectors.toList()));
+            return JsonResult.error("获取已配置的模板文件夹列表失败。");
         }
     }
 
@@ -97,6 +100,7 @@ public class GenerationController extends BaseController {
 
     @ApiOperation("数据库中的表")
     @GetMapping("/tables")
+    @DS("p2p-test")
     public Map<String, Object> tables(QueryRequest queryRequest, CodeTable generation) {
         return getLayTable(generationService.tables(queryRequest, generation));
     }
@@ -134,7 +138,7 @@ public class GenerationController extends BaseController {
                 generatorHelper.generateServiceFile(columns, config, true);
                 generatorHelper.generateServiceImplFile(columns, config);
                 generatorHelper.generateControllerFile(columns, config);
-            } else {
+            } else if (GenerationConfig.SLC_FOLDER.equals(config.getTemplateFolder())) {
                 String entity = GenerationConfig.ENTITY_TEMPLATE, vo = "infoVo.ftl", exportVo = "exportVo.ftl", pageListPo = "pageListPo.ftl", po = "po.ftl", pageListVo = "pageListVo.ftl";
                 generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityPackage(), entity);
                 generatorHelper.generateEntityVoPoFile(columns, config, config.getEntityPoPackage(), po);

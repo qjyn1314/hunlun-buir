@@ -58,6 +58,16 @@ public class CodeTable implements Serializable {
         this.tableName = tableName;
     }
 
+    private String datasource;
+
+    public String getDatasource() {
+        return datasource;
+    }
+
+    public void setDatasource(String datasource) {
+        this.datasource = datasource;
+    }
+
     public String getSchemaName() {
         return schemaName;
     }
