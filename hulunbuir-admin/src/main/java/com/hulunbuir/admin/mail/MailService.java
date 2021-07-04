@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -25,8 +26,8 @@ import java.util.Date;
  * @author wangjunming
  * @since 2020-02-12 16:36
  */
-@Component
 @Slf4j
+@Service
 public class MailService {
 
     @Autowired
@@ -40,7 +41,7 @@ public class MailService {
      * @param content 邮件内容
      * @param cc      抄送地址
      */
-    public void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception {
+    public void sendSimpleMail(String to, String subject, String content, String... cc){
         log.info("收件人：{}，邮件主题：{}，邮件内容：{}，抄送地址：{}", to, subject, content, cc);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(BuirProperties.me().getMailSender());

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@DubboService
 public class AdminMailProviderImpl implements AdminMailProvider {
 
     @Autowired
@@ -33,7 +32,7 @@ public class AdminMailProviderImpl implements AdminMailProvider {
      * @param cc      抄送地址
      */
     @Override
-    public void sendSimpleMail(String to, String subject, String content, String... cc) throws Exception{
+    public void sendSimpleMail(String to, String subject, String content, String... cc){
         mailService.sendSimpleMail(to, subject, content, cc);
     }
 }
