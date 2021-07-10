@@ -10,7 +10,6 @@ import org.apache.dubbo.config.annotation.DubboService;
  * @author wangjunming
  * @since 2020-02-17 12:52
  */
-@DubboService
 public interface AdminMailProvider {
 
 

@@ -1,5 +1,6 @@
 package com.hulunbuir.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hulunbuir.admin.design.factory_strategy.message.Message;
 import com.hulunbuir.admin.design.factory_strategy.message.MessageFactory;
@@ -8,6 +9,8 @@ import com.hulunbuir.admin.elasticsearch.BuirUserElasticsearch;
 import com.hulunbuir.admin.elasticsearch.BuirUserElasticsearchService;
 import com.hulunbuir.admin.mongodb.BuirUser;
 import com.hulunbuir.admin.mongodb.BuirUserService;
+import com.hulunbuir.admin.persistence.entity.EcsGoods;
+import com.hulunbuir.admin.persistence.service.EcsGoodsService;
 import com.hulunbuir.admin.worktest.SupplierPo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -19,9 +22,8 @@ import org.springframework.data.redis.core.ListOperations;
 
 import java.util.ArrayList;
 import java.util.List;
-
-@SpringBootTest(classes = AdminApplication.class)
 @Slf4j
+@SpringBootTest(classes = AdminApplication.class)
 class HulunbuirAdminApplicationTests {
 
     @Autowired
@@ -31,6 +33,8 @@ class HulunbuirAdminApplicationTests {
     private MessageFactory messageFactoryService;
     @Autowired
     private MessageFactory factoryService;
+    @Autowired
+    private EcsGoodsService ecsGoodsService;
 
     @Autowired
     @Qualifier("foodServiceProxy")
@@ -50,7 +54,7 @@ class HulunbuirAdminApplicationTests {
     @Autowired
     private ListOperations<String, Object> listOperations;
     @Test
-    void getAppKey(){
+    public void getAppKey(){
          List<SupplierPo> supplierPos = new ArrayList<>();
         SupplierPo supplierPo = new SupplierPo("15321355715","A0001","username001");
         supplierPos.add(supplierPo);
@@ -161,5 +165,24 @@ class HulunbuirAdminApplicationTests {
         log.info("buirUserPage:{}", JSONObject.toJSONString(buirUserPage));
     }
     //---------------测试 Elasticsearch  的分页查询以及保存
+
+
+
+    /**测试MySQL的悲观锁*/
+    @Test
+    public void pessimisticLock(){
+        Long goodId = 60L;
+        String goodsSn = "ECS000060";
+        goodId = ecsGoodsService.selectIdByForUpdate(goodId);
+        EcsGoods ecsGoods = ecsGoodsService.selectByIdAndCode(goodId, goodsSn);
+        log.info("商品ID是_{}",goodId);
+        log.info("商品信息是_{}", JSON.toJSONString(ecsGoods));
+
+    }
+
+
+
+
+
 
 }

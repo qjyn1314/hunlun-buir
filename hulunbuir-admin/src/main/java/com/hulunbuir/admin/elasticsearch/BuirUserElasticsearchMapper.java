@@ -17,9 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuirUserElasticsearchMapper extends ElasticsearchRepository<BuirUserElasticsearch, String> {
 
-    //默认的注释
-    Page<BuirUserElasticsearch> findByName(BuirUserElasticsearch buirUser, Pageable pageable);
-
-
 
 }

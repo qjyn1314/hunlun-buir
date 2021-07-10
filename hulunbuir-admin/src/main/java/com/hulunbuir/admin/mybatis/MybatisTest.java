@@ -34,6 +34,10 @@ public class MybatisTest {
         final SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         final SqlSession sqlSession = sqlSessionFactory.openSession();
         BankMoneyMapper mapper = sqlSession.getMapper(BankMoneyMapper.class);
+
+
+
+
         final VendorSettingClassOld vendorSettingClassOld = selectByClassId(mapper, 2L);
         final String jsonString = JSONObject.toJSONString(vendorSettingClassOld, SerializerFeature.PrettyFormat);
         System.out.println(jsonString);

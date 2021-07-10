@@ -27,8 +27,6 @@ public class EveningController {
 
     @PostMapping("/ceshi")
     public JsonResult ceshi(){
-
-//        final String request = RestTemplateService.restRequest();
         mailProvider.sendSimpleMail("qjyn1314@163.com","测试dubbo3.0.0","非常荣幸的邀请您来参加dubbo3.0.0的测试。","");
         return JsonResult.success();
     }

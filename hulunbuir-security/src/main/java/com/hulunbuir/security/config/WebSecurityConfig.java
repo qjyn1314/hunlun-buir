@@ -109,6 +109,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //未授权的页面
         http.exceptionHandling().accessDeniedPage("/error/403");
+        //跨域的支持
+        // --https://blog.csdn.net/qq_42007742/article/details/106390553
+        // -- https://www.cnblogs.com/famary/p/10336223.html
+        // -- https://blog.csdn.net/u013185616/article/details/70446392
+        // -- https://blog.csdn.net/caplike/article/details/106144789
+        http.cors();
         //处理前端请求跨域的问题，参考：https://blog.csdn.net/davylee2008/article/details/61420751
         http.headers().frameOptions().sameOrigin()
                 //配置表单登录

@@ -11,7 +11,7 @@
         url：是指磁盘路径下的资源，或者网络资源
         resource：是指引入类路径下的资源信息
     -->
-    
+
     <!--
     settings:用来设置每一个设置项
         setting：设置项的标签
@@ -45,7 +45,8 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/spring?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
+                <property name="url"
+                          value="jdbc:mysql://127.0.0.1:3306/spring?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>
@@ -54,7 +55,8 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
+                <property name="url"
+                          value="jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>
@@ -84,7 +86,7 @@
            package  扫描的包名
     -->
     <mappers>
-        <mapper resource="com\hulunbuir\admin\mybatis\BankMoneyMapper.xml"/>
+        <mapper resource="com/hulunbuir/admin/mybatis/BankMoneyMapper.xml"/>
         <package name="com.hulunbuir.admin.mybatis"/>
     </mappers>
 </configuration>

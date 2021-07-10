@@ -46,9 +46,15 @@ public class AuthIntercept implements HandlerInterceptor {
         // http://www.ruanyifeng.com/blog/2016/04/cors.html
         // https://blog.csdn.net/weixin_43841924/article/details/111614936
         // https://www.cnblogs.com/diandianquanquan/p/10607102.html
+        // Request processing failed; nested exception is java.lang.IllegalArgumentException:
+        // When allowCredentials is true, allowedOrigins cannot contain the special value "*"
+        // since that cannot be set on the "Access-Control-Allow-Origin" response header.
+        // To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
-        response.setHeader("Access-Control-Allow-Credentials","true");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type,X-CAF-Authorization-Token,sessionToken,X-TOKEN,hulunbuir_user,access-control-allow-origin, authority, content-type, version-info, X-Requested-With");
+        response.setHeader("Access-Control-Max-Age", "36000");
         response.setContentType("text/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         //配置默认错误页面
