@@ -111,12 +111,20 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
+                    <!--指定生成的镜像名-->
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                     <dockerDirectory>src/main/docker</dockerDirectory>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
+                            <!--jar 包所在的路径  此处配置的 即对应 target 目录-->
                             <directory>${project.build.directory}</directory>
+                            <!-- 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　-->
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>

@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "com.hulunbuir.*.*.mapper",
 },annotationClass = Repository.class)
 @EnableTransactionManagement
-public class MybatisPlusAutoConfig {
+public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor paginationInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
