@@ -33,4 +33,14 @@ public interface EcsGoodsService {
      */
     EcsGoods selectByIdAndCode(Long id,String code);
 
+    /**
+     * 更新商品信息
+     *
+     * @param ecsGoods 商品信息
+     * @author wangjunming
+     * @since 2021/7/11 12:45
+     * @return boolean
+     */
+    boolean updateGoodsById(EcsGoods ecsGoods);
+
 }

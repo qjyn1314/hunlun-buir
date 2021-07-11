@@ -71,39 +71,6 @@
     delete from ecs_goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.hulunbuir.admin.persistence.entity.EcsGoods" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into ecs_goods (cat_id, goods_sn, goods_name, 
-      goods_name_style, click_count, brand_id, 
-      provider_name, goods_number, goods_weight, 
-      market_price, virtual_sales, shop_price, 
-      promote_price, promote_start_date, promote_end_date, 
-      warn_number, keywords, goods_brief, 
-      goods_desc, goods_thumb, goods_img, 
-      original_img, is_real, extension_code, 
-      is_on_sale, is_alone_sale, is_shipping, 
-      integral, add_time, sort_order, 
-      is_delete, is_best, is_new, 
-      is_hot, is_promote, bonus_type_id, 
-      last_update, goods_type, seller_note, 
-      give_integral, rank_integral, suppliers_id, 
-      is_check)
-    values (#{catId,jdbcType=SMALLINT}, #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
-      #{goodsNameStyle,jdbcType=VARCHAR}, #{clickCount,jdbcType=INTEGER}, #{brandId,jdbcType=SMALLINT}, 
-      #{providerName,jdbcType=VARCHAR}, #{goodsNumber,jdbcType=INTEGER}, #{goodsWeight,jdbcType=DECIMAL}, 
-      #{marketPrice,jdbcType=DECIMAL}, #{virtualSales,jdbcType=SMALLINT}, #{shopPrice,jdbcType=DECIMAL}, 
-      #{promotePrice,jdbcType=DECIMAL}, #{promoteStartDate,jdbcType=INTEGER}, #{promoteEndDate,jdbcType=INTEGER}, 
-      #{warnNumber,jdbcType=TINYINT}, #{keywords,jdbcType=VARCHAR}, #{goodsBrief,jdbcType=VARCHAR}, 
-      #{goodsDesc,jdbcType=LONGVARCHAR}, #{goodsThumb,jdbcType=VARCHAR}, #{goodsImg,jdbcType=VARCHAR}, 
-      #{originalImg,jdbcType=VARCHAR}, #{isReal,jdbcType=TINYINT}, #{extensionCode,jdbcType=VARCHAR}, 
-      #{isOnSale,jdbcType=BOOLEAN}, #{isAloneSale,jdbcType=BOOLEAN}, #{isShipping,jdbcType=BOOLEAN}, 
-      #{integral,jdbcType=INTEGER}, #{addTime,jdbcType=INTEGER}, #{sortOrder,jdbcType=SMALLINT}, 
-      #{isDelete,jdbcType=BOOLEAN}, #{isBest,jdbcType=BOOLEAN}, #{isNew,jdbcType=BOOLEAN}, 
-      #{isHot,jdbcType=BOOLEAN}, #{isPromote,jdbcType=BOOLEAN}, #{bonusTypeId,jdbcType=TINYINT}, 
-      #{lastUpdate,jdbcType=INTEGER}, #{goodsType,jdbcType=SMALLINT}, #{sellerNote,jdbcType=VARCHAR}, 
-      #{giveIntegral,jdbcType=INTEGER}, #{rankIntegral,jdbcType=INTEGER}, #{suppliersId,jdbcType=SMALLINT}, 
-      #{isCheck,jdbcType=BOOLEAN})
-  </insert>
   <insert id="insertSelective" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.hulunbuir.admin.persistence.entity.EcsGoods" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ecs_goods
@@ -556,8 +523,8 @@
   </update>
 
   <select id="selectIdByForUpdate" resultType="java.lang.Long">
-<!--    select goods_id from ecs_goods where goods_id = #{id} for update-->
-    select goods_id from ecs_goods where goods_id = #{id}
+<!--    select goods_id from ecs_goods where goods_id = #{id} for update   -->
+    select goods_id from ecs_goods where goods_id = #{id} for update
   </select>
 
   <select id="selectByIdAndCode" resultMap="BaseResultMap">

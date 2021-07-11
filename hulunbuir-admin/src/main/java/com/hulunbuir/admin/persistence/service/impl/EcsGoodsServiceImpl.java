@@ -49,4 +49,18 @@ public class EcsGoodsServiceImpl implements EcsGoodsService {
 //        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return ecsGoodsMapper.selectByIdAndCode(id,code);
     }
+
+    /**
+     * 更新商品信息
+     *
+     * @param ecsGoods 商品信息
+     * @return boolean
+     * @author wangjunming
+     * @since 2021/7/11 12:45
+     */
+    @Override
+    public boolean updateGoodsById(EcsGoods ecsGoods) {
+        int update = ecsGoodsMapper.updateByPrimaryKeySelective(ecsGoods);
+        return update > 0;
+    }
 }

@@ -173,11 +173,15 @@ class HulunbuirAdminApplicationTests {
     public void pessimisticLock(){
         Long goodId = 60L;
         String goodsSn = "ECS000060";
+        String goodsName = "指环式防滑手机支架001";
         goodId = ecsGoodsService.selectIdByForUpdate(goodId);
-        EcsGoods ecsGoods = ecsGoodsService.selectByIdAndCode(goodId, goodsSn);
         log.info("商品ID是_{}",goodId);
+        EcsGoods ecsGoods = new EcsGoods();
+        ecsGoods.setGoodsId(goodId.intValue());
+        ecsGoods.setGoodsName(goodsName);
+        boolean flag = ecsGoodsService.updateGoodsById(ecsGoods);
+        ecsGoods = ecsGoodsService.selectByIdAndCode(goodId, goodsSn);
         log.info("商品信息是_{}", JSON.toJSONString(ecsGoods));
-
     }
 
 

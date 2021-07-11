@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface EcsGoodsMapper extends BaseMapper<EcsGoods> {
     int deleteByPrimaryKey(Integer goodsId);
 
-    int insert(EcsGoods record);
-
     int insertSelective(EcsGoods record);
 
     EcsGoods selectByPrimaryKey(Integer goodsId);

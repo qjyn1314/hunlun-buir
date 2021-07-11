@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.hulunbuir.datasource.generator.MybatisCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 @Slf4j
 public class CodeGeneratorByTemplate {
-    private static final Logger logger = LoggerFactory.getLogger(MybatisCodeGenerator.class);
+    private static final Logger logger = LoggerFactory.getLogger(CodeGeneratorByTemplate.class);
     // 需要构建引入的表名
     private static final String[] INCLUDE_TABLE = new String[]{
             "tender_apply_order",
