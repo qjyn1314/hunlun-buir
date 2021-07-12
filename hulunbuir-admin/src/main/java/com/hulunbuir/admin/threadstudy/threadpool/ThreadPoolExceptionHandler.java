@@ -1,4 +1,4 @@
-package com.hulunbuir.admin.threadstudy.threadpool.utils;
+package com.hulunbuir.admin.threadstudy.threadpool;
 
 import lombok.extern.slf4j.Slf4j;
 

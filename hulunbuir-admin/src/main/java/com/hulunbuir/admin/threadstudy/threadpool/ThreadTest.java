@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -41,6 +41,20 @@ public class ThreadTest {
         singleThreadPool.shutdown();
 
     }
+
+
+    public static void main(String[] args) {
+        log.info("main方法开始");
+        for (int i = 0; i < 200; i++) {
+            ThreadPoolEntity threadPoolEntity = new ThreadPoolEntity("JACK"+i);
+            ThreadPoolConfigUtils.getTaskExecutor().execute(threadPoolEntity);
+        }
+        ThreadPoolConfigUtils.getTaskExecutor().shutdown();
+        final List<Runnable> runnables = ThreadPoolConfigUtils.getTaskExecutor().shutdownNow();
+        System.out.println(runnables);
+        log.info("main方法结束");
+    }
+
 
 
 }

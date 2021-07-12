@@ -1,5 +1,6 @@
-package com.hulunbuir.admin.threadstudy.threadpool.utils;
+package com.hulunbuir.admin.threadstudy.threadpool;
 
+import com.hulunbuir.admin.threadstudy.threadpool.ThreadPoolExceptionHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2020/12/28 10:21
  */
 @Component
-public class ThreadPoolUtils {
+public class ThreadPoolConfigUtils {
     /**
      * 核心线程数
      */

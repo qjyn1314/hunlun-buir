@@ -1,6 +1,5 @@
 package com.hulunbuir.admin.threadstudy.threadpool;
 
-import com.hulunbuir.admin.threadstudy.threadpool.utils.ThreadPoolExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;

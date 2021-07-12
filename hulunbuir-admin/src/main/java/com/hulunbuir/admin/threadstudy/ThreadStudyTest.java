@@ -111,6 +111,7 @@ public class ThreadStudyTest {
 //        studyTest.test016();
         studyTest.test017();
         studyTest.test019();
+        studyTest.test020();
     }
 
     /**
@@ -1173,24 +1174,125 @@ public class ThreadStudyTest {
 
     /**
      * 在学习juc相关的关键字时的前提知识：
+     * 共享内存模型--
+     * java 内存模型-JMM：(java  memory model)
+     * --它定义了 主存、工作内存 抽象概念 。
+     * ---其底层对应着  cpu寄存器、缓存、硬件内存、cpu指令优化
      *
-     * java 内存模型   java  memory model ，它定义了 主存、工作内存 抽象概念 ，底层对应着  cpu寄存器、缓存、硬件内存、cpu指令优化
+     * 主存：所有线程都共享的数据。
+     * 工作内存：每个线程私有的数据，局部变量
+     *
+     *
      *
      * 主要体现在几方面：
      *
+     * 可见性： 保证指令在不受到线程上下文切换的影响
+     *
+     * 原子性：保证指令不会受到cpu缓存的影响
+     *
+     * 有序性：保证指令不会受到cpu指令并行优化的影响
      *
      *
      * @author wangjunming
      * @since 2021/5/24 18:27
      */
-    public void test020(){
+    public void test020() {
+        //实践线程的可见性问题
+        Thread t20 = new Thread(()->{
+            while (flag) {
+                log.info("t20-线程");
+                System.out.println(flag);
+            }
+        });
+        t20.start();
+        //在此处睡眠一秒，
+        sleep(1000);
+        log.debug("进行停止  t20-线程");
+        //如果此变量的值生效则  t20线程则会停止。
+        flag = false;
+/*
+        //t20线程一直在执行并没有在预想中结束运行。
+        //为什么会出现此现象：
+        // 首先t20线程会将主内存中读取出来flag的值,为 true，进行判断。
+        // 然后JIT编译器会将flag的值缓存到t20线程的工作内存中，减少对主内存的访问。
+        // 在main主线程改变主内存flag的值时， t20 线程还是从自己的工作内存中进行读取flag的值，flag的值还是  true，结果导致了t20线程一直在执行，并没有停下来。
+        // 此实践的结论是 -- 因线程之间变量的可见性的问题。
+解决可见性问题的方式：
+//1、使用  volatile  易变关键字
+    -- 它可以用来修饰成员变量，可以避免线程从自己工作缓存中查找变量的值，必须从主内存中找到变量并获取它的值，线程操作 volatile 关键字修饰的变量都是直接操作主存的
+//2、使用 synchronized 关键字
+    -- synchronized语句块，既可以保证代码块的原子性，也同时保证代码块内变量的可见性。但缺点是synchronized关键字是重量级操作，性能相对更低。
 
-        
+ */
+        //实践线程的可见性问题的解决方式 使用  volatile  易变关键字
+        Thread t3 = new Thread(() -> {
+            while (volatileFlag) {
+                log.info("t3-线程");
+            }
+        });
+        t3.start();
+        //在此处睡眠一秒，
+        sleep(1000);
+        log.debug("进行停止  t3-线程");
+        //如果此变量的值生效则  t3 线程则会停止。
+        volatileFlag = false;
 
+        log.debug("开始测试 synchronized 创建 t4 线程");
+        //实践线程的原子性问题的解决方式 使用  synchronized 关键字，重点-需要临界区的锁是同一把锁
+        Thread t4 = new Thread(() -> {
+            while (objFlag) {
+                synchronized (obj) {
+                    if (!objFlag) {
+                        log.info("t4-线程执行中");
+                        break;
+                    }
+                }
+            }
+        });
+        t4.start();
+        //在此处睡眠一秒，
+        sleep(10000);
+        log.debug("进行停止  t4-线程");
+        //如果此变量的值生效则  t4 线程则会停止。
+        synchronized (obj) {
+            objFlag = false;
+        }
+        log.debug("可见性和原子性解决方式运行结束。");
+        log.debug("......开始测试java指令的有序性。");
+/*
+    有序性：
+    举例说明：
+    指令重排序：
+        java针对每一条指令都可以分为五个阶段： 取指令-指令译码-执行指令-内存访问-数据写回
+        支持同时执行上述五个阶段的处理器，就可以称之为五级指令流水线。
+        这时cpu可以在一个时钟周期内，同时运行五条指令不同阶段（相当于一条执行时间最长的复杂指令），IPC=1，本质上，流水线技术并不能缩短单条指令的执行时间，但是可以变相的提高指令的吞吐率。
 
+    有序性 的解决方式，使用  volatile  关键字防止指令重排的问题。
+*/
+/*
+volatile 关键字原理，解决了   可见性  有序性
+：--
+volatile 的底层实现原理是内存屏障，Memory Barrier
+对 volatile 变量的写指令后会加入写屏障
 
+对 volatile 变量的读指令前会加入读屏障
 
+1、如何保证可见性
+写屏障：保证在该屏障之前的，对共享变量的改动，都同步到主内存中
 
+读屏障：保证该屏障之后，对共享变量的读取，加载的是主内存中的最新数据
+
+2、如何保证有序性
+
+写屏障：写屏障会确保指令重排时，不会将写屏障之前的代码排在写屏障之后
+
+读屏障：读屏障会确保指令重排时，不会将读屏障之后的代码排在读屏障之前
+
+注意：
+写屏障仅仅是保证之后的读能够读到最新的结果，但不能保证读跑到它前面去
+而有序性的保证也仅仅只是保证了本线程内相关代码不被重排序
+
+ */
 
 
 
@@ -1199,6 +1301,11 @@ public class ThreadStudyTest {
 
 
     }
+
+    public static boolean flag = true;
+    public static volatile boolean volatileFlag = true;
+    public final static Object obj = new Object();
+    public static boolean objFlag = true;
 
     /**
      * ThreadLocal学习
